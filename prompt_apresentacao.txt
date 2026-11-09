@@ -1,0 +1,955 @@
+Crie uma apresentação premium, altamente visual e imersiva para um workshop da Semana da Qualidade MAHLE, realizado na planta produtiva da MAHLE em Mogi Guaçu, Brasil.
+
+A planta fabrica diferentes produtos da área de Filters, incluindo coletores de admissão de ar em polímero, também conhecidos como air intake manifolds.
+
+A apresentação deve mostrar como defeitos, variações de processo ou decisões aparentemente pequenas relacionadas ao coletor de admissão podem se propagar pelo sistema, afetando o motor, o veículo, o cliente e, nos casos mais severos, a segurança.
+
+IMPORTANTE SOBRE O IDIOMA
+
+Todas as instruções deste prompt estão em português para facilitar o desenvolvimento.
+
+Entretanto, todo o conteúdo visível da apresentação deve ser escrito em inglês, incluindo:
+
+• Títulos
+• Subtítulos
+• Diagramas
+• Legendas
+• Chamadas visuais
+• Perguntas ao público
+• Escalas de severidade
+• Textos de encerramento
+
+Utilize frases curtas, linguagem técnica acessível e o mínimo possível de texto.
+
+TÍTULO DA APRESENTAÇÃO
+
+FROM DEFECT TO EFFECT
+
+Subtítulo:
+
+How Small Variations in an Air Intake Manifold Can Affect the Entire Vehicle
+
+Mensagem principal de encerramento:
+
+QUALITY IS BUILT BY EVERY DECISION
+
+Outras mensagens que podem aparecer ao longo da apresentação:
+
+SMALL VARIATION. REAL CONSEQUENCE.
+
+EVERY DECISION BECOMES PART OF THE PRODUCT.
+
+QUALITY TRAVELS THROUGH THE ENTIRE SYSTEM.
+
+THE CUSTOMER EXPERIENCES THE SUM OF OUR DECISIONS.
+
+OBJETIVO CENTRAL
+
+Transformar a qualidade do coletor de admissão em algo visual, concreto e compreensível para todas as áreas da planta.
+
+A apresentação deve demonstrar que qualidade não é responsabilidade exclusiva da inspeção final ou do departamento da Qualidade.
+
+A qualidade é o resultado acumulado de decisões tomadas por:
+
+• Engenharia
+• Compras
+• Supplier Quality
+• Produção
+• Manutenção
+• Ferramentaria
+• Laboratório
+• Metrologia
+• Qualidade
+• Logística
+• Fiscal
+• Planejamento
+• Segurança
+• Liderança
+• Operadores
+• Equipes administrativas
+
+Cada decisão deixa uma consequência física no produto, no processo ou na rastreabilidade.
+
+A narrativa deve seguir a estrutura:
+
+Decisão ou desvio
+↓
+Defeito no produto
+↓
+Mecanismo físico
+↓
+Efeito no motor
+↓
+Consequência no veículo
+↓
+Impacto para o cliente
+↓
+Severidade
+
+A apresentação deve começar com variações de baixa severidade e evoluir progressivamente para consequências de maior severidade.
+
+A progressão deve passar por:
+
+1. Desvio visual ou dificuldade de montagem
+2. Retrabalho ou parada de linha
+3. Perda de desempenho
+4. Instabilidade de funcionamento
+5. Falha funcional
+6. Imobilização do veículo
+7. Danos a componentes adjacentes
+8. Risco potencial à segurança
+
+Não exagerar nem afirmar que todo defeito necessariamente causa um acidente. Mostrar que a severidade depende da localização, magnitude, mecanismo de falha, capacidade de detecção e condições de funcionamento.
+
+CONCEITO VISUAL CENTRAL
+
+THE INFINITE QUALITY ROAD
+
+A apresentação não deve parecer uma sequência convencional de slides independentes.
+
+Todos os slides devem fazer parte de um único ambiente tridimensional contínuo, formando uma espécie de corredor infinito, estrada tecnológica ou plano virtual conectado.
+
+Cada slide representa uma nova posição de câmera dentro do mesmo ambiente.
+
+A sensação deve ser de que o público está acompanhando uma viagem contínua pelo ciclo de vida do produto:
+
+Material
+↓
+Fornecedor
+↓
+Recebimento
+↓
+Produção
+↓
+Montagem
+↓
+Soldagem
+↓
+Inspeção
+↓
+Teste
+↓
+Logística
+↓
+Motor
+↓
+Veículo
+↓
+Cliente
+
+Uma estrada tridimensional deve atravessar toda a apresentação. Essa estrada funciona como elemento de conexão narrativa entre os slides.
+
+A estrada representa o caminho percorrido pelas decisões de qualidade até chegarem ao veículo.
+
+A estrada deve possuir:
+
+• Curvas suaves
+• Mudanças de direção
+• Pequenas rampas
+• Variações de elevação
+• Trechos em perspectiva
+• Plataformas tecnológicas
+• Túneis conceituais
+• Pontes entre etapas do processo
+• Interseções que representem decisões
+• Áreas iluminadas para conteúdos importantes
+• Áreas escuras para momentos de risco ou falha
+
+O caminho não precisa parecer uma estrada realista. Deve ser uma representação minimalista e tecnológica, formada por superfícies geométricas, linhas luminosas, planos tridimensionais e elementos low-poly.
+
+A estrada nunca deve competir visualmente com o conteúdo.
+
+Nas regiões pelas quais a estrada não passa, posicionar os títulos, diagramas, componentes e mensagens principais. Utilizar o espaço negativo como parte do design.
+
+TRANSIÇÕES E MOVIMENTO ENTRE OS SLIDES
+
+Cada transição deve parecer um movimento de câmera pelo mesmo ambiente tridimensional.
+
+Evitar cortes convencionais.
+
+A câmera deve deslizar pelo plano, acompanhar a estrada, mudar de altitude e alterar suavemente a perspectiva.
+
+Utilizar uma sequência variada de movimentos, por exemplo:
+
+• Slide 1 para 2: movimento da direita para a esquerda
+• Slide 2 para 3: movimento de baixo para cima
+• Slide 3 para 4: movimento da esquerda para a direita
+• Slide 4 para 5: deslocamento diagonal com leve rotação da câmera
+• Slide 5 para 6: avanço para dentro da profundidade
+• Slide 6 para 7: subida acompanhando uma curva
+• Slide 7 para 8: deslocamento lateral com alteração de perspectiva
+• Slide 8 para 9: descida suave em direção ao produto
+• Slide 9 para 10: movimento orbital parcial ao redor do motor
+• Slide 10 para 11: afastamento para revelar o veículo completo
+• Slide 11 para 12: retorno visual ao ambiente da fábrica
+
+As direções podem variar, mas não devem parecer aleatórias.
+
+Cada movimento deve ser justificado pela geometria da estrada, pela posição do carro ou pela relação entre os conteúdos.
+
+Aplicar:
+
+• Morph transitions
+• Continuous camera tracking
+• Parallax
+• Motion paths
+• Zoom controlado
+• Alteração gradual de perspectiva
+• Rotação tridimensional moderada
+• Revelação progressiva de elementos
+• Destaques luminosos sincronizados
+• Movimento das partículas representando fluxo de ar
+• Animações encadeadas por causa e efeito
+
+Evitar:
+
+• Giros excessivos
+• Objetos saltando
+• Transições decorativas
+• Movimentos rápidos demais
+• Texto voando sem função narrativa
+• Excesso de partículas
+• Animações simultâneas que prejudiquem a compreensão
+• Mudanças bruscas de estilo ou perspectiva
+
+O tempo ideal das transições principais deve ficar entre 1,0 e 1,8 segundo.
+
+Animações técnicas internas podem durar entre 1,5 e 3,0 segundos, permitindo que o público acompanhe o mecanismo físico apresentado.
+
+O CARRO LOW-POLY COMO GUIA DA NARRATIVA
+
+Criar um modelo tridimensional original de um veículo low-poly que percorra a estrada ao longo de toda a apresentação.
+
+O carro deve funcionar como:
+
+• Guia visual
+• Elemento de continuidade
+• Representação do produto final
+• Símbolo do cliente
+• Indicador da progressão de severidade
+• Conexão entre a fábrica e a aplicação
+
+O carro não deve aparecer apenas como decoração. O movimento do carro deve responder à narrativa.
+
+Nos slides sobre processo, o carro pode aparecer pequeno e distante, aguardando no final da estrada.
+
+Conforme os efeitos chegam ao motor e ao veículo, o carro deve ganhar maior presença visual.
+
+Nos momentos de baixa severidade, o carro deve se mover normalmente.
+
+Nos momentos de perda de desempenho, o movimento pode ficar sutilmente irregular.
+
+Em um caso de falha funcional, o carro pode reduzir a velocidade ou parar.
+
+Em um cenário de alta severidade, utilizar iluminação de alerta, estrada interrompida ou ambiente mais escuro, sem criar uma colisão gráfica ou uma dramatização exagerada.
+
+ESPECIFICAÇÃO DO MODELO 3D DO CARRO
+
+O modelo deve seguir estas características:
+
+• Aproximadamente 2.500 triângulos
+• Estilo low-poly refinado
+• Geometria limpa e bem organizada
+• Silhueta compacta e facilmente reconhecível
+• Proporções levemente quadradas
+• Aparência cartoonesca e industrial
+• Design semelhante a um veículo utilitário compacto
+• Formas robustas, simples e amigáveis
+• Superfícies planas com chanfros discretos
+• Poucos detalhes pequenos
+• Sem realismo fotográfico
+• Sem aparência infantil
+• Sem complexidade mecânica desnecessária
+
+A carroceria deve ser predominantemente azul, utilizando:
+
+#0043BC
+
+Esse azul deve ser usado como cor principal do veículo para que o carro se destaque da estrada e permaneça associado visualmente à identidade MAHLE.
+
+A geometria da carroceria deve possuir:
+
+• Capô curto e levemente inclinado
+• Cabine alta
+• Teto quase plano
+• Para-brisa amplo e inclinado
+• Laterais relativamente verticais
+• Para-lamas simples e integrados
+• Para-choques escuros
+• Traseira curta e quadrada
+• Volumes bem definidos
+• Chanfros que reflitam a iluminação
+• Proporção coerente entre cabine, capô e rodas
+
+VIDROS DO CARRO
+
+Os vidros devem ser cinza muito escuro, quase pretos, mas com reflexão discreta.
+
+Utilizar um tom próximo de:
+
+#111820 ou #141A20
+
+Os vidros devem estar geometricamente alinhados com a carroceria.
+
+Requisitos obrigatórios:
+
+• O para-brisa deve acompanhar corretamente a inclinação das colunas dianteiras
+• Os vidros laterais devem acompanhar o plano das portas
+• Não deve haver vidros flutuando
+• Não deve haver espaços incoerentes entre vidro e carroceria
+• Não deve haver interseção entre vidros, teto ou portas
+• As áreas envidraçadas devem possuir espessura visual coerente
+• As molduras devem ser discretas
+• O conjunto deve parecer montado como uma única peça coerente
+
+Evitar superfícies de vidro excessivamente azuis ou transparentes.
+
+O vidro deve ter leitura escura e limpa, mantendo contraste com a carroceria azul.
+
+RODAS E CAIXAS DE RODA
+
+As rodas devem possuir desenho low-poly e rotação animada coerente com o deslocamento.
+
+As rodas precisam estar corretamente posicionadas nas caixas de roda.
+
+Requisitos:
+
+• Nenhuma interferência entre pneu e carroceria
+• Nenhuma roda atravessando o para-lama
+• Nenhuma roda excessivamente afastada da carroceria
+• Eixos alinhados
+• Mesma distância lateral nos dois lados
+• Pneus com espessura suficiente
+• Rodas proporcionais ao veículo
+• Aro simples em cinza metálico
+• Pneu em cinza quase preto
+• Rotação natural e sincronizada com a velocidade
+
+Durante as curvas, o eixo dianteiro pode direcionar levemente as rodas.
+
+Evitar esterçamento exagerado.
+
+MOVIMENTO DO CARRO
+
+O carro deve se movimentar de maneira natural e contínua pela estrada tridimensional.
+
+A animação deve incluir:
+
+• Movimento de translação ao longo da estrada
+• Rotação suave das rodas
+• Leve esterçamento nas curvas
+• Pequena inclinação da carroceria em curvas
+• Movimento vertical discreto em rampas
+• Aceleração e desaceleração suaves
+• Continuidade de posição entre slides
+• Escala coerente com a profundidade
+• Sombras de contato consistentes
+• Parallax entre carro, estrada e ambiente
+
+O carro nunca deve deslizar lateralmente sem que as rodas indiquem a curva.
+
+O carro não deve mudar instantaneamente de orientação.
+
+Utilizar curvas de aceleração do tipo ease-in e ease-out.
+
+Evitar movimentos robóticos, saltos de posição e mudanças abruptas de escala.
+
+LOGOTIPO MAHLE NO CARRO
+
+Aplicar o logotipo MAHLE corretamente nas laterais do veículo.
+
+O logotipo deve:
+
+• Utilizar a escrita MAHLE correta
+• Manter a tipografia visual da marca
+• Possuir espessura suficiente para leitura
+• Não estar excessivamente fino
+• Não estar deformado
+• Não estar inclinado de forma incoerente
+• Não ser espelhado em nenhum lado
+• Permanecer legível em ambas as laterais
+• Ter orientação correta para leitura externa
+• Acompanhar o plano da carroceria sem atravessar a geometria
+• Utilizar branco ou azul institucional, dependendo do contraste local
+
+Não gerar o nome como uma interpretação aproximada.
+
+Se a ferramenta não conseguir reproduzir corretamente a palavra MAHLE, reservar uma área limpa na carroceria e aplicar posteriormente o logotipo oficial como elemento vetorial.
+
+Não utilizar versões inventadas, espelhadas, incompletas ou tipograficamente incorretas da marca.
+
+PALETA DE CORES DA APRESENTAÇÃO
+
+Utilizar prioritariamente a seguinte paleta:
+
+#071F35
+Azul-marinho muito escuro, utilizado em fundos, profundidade, túneis e áreas de maior severidade.
+
+#022954
+Azul institucional profundo, utilizado em superfícies estruturais, painéis, estrada e elementos técnicos.
+
+#EAEBFE
+Tom muito claro com leve presença azul-violeta, utilizado em fundos claros, textos sobre áreas escuras e superfícies de contraste.
+
+#88CAFC
+Azul claro luminoso, utilizado em linhas técnicas, fluxo de ar, destaques e conexões.
+
+#99CCFF
+Azul claro secundário, utilizado em gradientes, iluminação ambiental e elementos de menor prioridade.
+
+#0043BC
+Azul principal do carro e de elementos de destaque associados ao veículo.
+
+#FFFFFF
+Branco, utilizado para textos, superfícies limpas e áreas de respiro.
+
+Cores complementares permitidas:
+
+#17D6C3
+Turquesa para situações corretas, processo sob controle ou fluxo normal.
+
+#FFB547
+Âmbar para atenção, variação ou severidade intermediária.
+
+#FF5A5F
+Vermelho controlado para falhas críticas e alta severidade.
+
+#111820
+Cinza muito escuro para vidros, pneus e detalhes mecânicos.
+
+As cores âmbar e vermelha devem ser utilizadas com moderação.
+
+A apresentação deve permanecer predominantemente azul, branca e tecnológica.
+
+Não utilizar arco-íris, gradientes saturados ou excesso de cores concorrentes.
+
+ESTILO GRÁFICO
+
+Combinar:
+
+• Minimalismo
+• Geometria tecnológica
+• Design industrial
+• Elementos tridimensionais
+• Superfícies low-poly
+• Diagramas técnicos simplificados
+• Iluminação cinematográfica controlada
+• Espaço negativo
+• Tipografia limpa
+• Perspectiva arquitetônica
+• Visual de engenharia avançada
+
+A composição deve parecer moderna, limpa e tecnicamente confiável.
+
+Não utilizar:
+
+• Fotografias genéricas de banco de imagens
+• Pessoas sorrindo em ambiente corporativo
+• Engrenagens decorativas
+• Apertos de mão
+• Ícones excessivamente genéricos
+• Textos longos
+• Molduras convencionais
+• Layouts repetitivos
+• Caixas de texto pesadas
+• Excesso de sombras
+• Visual futurista exagerado
+• Interfaces holográficas ilegíveis
+
+TIPOGRAFIA
+
+Utilizar uma fonte sans-serif geométrica e de alta legibilidade.
+
+Sugestões:
+
+• Aptos
+• Avenir Next
+• Gotham
+• Montserrat
+• Inter
+• DIN
+• Helvetica Neue
+
+Os títulos devem ser curtos, fortes e preferencialmente em letras maiúsculas.
+
+Utilizar no máximo:
+
+• 3 a 7 palavras por título
+• 8 a 15 palavras por mensagem principal
+• 3 a 5 elementos em cada cadeia causal
+• 1 mensagem central por slide
+
+Evitar parágrafos.
+
+ARQUITETURA RECOMENDADA DA APRESENTAÇÃO
+
+Criar entre 16 e 20 slides.
+
+SLIDE 1: FROM DEFECT TO EFFECT
+
+Visual:
+Plano amplo da estrada tridimensional em ambiente azul-escuro.
+
+O carro low-poly aparece no início da estrada.
+
+Ao fundo, mostrar de forma abstrata a fábrica, o coletor, o motor e o veículo conectados no mesmo horizonte.
+
+Texto:
+
+FROM DEFECT TO EFFECT
+
+How Small Variations in an Air Intake Manifold Can Affect the Entire Vehicle
+
+Animação:
+A câmera se aproxima da estrada enquanto o carro inicia o movimento.
+
+SLIDE 2: ONE PRODUCT. MANY DECISIONS.
+
+Visual:
+A estrada passa por estações que representam Engineering, Purchasing, Supplier, Production, Quality, Logistics e Customer.
+
+Cada estação adiciona uma camada translúcida ao coletor.
+
+Mensagem:
+
+ONE PRODUCT.
+MANY DECISIONS.
+
+Objetivo:
+Mostrar que o produto final é o resultado acumulado de contribuições de diferentes áreas.
+
+SLIDE 3: WHAT DOES THE MANIFOLD DO?
+
+Visual:
+Modelo 3D simplificado de um motor com o coletor destacado.
+
+Animar partículas azuis entrando pelo corpo de borboleta e sendo distribuídas pelos runners.
+
+Textos mínimos:
+
+Receive
+Distribute
+Seal
+Support
+Survive
+
+Objetivo:
+Explicar a função do coletor sem utilizar um texto técnico extenso.
+
+SLIDE 4: THE CHAIN OF CONSEQUENCE
+
+Visual:
+Uma cadeia tridimensional conectada à estrada.
+
+Conteúdo:
+
+Decision
+↓
+Variation
+↓
+Defect
+↓
+Physical Effect
+↓
+Vehicle Consequence
+
+Mostrar cada etapa surgindo progressivamente.
+
+SLIDE 5: SEVERITY IS A JOURNEY
+
+Visual:
+A estrada começa clara e plana, tornando-se mais escura, inclinada e complexa.
+
+Escala:
+
+Assembly Difficulty
+Performance Loss
+Functional Failure
+Vehicle Immobilization
+Safety Risk
+
+O carro percorre essa escala ao longo da apresentação.
+
+SLIDE 6: POROSITY OR WELDING FAILURE
+
+Cadeia:
+
+Porosity / Welding Failure
+↓
+Unmetered Air
+↓
+Air-Fuel Deviation
+↓
+Unstable Engine Operation
+
+Visual:
+Realizar um corte tridimensional no coletor e mostrar uma pequena fuga de ar atravessando a região soldada.
+
+Utilizar partículas azuis para o fluxo normal e partículas âmbar para o fluxo indesejado.
+
+SLIDE 7: FLANGE DEFORMATION
+
+Cadeia:
+
+Flange Deformation
+↓
+Insufficient Sealing
+↓
+Air Leakage
+↓
+Performance Variation
+
+Visual:
+Mostrar a comparação entre uma flange plana e outra deformada.
+
+Utilizar um mapa de desvio geométrico simples.
+
+Destacar o contato irregular da junta.
+
+SLIDE 8: INTERNAL BURR
+
+Cadeia:
+
+Internal Burr
+↓
+Flow Disturbance
+↓
+Pressure Loss or Particle Release
+↓
+Downstream Risk
+
+Visual:
+A câmera deve entrar em um runner como se fosse um túnel.
+
+Mostrar o fluxo sendo perturbado pela rebarba.
+
+Uma pequena partícula pode se desprender e seguir em direção ao motor.
+
+SLIDE 9: PARTIAL RUNNER OBSTRUCTION
+
+Cadeia:
+
+Partial Obstruction
+↓
+Unequal Air Distribution
+↓
+Cylinder Imbalance
+↓
+Performance and Emission Impact
+
+Visual:
+Exibir quatro runners com intensidades diferentes de fluxo.
+
+Um runner deve apresentar fluxo reduzido.
+
+Transformar o fluxo em um gráfico visual simples, sem usar gráfico convencional.
+
+SLIDE 10: MISPOSITIONED INSERT
+
+Cadeia:
+
+Mispositioned Insert
+↓
+Assembly Interference
+↓
+Insufficient Clamp Load
+↓
+Joint Reliability Risk
+
+Visual:
+Mostrar o insert em corte, primeiro na posição correta e depois deslocado.
+
+Animar o parafuso encontrando resistência ou não atingindo a condição correta de montagem.
+
+SLIDE 11: INTERNAL CONTAMINATION
+
+Cadeia:
+
+Internal Contamination
+↓
+Particle Transport
+↓
+Downstream Component Exposure
+↓
+Functional Damage Risk
+
+Visual:
+Fazer a câmera acompanhar uma partícula pelo sistema de admissão.
+
+Manter a abordagem técnica, limpa e não dramática.
+
+SLIDE 12: DIMENSIONAL VARIATION
+
+Cadeia:
+
+Dimensional Variation
+↓
+Component Interference
+↓
+Assembly Stress
+↓
+Damage or Installation Failure
+
+Visual:
+Mostrar o coletor sendo montado próximo a componentes vizinhos.
+
+Destacar uma zona de interferência em âmbar.
+
+Usar linhas dimensionais minimalistas.
+
+SLIDE 13: WRONG MATERIAL PURCHASE
+
+Cadeia:
+
+Incorrect Material
+↓
+Unverified Mechanical Resistance
+↓
+Backfire Pressure Event
+↓
+Manifold Rupture
+
+Visual:
+Começar no pedido ou especificação do material.
+
+Mostrar a decisão sendo propagada até o coletor.
+
+Em seguida, representar uma onda de pressão interna.
+
+Não criar uma explosão cinematográfica. Mostrar tecnicamente uma expansão de pressão, concentração de tensões e abertura localizada da peça.
+
+Mensagem:
+
+A DOCUMENT DECISION CAN BECOME A PHYSICAL FAILURE.
+
+SLIDE 14: DETECTION CHANGES THE OUTCOME
+
+Visual:
+A estrada se divide em duas rotas.
+
+Rota 1:
+
+Detected at the Source
+↓
+Containment
+↓
+Correction
+↓
+No Customer Impact
+
+Rota 2:
+
+Not Detected
+↓
+Process Escape
+↓
+Vehicle Consequence
+↓
+Customer Impact
+
+O carro deve seguir visualmente a rota da detecção correta.
+
+Objetivo:
+Destacar prevenção, detecção e reação.
+
+SLIDE 15: EVERY TEAM TOUCHES QUALITY
+
+Visual:
+Mostrar o coletor no centro.
+
+Ao redor, criar conexões tridimensionais com:
+
+Purchasing
+Supplier Quality
+Production
+Maintenance
+Tooling
+Laboratory
+Metrology
+Quality
+Logistics
+Tax and Documentation
+Engineering
+Leadership
+
+Cada área deve possuir uma contribuição concreta e curta.
+
+Exemplos:
+
+Purchasing: Correct specification
+Production: Stable process
+Maintenance: Capable equipment
+Quality: Effective detection
+Logistics: Product protection
+Tax and Documentation: Correct traceability
+Engineering: Robust requirements
+Leadership: Fast response
+
+SLIDE 16: THE ESCAPE PATH
+
+Visual:
+Mostrar uma falha pequena atravessando várias barreiras de controle.
+
+Barreiras:
+
+Specification
+Supplier Control
+Incoming Inspection
+Process Control
+Leak Test
+Visual Inspection
+Final Release
+Traceability
+
+A cada barreira ultrapassada, aumentar discretamente a severidade visual.
+
+Mensagem:
+
+A SEVERE EFFECT OFTEN REQUIRES MORE THAN ONE FAILED BARRIER.
+
+SLIDE 17: STOP THE CHAIN EARLY
+
+Visual:
+A estrada crítica é interrompida por uma barreira luminosa antes de chegar ao veículo.
+
+Mensagens:
+
+Prevent
+Detect
+Contain
+Correct
+Learn
+
+Cada palavra deve surgir associada a uma ação concreta.
+
+SLIDE 18: QUALITY IS BUILT BY EVERY DECISION
+
+Visual:
+O carro chega ao final da estrada em condição normal.
+
+A câmera se afasta e revela que toda a estrada forma a silhueta de um coletor de admissão ou uma rede conectando fábrica, motor e veículo.
+
+Mensagem principal:
+
+QUALITY IS BUILT BY EVERY DECISION.
+
+Mensagem secundária:
+
+The customer experiences the sum of our work.
+
+ENCERRAMENTO INTERATIVO
+
+Finalizar com uma pergunta ao público:
+
+WHERE CAN YOUR DECISION INTERRUPT THE CHAIN?
+
+Pode ser incluída uma breve dinâmica:
+
+1. Apresentar um defeito real
+2. Pedir que os participantes identifiquem a possível origem
+3. Construir coletivamente a cadeia de efeitos
+4. Identificar quais áreas poderiam prevenir ou detectar o problema
+5. Classificar a severidade potencial
+6. Definir a primeira barreira de controle aplicável
+
+REGRAS PARA O CONTEÚDO TÉCNICO
+
+Não tratar todas as consequências como inevitáveis.
+
+Utilizar expressões tecnicamente responsáveis, como:
+
+• May lead to
+• Can cause
+• Potential effect
+• Depending on severity
+• If not detected
+• Under specific operating conditions
+
+Diferenciar claramente:
+
+• Defeito
+• Mecanismo físico
+• Efeito funcional
+• Consequência para o veículo
+• Severidade
+• Capacidade de detecção
+
+Não confundir ocorrência com severidade.
+
+Uma falha improvável pode possuir alta severidade. Uma falha frequente pode possuir baixa severidade.
+
+Quando apropriado, utilizar a lógica do FMEA:
+
+Severity
+Occurrence
+Detection
+Prevention Control
+Detection Control
+
+Não transformar a apresentação em uma aula teórica de FMEA. Utilizar a lógica apenas como suporte para a narrativa.
+
+USO DE CASOS REAIS
+
+Reservar espaços visuais para inserir posteriormente:
+
+• Fotografias reais de defeitos
+• Cortes de peças
+• Imagens de porosidade
+• Falhas de soldagem
+• Rebarbas
+• Flanges deformadas
+• Inserts deslocados
+• Contaminações
+• Resultados de teste de estanqueidade
+• Mapas dimensionais
+• Tomografias ou microscopia, quando disponíveis
+
+Quando uma imagem real não estiver disponível, utilizar uma representação tridimensional técnica claramente ilustrativa.
+
+Não inventar dados, limites dimensionais, valores de pressão, índices de capabilidade ou taxas de falha.
+
+Utilizar placeholders, como:
+
+[Insert real defect image]
+[Insert approved specification]
+[Insert leak test limit]
+[Insert dimensional result]
+
+REQUISITOS DE LEGIBILIDADE
+
+Garantir que:
+
+• Todos os textos sejam legíveis à distância
+• O fundo não reduza o contraste
+• O conteúdo principal permaneça fora da estrada
+• O carro não cubra títulos ou diagramas
+• Cada slide tenha um único foco narrativo
+• As cadeias causais sejam lidas em menos de cinco segundos
+• As animações reforcem a sequência lógica
+• O público consiga compreender o mecanismo mesmo sem texto extenso
+
+REQUISITOS DE ENTREGA
+
+Entregar:
+
+1. Apresentação editável
+2. Todos os elementos separados e organizados
+3. Modelo 3D do carro editável ou reutilizável
+4. Logotipo MAHLE aplicado como elemento vetorial independente
+5. Estrada dividida em segmentos conectados
+6. Animações e transições configuradas
+7. Notas do apresentador
+8. Indicação de duração por slide
+9. Espaços reservados para imagens reais
+10. Versão alternativa sem animações complexas
+11. Lista dos recursos externos utilizados
+12. Miniatura ou storyboard da jornada completa
+
+A apresentação deve funcionar como uma única experiência visual contínua.
+
+O resultado final deve parecer uma viagem tridimensional pelo ciclo da qualidade, mostrando que um pequeno desvio físico pode atravessar todo o sistema e se transformar em uma consequência perceptível no veículo.
+
+A mensagem final deve ser clara:
+
+Quality does not begin at final inspection.
+Quality begins with the first decision.
