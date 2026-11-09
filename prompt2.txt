@@ -1,0 +1,866 @@
+As instruções abaixo complementam o prompt principal e devem ser consideradas obrigatórias durante o desenvolvimento da apresentação.
+
+Não substituir, resumir ou ignorar os requisitos definidos anteriormente. Em caso de conflito, priorizar estes alinhamentos adicionais para formato de entrega, compatibilidade, duração, público, representação técnica e progressão de severidade.
+
+1. FORMATO DE ENTREGA E COMPATIBILIDADE
+
+A apresentação deve ser produzida integralmente em Microsoft PowerPoint e entregue em formato editável:
+
+.pptx
+
+O arquivo principal deve ser compatível com o Microsoft PowerPoint versão 2609, build 20430.20180, instalado no computador corporativo em que a apresentação será executada.
+
+Todas as transições, animações, elementos tridimensionais, vídeos, modelos, fontes e recursos incorporados devem ser testados considerando essa versão.
+
+A apresentação não deve depender de conexão com a internet durante a execução.
+
+Todos os recursos necessários devem estar:
+
+• Incorporados ao arquivo;
+• Armazenados localmente;
+• Ou organizados em uma pasta de apresentação claramente estruturada.
+
+Evitar qualquer dependência de:
+
+• Links externos;
+• Streaming;
+• Aplicações web;
+• Fontes não incorporadas;
+• Plugins que não estejam disponíveis no computador corporativo;
+• Bibliotecas instaladas apenas no computador usado para criar a apresentação;
+• Caminhos absolutos locais que possam quebrar em outro computador.
+
+A apresentação deve continuar visualmente funcional caso seja copiada para outro computador compatível com a versão indicada do PowerPoint.
+
+2. USO DE FERRAMENTAS COMPLEMENTARES
+
+É permitido utilizar ferramentas externas durante a produção, desde que o resultado final possa ser executado dentro do PowerPoint.
+
+Podem ser utilizados, quando tecnicamente adequados:
+
+• Microsoft PowerPoint;
+• PowerPoint Morph;
+• Modelos 3D;
+• Vídeos com transparência;
+• Sequências de imagens;
+• Animações pré-renderizadas;
+• Blender;
+• Adobe After Effects;
+• Cinema 4D;
+• Arquivos GLB;
+• Arquivos OBJ;
+• Arquivos FBX durante a etapa de produção;
+• VBA;
+• Macros;
+• Gatilhos de animação;
+• Hiperlinks internos;
+• Navegação não linear;
+• Recursos de zoom e resumo do PowerPoint.
+
+O objetivo é obter a maior fluidez possível dentro das limitações do ambiente corporativo.
+
+Priorizar recursos nativos do PowerPoint quando estes entregarem o resultado visual esperado. Utilizar vídeos ou animações pré-renderizadas quando movimentos tridimensionais complexos não puderem ser executados de forma estável e fluida em tempo real.
+
+Não utilizar uma tecnologia apenas por ser sofisticada. Cada recurso deverá melhorar pelo menos um dos seguintes aspectos:
+
+• Fluidez;
+• Continuidade espacial;
+• Clareza narrativa;
+• Estabilidade;
+• Desempenho;
+• Controle do apresentador.
+
+3. MACROS E FORMATO DO ARQUIVO
+
+Macros podem ser utilizadas para melhorar:
+
+• Navegação;
+• Controle de animações;
+• Sincronização de elementos;
+• Retorno a cenas anteriores;
+• Movimentação do carro;
+• Controle de estados;
+• Ativação de objetos;
+• Interações com o público.
+
+Entretanto, o formato principal solicitado continua sendo .pptx.
+
+Como arquivos .pptx não armazenam macros VBA executáveis, caso macros sejam realmente necessárias, entregar duas versões:
+
+VERSÃO PRINCIPAL
+
+Arquivo .pptx compatível, editável e funcional sem macros.
+
+VERSÃO AVANÇADA
+
+Arquivo .pptm com as macros necessárias para os recursos adicionais.
+
+A versão .pptx deve preservar toda a narrativa, o conteúdo e as transições essenciais, mesmo que alguns controles especiais estejam disponíveis apenas na versão .pptm.
+
+As macros não devem ser obrigatórias para compreender ou apresentar o conteúdo.
+
+Caso sejam utilizadas macros, fornecer:
+
+• Código VBA completamente editável;
+• Código comentado;
+• Descrição da função de cada macro;
+• Instruções para habilitação;
+• Lista de permissões necessárias;
+• Procedimento para operação sem macros;
+• Botão visível ou comando para reiniciar a apresentação;
+• Mecanismo para retornar ao fluxo principal;
+• Tratamento para impedir que a apresentação fique travada em um estado intermediário.
+
+Não utilizar macros para acessar arquivos pessoais, rede corporativa, internet, sistema operacional ou informações do usuário.
+
+Não utilizar macros que exijam permissões administrativas.
+
+4. DESEMPENHO E ESTABILIDADE
+
+A apresentação deverá ser otimizada para execução fluida no computador corporativo.
+
+Manter o equilíbrio entre qualidade gráfica e desempenho.
+
+Evitar:
+
+• Quantidade excessiva de modelos 3D ativos no mesmo slide;
+• Sombras tridimensionais muito complexas;
+• Texturas desnecessariamente grandes;
+• Vídeos em resolução superior à necessária;
+• Animações simultâneas sem função narrativa;
+• Objetos transparentes sobrepostos em excesso;
+• Arquivos vinculados externamente;
+• Repetição desnecessária do mesmo recurso em vários slides;
+• Sequências com taxa de quadros inconsistente;
+• Operações que dependam de renderização em tempo real muito pesada.
+
+Sempre que possível:
+
+• Reutilizar os mesmos ativos;
+• Comprimir mídias mantendo qualidade visual;
+• Utilizar vídeos em resolução compatível com a tela de projeção;
+• Pré-renderizar movimentos tridimensionais complexos;
+• Incorporar as mídias;
+• Manter a proporção 16:9;
+• Preparar a apresentação para resolução Full HD;
+• Preservar legibilidade em projetor industrial ou sala com iluminação parcial.
+
+A animação do carro e da estrada deve aparentar continuidade, mesmo que tecnicamente seja construída com uma combinação de Morph, vídeos, modelos 3D e trajetórias de movimento.
+
+A técnica utilizada não deve ficar perceptível para o público.
+
+5. CONTROLE DA APRESENTAÇÃO
+
+A apresentação será conduzida por uma pessoa e deverá permitir controle pelo teclado ou passador convencional.
+
+As ações principais devem funcionar com:
+
+• Clique;
+• Barra de espaço;
+• Seta para a direita;
+• Seta para a esquerda;
+• Controle remoto de apresentação.
+
+Não depender exclusivamente de interações com mouse em objetos pequenos.
+
+Animações narrativas importantes devem ser acionadas por clique, permitindo que a explicação acompanhe o ritmo do público.
+
+Animações ambientais discretas podem funcionar automaticamente, desde que não avancem o conteúdo sem o comando do apresentador.
+
+A apresentação deve permitir:
+
+• Pausar a narrativa;
+• Voltar um slide sem quebrar a composição;
+• Repetir uma cadeia causal;
+• Retomar o fluxo principal;
+• Saltar para a dinâmica final;
+• Encerrar de forma segura.
+
+6. DURAÇÃO TOTAL
+
+A apresentação completa terá duração aproximada de 60 minutos.
+
+Estruturar o conteúdo para que os 60 minutos incluam:
+
+• Abertura;
+• Contextualização do coletor de admissão;
+• Explicação das funções do produto;
+• Progressão dos casos de falha;
+• Discussão da escala de severidade;
+• Participação das diferentes áreas da planta;
+• Caso de severidade máxima;
+• Reflexão coletiva;
+• Encerramento.
+
+Distribuição sugerida do tempo:
+
+Abertura e contexto:
+5 minutos
+
+Função do coletor e cadeia de consequência:
+8 minutos
+
+Casos de baixa severidade:
+8 minutos
+
+Casos de severidade moderada:
+10 minutos
+
+Casos de alta severidade:
+10 minutos
+
+Caso de severidade 10:
+7 minutos
+
+Participação das áreas e barreiras de qualidade:
+5 minutos
+
+Interação com o público e conclusão:
+7 minutos
+
+Total:
+60 minutos
+
+A quantidade de slides deve ser dimensionada para essa duração.
+
+Utilizar aproximadamente 20 a 28 cenas ou slides principais, considerando que algumas cenas podem possuir várias etapas de animação.
+
+Não criar 60 slides de leitura rápida. O objetivo é permitir explicação, discussão e observação dos mecanismos apresentados.
+
+Cada caso técnico deve possuir tempo suficiente para apresentar:
+
+1. A origem do desvio;
+2. O defeito físico;
+3. O mecanismo de propagação;
+4. O efeito funcional;
+5. A consequência potencial;
+6. A severidade correspondente;
+7. A barreira que poderia prevenir ou detectar o problema.
+
+7. PERFIL DO PÚBLICO
+
+O público será misto e formado por pessoas de diferentes áreas e níveis de conhecimento técnico da planta.
+
+O público poderá incluir:
+
+• Pessoas da linha de produção;
+• Operadores;
+• Líderes de produção;
+• Engenharia de processo;
+• Engenharia de produto;
+• Qualidade;
+• Supplier Quality;
+• Logística;
+• Manutenção;
+• Ferramentaria;
+• Laboratório;
+• Metrologia;
+• Fiscal;
+• Administração;
+• Compras;
+• Planejamento;
+• Liderança.
+
+A apresentação não deve pressupor que todas as pessoas conheçam:
+
+• Funcionamento detalhado de motores;
+• Injeção eletrônica;
+• Relação ar-combustível;
+• Soldagem de polímeros;
+• Análise de escoamento;
+• FMEA;
+• Critérios de severidade;
+• Testes de estanqueidade;
+• Requisitos dimensionais.
+
+Sempre que um conceito técnico for essencial, explicá-lo visualmente antes de utilizá-lo na cadeia de causa e efeito.
+
+Utilizar linguagem que seja tecnicamente correta, mas compreensível para quem não trabalha diretamente com o produto.
+
+Evitar jargões sem explicação.
+
+Quando um termo técnico precisar ser utilizado, apresentar uma definição visual curta.
+
+Exemplos:
+
+UNMETERED AIR
+Air entering the engine without being correctly measured.
+
+SEALING LOSS
+An unintended path that allows air to escape or enter.
+
+RUNNER
+The passage that carries air to each cylinder.
+
+BACKFIRE
+A combustion event that creates a pressure pulse in the intake system.
+
+A apresentação deve permitir dois níveis de leitura simultâneos:
+
+LEITURA IMEDIATA
+
+O público entende visualmente o que aconteceu, mesmo sem conhecimento técnico aprofundado.
+
+LEITURA TÉCNICA
+
+Engenheiros e especialistas conseguem identificar o mecanismo físico e a lógica de qualidade por trás do efeito.
+
+8. REPRESENTAÇÃO DO MOTOR E DO COLETOR
+
+Não utilizar um motor específico, uma plataforma específica de veículo ou um coletor associado a um cliente determinado.
+
+Criar uma representação genérica de motor e coletor de admissão.
+
+Apesar de genérica, a representação deve ser tecnicamente plausível e visualmente próxima de um sistema real.
+
+O coletor deve apresentar, de forma coerente:
+
+• Plenum;
+• Entrada principal de ar;
+• Região de conexão com o corpo de borboleta;
+• Runners;
+• Flanges;
+• Pontos de fixação;
+• Inserts metálicos;
+• Linhas de soldagem, quando aplicável;
+• Interfaces de vedação;
+• Conexão com o cabeçote;
+• Possíveis pontos de sensores ou conexões auxiliares.
+
+O motor genérico deve mostrar apenas os elementos necessários para compreensão da narrativa:
+
+• Cabeçote;
+• Cilindros;
+• Coletor de admissão;
+• Corpo de borboleta;
+• Fluxo de ar;
+• Região de combustão quando necessário;
+• Componentes adjacentes relevantes.
+
+Não incluir logotipos, geometrias exclusivas, números de peça, identificação de cliente ou características que possam sugerir um produto confidencial específico.
+
+A fidelidade deve estar concentrada no funcionamento físico, e não na reprodução de um produto comercial real.
+
+O modelo deve permitir:
+
+• Vista externa;
+• Vista explodida;
+• Corte longitudinal;
+• Corte dos runners;
+• Visualização interna do fluxo;
+• Destaque das interfaces de vedação;
+• Destaque da linha de soldagem;
+• Visualização de deformações;
+• Visualização de porosidade;
+• Visualização de rebarbas;
+• Visualização de contaminação;
+• Visualização de onda de pressão.
+
+9. PROGRESSÃO OBRIGATÓRIA DE SEVERIDADE
+
+Os casos podem e devem ser reorganizados para que a apresentação avance da menor para a maior severidade.
+
+A progressão deve ser perceptível em quatro dimensões:
+
+• Conteúdo;
+• Cor;
+• Geometria do ambiente;
+• Comportamento do carro.
+
+A apresentação deve começar em severidade 1 e caminhar gradualmente até severidade 10.
+
+A escala não deve ser apresentada apenas como uma tabela. A severidade deve ser transformada em uma jornada visual.
+
+Conforme a severidade aumenta:
+
+• A estrada pode ficar mais complexa;
+• As curvas podem ficar mais fechadas;
+• O ambiente pode ficar mais escuro;
+• A iluminação de alerta pode aumentar;
+• O carro pode perder estabilidade;
+• O fluxo de ar pode apresentar maior perturbação;
+• As barreiras de qualidade podem se tornar mais evidentes;
+• O impacto no veículo pode ganhar maior presença visual.
+
+Não associar automaticamente um tipo de defeito a um valor fixo de severidade.
+
+A severidade deve ser atribuída ao efeito potencial, e não apenas à aparência ou ao nome do defeito.
+
+O mesmo defeito poderá levar a efeitos diferentes dependendo de:
+
+• Magnitude;
+• Localização;
+• Condição de operação;
+• Capacidade de detecção;
+• Função afetada;
+• Propagação da falha;
+• Presença ou ausência de barreiras;
+• Impacto percebido pelo usuário.
+
+10. ESCALA DE SEVERIDADE DE REFERÊNCIA
+
+Utilizar a seguinte escala de severidade como referência obrigatória para organizar a apresentação.
+
+A escala deve ser apresentada visualmente em inglês no conteúdo final, mas deve preservar o significado dos critérios abaixo.
+
+SEVERIDADE 1
+MUITO BAIXA
+
+Critério:
+Nenhum efeito perceptível.
+
+Representação em inglês:
+
+NO PERCEPTIBLE EFFECT
+
+Exemplo visual:
+Uma variação que não altera função, montagem, aparência percebida ou desempenho.
+
+Comportamento do carro:
+Movimento completamente normal.
+
+SEVERIDADE 2
+BAIXA
+
+Critério:
+Aparência, ruído, vibração, rugosidade ou sensação háptica ligeiramente desagradável.
+
+Representação em inglês:
+
+SLIGHTLY UNPLEASANT APPEARANCE, NOISE, VIBRATION, ROUGHNESS OR HAPTIC FEEL
+
+Exemplo visual:
+Pequena alteração percebida, sem perda funcional.
+
+Comportamento do carro:
+Movimento normal, com indicação visual muito discreta da variação.
+
+SEVERIDADE 3
+BAIXA
+
+Critério:
+Aparência, ruído, vibração, rugosidade ou sensação háptica moderadamente desagradável.
+
+Representação em inglês:
+
+MODERATELY UNPLEASANT APPEARANCE, NOISE, VIBRATION, ROUGHNESS OR HAPTIC FEEL
+
+Exemplo visual:
+Efeito claramente perceptível, porém sem perda relevante de função.
+
+Comportamento do carro:
+Movimento normal, com uma perturbação visual ou sonora moderada.
+
+SEVERIDADE 4
+MODERADA
+
+Critério:
+Aparência, ruído, vibração, rugosidade ou sensação háptica muito desagradável.
+
+Representação em inglês:
+
+HIGHLY UNPLEASANT APPEARANCE, NOISE, VIBRATION, ROUGHNESS OR HAPTIC FEEL
+
+Exemplo visual:
+Efeito fortemente perceptível e capaz de gerar reclamação, sem perda direta de função primária.
+
+Comportamento do carro:
+Movimento preservado, mas com sinais visuais claros de desconforto funcional.
+
+SEVERIDADE 5
+MODERADA
+
+Critério:
+Degradação de função secundária do veículo.
+
+Representação em inglês:
+
+DEGRADATION OF A SECONDARY VEHICLE FUNCTION
+
+Exemplo visual:
+Uma função secundária permanece disponível, mas opera abaixo do desempenho esperado.
+
+Comportamento do carro:
+O carro continua avançando, com redução discreta da qualidade de funcionamento.
+
+SEVERIDADE 6
+MODERADA
+
+Critério:
+Perda de função secundária do veículo.
+
+Representação em inglês:
+
+LOSS OF A SECONDARY VEHICLE FUNCTION
+
+Exemplo visual:
+Uma função secundária deixa de atuar.
+
+Comportamento do carro:
+O deslocamento principal pode continuar, mas um recurso secundário é visualmente desativado.
+
+SEVERIDADE 7
+ALTA
+
+Critério:
+Degradação de função primária do veículo necessária para a condução normal durante a vida útil esperada.
+
+Representação em inglês:
+
+DEGRADATION OF A PRIMARY VEHICLE FUNCTION REQUIRED FOR NORMAL DRIVING
+
+Exemplo visual:
+O veículo continua operando, porém com degradação relevante de desempenho, estabilidade de funcionamento ou dirigibilidade.
+
+Comportamento do carro:
+Redução de velocidade, funcionamento irregular ou dificuldade para manter o ritmo normal.
+
+SEVERIDADE 8
+ALTA
+
+Critério:
+Perda de função primária do veículo necessária para a condução normal durante a vida útil esperada.
+
+Representação em inglês:
+
+LOSS OF A PRIMARY VEHICLE FUNCTION REQUIRED FOR NORMAL DRIVING
+
+Exemplo visual:
+O veículo não consegue manter a operação normal ou fica imobilizado.
+
+Comportamento do carro:
+O carro reduz a velocidade e para de forma controlada.
+
+SEVERIDADE 9
+MUITO ALTA
+
+Critério:
+Não cumprimento das regulamentações.
+
+Representação em inglês:
+
+NON-COMPLIANCE WITH REGULATORY REQUIREMENTS
+
+Exemplo visual:
+Uma consequência que coloca o produto fora de um requisito legal ou regulatório aplicável.
+
+Comportamento do carro:
+O veículo é interrompido antes de entrar em uma zona representada como via regulamentada ou etapa de liberação.
+
+Não inserir uma regulamentação específica sem confirmação documental.
+
+SEVERIDADE 10
+MUITO ALTA
+
+Critério:
+Afeta o funcionamento seguro do veículo ou de outros veículos, a saúde do motorista, dos passageiros, dos usuários da estrada ou dos pedestres.
+
+Representação em inglês:
+
+AFFECTS THE SAFE OPERATION OF THE VEHICLE OR OTHER VEHICLES, OR THE HEALTH OF DRIVERS, PASSENGERS, ROAD USERS OR PEDESTRIANS
+
+Exemplo visual:
+Uma cadeia de falha que alcança uma função relacionada à operação segura do veículo.
+
+Comportamento do carro:
+O carro sofre um acidente diretamente relacionado ao efeito mais severo apresentado.
+
+11. TRATAMENTO VISUAL DA SEVERIDADE
+
+Representar a progressão de severidade utilizando uma escala visual integrada à estrada.
+
+Sugestão de agrupamento:
+
+SEVERIDADE 1
+VERY LOW
+
+SEVERIDADES 2 E 3
+LOW
+
+SEVERIDADES 4, 5 E 6
+MODERATE
+
+SEVERIDADES 7 E 8
+HIGH
+
+SEVERIDADES 9 E 10
+VERY HIGH
+
+A escala pode aparecer como:
+
+• Marcos na lateral da estrada;
+• Mudanças de elevação;
+• Portais numerados;
+• Segmentos de pavimento;
+• Camadas de luz;
+• Painéis minimalistas;
+• Elementos tridimensionais integrados ao ambiente.
+
+Utilizar cores de forma progressiva:
+
+Severidade 1:
+Azul claro ou branco.
+
+Severidades 2 e 3:
+Azul claro com pequenos detalhes turquesa.
+
+Severidades 4 a 6:
+Âmbar em intensidade crescente.
+
+Severidades 7 e 8:
+Âmbar escuro com introdução controlada de vermelho.
+
+Severidades 9 e 10:
+Vermelho controlado sobre fundo azul-marinho muito escuro.
+
+Não transformar todos os slides de alta severidade em telas totalmente vermelhas. Manter a identidade azul da apresentação e utilizar o vermelho apenas como sinal de risco.
+
+12. DESENVOLVIMENTO DO CASO DE SEVERIDADE 10
+
+O último caso técnico deve representar a severidade 10.
+
+Esse caso deve reunir, de forma coerente:
+
+• Uma decisão ou desvio inicial;
+• Um defeito no coletor;
+• Um mecanismo físico plausível;
+• Um efeito no motor;
+• Uma alteração na operação do veículo;
+• Uma condição relacionada à segurança;
+• Um acidente envolvendo o carro low-poly.
+
+O acidente deve ser consequência da cadeia causal apresentada, e não uma cena desconectada inserida apenas para gerar impacto.
+
+A apresentação deve construir claramente a sequência:
+
+Initial Decision
+↓
+Product Variation
+↓
+Manifold Defect
+↓
+Physical Mechanism
+↓
+Engine Effect
+↓
+Vehicle Response
+↓
+Loss of Safe Operation
+↓
+Accident
+
+Cada etapa deve ser visualmente compreensível antes de mostrar o acidente.
+
+Não apresentar a cadeia como certeza universal. Indicar que se trata de uma consequência potencial sob uma combinação específica de condições e falhas de barreira.
+
+Utilizar expressões como:
+
+POTENTIAL SEVERITY 10 EFFECT
+
+IF THE CONDITION ESCAPES ALL BARRIERS
+
+UNDER SPECIFIC OPERATING CONDITIONS
+
+MAY AFFECT SAFE VEHICLE OPERATION
+
+13. CENA DO ACIDENTE
+
+Na severidade 10, o carrinho que percorre os slides deve sofrer um acidente visualmente relacionado ao item mais severo apresentado.
+
+O acidente deve ter finalidade educativa e técnica.
+
+A cena não deve conter:
+
+• Pessoas;
+• Corpos;
+• Ferimentos;
+• Sangue;
+• Imagens gráficas;
+• Sofrimento;
+• Sensacionalismo;
+• Explosão exagerada;
+• Destruição cinematográfica;
+• Humor.
+
+A cena deve mostrar apenas o veículo low-poly, a estrada e a perda de controle associada ao efeito funcional.
+
+Possível construção visual:
+
+1. O motor apresenta uma alteração relevante de funcionamento;
+2. O carro perde capacidade de manter a operação esperada;
+3. O carro apresenta trajetória instável;
+4. As rodas deixam de acompanhar corretamente a curva;
+5. O carro sai da faixa prevista;
+6. O carro atinge uma barreira geométrica de proteção em baixa ou média velocidade;
+7. O movimento congela no instante de impacto;
+8. A estrada e o ambiente perdem saturação;
+9. A cadeia causal aparece sobre a cena;
+10. As barreiras de qualidade que falharam são destacadas.
+
+O impacto deve ser estilizado e compatível com a linguagem low-poly.
+
+A câmera não deve dramatizar o acidente com múltiplos ângulos ou repetições.
+
+Mostrar o evento apenas uma vez.
+
+Após o impacto, fazer uma pausa visual curta e revelar a mensagem:
+
+SEVERITY 10 IS NOT ABOUT THE DEFECT ALONE.
+
+IT IS ABOUT THE POTENTIAL EFFECT ON SAFE OPERATION.
+
+Em seguida, apresentar:
+
+THE CHAIN SHOULD HAVE BEEN STOPPED EARLIER.
+
+14. RELAÇÃO ENTRE ACIDENTE E QUALIDADE
+
+Imediatamente após a cena de severidade 10, reconstruir a cadeia de trás para frente.
+
+Partir do acidente e retornar visualmente até a origem:
+
+Accident
+↑
+Loss of Safe Operation
+↑
+Vehicle Response
+↑
+Engine Effect
+↑
+Manifold Failure
+↑
+Process Escape
+↑
+Undetected Variation
+↑
+Initial Decision
+
+Durante esse retorno, mostrar em quais pontos diferentes áreas poderiam ter interrompido a cadeia.
+
+Exemplos:
+
+• Engenharia poderia tornar o requisito mais robusto;
+• Compras poderia assegurar a especificação correta;
+• Supplier Quality poderia controlar o risco no fornecedor;
+• Recebimento poderia identificar uma não conformidade;
+• Produção poderia impedir a geração do defeito;
+• Manutenção poderia preservar a capacidade do equipamento;
+• Qualidade poderia detectar o escape;
+• Logística poderia evitar dano ou contaminação;
+• Fiscal e Administração poderiam preservar documentação e rastreabilidade;
+• Liderança poderia garantir reação rápida e contenção.
+
+Não buscar culpados individuais.
+
+A mensagem deve ser sistêmica:
+
+QUALITY IS A SYSTEM OF CONNECTED BARRIERS.
+
+15. RESPONSABILIDADE NA COMUNICAÇÃO DA SEVERIDADE
+
+Não utilizar o acidente para afirmar que qualquer falha no coletor produzirá diretamente uma situação de segurança.
+
+Deixar claro que uma consequência de severidade 10 depende de uma cadeia específica de condições.
+
+Diferenciar visualmente:
+
+SEVERITY
+How serious the potential effect can be.
+
+OCCURRENCE
+How likely the cause or failure is to happen.
+
+DETECTION
+How likely the existing controls are to detect the condition before escape.
+
+A apresentação deve reforçar que severidade 10 não significa automaticamente alta ocorrência.
+
+Também não significa que o acidente ocorrerá em todos os casos.
+
+O objetivo é demonstrar por que defeitos com efeitos potencialmente severos exigem:
+
+• Prevenção robusta;
+• Controles adequados;
+• Detecção efetiva;
+• Rastreabilidade;
+• Reação rápida;
+• Contenção;
+• Aprendizado sistêmico.
+
+16. ENCERRAMENTO APÓS A SEVERIDADE 10
+
+Não finalizar a apresentação diretamente no acidente.
+
+Após o evento de severidade 10, restaurar o ambiente visual.
+
+A estrada deve ser reconstruída progressivamente conforme as barreiras corretas são apresentadas.
+
+O carro pode reaparecer em uma nova trajetória segura, representando prevenção e aprendizado, e não a repetição do mesmo evento.
+
+O encerramento deve deslocar a atenção do acidente para a capacidade coletiva de impedir a cadeia.
+
+Mensagens finais sugeridas:
+
+STOP THE CHAIN BEFORE THE EFFECT REACHES THE VEHICLE.
+
+EVERY AREA CAN BREAK THE CHAIN.
+
+QUALITY IS BUILT BEFORE THE PRODUCT REACHES THE CUSTOMER.
+
+QUALITY IS BUILT BY EVERY DECISION.
+
+Pergunta final ao público:
+
+WHERE CAN YOUR WORK STOP THE CHAIN?
+
+17. ENTREGÁVEIS ADICIONAIS
+
+Além dos entregáveis definidos no prompt principal, fornecer:
+
+• Arquivo principal em .pptx;
+• Arquivo .pptm, caso macros sejam utilizadas;
+• Versão de segurança sem macros;
+• Pasta com todas as mídias incorporadas ou de origem;
+• Modelos 3D utilizados;
+• Vídeos pré-renderizados;
+• Fontes ou indicação de substitutas seguras;
+• Código VBA comentado, quando aplicável;
+• Mapa de navegação;
+• Lista das animações por slide;
+• Duração estimada de cada seção;
+• Roteiro completo para 60 minutos;
+• Notas do apresentador;
+• Orientação para iniciar a apresentação;
+• Orientação para recuperar a apresentação em caso de interrupção;
+• Informações sobre recursos que exigem habilitação;
+• Indicação dos slides que possuem maior carga gráfica;
+• Versão reduzida para contingência.
+
+18. TESTES OBRIGATÓRIOS ANTES DA ENTREGA
+
+Antes da entrega final, verificar:
+
+• Abertura do arquivo no PowerPoint versão 2609, build 20430.20180;
+• Compatibilidade com proporção 16:9;
+• Funcionamento sem internet;
+• Funcionamento com passador de slides;
+• Execução das transições Morph;
+• Reprodução dos vídeos incorporados;
+• Continuidade do movimento do carro;
+• Ausência de saltos visuais entre slides;
+• Orientação correta do carro;
+• Rotação correta das rodas;
+• Ausência de interferência entre rodas e carroceria;
+• Legibilidade do logotipo MAHLE nos dois lados;
+• Ausência de logotipo espelhado;
+• Sincronização entre cadeia causal e animação;
+• Possibilidade de voltar um slide;
+• Possibilidade de repetir uma animação;
+• Funcionamento da versão sem macros;
+• Estabilidade da versão com macros;
+• Tempo total próximo de 60 minutos;
+• Legibilidade para público não técnico;
+• Coerência técnica para público de engenharia;
+• Progressão inequívoca da severidade 1 até a severidade 10;
+• Relação clara entre o caso severo e o acidente;
+• Ausência de conteúdo gráfico
