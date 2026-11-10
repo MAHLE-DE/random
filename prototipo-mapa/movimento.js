@@ -8,6 +8,7 @@ const clamp=T.MathUtils.clamp;
 const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
 const ease=x=>x*x*x*(x*(x*6-15)+10);
 const lerp=T.MathUtils.lerp;
+__DANO_SOURCE__
 try {
 const scene=new T.Scene();scene.background=new T.Color('#ffffff');
 scene.fog=new T.Fog('#ffffff',90,200);
@@ -47,10 +48,23 @@ const stripe=mat('#ffffff');
 for(let s=1;s<total;s+=3.5){const u=s/total,p=at(u),d=tangent(u);const o=mesh(new T.BoxGeometry(.095,.018,1.25),stripe);o.position.copy(p).add(V(0,.028,0));o.quaternion.setFromUnitVectors(V(0,0,1),d)}
 // Paisagem discreta: volumes claros preservam o fundo branco e a leitura da estrada.
 const stops=[.055,.265,.485,.715,.955];
+const crashOrigin=at(stops[4]),exitSide=side(stops[4]),exitTangent=tangent(stops[4]);
+const treePosition=crashOrigin.clone().addScaledVector(exitTangent,8).addScaledVector(exitSide,7);
+treePosition.y=crashOrigin.y-.11;
+const crashDirection=treePosition.clone().sub(crashOrigin).setY(0).normalize();
+const hitPosition=treePosition.clone().addScaledVector(crashDirection,-2.16).add(V(0,.05,0));
+const wreckPosition=treePosition.clone().addScaledVector(crashDirection,-1.38).add(V(0,.05,0));
+const escapeCurve=new T.CubicBezierCurve3(crashOrigin.clone().add(V(0,-.06,0)),crashOrigin.clone().addScaledVector(exitTangent,3.6),hitPosition.clone().addScaledVector(crashDirection,-3),hitPosition.clone());
+const tree=new T.Group();tree.name='Arvore_do_impacto';tree.position.copy(treePosition);scene.add(tree);
+const trunkMat=mat('#735441'),leafMat=mat('#51766a'),leafLight=mat('#739486');
+const island=mesh(new T.CylinderGeometry(4.5,5.0,.22,48),white);island.position.copy(treePosition).add(V(0,-.20,0));
+const trunk=mesh(new T.CylinderGeometry(.30,.43,4.0,13),trunkMat,tree);trunk.position.y=1.85;
+for(const [x,y,z,r]of [[-.7,4.6,0,1.45],[.8,4.9,.1,1.65],[0,5.7,-.3,1.7],[.1,4.3,.8,1.35]]){const foliage=mesh(new T.IcosahedronGeometry(r,1),y>5?leafLight:leafMat,tree);foliage.position.set(x,y,z)}
 let seed=42;function rand(){seed=(seed*1664525+1013904223)>>>0;return seed/4294967296}
 for(let i=0;i<70;i++){
  const u=.02+rand()*.96,p=at(u).addScaledVector(side(u),(rand()>.5?1:-1)*(5.5+rand()*7));
  if(stops.some(v=>p.distanceTo(at(v).addScaledVector(side(v),7.5))<6))continue;
+ if(p.distanceTo(treePosition)<7||p.distanceTo(escapeCurve.getPoint(.65))<4)continue;
  const h=.5+rand()*2.4;const o=mesh(new T.IcosahedronGeometry(1,0),i%6===0?mat('#cfdef3'):white);
  o.position.copy(p);o.position.y=-.46+h*.85;o.scale.set(1.1+rand()*2.2,h,1.1+rand()*2.2);o.rotation.y=rand()*6;
 }
@@ -83,12 +97,26 @@ function readCar(b64){
  json.nodes.forEach((n,i)=>(n.children||[]).forEach(k=>nodes[i].add(nodes[k])));const root=new T.Group();json.scenes[json.scene||0].nodes.forEach(i=>root.add(nodes[i]));return root;
 }
 const car=readCar('__CARRO_BASE64__');scene.add(car);
+const damaged=criarCarroAmassado(T,car);scene.add(damaged.root);damaged.root.visible=false;
+const fire=new T.Group();fire.name='Fogo_pos_impacto';damaged.root.add(fire);fire.visible=false;
+const flames=[],smoke=[];
+const flameShape=new T.LatheGeometry([new T.Vector2(0,0),new T.Vector2(.20,.12),new T.Vector2(.28,.4),new T.Vector2(.15,.9),new T.Vector2(.035,1.4),new T.Vector2(0,1.7)],10);
+for(let i=0;i<20;i++){
+ const m=new T.MeshBasicMaterial({color:i%3===0?'#fff0a1':i%2?'#ff9a16':'#f34d10',transparent:true,opacity:.88,depthWrite:false,toneMapped:false});
+ const f=mesh(flameShape,m,fire);f.castShadow=false;f.receiveShadow=false;
+ const angle=i*2.39996,radius=.15+(i%5)*.10;
+ flames.push({mesh:f,x:.35+Math.cos(angle)*radius,z:Math.sin(angle)*radius,phase:i*.47});
+}
+for(let i=0;i<12;i++){const m=new T.MeshBasicMaterial({color:'#6f737a',transparent:true,opacity:.2,depthWrite:false});const s=mesh(new T.IcosahedronGeometry(1,1),m,fire);s.castShadow=false;s.receiveShadow=false;smoke.push({mesh:s,phase:i/12})}
+const fireLight=new T.PointLight('#ff9a30',0,8,2);fireLight.position.set(.3,1.5,0);fire.add(fireLight);
+const skid=new T.Group();skid.name='Marcas_de_derrapagem';scene.add(skid);skid.visible=false;
+for(const s of [-.70,.70]){const points=[];for(let j=0;j<=80;j++){const q=j/80,p=escapeCurve.getPoint(q),d=escapeCurve.getTangent(q),normal=V(-d.z,0,d.x).normalize();p.addScaledVector(normal,s);p.y=treePosition.y+.008;points.push(p)}const mark=mesh(new T.TubeGeometry(new T.CatmullRomCurve3(points),80,.035,4,false),mat('#7b8999'),skid);mark.castShadow=false}
 const localCarBox=new T.Box3().setFromObject(car);
 const carCorners=[];for(const x of [localCarBox.min.x,localCarBox.max.x])for(const y of [localCarBox.min.y,localCarBox.max.y])for(const z of [localCarBox.min.z,localCarBox.max.z])carCorners.push(V(x,y,z));
 const wheels=[],steers=[];car.traverse(o=>{if(o.name.startsWith('Roda_giratoria'))wheels.push(o);if(o.name.startsWith('Manga_de_eixo'))steers.push(o)});
 // O eixo longitudinal do modelo é +X; a base local acompanha a inclinação.
 function orient(u){const x=tangent(u),z=new T.Vector3().crossVectors(x,V(0,1,0)).normalize(),y=new T.Vector3().crossVectors(z,x).normalize();return new T.Quaternion().setFromRotationMatrix(new T.Matrix4().makeBasis(x,y,z))}
-let carU=stops[0],index=0,motion=null,lastTime=null,cameraTween=null,fade=null;
+let carU=stops[0],index=0,motion=null,lastTime=null,cameraTween=null,fade=null,crash=null,crashed=false,fireTime=0,impacts=0,crashPose=null;
 let look=V(),boom=V(),carTurn=orient(carU),wheelAngle=0;
 const contentSides=['left','right','left','right','left','left'];
 const probeCamera=new T.PerspectiveCamera(42,camera.aspect,.1,500);
@@ -105,23 +133,30 @@ function compose(p,offset,screenX){
  const shift=screenX*offset.length()*Math.tan(T.MathUtils.degToRad(21))*camera.aspect;
  return{look:p.clone().addScaledVector(right,-shift),boom:offset};
 }
+function fitPose(p,i,includeTree=false){
+ const sign=contentSides[i]==='left'?1:-1;let best=null,bestCost=Infinity;
+ for(const h of [23,27,31])for(const distance of [26,30])for(let k=0;k<48;k++){
+  const yaw=k*Math.PI*2/48,offset=V(Math.sin(yaw)*distance,h,Math.cos(yaw)*distance);
+  const pose=compose(p,offset,sign*.60),hits=roadIntrusions(pose,i);
+  const preference=Math.abs(Math.atan2(Math.sin(yaw-i*.9),Math.cos(yaw-i*.9)));
+  let treePenalty=0;
+  if(includeTree){for(const x of [-2.4,2.4])for(const y of [0,7])for(const z of [-2.4,2.4]){const v=treePosition.clone().add(V(x,y,z)).project(probeCamera);if(v.x<.03||v.x>.94||v.y<-.66||v.y>.78)treePenalty+=10000}}
+  const cost=hits*100+(h-23)*.015+(distance-26)*.01+preference*.01+treePenalty;
+  if(cost<bestCost){bestCost=cost;best={...pose,hits,yaw}}
+ }return best;
+}
 function makePoses(){
  probeCamera.aspect=camera.aspect;probeCamera.updateProjectionMatrix();
  poses=stops.map((u,i)=>{
-  const p=at(u),sign=contentSides[i]==='left'?1:-1;let best=null,bestCost=Infinity;
+  const p=at(u);
   // Busca de POV: a estrada completa é projetada e testada contra a área do texto.
   // Isso reserva espaço por enquadramento, sem recortar ou esconder a estrada.
-  for(const h of [23,27,31])for(const distance of [26,30])for(let k=0;k<48;k++){
-   const yaw=k*Math.PI*2/48,offset=V(Math.sin(yaw)*distance,h,Math.cos(yaw)*distance);
-   const pose=compose(p,offset,sign*.60),hits=roadIntrusions(pose,i);
-   const preference=Math.abs(Math.atan2(Math.sin(yaw-i*.9),Math.cos(yaw-i*.9)));
-   const cost=hits*100+(h-23)*.015+(distance-26)*.01+preference*.01;
-   if(cost<bestCost){bestCost=cost;best={...pose,hits,yaw}}
-  }
+  const best=fitPose(p,i);
   labels[i].label.rotation.z=best.yaw;
   return best;
  });
- const aerialPoints=roadProbes.concat(stops.flatMap(u=>[-11,11].map(s=>at(u).addScaledVector(side(u),s))));
+ crashPose=fitPose(wreckPosition.clone().add(V(0,.06,0)),4,true);
+ const aerialPoints=roadProbes.concat(stops.flatMap(u=>[-11,11].map(s=>at(u).addScaledVector(side(u),s))),[treePosition,treePosition.clone().add(V(0,7,0))]);
  let aerial=null,aerialCost=Infinity;
  for(let scale=.95;scale<=2;scale+=.05)for(let screenX=.40;screenX<=.60;screenX+=.025){
   const p=compose(V(18,0,6),V(-9,178,140).multiplyScalar(scale),screenX);
@@ -136,13 +171,19 @@ function makePoses(){
 }
 makePoses();
 function stopPose(i){return poses[i]}
+function presentationPose(i){return i===4&&crashed?crashPose:stopPose(i)}
 function place(u){car.position.copy(at(u)).add(V(0,-.06,0));car.quaternion.copy(carTurn)}
+function directionQuaternion(d){const x=d.clone().normalize(),z=V().crossVectors(x,V(0,1,0)).normalize(),y=V().crossVectors(z,x).normalize();return new T.Quaternion().setFromRotationMatrix(new T.Matrix4().makeBasis(x,y,z))}
+function syncDamaged(){damaged.root.position.copy(car.position);damaged.root.quaternion.copy(car.quaternion)}
+function resetCrash(){crash=null;crashed=false;fireTime=0;impacts=0;damaged.aplicar(0);damaged.root.visible=false;car.visible=true;fire.visible=false;skid.visible=false}
+function finishWreck(){car.position.copy(wreckPosition);car.quaternion.copy(directionQuaternion(crashDirection));syncDamaged();damaged.aplicar(1);damaged.root.visible=true;car.visible=false;fire.visible=true;skid.visible=true;crashed=true;fireTime=Math.max(fireTime,1)}
+function beginCrash(){crash={time:0,impacted:false,initialLook:look.clone(),initialBoom:boom.clone()};ui()}
 function setContent(){
- const end=index===5,busy=!!motion||!!cameraTween;
+ const end=index===5,busy=!!motion||!!cameraTween||!!crash;
  $('conteudo').className='content'+(contentSides[index]==='right'?' right':'')+(end?' conclusion':'')+(busy?' absent':'');
  $('titulo-parada').textContent=end?'CONCLUSÃO · SLIDE 06':`PARADA ${String(index+1).padStart(2,'0')}`;
- $('titulo').innerHTML=end?'Uma visão do<br>caminho completo.':'Espaço para<br>a apresentação.';
- $('descricao').textContent=end?'Aqui entra a conclusão da apresentação, com a jornada inteira ao lado.':'Este retângulo está reservado para os textos, imagens e explicações de cada slide.';
+ $('titulo').innerHTML=end?'Uma visão do<br>caminho completo.':index===4&&crashed?'Perda de controle.<br>Impacto frontal.':'Espaço para<br>a apresentação.';
+ $('descricao').textContent=end?'Aqui entra a conclusão da apresentação, com a jornada inteira ao lado.':index===4&&crashed?'Demonstração visual da batida. Selecione 05 novamente para repetir a sequência.':'Este retângulo está reservado para os textos, imagens e explicações de cada slide.';
  $('legenda-area').textContent=end?'ENCERRAMENTO DA JORNADA':'ÁREA DE CONTEÚDO · SEM ESTRADA';
 }
 function ensureSelectedVisible(){
@@ -151,28 +192,31 @@ function ensureSelectedVisible(){
  else if(left+item.offsetWidth>list.scrollLeft+list.clientWidth)list.scrollTo({left:left+item.offsetWidth-list.clientWidth,behavior:'smooth'});
 }
 function ui(){
- const busy=!!motion||!!cameraTween||!!fade;
+ const busy=!!motion||!!cameraTween||!!fade||!!crash;
  $('anterior').disabled=busy||index===0;$('proximo').disabled=busy||index===5;
  $('proximo').textContent=index===4?'Conclusão →':'Avançar →';
- $('estado').innerHTML=fade?'Trocando slide <span>Transição suave</span>':cameraTween?'Novo enquadramento <span>Câmera em movimento</span>':motion?`Percurso ${String(index+1).padStart(2,'0')} → ${String(motion.to+1).padStart(2,'0')} <span>Em movimento</span>`:index===5?'Slide 06 <span>Conclusão</span>':`Slide ${String(index+1).padStart(2,'0')} <span>Aguardando avanço</span>`;
+ $('estado').innerHTML=fade?'Trocando slide <span>Transição suave</span>':crash?`Slide 05 <span>${crash.impacted?'Impacto frontal':'Perda de controle'}</span>`:cameraTween?'Novo enquadramento <span>Câmera em movimento</span>':motion?`Percurso ${String(index+1).padStart(2,'0')} → ${String(motion.to+1).padStart(2,'0')} <span>Em movimento</span>`:index===5?'Slide 06 <span>Conclusão</span>':`Slide ${String(index+1).padStart(2,'0')} <span>${crashed?'Após o impacto':'Aguardando avanço'}</span>`;
  for(let i=0;i<6;i++){$('etapa-'+i).className='step'+(i===index?' current':i<index?' done':'');$('etapa-'+i).setAttribute('aria-current',i===index?'step':'false')}
  labels.forEach((label,i)=>label.ring.material=i===index?blue:gray);
  setContent();ensureSelectedVisible();
 }
 function setInstant(to){
+ resetCrash();
  index=to;carU=stops[Math.min(to,4)];carTurn.copy(orient(carU));place(carU);steers.forEach(s=>s.rotation.y=0);
- const pose=stopPose(to);look.copy(pose.look);boom.copy(pose.boom);
+ if(to===5)finishWreck();
+ const pose=presentationPose(to);look.copy(pose.look);boom.copy(pose.boom);
 }
 function selectSlide(to){
- if(fade||to<0||to>5||(index===to&&!motion&&!cameraTween))return;
+ if(fade||to<0||to>5||(index===to&&to!==4&&!motion&&!cameraTween&&!crash))return;
  // Um salto cancela o percurso atual; a troca de mundo acontece apenas no branco total.
- motion=null;cameraTween=null;fade={to,time:0,switched:false};ui();
+ motion=null;cameraTween=null;crash=null;fade={to,time:0,switched:false};ui();
 }
 function advance(direction){
- if(motion||cameraTween||fade)return;
+ if(motion||cameraTween||fade||crash)return;
  const to=index+direction;if(to<0||to>5)return;
+ if(index===4&&crashed&&direction<0){selectSlide(to);return}
  if(to===5||index===5){
-  const pose=stopPose(to);cameraTween={to,fromLook:look.clone(),fromBoom:boom.clone(),toLook:pose.look,toBoom:pose.boom,time:0,duration:3};ui();return;
+  const pose=presentationPose(to);cameraTween={to,fromLook:look.clone(),fromBoom:boom.clone(),toLook:pose.look,toBoom:pose.boom,time:0,duration:3};ui();return;
  }
  const from=carU,end=stops[to];
  // Um único relógio sincroniza carro, órbita e composição: todos chegam juntos.
@@ -193,14 +237,14 @@ addEventListener('keydown',e=>{
  const key=e.key.toLowerCase();if([' ','arrowright','pagedown','arrowleft','pageup','f'].includes(key)){e.preventDefault();if([' ','arrowright','pagedown'].includes(key))advance(1);else if(['arrowleft','pageup'].includes(key))advance(-1);else fullscreen()}
 });
 let resizeTimer;
-addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{makePoses();if(!motion&&!cameraTween&&!fade){const p=stopPose(index);look.copy(p.look);boom.copy(p.boom)}else if(motion)motion.endPose=stopPose(motion.to);else if(cameraTween){const p=stopPose(cameraTween.to);cameraTween.toLook=p.look;cameraTween.toBoom=p.boom}},150)});
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{makePoses();if(!motion&&!cameraTween&&!fade&&!crash){const p=presentationPose(index);look.copy(p.look);boom.copy(p.boom)}else if(motion)motion.endPose=stopPose(motion.to);else if(cameraTween){const p=presentationPose(cameraTween.to);cameraTween.toLook=p.look;cameraTween.toBoom=p.boom}},150)});
 const first=stopPose(0);look.copy(first.look);boom.copy(first.boom);place(carU);
 function update(dt){
  if(fade){
   fade.time+=dt;const out=.27,hold=.08,into=.34;
   $('fade').style.opacity=fade.time<out?smooth(fade.time/out):fade.time<out+hold?1:1-smooth((fade.time-out-hold)/into);
   if(!fade.switched&&fade.time>=out){fade.switched=true;setInstant(fade.to);ui()}
-  if(fade.time>=out+hold+into){fade=null;$('fade').style.opacity=0;ui()}
+  if(fade.time>=out+hold+into){fade=null;$('fade').style.opacity=0;if(index===4)beginCrash();else ui()}
  }
  if(cameraTween){const t=cameraTween;t.time+=dt;const u=ease(clamp(t.time/t.duration,0,1));look.lerpVectors(t.fromLook,t.toLook,u);boom.lerpVectors(t.fromBoom,t.toBoom,u);if(u===1){index=t.to;cameraTween=null;ui()}}
  if(motion){
@@ -227,8 +271,38 @@ function update(dt){
   const framing=lerp(initialScreenX,endScreenX,u)*(1-Math.sin(u*Math.PI)**2*.75);
   look.copy(compose(at(carU),boom,framing).look);
   if(q===1){
-   look.copy(m.endPose.look);boom.copy(m.endPose.boom);steers.forEach(s=>s.rotation.y=0);index=m.to;motion=null;ui();
+   look.copy(m.endPose.look);boom.copy(m.endPose.boom);steers.forEach(s=>s.rotation.y=0);index=m.to;motion=null;if(index===4&&m.direction>0)beginCrash();else ui();
   }
+ }
+ if(crash){
+  const c=crash;c.time+=dt;const contactTime=1.55,crushTime=.20,duration=3;
+  if(c.time<contactTime){
+   const q=clamp(c.time/contactTime,0,1),u=q*q*(2-q),d=escapeCurve.getTangent(u).normalize();
+   car.position.copy(escapeCurve.getPoint(u));car.quaternion.copy(directionQuaternion(d));
+   car.quaternion.multiply(new T.Quaternion().setFromAxisAngle(V(0,1,0),Math.sin(u*6*Math.PI)*Math.sin(u*Math.PI)**2*.25));
+   wheelAngle+=dt*12;wheels.forEach(w=>w.rotation.z=-wheelAngle);steers.forEach(s=>{if(s.position.x>0)s.rotation.y=Math.sin(u*6*Math.PI)*.35});
+   skid.visible=q>.12;
+  }else{
+   if(!c.impacted){c.impacted=true;impacts++;car.visible=false;damaged.root.visible=true;ui()}
+   const d=ease(clamp((c.time-contactTime)/crushTime,0,1));
+   car.position.lerpVectors(hitPosition,wreckPosition,d);car.quaternion.copy(directionQuaternion(crashDirection));
+   const rebound=Math.sin(Math.min((c.time-contactTime)*15,Math.PI))*Math.exp(-(c.time-contactTime)*8)*.06;
+   car.quaternion.multiply(new T.Quaternion().setFromAxisAngle(V(0,0,1),rebound));
+   syncDamaged();damaged.aplicar(d);
+   if(c.time>contactTime+.44)fire.visible=true;
+  }
+  const u=ease(clamp(c.time/duration,0,1)),yaw0=Math.atan2(c.initialBoom.x,c.initialBoom.z),yaw1=Math.atan2(crashPose.boom.x,crashPose.boom.z);
+  const yaw=yaw0+Math.atan2(Math.sin(yaw1-yaw0),Math.cos(yaw1-yaw0))*u;
+  const radius=lerp(Math.hypot(c.initialBoom.x,c.initialBoom.z),Math.hypot(crashPose.boom.x,crashPose.boom.z),u);
+  boom.set(Math.sin(yaw)*radius,lerp(c.initialBoom.y,crashPose.boom.y,u)+Math.sin(u*Math.PI)**2*1.5,Math.cos(yaw)*radius);
+  look.copy(compose(car.position.clone().add(V(0,.06,0)),boom,.60).look);
+  if(c.time>=duration){finishWreck();look.copy(crashPose.look);boom.copy(crashPose.boom);crash=null;ui()}
+ }
+ if(fire.visible){
+  fireTime+=dt;const strength=smooth(fireTime/.55);
+  for(const f of flames){const phase=(fireTime*.95+f.phase)%1,flicker=.82+.18*Math.sin(fireTime*11+f.phase*7);f.mesh.position.set(f.x+Math.sin(fireTime*3+f.phase)*.07,.87+phase*.42,f.z);f.mesh.scale.setScalar(1);f.mesh.scale.set((.50+.24*Math.sin(f.phase*6))*flicker,(.7+.65*Math.sin(f.phase*8)**2)*strength,(.5+.20*Math.cos(f.phase*5))*flicker);f.mesh.rotation.set(Math.sin(fireTime*4+f.phase)*.11,0,Math.cos(fireTime*3+f.phase)*.14);f.mesh.material.opacity=(.64+.27*flicker)*strength}
+  for(const s of smoke){const p=(fireTime*.13+s.phase)%1;s.mesh.position.set(.3+p*.9+Math.sin(p*7+s.phase)*.3,1.9+p*3.7,p*.4);s.mesh.scale.setScalar(.28+p*.85);s.mesh.material.opacity=Math.sin(p*Math.PI)*.16*strength}
+  fireLight.intensity=(3+Math.sin(fireTime*13)*.8)*strength;
  }
  // A visão geral precisa conservar o mapa visível também a grande distância.
  const aerialDistance=Math.max(0,boom.length()-50);
@@ -240,7 +314,7 @@ function update(dt){
 document.addEventListener('visibilitychange',()=>{lastTime=null});
 function tick(time){const dt=lastTime===null?0:Math.max((time-lastTime)/1000,0);lastTime=time;update(dt);requestAnimationFrame(tick)}
 // Diagnóstico local para validação: sem telemetria, sem persistência e sem rede.
-window.prototipo={estado:()=>({index,carU,moving:!!motion||!!cameraTween,fading:!!fade,tracking:!!motion,progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===5,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide};
+window.prototipo={estado:()=>({index,carU,moving:!!motion||!!cameraTween||!!crash,fading:!!fade,tracking:!!motion,crashTime:crash?.time??null,crashed,fire:fire.visible,impacts,damagedVisible:damaged.root.visible,tree:treePosition.toArray(),frontDirection:V(1,0,0).applyQuaternion(car.quaternion).toArray(),wreckPosition:wreckPosition.toArray(),crashLayout:roadIntrusions(crashPose,4,0),progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===5,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide,exportarAmassado:()=>damaged.exportar()};
 ui();requestAnimationFrame(tick);
 } catch(error){console.error(error);$('erro').classList.remove('hidden');$('erro').textContent='Não foi possível iniciar a cena 3D. Abra este arquivo no Microsoft Edge ou Google Chrome com suporte a WebGL. Detalhe: '+error.message;$('estado').textContent='Cena indisponível';}
 })();

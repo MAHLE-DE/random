@@ -22,16 +22,26 @@ A câmera e o carro começam a se mover juntos, no primeiro quadro da transiçã
 
 Depois da quinta parada, Avançar abre a conclusão: o carro permanece na última posição e a câmera se afasta para apresentar o mapa inteiro. Voltar retorna ao enquadramento da quinta parada. A visão geral não tem botão separado.
 
+Na quinta parada, o carro executa uma sequência adicional de três segundos: perde o controle, deixa marcas de derrapagem, sai da estrada e bate de frente em uma árvore. Há um único impacto, seguido pelo amassamento da dianteira e, após um pequeno intervalo, fogo e fumaça em 3D. A cabine e a marca continuam reconhecíveis. O carro fica imóvel após o impacto; o fogo permanece animado. Essa ação acontece depois da viagem normal de três segundos entre as paradas.
+
+Para testar diretamente, selecione **05** na barra. Selecionar **05 novamente** repete a sequência com fade de reinício. Retornar da conclusão à quinta parada conserva o estado amassado sem repetir a batida. Voltar da quinta para a quarta usa fade e restaura o carro intacto; selecionar outro slide também cancela a sequência e seus efeitos.
+
+O [modelo amassado separado](../modelos/carro-amassado.glb) tem geometria deformada já aplicada, sem depender da animação ou de vídeo. A [prévia](../modelos/previa-carro-amassado.png) permite conferir o resultado. A deformação é ilustrativa e não corresponde a uma simulação física ou a um veículo real.
+
 O conteúdo mostrado nos retângulos é apenas uma indicação de espaço. O coletor e o conteúdo técnico ainda não foram reinseridos.
 
 ## Fontes e reprodução
 
 - `movimento.js`: mapa, carro, enquadramentos, animação e navegação.
+- `dano.js`: geração da variante amassada e deformação progressiva do impacto.
+- `exportar-amassado.mjs`: exportação do modelo GLB e da prévia, usando Playwright apenas na máquina de produção.
 - `interface.html`: interface e espaços de conteúdo.
 - `gerar.mjs`: incorpora Three.js 0.170.0, o GLB original e o SVG em um HTML autossuficiente.
 - Biblioteca e licença: `../fontes/vendor/three.module.js` e `../fontes/vendor/LICENCA-THREE.txt`.
 - Modelo: `../modelos/carro.glb`. Marca: `../midias/mahle-azul.svg`.
 
 Somente para editar e reconstruir, em uma máquina de produção com Node.js: `node prototipo-mapa/gerar.mjs`, a partir da raiz do repositório. Isso não é necessário para apresentar.
+
+Para reconstruir também o modelo amassado, execute `node prototipo-mapa/exportar-amassado.mjs` em um ambiente de produção com Playwright instalado. O navegador pode ser indicado pela variável `PRESENTATION_BROWSER`. O exportador usa o `GLTFExporter.js` já incluído no repositório e rejeita uma exportação sem malhas.
 
 O arquivo bloqueia conexões de rede e mídias por sua política de conteúdo. Usa WebGL e depende de suporte gráfico no navegador. Os enquadramentos foram verificados em 16:9 e 4:3. Uma projeção real e o passador físico ainda devem ser conferidos no equipamento da apresentação.

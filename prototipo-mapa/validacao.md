@@ -27,4 +27,20 @@ A verificação geométrica usa amostragem da largura inteira da estrada, com ma
 
 O percurso, a órbita e a composição usam uma única curva de tempo com velocidade e aceleração nulas na partida e na chegada. Não há mais espera pela borda da tela nem correção posterior à parada. A suavidade visual também depende da taxa de quadros que o equipamento consegue renderizar.
 
+## Batida na quinta parada
+
+- Percurso normal até a quinta parada seguido pela sequência adicional de três segundos.
+- Perda de controle e saída da estrada antes do contato com a árvore.
+- Um único impacto por execução, com deformação progressiva da dianteira.
+- Alinhamento frontal com o tronco verificado pela direção do carro e a posição da árvore.
+- Fogo iniciado somente após o impacto, seguido de fumaça; efeitos gerados em tempo real, sem mídia externa.
+- Carro imóvel após a batida e sem repetição automática do impacto.
+- Retorno da conclusão mantendo o carro amassado, sem novo impacto.
+- Repetição explícita pelo botão 05 e cancelamento pela seleção de outro slide.
+- Carro inteiro dentro da tela durante a sequência em 16:9 e 4:3, mantendo a estrada fora do retângulo de conteúdo no enquadramento final.
+- Exportação de `carro-amassado.glb` com malhas, hierarquia e materiais, sem fogo ou cenário incorporados. Deformação aplicada às posições dos vértices, com normais recalculadas.
+- Prévia do modelo conferida para preservar vidros laterais e marca, com a dianteira encurtada e o capô amassado.
+
+O cenário é uma representação visual hipotética. A geometria amassada e as chamas não constituem previsão de dano estrutural ou de ocorrência de incêndio.
+
 Ainda dependem de teste no local: passador físico, projeção, desempenho da máquina de apresentação e eventuais políticas do navegador corporativo. Não foi necessário alterar a segurança do navegador para os testes locais.
