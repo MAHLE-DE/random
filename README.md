@@ -6,6 +6,8 @@ Antes de continuar em outra máquina, atualizar com `git pull --ff-only`. Ao enc
 
 O trabalho atual é a apresentação da Semana da Qualidade da MAHLE em Mogi Guaçu. O conteúdo é inteiramente em português, com fundo predominantemente branco, azuis complementares e logotipo azul no canto superior direito.
 
+O desenvolvimento ativo passou para o **[protótipo interativo offline do mapa 3D](prototipo-mapa/iniciar.html)**. Ele testa o carro percorrendo um mapa contínuo, a câmera móvel, os espaços reservados para apresentação e a navegação por slides. São cinco paradas e uma conclusão com visão geral. Consulte [operação e fontes](prototipo-mapa/README.md). O conteúdo técnico ficará para uma etapa posterior; os PPTX abaixo preservam a versão anterior.
+
 Os arquivos finais ficam em [`entrega`](entrega/): [principal](entrega/qualidade-mahle.pptx), [estática](entrega/qualidade-mahle-estatica.pptx), [contingência reduzida](entrega/qualidade-mahle-contingencia.pptx) e [visão da jornada](entrega/jornada-completa.png). O contexto técnico está em [`fontes/criterios.md`](fontes/criterios.md) e a correspondência das funções do DFMEA em [`fontes/matriz-dfmea.md`](fontes/matriz-dfmea.md). Os modelos genéricos reutilizáveis ficam em [`modelos`](modelos/), as mídias em [`midias`](midias/) e o roteiro em [`roteiros`](roteiros/).
 
 Para apresentar, basta o PPTX escolhido e o PowerPoint compatível. As bibliotecas e ferramentas de produção não são necessárias. Consulte [`roteiros/operacao.md`](roteiros/operacao.md).
