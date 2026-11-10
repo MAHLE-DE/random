@@ -21,7 +21,8 @@ const config=JSON.parse(await fs.readFile(path.join(base,'configuracao.json'),'u
 let app=(await fs.readFile(path.join(base,'movimento.js'),'utf8')).replace('__CARRO_BASE64__',car).replace('__DANO_SOURCE__',()=>damage).replace('__VEGETACAO_SOURCE__',()=>vegetation).replace('__COLETOR_SOURCE__',()=>manifold).replace('__VISOR_SOURCE__',()=>viewer).replace('__CONFIG_SOURCE__',()=>`const CONFIG=${JSON.stringify(config)};const STOP_COUNT=CONFIG.paradas.length,LAST_STOP=STOP_COUNT-1,FINAL_SLIDE=STOP_COUNT,STOP_PARAMS=CONFIG.paradas.map(p=>p.u);`);
 const steps=Array.from({length:config.paradas.length+1},(_,i)=>`<button class="step" id="etapa-${i}" aria-label="${i===config.paradas.length?'Selecionar conclusão':'Selecionar severidade '+(i+1)}" type="button">${i===config.paradas.length?'Fim':String(i+1).padStart(2,'0')}</button>`).join('');
 let html=await fs.readFile(path.join(base,'interface.html'),'utf8');
-html=html.replace('__LOGO__',svg).replace('__ETAPAS__',steps).replace('__THREE__',()=>bundled).replace('__APP__',()=>app);
+const p=config.painel,panelCSS=`--painel-x:${p.margemLateral*100}%;--painel-y:${p.topo*100}%;--painel-largura:${p.largura*100}%;--painel-altura:${p.altura*100}%;--painel-opacidade:${p.opacidade};`;
+html=html.replace('__PAINEL_CSS__',panelCSS).replace('__LOGO__',svg).replace('__ETAPAS__',steps).replace('__THREE__',()=>bundled).replace('__APP__',()=>app);
 html=html.replace('<html lang="pt-BR">',()=>`<!-- Licença da biblioteca incorporada:\n${license}\n-->\n<html lang="pt-BR">`);
 await fs.writeFile(path.join(base,'iniciar.html'),html);
 console.log('Arquivo offline gerado:',path.join(base,'iniciar.html'));

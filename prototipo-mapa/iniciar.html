@@ -28,15 +28,28 @@ THE SOFTWARE.
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; font-src 'none'; connect-src 'none'; media-src 'none'">
 <title>MAHLE · Jornada da qualidade</title>
 <style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#fff;color:#18364e;font-family:Arial,sans-serif}canvas{display:block;width:100%;height:100%}.hidden{display:none!important}
-.content{position:absolute;z-index:2;left:5%;top:16.8%;width:51.6%;height:62.4%;padding:26px 30px 70px;background:rgba(255,255,255,.85);border:1px solid #ffffff80;border-radius:8px;box-shadow:0 12px 40px #20391818;transition:opacity .20s;pointer-events:none;display:flex;flex-direction:column}.content.right{left:43.4%}.content.absent{opacity:0;pointer-events:none}.content.absent *{pointer-events:none!important}.slide-brand{position:absolute;right:26px;top:24px;width:98px;height:28px}.brand{width:100%;height:100%;object-fit:contain}.eyebrow{font-size:11px;letter-spacing:.13em;font-weight:700;color:#0043bc;line-height:1.4;margin:0 120px 9px 0}.content h1{font-size:clamp(24px,2.1vw,36px);font-weight:500;letter-spacing:-.04em;line-height:1.12;margin:0 110px 12px 0}.slide-function{font-size:clamp(13px,1vw,16px);line-height:1.4;color:#304c61;margin:0;max-width:100%}.function-label{font-size:10px;letter-spacing:.10em;font-weight:bold;color:#647b90;margin-right:7px}.content #descricao{font-size:17px;line-height:1.5;color:#526a7b}.content:not(.model-slide) #descricao{max-width:80%}.first-content{display:grid;grid-template-columns:43% 57%;gap:18px;min-height:0;flex:1;margin-top:22px}.meaning{display:flex;flex-direction:column;gap:22px;min-width:0;padding-right:4px}.meaning section{border-left:3px solid #0043bc;padding-left:13px}.meaning section.business{border-color:#b87924}.meaning h2{font-size:clamp(16px,1.16vw,20px);font-weight:600;line-height:1.25;letter-spacing:-.02em;margin:0 0 9px}.meaning p{font-size:clamp(13px,.97vw,16px);line-height:1.45;margin:0;color:#304b60}.meaning .emphasis{margin-top:9px;font-weight:bold;color:#75501d}.section-kicker{font-size:10px;color:#526f87;letter-spacing:.1em;font-weight:bold;margin-bottom:6px}.business .section-kicker{color:#936523}.model-pane{position:relative;min-height:0;min-width:0;margin-left:-6px}.model-caption{font-size:11px;line-height:1.3;color:#9c5b15;letter-spacing:.02em;margin:0 8px 5px}.model-caption strong{font-weight:600}#coletor-viewport{position:absolute;inset:23px 0 30px;pointer-events:auto;overflow:hidden}#coletor-viewport canvas{cursor:grab;touch-action:none}#coletor-viewport canvas:active{cursor:grabbing}.field-legend{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-around;gap:5px;font-size:10px;color:#5b6873;line-height:1.3}.field-legend span{display:flex;align-items:center;gap:4px}.empty-mark{display:inline-block;width:16px;height:10px;border:1px dashed #bf8430;border-radius:2px}.model-pin{position:absolute;width:21px;height:21px;border:1.5px solid #bb7720;border-radius:50%;background:#fff5dc;color:#965a12;font-size:12px;line-height:18px;text-align:center;font-weight:bold;pointer-events:none;box-shadow:0 2px 5px #60400e20}.model-tools{position:absolute;bottom:12px;right:12px;max-width:56%;display:flex;justify-content:flex-end;flex-wrap:wrap;gap:5px;pointer-events:auto;align-items:center}.model-tools button{height:29px;padding:0 8px;font-size:11px;border-radius:7px;background:#fffffff2}.model-tools button.zoom{width:28px;padding:0;font-size:17px}.zoom-value{font-size:10px;color:#466078;min-width:32px;text-align:center}.model-tools button[aria-pressed="true"]{color:#0043bc;border-color:#9fb9e8}
-.bottom{position:absolute;z-index:5;bottom:24px;left:36px;right:36px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px}.panel{background:rgba(255,255,255,.94);border:1px solid #e4ebf3;border-radius:16px;padding:13px 16px;box-shadow:0 8px 35px #28487109}.status{font-size:12px;min-height:15px;margin-bottom:11px}.status span{color:#788b9c;margin-left:10px}.slide-nav{display:flex;align-items:center;gap:8px}.numbers{display:flex;gap:8px;width:212px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#bbcee9 transparent;padding:2px 0 7px}.step{flex:0 0 36px;width:36px;height:32px;padding:0;scroll-snap-align:start;border:0;border-radius:8px;background:#edf2f8;color:#72859a;font-size:11px;display:grid;place-items:center}.step.current{background:#0043bc;color:white}.step.done{background:#dce8fc;color:#0043bc}.nav-scroll{width:24px;height:30px;padding:0;border:0;background:transparent;color:#7088a0}.controls{display:flex;align-items:center;gap:8px}button{border:1px solid #dce5f0;background:white;color:#18364e;border-radius:11px;height:42px;padding:0 17px;font:14px Arial;cursor:pointer;transition:background .18s,opacity .18s}button:hover{background:#edf3fc}button:focus-visible{outline:3px solid #8eb5fc;outline-offset:2px}button.primary{background:#0043bc;color:white;border-color:#0043bc;min-width:122px}button.primary:hover{background:#003794}button:disabled{opacity:.35;cursor:default}.help{font-size:11px;color:#72859a;text-align:right;margin-top:10px;background:#fffffff0;padding:5px 8px;border-radius:6px}.error{position:absolute;z-index:20;inset:25%;background:white;padding:30px;border:1px solid #ccd9ed;border-radius:16px;line-height:1.6}.veil{position:absolute;z-index:3;inset:0;background:#fff;opacity:0;pointer-events:none}
-@media(max-height:800px){.content{padding:20px 24px 66px}.slide-brand{top:20px;right:22px;width:86px;height:24px}.eyebrow{font-size:10px;margin-bottom:6px}.content h1{margin-bottom:8px}.first-content{margin-top:13px;gap:13px}.meaning{gap:14px}.meaning h2{margin-bottom:6px;font-size:16px}.meaning p{font-size:12.5px;line-height:1.38}.meaning .emphasis{margin-top:6px}.section-kicker{font-size:9px;margin-bottom:4px}.slide-function{font-size:12.5px;line-height:1.33}.model-tools{max-width:57%}.bottom{bottom:14px}}
-@media(max-width:900px){.content{padding:20px 20px 78px}.slide-brand{right:17px;width:76px}.content h1{margin-right:75px;font-size:24px}.eyebrow{margin-right:80px;font-size:9px}.first-content{gap:10px;grid-template-columns:45% 55%}.meaning section{padding-left:8px}.meaning p{font-size:12px}.meaning h2{font-size:15px}.slide-function{font-size:12px}.model-tools{max-width:58%}.field-legend{font-size:9px}.model-caption{font-size:10px}}
-.first-content{grid-template-columns:minmax(0,43fr) minmax(0,57fr)}.content.model-slide #descricao{font-size:clamp(13px,1vw,16px);line-height:1.4;color:#304c61}
-.content .model-tools{max-width:60%}
-@media(max-height:800px){.content.model-slide #descricao{font-size:12.5px;line-height:1.33}}
-@media(max-width:900px){.first-content{grid-template-columns:minmax(0,45fr) minmax(0,55fr)}}
+:root{--painel-x:10%;--painel-y:10%;--painel-largura:80%;--painel-altura:80%;--painel-opacidade:0.85;}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#fff;color:#102b40;font-family:Arial,sans-serif}canvas{display:block;width:100%;height:100%}.hidden{display:none!important}
+.content{position:absolute;z-index:2;left:var(--painel-x);top:var(--painel-y);width:var(--painel-largura);height:var(--painel-altura);padding:34px 40px 84px;background:rgba(255,255,255,var(--painel-opacidade));border:1px solid #ffffff80;border-radius:10px;box-shadow:0 12px 40px #20391818;transition:opacity .20s;pointer-events:none;display:flex;flex-direction:column}
+.content.absent{opacity:0;pointer-events:none}.content.absent *{pointer-events:none!important}
+.slide-brand{position:absolute;right:36px;top:32px;width:140px;height:36px}.brand{width:100%;height:100%;object-fit:contain}
+.eyebrow{font-size:clamp(20px,1.6vw,30px);letter-spacing:.055em;font-weight:800;color:#003eae;line-height:1.25;margin:0 180px 12px 0}
+.content h1{font-size:clamp(32px,2.75vw,52px);font-weight:600;letter-spacing:-.035em;line-height:1.12;margin:0 160px 14px 0}
+.slide-function{font-size:clamp(18px,1.35vw,25px);line-height:1.38;color:#17364c;margin:0;max-width:100%}.content:not(.model-slide) #descricao{max-width:85%}
+.first-content{display:grid;grid-template-columns:minmax(0,43fr) minmax(0,57fr);gap:30px;min-height:0;flex:1;margin-top:24px}
+.meaning{display:flex;flex-direction:column;gap:24px;min-width:0;padding-right:4px}.meaning section{border-left:4px solid #0043bc;padding-left:17px}.meaning section.business{border-color:#a86b1e}
+.meaning h2{font-size:clamp(23px,1.65vw,30px);font-weight:700;line-height:1.2;letter-spacing:-.02em;margin:0 0 10px}.meaning p{font-size:clamp(18px,1.3vw,24px);line-height:1.4;margin:0;color:#173349}.meaning .emphasis{margin-top:10px;font-weight:700;color:#684014}
+.section-kicker{font-size:clamp(13px,.9vw,17px);color:#204462;letter-spacing:.07em;font-weight:700;margin-bottom:7px}.business .section-kicker{color:#754715}
+.model-pane{display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:12px;min-height:0;min-width:0}
+.model-caption{font-size:clamp(15px,1.05vw,20px);line-height:1.3;color:#704314;margin:0}.model-caption strong{font-weight:700}
+#coletor-viewport{position:relative;min-height:0;min-width:0;pointer-events:auto;overflow:hidden}#coletor-viewport canvas{cursor:grab;touch-action:none}#coletor-viewport canvas:active{cursor:grabbing}
+.field-legend{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;font-size:clamp(14px,1vw,18px);color:#153348;line-height:1.25}
+.field-legend>span{display:flex;align-items:center;gap:8px;min-height:50px;padding:8px 10px;background:rgba(255,255,255,.94);border:1px solid #bca070;border-radius:6px}.field-legend b{font-weight:700}.empty-mark{display:inline-block;flex:0 0 20px;width:20px;height:13px;border:2px dashed #99601a;border-radius:2px}
+.model-pin{position:absolute;width:27px;height:27px;border:2px solid #a56315;border-radius:50%;background:#fff5dc;color:#70400b;font-size:16px;line-height:23px;text-align:center;font-weight:bold;pointer-events:none;box-shadow:0 2px 5px #60400e20}
+.model-tools{position:absolute;bottom:18px;right:20px;max-width:calc(100% - 40px);display:flex;justify-content:flex-end;flex-wrap:wrap;gap:8px;pointer-events:auto;align-items:center}.model-tools button{height:38px;padding:0 12px;font-size:15px;border-radius:7px;background:#fffffff5;color:#14344d;border-color:#b2c4d6}.model-tools button.zoom{width:36px;padding:0;font-size:23px}.zoom-value{font-size:14px;font-weight:600;color:#183a54;min-width:42px;text-align:center}.model-tools button[aria-pressed="true"]{color:#0043bc;border-color:#7497cb}
+.bottom{position:absolute;z-index:5;bottom:12px;left:36px;right:36px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px}.panel{background:rgba(255,255,255,.94);border:1px solid #e4ebf3;border-radius:12px;padding:7px 12px;box-shadow:0 8px 35px #28487109}.status{font-size:13px;line-height:16px;min-height:16px;margin-bottom:4px}.status span{color:#425d73;margin-left:10px}.slide-nav{display:flex;align-items:center;gap:8px}.numbers{display:flex;gap:8px;width:212px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#9fb8d8 transparent;padding:1px 0 4px}.step{flex:0 0 36px;width:36px;height:32px;padding:0;scroll-snap-align:start;border:0;border-radius:8px;background:#edf2f8;color:#36536d;font-size:13px;display:grid;place-items:center}.step.current{background:#0043bc;color:white}.step.done{background:#dce8fc;color:#0043bc}.nav-scroll{width:24px;height:30px;padding:0;border:0;background:transparent;color:#385977}.controls{display:flex;align-items:center;gap:8px}button{border:1px solid #b6c8da;background:white;color:#18364e;border-radius:9px;height:42px;padding:0 17px;font:16px Arial;cursor:pointer;transition:background .18s,opacity .18s}button:hover{background:#edf3fc}button:focus-visible{outline:3px solid #8eb5fc;outline-offset:2px}button.primary{background:#0043bc;color:white;border-color:#0043bc;min-width:132px}button.primary:hover{background:#003794}button:disabled{opacity:.45;cursor:default}.help{font-size:12px;color:#36536d;text-align:right;margin-top:7px;background:#fffffff0;padding:4px 8px;border-radius:6px}.error{position:absolute;z-index:20;inset:25%;background:white;padding:30px;border:1px solid #ccd9ed;border-radius:16px;line-height:1.6}.veil{position:absolute;z-index:3;inset:0;background:#fff;opacity:0;pointer-events:none}
+@media(max-height:800px){.content{padding:24px 28px 74px}.slide-brand{top:24px;right:26px;width:116px;height:30px}.eyebrow{font-size:21px;margin-right:150px;margin-bottom:9px}.content h1{font-size:34px;margin-right:135px;margin-bottom:10px}.slide-function{font-size:17px;line-height:1.33}.first-content{margin-top:18px;gap:24px}.meaning{gap:18px}.meaning section{padding-left:13px}.meaning h2{font-size:22px;margin-bottom:8px}.meaning p{font-size:17px;line-height:1.38}.meaning .emphasis{margin-top:8px}.section-kicker{font-size:12px;margin-bottom:6px}.model-caption{font-size:15px}.model-pane{gap:9px}.field-legend{font-size:14px;gap:7px}.field-legend>span{padding:7px;min-height:46px;gap:6px}.empty-mark{flex-basis:17px;width:17px}.model-tools{bottom:16px}.model-tools button{font-size:14px;height:36px}.bottom{bottom:10px}.bottom .status,.help{display:none}}
+@media(max-width:1000px){.content{padding:24px 24px 76px}.content h1{font-size:30px}.eyebrow{font-size:19px;letter-spacing:.03em}.first-content{gap:20px}.meaning h2{font-size:20px}.meaning p{font-size:16px}.slide-function{font-size:17px}.section-kicker{font-size:12px}.field-legend{font-size:13px}.field-legend>span{padding:6px;gap:5px}.empty-mark{flex-basis:14px;width:14px}.model-tools button{padding:0 9px;font-size:13px}}
 </style>
 <main id="mundo" aria-label="Mapa tridimensional com estrada e carro animado"></main>
 <section class="content" id="conteudo" aria-label="Slide da apresentação">
@@ -62,9 +75,9 @@ THE SOFTWARE.
    <section><div class="section-kicker">NO SISTEMA · S1</div><h2 id="sistema-titulo">Sem efeito funcional</h2><p id="sistema-texto"></p></section>
    <section class="business"><div class="section-kicker">RESSALVA PARA A MAHLE</div><h2 id="mahle-titulo">A rastreabilidade faz diferença</h2><p id="mahle-texto"></p><p class="emphasis" id="mahle-destaque"></p></section>
   </div>
-  <div class="model-pane"><div class="model-caption"><strong>Três campos sem gravação</strong> · áreas destacadas no injetado</div><div id="coletor-viewport" aria-label="Modelo 3D com áreas de marcação ausentes"><div id="marcacao-alvo" class="model-pin">!</div></div><div class="field-legend"><span><i class="empty-mark"></i>Data de injeção</span><span><i class="empty-mark"></i>Nº componente</span><span><i class="empty-mark"></i>Nº cavidade</span></div></div>
+  <div class="model-pane"><div class="model-caption"><strong>Três campos sem gravação</strong> · áreas destacadas no injetado</div><div id="coletor-viewport" aria-label="Modelo 3D com áreas de marcação ausentes"><div id="marcacao-alvo" class="model-pin">!</div></div><div class="field-legend"><span><i class="empty-mark"></i><b>Data de injeção</b></span><span><i class="empty-mark"></i><b>Número do componente</b></span><span><i class="empty-mark"></i><b>Número de cavidade</b></span></div></div>
  </div>
- <div class="model-tools hidden" id="ferramentas-modelo"><button class="zoom" id="coletor-menos" aria-label="Afastar coletor">−</button><span class="zoom-value" id="coletor-zoom">125%</span><button class="zoom" id="coletor-mais" aria-label="Aproximar coletor">+</button><button id="coletor-marcas">Focar marcações</button><button id="coletor-corte" aria-pressed="false">Vista completa</button><button id="coletor-restaurar">Reenquadrar</button></div>
+ <div class="model-tools hidden" id="ferramentas-modelo"><button class="zoom" id="coletor-menos" aria-label="Afastar coletor">−</button><span class="zoom-value" id="coletor-zoom">110%</span><button class="zoom" id="coletor-mais" aria-label="Aproximar coletor">+</button><button id="coletor-marcas">Focar marcações</button><button id="coletor-corte" aria-pressed="false">Vista completa</button><button id="coletor-restaurar">Reenquadrar</button></div>
 </section>
 <div class="veil" id="fade"></div>
 <div class="bottom"><div class="panel"><div class="status" role="status" aria-live="polite" id="estado">Preparando o mapa…</div><nav class="slide-nav" aria-label="Selecionar severidade"><button class="nav-scroll" id="rolar-anterior" aria-label="Rolar lista para a esquerda">‹</button><div class="numbers" id="numeros"><button class="step" id="etapa-0" aria-label="Selecionar severidade 1" type="button">01</button><button class="step" id="etapa-1" aria-label="Selecionar severidade 2" type="button">02</button><button class="step" id="etapa-2" aria-label="Selecionar severidade 3" type="button">03</button><button class="step" id="etapa-3" aria-label="Selecionar severidade 4" type="button">04</button><button class="step" id="etapa-4" aria-label="Selecionar severidade 5" type="button">05</button><button class="step" id="etapa-5" aria-label="Selecionar severidade 6" type="button">06</button><button class="step" id="etapa-6" aria-label="Selecionar severidade 7" type="button">07</button><button class="step" id="etapa-7" aria-label="Selecionar severidade 8" type="button">08</button><button class="step" id="etapa-8" aria-label="Selecionar severidade 9" type="button">09</button><button class="step" id="etapa-9" aria-label="Selecionar severidade 10" type="button">10</button><button class="step" id="etapa-10" aria-label="Selecionar conclusão" type="button">Fim</button></div><button class="nav-scroll" id="rolar-proximo" aria-label="Rolar lista para a direita">›</button></nav></div><div><div class="controls"><button id="anterior" aria-label="Voltar um slide">← Voltar</button><button id="proximo" class="primary">Avançar →</button></div><div class="help">Espaço / → avançar · ← voltar · F tela cheia</div></div></div>
@@ -54644,7 +54657,8 @@ const T = { ACESFilmicToneMapping, AddEquation, AddOperation, AdditiveAnimationB
    Biblioteca e modelo são incorporados por gerar.mjs. Nenhuma requisição de rede. */
 (() => {
 'use strict';
-const CONFIG={"painel":{"margemLateral":0.05,"largura":0.516,"topo":0.168,"altura":0.624,"opacidade":0.85},"paradas":[{"severidade":1,"u":0.055,"lado":"left"},{"severidade":2,"u":0.155,"lado":"right"},{"severidade":3,"u":0.255,"lado":"left"},{"severidade":4,"u":0.355,"lado":"right"},{"severidade":5,"u":0.455,"lado":"left"},{"severidade":6,"u":0.555,"lado":"right"},{"severidade":7,"u":0.655,"lado":"left"},{"severidade":8,"u":0.755,"lado":"right"},{"severidade":9,"u":0.855,"lado":"left"},{"severidade":10,"u":0.955,"lado":"right"}],"primeiroSlide":{"titulo":"Marcação dos componentes","funcao":"Garantir marcação dos componentes com data de injeção, número do componente e número de cavidade","sistemaTitulo":"Sem efeito funcional","sistemaTexto":"Marcações ausentes ou incorretas não alteram as funções primárias nem as secundárias do coletor de ar.","mahleTitulo":"A rastreabilidade faz diferença","mahleTexto":"Em caso de problema no cliente, a identificação incompleta dificulta delimitar as peças que precisam de ação.","mahleDestaque":"Quanto maior o conjunto de peças sem identificação confiável, maior pode ser o custo para a MAHLE.","nota":"A severidade 1 se refere ao efeito funcional no sistema."}};const STOP_COUNT=CONFIG.paradas.length,LAST_STOP=STOP_COUNT-1,FINAL_SLIDE=STOP_COUNT,STOP_PARAMS=CONFIG.paradas.map(p=>p.u);
+const CONFIG={"painel":{"margemLateral":0.1,"largura":0.8,"topo":0.1,"altura":0.8,"opacidade":0.85},"composicaoMapa":{"margemLateral":0.05,"largura":0.516,"topo":0.168,"altura":0.624},"percurso":{"escalaHorizontal":1.8,"duracaoTransicao":2.5},"paradas":[{"severidade":1,"u":0.055,"lado":"left"},{"severidade":2,"u":0.155,"lado":"right"},{"severidade":3,"u":0.255,"lado":"left"},{"severidade":4,"u":0.355,"lado":"right"},{"severidade":5,"u":0.455,"lado":"left"},{"severidade":6,"u":0.555,"lado":"right"},{"severidade":7,"u":0.655,"lado":"left"},{"severidade":8,"u":0.755,"lado":"right"},{"severidade":9,"u":0.855,"lado":"left"},{"severidade":10,"u":0.955,"lado":"right"}],"primeiroSlide":{"titulo":"Marcação dos componentes","funcao":"Garantir marcação dos componentes com data de injeção, número do componente e número de cavidade","sistemaTitulo":"Sem efeito funcional","sistemaTexto":"Marcações ausentes ou incorretas não alteram as funções primárias nem as secundárias do coletor de ar.","mahleTitulo":"A rastreabilidade faz diferença","mahleTexto":"Em caso de problema no cliente, a identificação incompleta dificulta delimitar as peças que precisam de ação.","mahleDestaque":"Quanto maior o conjunto de peças sem identificação confiável, maior pode ser o custo para a MAHLE.","nota":"A severidade 1 se refere ao efeito funcional no sistema."}};const STOP_COUNT=CONFIG.paradas.length,LAST_STOP=STOP_COUNT-1,FINAL_SLIDE=STOP_COUNT,STOP_PARAMS=CONFIG.paradas.map(p=>p.u);
+const TRAVEL_DURATION=CONFIG.percurso.duracaoTransicao;
 const $=id=>document.getElementById(id);
 const V=(x=0,y=0,z=0)=>new T.Vector3(x,y,z);
 const clamp=T.MathUtils.clamp;
@@ -54818,40 +54832,64 @@ function criarColetorK24(T,{espessura=.055}={}){
  return{root,upper,runners,corte,alvoMarcacoes:V(-.27,.31,1.84),exportar(cut=false){const r=root.clone(true);r.position.set(0,0,0);r.quaternion.identity();r.getObjectByName('Destaques_didaticos_das_marcacoes')?.removeFromParent();r.getObjectByName('Metade_superior').visible=!cut;for(const o of cutOnly)r.getObjectByName(o.name).visible=cut;for(const o of fullOnly)r.getObjectByName(o.name).visible=!cut;r.userData.corte=cut;return r}};
 }
 
-// Componente de inspeção 3D reutilizável: desenho sob demanda, giro, zoom e foco em detalhes.
+// Inspeção 3D sob demanda. O enquadramento acompanha giro, corte, zoom e tamanho do visor.
 function criarVisorColetor(T,{visivel=()=>true}={}){
  const $=id=>document.getElementById(id),V=(x=0,y=0,z=0)=>new T.Vector3(x,y,z),clamp=T.MathUtils.clamp;
  const host=$('coletor-viewport'),studio=new T.Scene(),model=criarColetorK24(T),pivot=new T.Group();studio.add(pivot);pivot.add(model.root);
  const box=new T.Box3().setFromObject(model.root),center=box.getCenter(V());model.root.position.sub(center);
  studio.add(new T.HemisphereLight('#ffffff','#afbecb',2.4));const key=new T.DirectionalLight('#fff4e5',3.1);key.position.set(-4,8,7);key.castShadow=true;key.shadow.mapSize.set(1024,1024);Object.assign(key.shadow.camera,{left:-5,right:5,top:5,bottom:-5,far:30});key.shadow.normalBias=.014;studio.add(key);
  const fill=new T.DirectionalLight('#bddbff',1.8);fill.position.set(5,3,-4);studio.add(fill);
- const ground=new T.Mesh(new T.PlaneGeometry(18,18),new T.ShadowMaterial({opacity:.10}));ground.rotation.x=-Math.PI/2;ground.position.y=-center.y-.03;ground.receiveShadow=true;studio.add(ground);
+ const ground=new T.Mesh(new T.PlaneGeometry(18,18),new T.ShadowMaterial({opacity:.10,depthWrite:false}));ground.rotation.x=-Math.PI/2;ground.position.y=-center.y-.03;ground.receiveShadow=true;studio.add(ground);
  const r=new T.WebGLRenderer({antialias:true,alpha:true});r.setClearColor(0xffffff,0);r.setPixelRatio(Math.min(devicePixelRatio,1.5));r.shadowMap.enabled=true;r.shadowMap.type=T.PCFSoftShadowMap;r.shadowMap.autoUpdate=false;r.toneMapping=T.ACESFilmicToneMapping;r.outputColorSpace=T.SRGBColorSpace;host.prepend(r.domElement);
  r.domElement.setAttribute('aria-label','Coletor 3D: arraste para girar e use a roda do mouse para aproximar');
- const c=new T.PerspectiveCamera(34,1,.1,60);let width=0,height=0,cut=true,drag=null,rendered=0,zoom=1.4,focus=false,baseDistance=8,target=V(),direction=V(-.66,.85,1.1).normalize();
- function position(){c.position.copy(target).addScaledVector(direction,baseDistance/zoom);c.lookAt(target);c.updateMatrixWorld();$('coletor-zoom').textContent=Math.round(zoom*100)+'%'}
- function fit(){const b=new T.Box3().setFromObject(model.root);target.copy(b.getCenter(V()));direction.copy(V(-.66,.85,1.1).normalize());let distance=6;
-  for(let n=0;n<80;n++){c.position.copy(target).addScaledVector(direction,distance);c.lookAt(target);c.updateMatrixWorld();let ok=true;for(const x of [b.min.x,b.max.x])for(const y of [b.min.y,b.max.y])for(const z of [b.min.z,b.max.z]){const p=V(x,y,z).project(c);if(Math.abs(p.x)>.90||Math.abs(p.y)>.85)ok=false}if(ok)break;distance*=1.045}baseDistance=distance;position();
+ const c=new T.PerspectiveCamera(34,1,.1,120),initialDirection=V(-.42,.30,1.35).normalize(),direction=initialDirection.clone(),target=V();
+ let width=0,height=0,cut=true,drag=null,rendered=0,zoom=1.1,focus=false,framing=null;
+ // A nuvem usa os vértices reais de todas as peças visíveis. É preparada uma vez
+ // por versão (corte/completa) e reutilizada, evitando caixas vazias que diminuiriam o modelo.
+ const pointCache=new Map(),projected=V();
+ function modelPoints(){
+  model.root.updateWorldMatrix(true,true);let cache=pointCache.get(cut);
+  if(!cache){const local=[],unique=new Set(),inverse=new T.Matrix4().copy(pivot.matrixWorld).invert();model.root.traverseVisible(o=>{if(!o.geometry)return;const attr=o.geometry.getAttribute('position'),matrix=new T.Matrix4().multiplyMatrices(inverse,o.matrixWorld);for(let i=0;i<attr.count;i++){const p=V().fromBufferAttribute(attr,i).applyMatrix4(matrix),key=p.x+','+p.y+','+p.z;if(!unique.has(key)){unique.add(key);local.push(p)}}});cache={local,world:local.map(()=>V())};pointCache.set(cut,cache)}
+  for(let i=0;i<cache.local.length;i++)cache.world[i].copy(cache.local[i]).applyMatrix4(pivot.matrixWorld);return cache.world;
  }
- function updatePin(){model.root.updateWorldMatrix(true,true);const p=model.root.localToWorld(model.alvoMarcacoes.clone()),normal=V(0,0,1).transformDirection(model.root.matrixWorld),front=normal.dot(c.position.clone().sub(p))>0,v=p.project(c),pin=$('marcacao-alvo');pin.classList.toggle('hidden',!front||Math.abs(v.x)>.94||Math.abs(v.y)>.92||v.z<0||v.z>1);pin.style.left=((v.x*.5+.5)*width-10)+'px';pin.style.top=((-v.y*.5+.5)*height-26)+'px'}
+ function position(){
+  if(width<1||height<1)return;
+  const points=modelPoints(),right=V(direction.z,0,-direction.x).normalize(),up=V().crossVectors(direction,right).normalize();
+  const padding=Math.min(26,width*.06,height*.06),limitX=1-padding*2/width,limitY=1-padding*2/height,tan=Math.tan(T.MathUtils.degToRad(c.fov/2)),kx=tan*c.aspect*limitX,ky=tan*limitY;
+  let rightPlus=-Infinity,rightMinus=Infinity,upPlus=-Infinity,upMinus=Infinity,minZ=Infinity,maxZ=-Infinity,minGround=Infinity;
+  for(const p of points){const x=p.dot(right),y=p.dot(up),z=p.dot(direction);rightPlus=Math.max(rightPlus,x+kx*z);rightMinus=Math.min(rightMinus,x-kx*z);upPlus=Math.max(upPlus,y+ky*z);upMinus=Math.min(upMinus,y-ky*z);minZ=Math.min(minZ,z);maxZ=Math.max(maxZ,z);minGround=Math.min(minGround,p.y)}
+  ground.position.y=minGround-.03;
+  // Resolve os quatro planos laterais da câmera em perspectiva. O centro também
+  // é ajustado: o plenum mais próximo não precisa deixar uma faixa vazia acima da flange.
+  const centerZ=(minZ+maxZ)/2,safeZ=Math.max(maxZ+.2,(rightPlus-rightMinus)/(2*kx),(upPlus-upMinus)/(2*ky));
+  target.copy(right).multiplyScalar((rightPlus+rightMinus)/2).addScaledVector(up,(upPlus+upMinus)/2).addScaledVector(direction,centerZ);
+  // A aproximação máxima conserva a margem de segurança. Ao girar, a distância
+  // é recalculada antes de desenhar, sem permitir que o modelo atravesse a borda.
+  const distance=(safeZ-centerZ+.02)/(.8*zoom);c.position.copy(target).addScaledVector(direction,distance);c.lookAt(target);c.updateMatrixWorld();
+  framing={x0:Infinity,x1:-Infinity,y0:Infinity,y1:-Infinity,z0:Infinity,z1:-Infinity,margemPx:padding,pontos:points.length};
+  for(const p of points){const q=projected.copy(p).project(c);framing.x0=Math.min(framing.x0,q.x);framing.x1=Math.max(framing.x1,q.x);framing.y0=Math.min(framing.y0,q.y);framing.y1=Math.max(framing.y1,q.y);framing.z0=Math.min(framing.z0,q.z);framing.z1=Math.max(framing.z1,q.z)}
+  $('coletor-zoom').textContent=Math.round(zoom*100)+'%';$('coletor-menos').disabled=zoom<=.6001;$('coletor-mais').disabled=zoom>=1.2499;
+ }
+ function updatePin(){model.root.updateWorldMatrix(true,true);const p=model.root.localToWorld(model.alvoMarcacoes.clone()),normal=V(0,0,1).transformDirection(model.root.matrixWorld),front=normal.dot(c.position.clone().sub(p))>0,v=p.project(c),pin=$('marcacao-alvo');pin.classList.toggle('hidden',!front||Math.abs(v.x)>.94||Math.abs(v.y)>.92||v.z< -1||v.z>1);pin.style.left=((v.x*.5+.5)*width-13)+'px';pin.style.top=((-v.y*.5+.5)*height-34)+'px'}
  function render(){if(!visivel()||host.clientWidth<1)return;r.shadowMap.needsUpdate=true;r.render(studio,c);rendered++;updatePin()}
- function resize(){const w=host.clientWidth,h=host.clientHeight;if(w<1||h<1)return;if(w!==width||h!==height){width=w;height=h;r.setSize(w,h);c.aspect=w/h;c.updateProjectionMatrix();if(focus)focusMarkings();else{fit();render()}}}
- function reset(){pivot.rotation.set(0,0,0);zoom=1.4;focus=false;fit();render()}
- function zoomBy(factor){zoom=clamp(zoom*factor,.65,4.5);position();render()}
- function focusMarkings(){pivot.rotation.set(0,0,0);model.root.updateWorldMatrix(true,true);target.copy(model.root.localToWorld(model.alvoMarcacoes.clone()));direction.copy(V(-.03,.14,1).normalize());baseDistance=Math.max(2.8,2.6/(2*Math.tan(T.MathUtils.degToRad(17))*c.aspect));zoom=1;focus=true;position();render()}
+ function refresh(){position();render()}
+ function resize(){const w=host.clientWidth,h=host.clientHeight;if(w<1||h<1)return;if(w!==width||h!==height){width=w;height=h;r.setSize(w,h);c.aspect=w/h;c.updateProjectionMatrix();refresh()}}
+ function reset(){pivot.rotation.set(0,0,0);zoom=1.1;focus=false;direction.copy(initialDirection);refresh()}
+ function zoomBy(factor){zoom=clamp(zoom*factor,.6,1.25);refresh()}
+ function focusMarkings(){pivot.rotation.set(0,0,0);direction.copy(V(-.03,.14,1).normalize());zoom=1.25;focus=true;refresh()}
  r.domElement.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY};r.domElement.setPointerCapture(e.pointerId);e.stopPropagation()});
- r.domElement.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;pivot.rotation.y+=dx*.009;pivot.rotation.x=clamp(pivot.rotation.x+dy*.007,-.60,.60);drag={x:e.clientX,y:e.clientY};render()});
+ r.domElement.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;pivot.rotation.y+=dx*.009;pivot.rotation.x=clamp(pivot.rotation.x+dy*.007,-.60,.60);drag={x:e.clientX,y:e.clientY};refresh()});
  r.domElement.addEventListener('pointerup',()=>{drag=null});r.domElement.addEventListener('pointercancel',()=>{drag=null});r.domElement.addEventListener('wheel',e=>{e.preventDefault();zoomBy(Math.exp(-e.deltaY*.0012))},{passive:false});
  $('coletor-menos').addEventListener('click',()=>zoomBy(1/1.2));$('coletor-mais').addEventListener('click',()=>zoomBy(1.2));$('coletor-marcas').addEventListener('click',focusMarkings);
- $('coletor-corte').addEventListener('click',()=>{cut=!cut;model.corte(cut);$('coletor-corte').setAttribute('aria-pressed',String(!cut));$('coletor-corte').textContent=cut?'Vista completa':'Vista em corte';if(!focus)fit();render()});
+ $('coletor-corte').addEventListener('click',()=>{cut=!cut;model.corte(cut);$('coletor-corte').setAttribute('aria-pressed',String(!cut));$('coletor-corte').textContent=cut?'Vista completa':'Vista em corte';refresh()});
  $('coletor-restaurar').addEventListener('click',reset);new ResizeObserver(resize).observe(host);
- return{resize,reset,exportar:cut=>model.exportar(cut),estado:()=>({cut,rendered,width,height,zoom,focus,marcacoesAusentes:3,dutos:model.runners.length,rotation:pivot.rotation.toArray().slice(0,3)})};
+ return{resize,reset,exportar:cut=>model.exportar(cut),estado:()=>({cut,rendered,width,height,zoom,focus,enquadramento:framing,marcacoesAusentes:3,dutos:model.runners.length,rotation:pivot.rotation.toArray().slice(0,3)})};
 }
 
 try {
 const scene=new T.Scene();scene.background=new T.Color('#b4c99b');
 scene.fog=new T.Fog('#b4c99b',110,245);
-const camera=new T.PerspectiveCamera(42,innerWidth/innerHeight,.8,700);
+const camera=new T.PerspectiveCamera(42,innerWidth/innerHeight,.8,1100);
 const renderer=new T.WebGLRenderer({antialias:true,alpha:false});
 renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);
 renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;
@@ -54868,14 +54906,15 @@ const mat=(color,roughness=.7)=>new T.MeshStandardMaterial({color,roughness});
 const white=mat('#ffffff'),blue=mat('#0043bc'),pale=mat('#30372f'),gray=mat('#8d8868');
 function mesh(geo,m,parent=scene){const o=new T.Mesh(geo,m);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o}
 // O percurso muda de direção livremente no plano e tem desníveis suaves.
-const control=[[-43,.1,29],[-30,.2,17],[-13,.5,21],[1,1.1,11],[11,2.8,-6],[7,3.9,-24],[24,3.2,-39],[43,1.7,-31],[54,1.2,-13],[43,.6,5],[28,1.3,21],[35,2.7,39],[56,3.7,47],[77,2,34]].map(p=>V(...p));
+function mapPoint(x,y,z){return V(18+(x-18)*CONFIG.percurso.escalaHorizontal,y,6+(z-6)*CONFIG.percurso.escalaHorizontal)}
+const control=[[-43,.1,29],[-30,.2,17],[-13,.5,21],[1,1.1,11],[11,2.8,-6],[7,3.9,-24],[24,3.2,-39],[43,1.7,-31],[54,1.2,-13],[43,.6,5],[28,1.3,21],[35,2.7,39],[56,3.7,47],[77,2,34]].map(p=>mapPoint(...p));
 const route=new T.CatmullRomCurve3(control,false,'centripetal');route.arcLengthDivisions=2500;route.updateArcLengths();
 const total=route.getLength();
 function at(u){return route.getPointAt(clamp(u,0,1))}
 function tangent(u){return route.getTangentAt(clamp(u,0,1)).normalize()}
 function side(u){const t=tangent(u);return V(-t.z,0,t.x).normalize()}
 // Continuação exterior fechada: mantém o percurso original, mas elimina as duas pontas.
-const extensionControl=[control.at(-2),control.at(-1),control.at(-1).clone().addScaledVector(tangent(1),35),V(155,1,-4),V(200,.6,-70),V(155,.9,-150),V(50,1.3,-180),V(-55,.7,-165),V(-165,1.3,-115),V(-230,.8,-20),V(-175,.6,30),control[0].clone().addScaledVector(tangent(0),-35),control[0],control[1]];
+const extensionControl=[control.at(-2),control.at(-1),control.at(-1).clone().addScaledVector(tangent(1),35*CONFIG.percurso.escalaHorizontal),mapPoint(155,1,-4),mapPoint(200,.6,-70),mapPoint(155,.9,-150),mapPoint(50,1.3,-180),mapPoint(-55,.7,-165),mapPoint(-165,1.3,-115),mapPoint(-230,.8,-20),mapPoint(-175,.6,30),control[0].clone().addScaledVector(tangent(0),-35*CONFIG.percurso.escalaHorizontal),control[0],control[1]];
 const extension=new T.CatmullRomCurve3(extensionControl,false,'centripetal');
 const extensionAt=u=>extension.getPoint(lerp(1/(extensionControl.length-1),(extensionControl.length-2)/(extensionControl.length-1),u));
 const groundRoute=[...Array.from({length:321},(_,i)=>at(i/320)),...Array.from({length:1000},(_,i)=>extensionAt((i+1)/1000))];
@@ -54885,11 +54924,20 @@ function groundInfo(x,z){let best=1e10,h=0;for(const i of groundCells.get(Math.f
 const markerCenters=STOP_PARAMS.map(u=>at(u).addScaledVector(side(u),7.5));
 function baseGroundHeight(x,z){const n=groundInfo(x,z),field=.25+Math.sin(x*.035)*.5+Math.cos(z*.042)*.4;return lerp(n.road-.16,field,smooth((n.distance-3.6)/19))}
 function groundHeight(x,z){let h=baseGroundHeight(x,z);for(const p of markerCenters){const r=Math.hypot(x-p.x,z-p.z);if(r<4)h=lerp(baseGroundHeight(p.x,p.z),h,smooth(r-3))}return h}
-const landGeometry=new T.PlaneGeometry(700,700,350,350);landGeometry.rotateX(-Math.PI/2);
+const TERRAIN_WIDTH=1400,TERRAIN_DEPTH=1100,TERRAIN_SEGMENTS_X=500,TERRAIN_SEGMENTS_Z=400;
+const landGeometry=new T.PlaneGeometry(TERRAIN_WIDTH,TERRAIN_DEPTH,TERRAIN_SEGMENTS_X,TERRAIN_SEGMENTS_Z);landGeometry.rotateX(-Math.PI/2);
 const landPositions=landGeometry.getAttribute('position'),landColors=[];
 for(let i=0;i<landPositions.count;i++){const x=landPositions.getX(i),z=landPositions.getZ(i);landPositions.setY(i,groundHeight(x,z));const tone=.5+.23*Math.sin(x*.15+Math.cos(z*.10))+.17*Math.cos(z*.18-x*.07)+.10*Math.sin(x*.63+z*.46),c=new T.Color('#527c36').lerp(new T.Color('#93ac4a'),clamp(tone,0,1));landColors.push(c.r,c.g,c.b)}
-landGeometry.setAttribute('color',new T.Float32BufferAttribute(landColors,3));landGeometry.computeVertexNormals();
-const floor=mesh(landGeometry,new T.MeshStandardMaterial({vertexColors:true,roughness:1,flatShading:true}));floor.name='Terreno_continuo_sob_a_estrada';
+// Blocos compartilham exatamente as bordas. A GPU só recebe o terreno enquadrado,
+// permitindo ampliar o cenário sem desenhar toda a superfície em cada viagem.
+const floor=new T.Group();floor.name='Terreno_continuo_sob_a_estrada';scene.add(floor);
+const terrainMaterial=new T.MeshStandardMaterial({vertexColors:true,roughness:1,flatShading:true});
+for(let tz=0;tz<TERRAIN_SEGMENTS_Z;tz+=100)for(let tx=0;tx<TERRAIN_SEGMENTS_X;tx+=100){
+ const positions=[],colors=[],indices=[],nx=Math.min(100,TERRAIN_SEGMENTS_X-tx),nz=Math.min(100,TERRAIN_SEGMENTS_Z-tz);
+ for(let z=0;z<=nz;z++)for(let x=0;x<=nx;x++){const i=(tz+z)*(TERRAIN_SEGMENTS_X+1)+tx+x;positions.push(landPositions.getX(i),landPositions.getY(i),landPositions.getZ(i));colors.push(...landColors.slice(i*3,i*3+3))}
+ for(let z=0;z<nz;z++)for(let x=0;x<nx;x++){const a=z*(nx+1)+x,b=a+nx+1,c=b+1,d=a+1;indices.push(a,b,d,b,c,d)}
+ const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(positions,3));g.setAttribute('color',new T.Float32BufferAttribute(colors,3));g.setIndex(indices);g.computeVertexNormals();const tile=mesh(g,terrainMaterial,floor);tile.castShadow=false;
+}
 const roadPoints=[...Array.from({length:1201},(_,i)=>at(i/1200)),...Array.from({length:3600},(_,i)=>extensionAt((i+1)/3600))];
 const roadDistances=[0];for(let i=1;i<roadPoints.length;i++)roadDistances.push(roadDistances[i-1]+roadPoints[i].distanceTo(roadPoints[i-1]));
 function ribbon(width,height,material){
@@ -54930,10 +54978,10 @@ for(let i=0;i<70;i++){
 const labels=[];
 // Floresta ampla com instâncias compartilhadas: continuidade visual sem milhares de objetos.
 const forestPoints=[],forestBins=new Map();
-for(let gx=-56;gx<=56;gx++)for(let gz=-56;gz<=56;gz++){
+for(let gx=-110;gx<=86;gx++)for(let gz=-86;gz<=86;gz++){
  if((Math.abs(gx)>42||Math.abs(gz)>42)&&rand()>.60)continue;
  const x=18+gx*6.3+(rand()-.5)*6.3,z=6+gz*6.3+(rand()-.5)*6.3;
- if(Math.abs(x)>342||Math.abs(z)>342)continue;
+ if(x< -682||x>532||Math.abs(z)>532)continue;
  const grove=.65+.18*Math.sin(x*.035+Math.cos(z*.026)*1.7)+.14*Math.cos(z*.043-x*.012);
  if(rand()>grove||groundInfo(x,z).distance<5.1)continue;
  const bx=Math.floor(x/4),bz=Math.floor(z/4);let crowded=false;
@@ -54957,7 +55005,7 @@ for(let k=0;k<vegetation.variants.length;k++){
  for(const low of [false,true]){const variant=low?vegetation.variants[k].low:vegetation.variants[k];for(const [geometry,material]of [[variant.wood,vegetation.bark],[variant.leaves,vegetation.leaves]])if(geometry){const inst=new T.InstancedMesh(geometry,material,points.length);inst.castShadow=true;inst.receiveShadow=true;inst.frustumCulled=false;inst.instanceMatrix.setUsage(T.DynamicDrawUsage);if(material===vegetation.leaves)inst.customDepthMaterial=vegetation.depth;forest.add(inst);group[low?'low':'high'].push(inst)}}
 }
 let lodFocus=V(1e6,0,1e6),lodAerial=false,lodCameraPosition=V(1e6,0,1e6),lodCameraQuaternion=new T.Quaternion(),lodAspect=0,visibleTrees=0;
-const forestCullCamera=new T.PerspectiveCamera(64,camera.aspect*1.1,.8,700),forestFrustum=new T.Frustum(),forestSphere=new T.Sphere();
+const forestCullCamera=new T.PerspectiveCamera(64,camera.aspect*1.1,.8,1100),forestFrustum=new T.Frustum(),forestSphere=new T.Sphere();
 function updateForestLOD(focus,aerial=false){
  if(lodFocus.distanceToSquared(focus)<36&&aerial===lodAerial&&lodCameraPosition.distanceToSquared(camera.position)<16&&lodCameraQuaternion.angleTo(camera.quaternion)<.04&&lodAspect===camera.aspect)return;
  lodFocus.copy(focus);lodAerial=aerial;lodCameraPosition.copy(camera.position);lodCameraQuaternion.copy(camera.quaternion);lodAspect=camera.aspect;
@@ -54975,7 +55023,7 @@ const grassGeo=new T.BufferGeometry();grassGeo.setAttribute('position',new T.Flo
 const grass=new T.InstancedMesh(grassGeo,new T.MeshStandardMaterial({color:'#416729',side:T.DoubleSide,roughness:1}),36000);grass.receiveShadow=true;scene.add(grass);let grassCount=0;
 function addGrass(x,z,scale){if(grassCount>=36000||groundInfo(x,z).distance<3.8||markerCenters.some(c=>Math.hypot(c.x-x,c.z-z)<3))return;dummy.position.set(x,groundHeight(x,z),z);dummy.rotation.set(0,rand()*Math.PI*2,0);dummy.scale.setScalar(scale);dummy.updateMatrix();grass.setMatrixAt(grassCount++,dummy.matrix)}
 for(let i=0;i<14000;i++)addGrass(-160+rand()*370,-155+rand()*330,.45+rand()*1.3);
-for(const t of forestPoints)for(let j=0;j<5;j++){const a=rand()*Math.PI*2,r=.65+rand()*2.1;addGrass(t.p.x+Math.cos(a)*r,t.p.z+Math.sin(a)*r,.5+rand()*.8)}
+for(const t of forestPoints.slice().sort((a,b)=>(a.p.x-18)**2+(a.p.z-6)**2-(b.p.x-18)**2-(b.p.z-6)**2))for(let j=0;j<5;j++){const a=rand()*Math.PI*2,r=.65+rand()*2.1;addGrass(t.p.x+Math.cos(a)*r,t.p.z+Math.sin(a)*r,.5+rand()*.8)}
 grass.count=grassCount;grass.instanceMatrix.needsUpdate=true;grass.computeBoundingSphere();
 stops.forEach((u,i)=>{
  const p=at(u),s=side(u),d=tangent(u);
@@ -55038,10 +55086,11 @@ let carU=stops[0],index=0,motion=null,lastTime=null,cameraTween=null,fade=null,c
 let mapDirty=true,mapClock=0,lastMapDraw=-10,shadowAge=10,shadowAnchor=V(1e6,0,1e6),shadowAerial=null,shadowRenders=0,sceneRenders=0;
 let look=V(),boom=V(),carTurn=orient(carU),wheelAngle=0;
 const contentSides=CONFIG.paradas.map(p=>p.lado).concat('left');
-const probeCamera=new T.PerspectiveCamera(42,camera.aspect,.1,500);
+const probeCamera=new T.PerspectiveCamera(42,camera.aspect,.1,1200);
 const roadProbes=[];for(let j=0;j<=550;j++){const u=j/550;for(const s of [-3.4,-1.7,0,1.7,3.4])roadProbes.push(at(u).addScaledVector(side(u),s))}
 let poses=[],layoutAudit=[];
-function contentRect(i){const p=CONFIG.painel,x=contentSides[i]==='left'?p.margemLateral:1-p.margemLateral-p.largura;return{x0:x*2-1,x1:(x+p.largura)*2-1,y0:1-2*(p.topo+p.altura),y1:1-2*p.topo}}
+// O painel agora é central. Mantemos a composição cinematográfica já aprovada do mapa.
+function contentRect(i){const p=CONFIG.composicaoMapa,x=contentSides[i]==='left'?p.margemLateral:1-p.margemLateral-p.largura;return{x0:x*2-1,x1:(x+p.largura)*2-1,y0:1-2*(p.topo+p.altura),y1:1-2*p.topo}}
 function roadIntrusions(pose,i,margin=.015){
  probeCamera.position.copy(pose.look).add(pose.boom);probeCamera.lookAt(pose.look);probeCamera.updateMatrixWorld();
  const rect=contentRect(i);let n=0;const v=V();
@@ -55086,7 +55135,7 @@ function makePoses(){
  crashPose=fitPose(wreckPosition.clone().add(V(0,.06,0)),LAST_STOP,true);
  const aerialPoints=roadProbes.concat(stops.flatMap(u=>[-11,11].map(s=>at(u).addScaledVector(side(u),s))),[treePosition,treePosition.clone().add(V(0,7,0))]);
  let aerial=null,aerialCost=Infinity;
- for(let scale=.95;scale<=2;scale+=.05)for(let screenX=.40;screenX<=.60;screenX+=.025){
+ for(let scale=.95;scale<=3.6;scale+=.05)for(let screenX=.40;screenX<=.60;screenX+=.025){
   const p=compose(V(18,0,6),V(-9,178,140).multiplyScalar(scale),screenX);
   probeCamera.position.copy(p.look).add(p.boom);probeCamera.lookAt(p.look);probeCamera.updateMatrixWorld();
   let x0=Infinity,x1=-Infinity,y0=Infinity,y1=-Infinity;const v=V();
@@ -55094,7 +55143,7 @@ function makePoses(){
   const cost=scale+Math.abs((x0+x1)/2-.49)*.1;
   if(x0>.17&&x1<.91&&y0>-.60&&y1<.70&&cost<aerialCost){aerial=p;aerialCost=cost}
  }
- poses.push(aerial||compose(V(18,0,6),V(-9,356,280),.48));
+ poses.push(aerial||compose(V(18,0,6),V(-9,640,504),.48));
  layoutAudit=poses.map((p,i)=>({side:contentSides[i],roadIntrusions:roadIntrusions(p,i,0),yaw:p.yaw}));
 }
 makePoses();
@@ -55105,7 +55154,7 @@ function directionQuaternion(d){const x=d.clone().normalize(),z=V().crossVectors
 function syncDamaged(){damaged.root.position.copy(car.position);damaged.root.quaternion.copy(car.quaternion)}
 function resetCrash(){crash=null;crashed=false;fireTime=0;impacts=0;skidSamples=0;skidTracks.forEach(t=>t.g.setDrawRange(0,0));damaged.aplicar(0);damaged.root.visible=false;car.visible=true;fire.visible=false;skid.visible=false}
 function finishWreck(){car.position.copy(wreckPosition);car.quaternion.copy(directionQuaternion(crashDirection));syncDamaged();damaged.aplicar(1);damaged.root.visible=true;car.visible=false;fire.visible=true;skid.visible=true;crashed=true;fireTime=Math.max(fireTime,1)}
-function beginCrash(rolling=false){const speed=rolling?(stops[LAST_STOP]-stops[LAST_STOP-1])*total/3:escapeLength/.85;crash={time:0,impacted:false,rolling,speed,contactTime:escapeLength/speed+(rolling?0:.08),travelled:0,initialLook:look.clone(),initialBoom:boom.clone()};appendSkids();ui()}
+function beginCrash(rolling=false){const speed=rolling?(stops[LAST_STOP]-stops[LAST_STOP-1])*total/TRAVEL_DURATION:escapeLength/.85;crash={time:0,impacted:false,rolling,speed,contactTime:escapeLength/speed+(rolling?0:.08),travelled:0,initialLook:look.clone(),initialBoom:boom.clone()};appendSkids();ui()}
 function setContent(){
  const end=index===FINAL_SLIDE,first=index===0,busy=!!motion||!!cameraTween||!!crash,s=CONFIG.primeiroSlide;
  $('conteudo').className='content'+(contentSides[index]==='right'?' right':'')+(end?' conclusion':'')+(busy?' absent':'')+(first?' model-slide':'');
@@ -55148,11 +55197,11 @@ function advance(direction){
  const to=index+direction;if(to<0||to>FINAL_SLIDE)return;
  if(index===LAST_STOP&&crashed&&direction<0){selectSlide(to);return}
  if(to===FINAL_SLIDE||index===FINAL_SLIDE){
-  const pose=presentationPose(to);cameraTween={to,fromLook:look.clone(),fromBoom:boom.clone(),toLook:pose.look,toBoom:pose.boom,fromScreen:car.position.clone().project(camera),toScreen:screenAt(car.position,pose),time:0,duration:3};ui();return;
+  const pose=presentationPose(to);cameraTween={to,fromLook:look.clone(),fromBoom:boom.clone(),toLook:pose.look,toBoom:pose.boom,fromScreen:car.position.clone().project(camera),toScreen:screenAt(car.position,pose),time:0,duration:TRAVEL_DURATION};ui();return;
  }
  const from=carU,end=stops[to];
  // Um único relógio sincroniza carro, órbita e composição: todos chegam juntos.
- motion={from,end,to,direction,time:0,duration:3,initialLook:look.clone(),initialBoom:boom.clone(),endPose:stopPose(to)};ui();
+ motion={from,end,to,direction,time:0,duration:TRAVEL_DURATION,initialLook:look.clone(),initialBoom:boom.clone(),endPose:stopPose(to)};ui();
 }
 function fullscreen(){if(document.fullscreenElement)document.exitFullscreen?.();else document.documentElement.requestFullscreen?.().catch(()=>{})}
 $('proximo').addEventListener('click',()=>advance(1));$('anterior').addEventListener('click',()=>advance(-1));
@@ -55246,9 +55295,10 @@ function update(dt){
  const aerialDistance=Math.max(0,boom.length()-50);
  scene.fog.near=110+aerialDistance*1.3;scene.fog.far=245+aerialDistance*2;
  const aerial=boom.length()>95;
- if(shadowAnchor.distanceToSquared(look)>196||shadowAerial!==aerial||shadowAge>4){
-  shadowAerial=aerial;shadowAge=0;shadowAnchor.copy(look);shadowAnchor.x=Math.round(shadowAnchor.x*8)/8;shadowAnchor.z=Math.round(shadowAnchor.z*8)/8;
-  const extent=aerial?180:70;Object.assign(sun.shadow.camera,{left:-extent,right:extent,top:extent,bottom:-extent,far:aerial?420:220});sun.shadow.camera.updateProjectionMatrix();sun.position.copy(shadowAnchor).add(V(-38,58,26));sun.target.position.copy(shadowAnchor);sun.target.updateMatrixWorld();renderer.shadowMap.needsUpdate=true;
+ const lightFocus=aerial?V(18,0,6):look;
+ if(shadowAnchor.distanceToSquared(lightFocus)>196||shadowAerial!==aerial||shadowAge>4){
+  shadowAerial=aerial;shadowAge=0;shadowAnchor.copy(lightFocus);shadowAnchor.x=Math.round(shadowAnchor.x*8)/8;shadowAnchor.z=Math.round(shadowAnchor.z*8)/8;
+  const extent=aerial?230:70;Object.assign(sun.shadow.camera,{left:-extent,right:extent,top:extent,bottom:-extent,far:aerial?560:220});sun.shadow.camera.updateProjectionMatrix();sun.position.copy(shadowAnchor).add(V(-38,58,26));sun.target.position.copy(shadowAnchor);sun.target.updateMatrixWorld();renderer.shadowMap.needsUpdate=true;
  }
  carContact.position.copy(car.position).add(V(0,.075,0));carContact.quaternion.copy(car.quaternion);carShadow.scale.x=damaged.root.visible?.82:1;
  camera.position.copy(look).add(boom);camera.lookAt(look);camera.updateMatrixWorld();
@@ -55261,9 +55311,9 @@ document.addEventListener('visibilitychange',()=>{lastTime=null});
 function tick(time){const dt=lastTime===null?0:Math.max((time-lastTime)/1000,0);lastTime=time;update(dt);requestAnimationFrame(tick)}
 function verificarGeometria(){
  let minClearance=Infinity,negative=0;
- function meshHeight(x,z){const fx=clamp((x+350)/2,0,349.999),fz=clamp((z+350)/2,0,349.999),i=Math.floor(fx),j=Math.floor(fz),u=fx-i,v=fz-j,a=landPositions.getY(j*351+i),b=landPositions.getY((j+1)*351+i),c=landPositions.getY((j+1)*351+i+1),d=landPositions.getY(j*351+i+1);return u+v<=1?a*(1-u-v)+b*v+d*u:b*(1-u)+d*(1-v)+c*(u+v-1)}
+ function meshHeight(x,z){const nx=TERRAIN_SEGMENTS_X,nz=TERRAIN_SEGMENTS_Z,fx=clamp((x+TERRAIN_WIDTH/2)/(TERRAIN_WIDTH/nx),0,nx-.001),fz=clamp((z+TERRAIN_DEPTH/2)/(TERRAIN_DEPTH/nz),0,nz-.001),i=Math.floor(fx),j=Math.floor(fz),u=fx-i,v=fz-j,a=landPositions.getY(j*(nx+1)+i),b=landPositions.getY((j+1)*(nx+1)+i),c=landPositions.getY((j+1)*(nx+1)+i+1),d=landPositions.getY(j*(nx+1)+i+1);return u+v<=1?a*(1-u-v)+b*v+d*u:b*(1-u)+d*(1-v)+c*(u+v-1)}
  for(let i=1;i<roadPoints.length-1;i++){const p=roadPoints[i],d=roadPoints[i+1].clone().sub(roadPoints[i-1]),s=V(-d.z,0,d.x).normalize();for(const offset of [-3.05,0,3.05]){const q=p.clone().addScaledVector(s,offset),clearance=p.y-meshHeight(q.x,q.z);minClearance=Math.min(minClearance,clearance);if(clearance<=0)negative++}}
- return{minClearance,negative,closureGap:roadPoints[0].distanceTo(roadPoints.at(-1)),roadLength:roadDistances.at(-1),forestCount:forestPoints.length,variantStats:vegetation.variants.map(v=>({tipo:v.type,triangles:(v.wood.getAttribute('position').count+(v.leaves?.getAttribute('position').count||0))/3,altura:v.height})),contactTimeRolling:escapeLength/((stops[LAST_STOP]-stops[LAST_STOP-1])*total/3)};
+ return{minClearance,negative,closureGap:roadPoints[0].distanceTo(roadPoints.at(-1)),roadLength:roadDistances.at(-1),forestCount:forestPoints.length,comprimentoApresentacao:total,distanciasEntreParadas:stops.slice(1).map((u,i)=>(u-stops[i])*total),duracaoTransicao:TRAVEL_DURATION,escalaHorizontal:CONFIG.percurso.escalaHorizontal,variantStats:vegetation.variants.map(v=>({tipo:v.type,triangles:(v.wood.getAttribute('position').count+(v.leaves?.getAttribute('position').count||0))/3,altura:v.height})),contactTimeRolling:escapeLength/((stops[LAST_STOP]-stops[LAST_STOP-1])*total/TRAVEL_DURATION)};
 }
 // Diagnóstico local para validação: sem telemetria, sem persistência e sem rede.
 window.prototipo={estado:()=>({index,paradas:STOP_COUNT,slides:FINAL_SLIDE+1,carU,sceneRenders,shadowRenders,coletor:manifoldView.estado(),skidSamples,skidDrawCounts:skidTracks.map(t=>t.g.drawRange.count),moving:!!motion||!!cameraTween||!!crash,fading:!!fade,tracking:!!motion,crashTime:crash?.time??null,contactTime:crash?.contactTime??null,crashTravelled:crash?.travelled??null,forestCount:forestPoints.length,visibleTrees,treeVariants:vegetation.variants.length,roadClosed:roadPoints[0].distanceTo(roadPoints.at(-1))<.001,triangles:renderer.info.render.triangles,crashed,fire:fire.visible,impacts,damagedVisible:damaged.root.visible,tree:treePosition.toArray(),frontDirection:V(1,0,0).applyQuaternion(car.quaternion).toArray(),wreckPosition:wreckPosition.toArray(),crashLayout:roadIntrusions(crashPose,LAST_STOP,0),progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===FINAL_SLIDE,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide,verificarGeometria,exportarColetor:cut=>manifoldView.exportar(cut),exportarArvore:i=>vegetation.tree(i),exportarIntegro:()=>{const c=car.clone(true);c.position.set(0,0,0);c.quaternion.identity();c.visible=true;return c},exportarAmassado:()=>damaged.exportar()};

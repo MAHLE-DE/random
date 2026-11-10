@@ -1,5 +1,7 @@
 {
-  "painel": {"margemLateral": 0.05, "largura": 0.516, "topo": 0.168, "altura": 0.624, "opacidade": 0.85},
+  "painel": {"margemLateral": 0.10, "largura": 0.80, "topo": 0.10, "altura": 0.80, "opacidade": 0.85},
+  "composicaoMapa": {"margemLateral": 0.05, "largura": 0.516, "topo": 0.168, "altura": 0.624},
+  "percurso": {"escalaHorizontal": 1.8, "duracaoTransicao": 2.5},
   "paradas": [
     {"severidade":1,"u":0.055,"lado":"left"},
     {"severidade":2,"u":0.155,"lado":"right"},

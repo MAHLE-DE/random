@@ -1,5 +1,21 @@
 # Validação do protótipo
 
+## Slide central, coletor sem cortes e percurso ampliado — 10/11/2026
+
+- Painel centralizado, com 80% da largura e da altura e margens de 10%, conferido em 1600 × 900, 1280 × 960 e 1280 × 720. Fundo com 85% de opacidade preservado.
+- Severidade em fonte de 20 a 30 px, peso 800 e azul; corpo, títulos, controles e legendas ampliados. As três legendas têm texto escuro e base clara própria. Função e explicações preservadas.
+- Cabeçalho, texto, modelo, legendas, botões e navegação sem sobreposição nas três resoluções. Logo permanece dentro do canto superior direito do slide.
+- Modelo ampliado e reenquadramento automático baseado nos vértices reais das peças visíveis. Planos da câmera resolvidos em perspectiva, considerando flange, entrada lateral e as duas versões do modelo. Nuvens de vértices preparadas uma vez e reutilizadas.
+- 96 orientações verificadas por gestos reais de arraste: voltas completas e inclinações nas versões em corte e completa, nas três resoluções, com aproximação máxima. Todos os vértices permaneceram dentro do visor e de sua margem de segurança.
+- Zoom mínimo de 60%, máximo de 125%, foco nas marcações, corte/completo, reenquadramento inicial de 110% e redimensionamento testados. O plano de sombra acompanha a menor altura do modelo e não oculta partes da peça ao inclinar.
+- Desenho sob demanda preservado: sem atualização contínua do visor quando não há interação. Sem erros JavaScript ou de shader e sem requisições HTTP/HTTPS, em contexto offline por `file://`.
+- Distâncias entre paradas ampliadas em aproximadamente 80%, para 48,6 unidades da cena. Transições configuradas em 2,5 segundos e verificadas pelos quadros de início e chegada, mantendo partida e chegada suaves.
+- Percurso completo das dez paradas, conclusão, retorno, repetição e cancelamento aprovados em 16:9 e 4:3; 1.667 e 2.034 quadros monitorados, sem cortes do carro. A entrada na derrapagem mantém a velocidade da nova viagem, sem pausa.
+- Continuação externa da estrada ampliada na mesma proporção; terreno de 1400 × 1100 dividido em 20 blocos e floresta com 13.120 árvores, sem borda vazia na vista geral. Modelos de carro e árvores e largura da estrada preservados.
+- Separação mínima entre asfalto e terreno de 0,1542 unidade nas amostras, nenhuma interseção e fechamento da estrada com distância zero entre pontas. Faixas integradas ao asfalto preservadas, sem camadas sobrepostas na vista distante.
+
+Resumo em `validacao-slide-central.json`; capturas e relatório completo em `.producao/qa-slide-central/`. A [prévia do primeiro slide](previa-slide1.png) mostra o layout atual. Os registros abaixo correspondem às versões anteriores.
+
 ## Primeiro slide de severidade e dez paradas — 10/11/2026
 
 - Dez paradas para severidades 1 a 10 e conclusão separada, com seleção por uma janela de cinco itens. Salto distante com fade medido em 738 ms.
