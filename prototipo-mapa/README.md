@@ -7,7 +7,7 @@ Abra **[iniciar.html](iniciar.html)** no Microsoft Edge ou Google Chrome. O arqu
 - **Espaço, seta direita ou Page Down:** próximo slide, seguindo o percurso.
 - **Seta esquerda ou Page Up:** voltar pelo percurso.
 - **F:** entrar ou sair da tela cheia. Escape também sai da tela cheia.
-- **Primeiro slide:** arraste o coletor para girar; a roda do mouse e **− / +** controlam o zoom. **Focar marcações** aproxima e orienta o modelo para os três campos sem gravação. Use **Vista em corte / Vista completa** para alternar e **Reenquadrar** para voltar à vista inicial de 110%. O limite de aproximação de 125% mantém a margem de segurança em qualquer ângulo; é possível afastar até 60%.
+- **Slides 1 a 4:** arraste o coletor para girar; a roda do mouse e **− / +** controlam o zoom. O botão de foco aproxima e orienta o modelo para o tema do slide. Use **Vista em corte / Vista completa** para alternar e **Reenquadrar** para voltar à vista inicial de 110%. O limite de aproximação de 125% mantém a margem de segurança em qualquer ângulo; é possível afastar até 60%.
 - **Números no canto inferior esquerdo:** selecionar diretamente um slide com fade de saída e entrada. Um salto interrompe um percurso em andamento.
 - **Setas pequenas da lista, rolagem horizontal ou roda do mouse sobre a lista:** navegar pelos números. São cinco números completos visíveis por vez.
 
@@ -31,9 +31,13 @@ Para testar diretamente, selecione **10** na barra. Selecionar **10 novamente** 
 
 O [modelo amassado separado](../modelos/carro-amassado.glb) tem geometria deformada já aplicada, sem depender da animação ou de vídeo. A [prévia](../modelos/previa-carro-amassado.png) permite conferir o resultado. A deformação é ilustrativa e não corresponde a uma simulação física ou a um veículo real.
 
-O primeiro slide trata da função de marcar data de injeção, número do componente e cavidade. O texto separa o efeito funcional no sistema, de severidade 1, da ressalva comercial: sem rastreabilidade confiável, um problema no cliente pode exigir ação sobre um conjunto maior de peças e ampliar o custo para a MAHLE. Não atribui outra nota numérica a esse custo. O modelo fica ao lado do texto, sem sobreposição; três superfícies vazias destacam as marcações ausentes. Os demais retângulos continuam reservados para desenvolver o conteúdo slide a slide.
+O primeiro slide trata da função de marcar data de injeção, número do componente e cavidade. O texto separa o efeito funcional no sistema, de severidade 1, da ressalva comercial: sem rastreabilidade confiável, um problema no cliente pode exigir ação sobre um conjunto maior de peças e ampliar o custo para a MAHLE. Não atribui outra nota numérica a esse custo. Três superfícies vazias destacam as marcações ausentes.
 
-O cenário contém cerca de 13,1 mil árvores distribuídas em grupos e clareiras, com 20 variantes: 12 coníferas, seis árvores de copa larga e duas árvores secas. Os modelos próximos têm entre 856 e 1.496 triângulos, com troncos curvos, galhos e copas assimétricas, sem as raízes externas da versão anterior. A floresta foi estendida para preencher também o canto superior esquerdo da vista geral do trajeto ampliado. Há grama agrupada, pedras, variação de cor no terreno, luz solar quente, preenchimento frio, sombras de 4096 × 4096 e movimento leve das copas.
+Os slides 2 a 4 mantêm a mesma estrutura e quantidade aproximada de texto: função, efeito no sistema e exemplos. Aparência ilustra uma sensação ligeiramente desagradável; rugosidade e contato ilustram uma sensação moderadamente desagradável; ruído ilustra uma sensação muito desagradável. Todos explicitam que aparência, tato e ruído podem ocupar S2, S3 ou S4, conforme a intensidade do incômodo percebido. Os exemplos táteis consideram desconforto sem lesão. As severidades 5 a 10 continuam reservadas para desenvolvimento posterior.
+
+O cenário contém cerca de 13 mil árvores distribuídas em grupos e clareiras, com 20 variantes com folhas: 12 coníferas e oito árvores de copa larga. Os modelos próximos têm 1.406 ou 1.496 triângulos, com troncos curvos, galhos e copas assimétricas, sem raízes externas. A floresta preenche também o canto superior esquerdo da vista geral. Há grama agrupada, pedras, variação de cor no terreno, luz solar quente, preenchimento frio, sombras de 4096 × 4096 e movimento leve das copas.
+
+O planejamento de câmera verifica volumes por faixas de altura das árvores contra a projeção do carro e de cada marcador. As árvores que obstruiriam os enquadramentos escolhidos dão lugar a pequenas clareiras permanentes, com remoção também de suas sombras de contato. Ao redimensionar a janela, os corredores visuais são revistos. A aproximação final usa um ponto de vista mais baixo e por trás do carro, evitando que a copa da árvore de impacto esconda a batida.
 
 A árvore do impacto é da mesma família das árvores de copa larga da floresta, com tronco livre na altura do carro. Os marcadores têm clareiras próprias, sem árvores ou grama sobre os discos. As malhas são compartilhadas por instâncias; o nível de detalhe acompanha a proximidade do carro e a visão aérea.
 
@@ -41,13 +45,15 @@ A estrada tem uma continuação externa curva, fechada, que preserva o trajeto o
 
 Na vista geral, a continuação entra pelo lado esquerdo e segue para a direita, em vez de aparecer vindo da borda inferior.
 
-## Coletor do primeiro slide
+## Coletor dos quatro primeiros slides
 
 É uma reconstrução didática própria, inspirada no CAD K24 indicado pelo usuário, com plenum, quatro dutos ocos, flange com furos, entrada lateral e espessuras visíveis. As peças foram separadas para servir de base aos efeitos nos próximos slides. O primeiro enquadramento mostra o corte, como na referência. A vista completa é acessível pelo botão.
 
 Os [modelos GLB e as referências](../modelos/coletor-k24/REFERENCIAS.md) ficam em `modelos/coletor-k24/`. O visor só desenha o coletor quando necessário, sem rotação automática ou atualização contínua durante as viagens do carro.
 
 O enquadramento usa os vértices reais de todas as peças visíveis, incluindo flange e entrada lateral. As nuvens de vértices das versões em corte e completa são preparadas uma vez e reutilizadas. Ao girar, ampliar ou redimensionar a janela, os planos da câmera são recalculados antes do desenho para conter todo o modelo, com margem. O plano que recebe as sombras também fica abaixo da peça na orientação atual. As três legendas têm fonte maior e escura, em caixas claras próprias.
+
+As manchas e marcas do slide 2 usam coordenadas da própria peça e acompanham o giro. O slide 3 combina textura, relevo irregular externo e destaque de arestas; duas mãos em SVG permanecem voltadas para a tela, com animação de aproximação. São ilustrações próprias, inspiradas na composição em primeira pessoa de [White Knuckle](https://dreadxp.com/white-knuckle/). O slide 4 emite ondas visuais a partir do coletor. Mãos e ondas usam animação de interface, sem exigir renderização contínua do modelo e sem áudio ou vídeo. Os GLB exportados preservam o coletor base limpo.
 
 ## Desempenho
 
@@ -59,7 +65,7 @@ Em comparação local da versão anterior, ainda com cinco paradas, no Edge sem 
 
 Na aproximação da décima parada, o movimento continua diretamente para a derrapagem. A velocidade é controlada pela distância efetivamente percorrida na curva, mantendo o embalo até o impacto, quando ocorre a parada brusca e a deformação. As marcas são geradas quadro a quadro a partir dos pneus traseiros. A seleção direta de 10 reinicia a sequência com fade e uma aceleração inicial curta.
 
-Veja a [galeria de variantes](../modelos/arvores/galeria.png) e os modelos GLB de [conífera](../modelos/arvores/conifera.glb), [copa larga](../modelos/arvores/frondosa.glb) e [árvore seca](../modelos/arvores/seca.glb).
+Veja a [galeria de variantes](../modelos/arvores/galeria.png) e os modelos GLB de [conífera](../modelos/arvores/conifera.glb), [copa larga](../modelos/arvores/frondosa.glb) e [variação de copa larga](../modelos/arvores/frondosa-variada.glb).
 
 ## Fontes e reprodução
 
@@ -67,7 +73,9 @@ Veja a [galeria de variantes](../modelos/arvores/galeria.png) e os modelos GLB d
 - `dano.js`: geração da variante amassada e deformação progressiva do impacto.
 - `coletor.js`: geometria editável do coletor K24 didático e suas versões completa/em corte.
 - `visor-coletor.js`: visor com giro, zoom, foco nas marcações, enquadramento automático sem cortes e desenho sob demanda.
-- `configuracao.json`: dez paradas, escala do trajeto, duração das transições, medidas do painel e textos do primeiro slide.
+- `efeitos-coletor.js`: manchas, marcas de fluxo, textura e relevo tátil sobre o modelo.
+- `visibilidade-mapa.js`: volumes das árvores e auditoria dos alvos nos enquadramentos.
+- `configuracao.json`: dez paradas, escala do trajeto, duração das transições, medidas do painel e textos dos quatro primeiros slides.
 - `exportar-coletor.mjs`: modelos GLB e prévias do coletor.
 - `medir-desempenho.mjs`: comparação repetível dos três primeiros deslocamentos.
 - `vegetacao.js`: modelos das 20 variantes, materiais e oscilação das copas.
@@ -87,3 +95,5 @@ Para reconstruir também o modelo amassado, execute `node prototipo-mapa/exporta
 O arquivo bloqueia conexões de rede e mídias por sua política de conteúdo. Usa WebGL e depende de suporte gráfico no navegador. Os enquadramentos foram verificados em 16:9 e 4:3. Uma projeção real e o passador físico ainda devem ser conferidos no equipamento da apresentação.
 
 Para repetir os testes em um ambiente de produção com Playwright instalado: `node prototipo-mapa/verificar-prototipo.mjs`. Os relatórios e capturas ficam em `.producao/qa-slide-central/`; o diretório pode ser alterado pela variável `QA_OUTPUT`. Incluem giro completo e inclinações nos dois modelos, em três resoluções, no zoom máximo, além da navegação e animações do mapa.
+
+Para testar os efeitos sensoriais, mãos, ondas e visibilidade das paradas: `node prototipo-mapa/verificar-sensoriais.mjs`. Relatório e capturas em `.producao/qa-sensoriais/`. O resumo da versão atual fica em `validacao-sensoriais.json`.

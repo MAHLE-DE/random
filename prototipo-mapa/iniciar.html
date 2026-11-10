@@ -51,6 +51,12 @@ THE SOFTWARE.
 @media(max-height:800px){.content{padding:24px 28px 74px}.slide-brand{top:24px;right:26px;width:116px;height:30px}.eyebrow{font-size:21px;margin-right:150px;margin-bottom:9px}.content h1{font-size:34px;margin-right:135px;margin-bottom:10px}.slide-function{font-size:17px;line-height:1.33}.first-content{margin-top:18px;gap:24px}.meaning{gap:18px}.meaning section{padding-left:13px}.meaning h2{font-size:22px;margin-bottom:8px}.meaning p{font-size:17px;line-height:1.38}.meaning .emphasis{margin-top:8px}.section-kicker{font-size:12px;margin-bottom:6px}.model-caption{font-size:15px}.model-pane{gap:9px}.field-legend{font-size:14px;gap:7px}.field-legend>span{padding:7px;min-height:46px;gap:6px}.empty-mark{flex-basis:17px;width:17px}.model-tools{bottom:16px}.model-tools button{font-size:14px;height:36px}.bottom{bottom:10px}.bottom .status,.help{display:none}}
 @media(max-width:1000px){.content{padding:24px 24px 76px}.content h1{font-size:30px}.eyebrow{font-size:19px;letter-spacing:.03em}.first-content{gap:20px}.meaning h2{font-size:20px}.meaning p{font-size:16px}.slide-function{font-size:17px}.section-kicker{font-size:12px}.field-legend{font-size:13px}.field-legend>span{padding:6px;gap:5px}.empty-mark{flex-basis:14px;width:14px}.model-tools button{padding:0 9px;font-size:13px}}
 </style>
+<style>
+.sensory-slide .business{border-color:#5882b5}.sensory-slide .meaning .emphasis{color:#163e70}.sensory-slide #sistema-titulo{color:#0043bc}
+.effect-overlay{position:absolute;inset:0;pointer-events:none}.touch-hand{position:absolute;filter:drop-shadow(0 3px 4px #142d1940)}.touch-hand svg{width:100%;height:100%;overflow:visible}.touch-hand.left svg{transform:scaleX(-1)}.touch-hand .reach{width:100%;height:100%;animation:reach 2s ease-in-out infinite}.touch-hand.right .reach{animation-delay:-1s}@keyframes reach{50%{transform:translateY(-5px)}}
+.sound-source{position:absolute;width:160px;height:160px}.sound-source svg{width:100%;height:100%;overflow:visible}.sound-source circle.wave{fill:none;stroke:#0063d9;stroke-width:2.4;filter:drop-shadow(0 0 1px white);transform-origin:55px 55px;animation:sound-wave 2s ease-out infinite}.sound-source circle.wave:nth-child(2){animation-delay:-.5s;stroke:#b57419}.sound-source circle.wave:nth-child(3){animation-delay:-1s}.sound-source circle.wave:nth-child(4){animation-delay:-1.5s;stroke:#b57419}@keyframes sound-wave{0%{transform:scale(.30);opacity:.95}100%{transform:scale(1.12);opacity:0}}
+@media(prefers-reduced-motion:reduce){.touch-hand .reach,.sound-source circle.wave{animation:none}.sound-source circle.wave{opacity:.55}}
+</style>
 <main id="mundo" aria-label="Mapa tridimensional com estrada e carro animado"></main>
 <section class="content" id="conteudo" aria-label="Slide da apresentação">
  <div class="slide-brand"><svg class="brand" role="img" aria-label="MAHLE"
@@ -72,10 +78,14 @@ THE SOFTWARE.
 </div><div class="eyebrow" id="titulo-parada">SEVERIDADE 1 · EFEITO NO SISTEMA</div><h1 id="titulo">Marcação dos componentes</h1><p id="descricao" class="slide-function"></p>
  <div class="first-content hidden" id="primeiro-conteudo">
   <div class="meaning">
-   <section><div class="section-kicker">NO SISTEMA · S1</div><h2 id="sistema-titulo">Sem efeito funcional</h2><p id="sistema-texto"></p></section>
-   <section class="business"><div class="section-kicker">RESSALVA PARA A MAHLE</div><h2 id="mahle-titulo">A rastreabilidade faz diferença</h2><p id="mahle-texto"></p><p class="emphasis" id="mahle-destaque"></p></section>
+   <section><div class="section-kicker" id="sistema-contexto">NO SISTEMA · S1</div><h2 id="sistema-titulo">Sem efeito funcional</h2><p id="sistema-texto"></p></section>
+   <section class="business"><div class="section-kicker" id="exemplos-contexto">RESSALVA PARA A MAHLE</div><h2 id="mahle-titulo">A rastreabilidade faz diferença</h2><p id="mahle-texto"></p><p class="emphasis" id="mahle-destaque"></p></section>
   </div>
-  <div class="model-pane"><div class="model-caption"><strong>Três campos sem gravação</strong> · áreas destacadas no injetado</div><div id="coletor-viewport" aria-label="Modelo 3D com áreas de marcação ausentes"><div id="marcacao-alvo" class="model-pin">!</div></div><div class="field-legend"><span><i class="empty-mark"></i><b>Data de injeção</b></span><span><i class="empty-mark"></i><b>Número do componente</b></span><span><i class="empty-mark"></i><b>Número de cavidade</b></span></div></div>
+  <div class="model-pane"><div class="model-caption" id="modelo-caption">Três campos sem gravação · áreas destacadas no injetado</div><div id="coletor-viewport" aria-label="Modelo 3D dos efeitos no coletor"><div id="marcacao-alvo" class="model-pin">!</div>
+   <svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs><symbol id="mao-ilustrada" viewBox="0 0 120 160"><path d="M36 157 32 125 16 97 10 77Q8 68 16 66L24 70 35 86 30 36Q28 23 37 20T48 31L51 67 50 18Q50 6 59 6T68 18L69 65 74 29Q75 18 83 20T91 32L85 76 94 48Q97 40 104 44T108 57L101 89 89 114 82 128 85 157Z" fill="#eeeae0" stroke="#243746" stroke-width="3" stroke-linejoin="round"/><path d="M36 157 32 125 43 113 71 119 82 128 85 157Z" fill="#748292"/><path d="m35 86 12 16 7 25M51 67l4 22M69 65l-1 23M85 76l-7 19M43 113l28 6M36 139l44 4M34 46l13-2M53 35h13M76 44l12 2M94 65l11 3" fill="none" stroke="#4d5b66" stroke-width="2.3" stroke-linecap="round"/><path d="m44 103 14-7 17 5-6 15-18-4Z" fill="#c6c6bc"/><path d="m39 129 8 3m-5 5 9 2m17-7 9 2m-8 5 9 2" stroke="#a8b4bd" stroke-width="2"/></symbol></defs></svg>
+   <div class="effect-overlay hidden" id="maos-tato" aria-label="Duas mãos ilustradas indicam intenção de toque"><div class="touch-hand left"><div class="reach"><svg viewBox="0 0 120 160"><use href="#mao-ilustrada"/></svg></div></div><div class="touch-hand right"><div class="reach"><svg viewBox="0 0 120 160"><use href="#mao-ilustrada"/></svg></div></div></div>
+   <div class="effect-overlay hidden" id="ondas-ruido" aria-label="Ondas ilustram ruído de admissão não atenuado"><div class="sound-source"><svg viewBox="0 0 110 110"><circle class="wave" cx="55" cy="55" r="42"/><circle class="wave" cx="55" cy="55" r="42"/><circle class="wave" cx="55" cy="55" r="42"/><circle class="wave" cx="55" cy="55" r="42"/><path d="M39 48h10l13-12v38L49 62H39Z" fill="#0043bc" stroke="#fff" stroke-width="2"/></svg></div><div class="sound-source"><svg viewBox="0 0 110 110"><circle class="wave" cx="55" cy="55" r="42"/><circle class="wave" cx="55" cy="55" r="42"/><circle class="wave" cx="55" cy="55" r="42"/><circle class="wave" cx="55" cy="55" r="42"/></svg></div></div>
+  </div><div class="field-legend"><span><i class="empty-mark"></i><b id="legenda-0">Data de injeção</b></span><span><i class="empty-mark"></i><b id="legenda-1">Número do componente</b></span><span><i class="empty-mark"></i><b id="legenda-2">Número de cavidade</b></span></div></div>
  </div>
  <div class="model-tools hidden" id="ferramentas-modelo"><button class="zoom" id="coletor-menos" aria-label="Afastar coletor">−</button><span class="zoom-value" id="coletor-zoom">110%</span><button class="zoom" id="coletor-mais" aria-label="Aproximar coletor">+</button><button id="coletor-marcas">Focar marcações</button><button id="coletor-corte" aria-pressed="false">Vista completa</button><button id="coletor-restaurar">Reenquadrar</button></div>
 </section>
@@ -54657,7 +54667,7 @@ const T = { ACESFilmicToneMapping, AddEquation, AddOperation, AdditiveAnimationB
    Biblioteca e modelo são incorporados por gerar.mjs. Nenhuma requisição de rede. */
 (() => {
 'use strict';
-const CONFIG={"painel":{"margemLateral":0.1,"largura":0.8,"topo":0.1,"altura":0.8,"opacidade":0.85},"composicaoMapa":{"margemLateral":0.05,"largura":0.516,"topo":0.168,"altura":0.624},"percurso":{"escalaHorizontal":1.8,"duracaoTransicao":2.5},"paradas":[{"severidade":1,"u":0.055,"lado":"left"},{"severidade":2,"u":0.155,"lado":"right"},{"severidade":3,"u":0.255,"lado":"left"},{"severidade":4,"u":0.355,"lado":"right"},{"severidade":5,"u":0.455,"lado":"left"},{"severidade":6,"u":0.555,"lado":"right"},{"severidade":7,"u":0.655,"lado":"left"},{"severidade":8,"u":0.755,"lado":"right"},{"severidade":9,"u":0.855,"lado":"left"},{"severidade":10,"u":0.955,"lado":"right"}],"primeiroSlide":{"titulo":"Marcação dos componentes","funcao":"Garantir marcação dos componentes com data de injeção, número do componente e número de cavidade","sistemaTitulo":"Sem efeito funcional","sistemaTexto":"Marcações ausentes ou incorretas não alteram as funções primárias nem as secundárias do coletor de ar.","mahleTitulo":"A rastreabilidade faz diferença","mahleTexto":"Em caso de problema no cliente, a identificação incompleta dificulta delimitar as peças que precisam de ação.","mahleDestaque":"Quanto maior o conjunto de peças sem identificação confiável, maior pode ser o custo para a MAHLE.","nota":"A severidade 1 se refere ao efeito funcional no sistema."}};const STOP_COUNT=CONFIG.paradas.length,LAST_STOP=STOP_COUNT-1,FINAL_SLIDE=STOP_COUNT,STOP_PARAMS=CONFIG.paradas.map(p=>p.u);
+const CONFIG={"painel":{"margemLateral":0.1,"largura":0.8,"topo":0.1,"altura":0.8,"opacidade":0.85},"composicaoMapa":{"margemLateral":0.05,"largura":0.516,"topo":0.168,"altura":0.624},"percurso":{"escalaHorizontal":1.8,"duracaoTransicao":2.5},"paradas":[{"severidade":1,"u":0.055,"lado":"left"},{"severidade":2,"u":0.155,"lado":"right"},{"severidade":3,"u":0.255,"lado":"left"},{"severidade":4,"u":0.355,"lado":"right"},{"severidade":5,"u":0.455,"lado":"left"},{"severidade":6,"u":0.555,"lado":"right"},{"severidade":7,"u":0.655,"lado":"left"},{"severidade":8,"u":0.755,"lado":"right"},{"severidade":9,"u":0.855,"lado":"left"},{"severidade":10,"u":0.955,"lado":"right"}],"slidesSensoriais":{"2":{"titulo":"Aparência do coletor","funcao":"Atender aos requisitos de aparência das superfícies moldadas do coletor de ar.","sistemaTitulo":"Ligeiramente desagradável","sistemaTexto":"Pequenas alterações visuais geram um incômodo discreto, sem prejudicar o fornecimento de ar nem o funcionamento do motor.","exemplosTitulo":"Marcas que chamam pouca atenção","exemplosTexto":"Manchas superficiais, leve variação de cor e marcas de fluxo aparentes na superfície moldada são exemplos desse efeito.","destaque":"Aparência, tato e ruído podem ocupar S2, S3 ou S4. A nota depende da intensidade do incômodo, não do tipo de exemplo.","caption":"Aspecto visual · manchas e marcas superficiais","legendas":["Manchas superficiais","Marcas de fluxo","Variação de cor"],"efeito":"aparencia"},"3":{"titulo":"Rugosidade e percepção tátil","funcao":"Garantir superfícies e bordas adequadas ao contato e ao manuseio do coletor de ar.","sistemaTitulo":"Moderadamente desagradável","sistemaTexto":"Uma superfície áspera ou uma borda incômoda provoca desconforto perceptível ao toque, sem perda de desempenho do coletor.","exemplosTitulo":"O toque evidencia a irregularidade","exemplosTexto":"Rugosidade elevada, rebarbas superficiais e cantos vivos podem incomodar o manuseio. Neste exemplo, o efeito é desconforto, sem lesão.","destaque":"Aparência, tato e ruído podem ocupar S2, S3 ou S4. A nota depende da intensidade do incômodo, não do tipo de exemplo.","caption":"Percepção tátil · mãos ilustram a intenção de toque","legendas":["Alta rugosidade","Cantos vivos","Contato ilustrado"],"efeito":"tatil"},"4":{"titulo":"Ruído de admissão","funcao":"Contribuir para a atenuação do ruído e das pulsações acústicas da admissão.","sistemaTitulo":"Muito desagradável","sistemaTexto":"Um som de admissão muito perceptível causa forte incômodo, mesmo com o fornecimento de ar e o funcionamento do motor preservados.","exemplosTitulo":"O som se destaca durante o uso","exemplosTexto":"Ronco de admissão, assobio ou ressonância que o coletor gera, amplifica ou deixa de atenuar são exemplos desse efeito.","destaque":"Aparência, tato e ruído podem ocupar S2, S3 ou S4. A nota depende da intensidade do incômodo, não do tipo de exemplo.","caption":"Ruído não atenuado · ondas sonoras ilustrativas","legendas":["Pulsos de pressão","Vibração das paredes","Som não atenuado"],"efeito":"ruido"}},"primeiroSlide":{"titulo":"Marcação dos componentes","funcao":"Garantir marcação dos componentes com data de injeção, número do componente e número de cavidade","sistemaTitulo":"Sem efeito funcional","sistemaTexto":"Marcações ausentes ou incorretas não alteram as funções primárias nem as secundárias do coletor de ar.","mahleTitulo":"A rastreabilidade faz diferença","mahleTexto":"Em caso de problema no cliente, a identificação incompleta dificulta delimitar as peças que precisam de ação.","mahleDestaque":"Quanto maior o conjunto de peças sem identificação confiável, maior pode ser o custo para a MAHLE.","nota":"A severidade 1 se refere ao efeito funcional no sistema."}};const STOP_COUNT=CONFIG.paradas.length,LAST_STOP=STOP_COUNT-1,FINAL_SLIDE=STOP_COUNT,STOP_PARAMS=CONFIG.paradas.map(p=>p.u);
 const TRAVEL_DURATION=CONFIG.percurso.duracaoTransicao;
 const $=id=>document.getElementById(id);
 const V=(x=0,y=0,z=0)=>new T.Vector3(x,y,z);
@@ -54762,7 +54772,7 @@ transformed.z+=cos(forestTime*0.73+windRoot.z*0.12)*windWeight*0.035;`)};
   }
   return{wood:merge(wood),leaves:foliage.length?merge(foliage):null,height,type,seed};
  }
- const variants=Array.from({length:20},(_,i)=>{const type=i<12?'conifera':i<18?'frondosa':'seca',seed=927+i*173;return{...create(type,seed),low:create(type,seed,true)}});
+ const variants=Array.from({length:20},(_,i)=>{const type=i<12?'conifera':'frondosa',seed=927+i*173;return{...create(type,seed),low:create(type,seed,true)}});
  function tree(index=12){const v=variants[index],root=new T.Group();root.name='Arvore_'+v.type+'_'+index;for(const [g,m]of [[v.wood,bark],[v.leaves,leaves]])if(g){const o=new T.Mesh(g,m);o.castShadow=true;o.receiveShadow=true;if(m===leaves)o.customDepthMaterial=depth;root.add(o)}return root}
  return{variants,bark,leaves,depth,wind,tree};
 }
@@ -54832,10 +54842,66 @@ function criarColetorK24(T,{espessura=.055}={}){
  return{root,upper,runners,corte,alvoMarcacoes:V(-.27,.31,1.84),exportar(cut=false){const r=root.clone(true);r.position.set(0,0,0);r.quaternion.identity();r.getObjectByName('Destaques_didaticos_das_marcacoes')?.removeFromParent();r.getObjectByName('Metade_superior').visible=!cut;for(const o of cutOnly)r.getObjectByName(o.name).visible=cut;for(const o of fullOnly)r.getObjectByName(o.name).visible=!cut;r.userData.corte=cut;return r}};
 }
 
+// Volumes conservadores por faixa de altura: protegem carro e marcador sem
+// tratar o espaço vazio sob a copa como se fosse uma parede de folhas.
+function criarVisibilidadeMapa(T,{vegetation,forestPoints,carCorners,labels,stops,orient,crashQuaternion,tree,wreckPosition}){
+ const V=(x=0,y=0,z=0)=>new T.Vector3(x,y,z),corners=b=>{const p=[];for(const x of [b.min.x,b.max.x])for(const y of [b.min.y,b.max.y])for(const z of [b.min.z,b.max.z])p.push(V(x,y,z));return p};
+ const bands=vegetation.variants.map(v=>{const parts=[];for(const [g,folhas]of [[v.wood,false],[v.leaves,true]])if(g){const rows=new Map(),p=g.getAttribute('position');for(let i=0;i<p.count;i+=3){const tri=[0,1,2].map(j=>V().fromBufferAttribute(p,i+j)),lo=Math.floor(Math.min(...tri.map(p=>p.y))/1.2),hi=Math.floor(Math.max(...tri.map(p=>p.y))/1.2);for(let k=lo;k<=hi;k++){if(!rows.has(k))rows.set(k,new T.Box3());for(const a of tri)rows.get(k).expandByPoint(a)}}for(const b of rows.values())parts.push({box:b.expandByScalar(.13),folhas})}return parts});
+ const temp=V();let camera;
+ function project(points){const r={x0:Infinity,x1:-Infinity,y0:Infinity,y1:-Infinity,d0:Infinity,d1:-Infinity};for(const p of points){temp.copy(p).applyMatrix4(camera.matrixWorldInverse);const d=-temp.z;r.d0=Math.min(r.d0,d);r.d1=Math.max(r.d1,d);temp.applyMatrix4(camera.projectionMatrix);r.x0=Math.min(r.x0,temp.x);r.x1=Math.max(r.x1,temp.x);r.y0=Math.min(r.y0,temp.y);r.y1=Math.max(r.y1,temp.y)}if(r.d1<camera.near)return null;if(r.d0<camera.near){r.x0=r.y0=-100;r.x1=r.y1=100}return r}
+ function overlap(a,b){return a&&b&&a.d0<b.d1+.05&&a.x0<b.x1+.012&&a.x1>b.x0-.012&&a.y0<b.y1+.012&&a.y1>b.y0-.012}
+ function worldParts(t){if(!t.visionParts){const all=new T.Box3();t.visionParts=bands[t.variant].map(({box,folhas})=>{const b=box.clone().applyMatrix4(t.matrix);all.union(b);return{points:corners(b),folhas}});t.visionBounds=corners(all)}return t.visionParts}
+ tree.updateMatrixWorld(true);const impact={variant:12,matrix:tree.matrixWorld.clone()};
+ function targets(p,i,crash){const matrix=new T.Matrix4().compose(p.clone().add(V(0,-.06,0)),crash?crashQuaternion():orient(stops[i]),V(1,1,1)),car=project(carCorners.map(c=>c.clone().applyMatrix4(matrix))),m=labels[i].base.position,b=new T.Box3(V(m.x-2.55,m.y-.1,m.z-2.55),V(m.x+2.55,m.y+.3,m.z+2.55));return{car,numero:project(corners(b))}}
+ function audit(pose,i,{crash=false,nearby=forestPoints}={}){
+  camera=pose.camera;const p=crash?wreckPosition.clone().add(V(0,.06,0)):pose.point,rect=targets(p,i,crash),blockers=[];let car=0,numero=0;
+  for(const t of nearby){if(t.reserved)continue;worldParts(t);const broad=project(t.visionBounds);if(!overlap(broad,rect.car)&&!overlap(broad,rect.numero))continue;let c=false,n=false;for(const part of t.visionParts){const r=project(part.points);c||=overlap(r,rect.car);n||=overlap(r,rect.numero)}if(c||n){blockers.push(t);if(c)car++;if(n)numero++}}
+  let fixed=0;for(const part of worldParts(impact)){if(crash&&!part.folhas)continue;const r=project(part.points);if(overlap(r,rect.car)||overlap(r,rect.numero))fixed++}
+  const inside=r=>r&&r.x0>-.94&&r.x1<.94&&r.y0>-.78&&r.y1<.88;
+  return{blockers,car,numero,fixed,inside:inside(rect.car)&&inside(rect.numero),rect};
+ }
+ function nearby(p){return forestPoints.filter(t=>!t.reserved&&Math.hypot(t.p.x-p.x,t.p.z-p.z)<78)}
+ return{audit,nearby};
+}
+
+// Efeitos didáticos presos à superfície do coletor. Textura e ilustrações são próprias.
+function criarEfeitosColetor(T,model){
+ const root=model.root,mode={value:0},meshes=[];root.updateMatrixWorld(true);const inverse=new T.Matrix4().copy(root.matrixWorld).invert();
+ root.traverse(o=>{if(o.isMesh&&o.material.isMeshPhysicalMaterial)meshes.push(o)});
+ const skin=meshes[0].material.clone(),baseColor=skin.color.clone(),canvas=document.createElement('canvas');canvas.width=canvas.height=256;
+ const ctx=canvas.getContext('2d'),data=ctx.createImageData(256,256);let seed=71;
+ for(let i=0;i<256*256;i++){seed=(seed*1664525+1013904223)>>>0;const x=(i%256)>>3,y=Math.floor(i/256)>>3,coarse=((Math.imul(x+83,374761393)^Math.imul(y+19,668265263))>>>16)&255,tone=40+coarse*.64+(seed>>>24)*.13;data.data.set([tone,tone,tone,255],i*4)}ctx.putImageData(data,0,0);
+ const grain=new T.CanvasTexture(canvas);grain.wrapS=grain.wrapT=T.RepeatWrapping;skin.bumpMap=grain;skin.bumpScale=0;
+ for(const o of meshes){o.material=skin;const position=o.geometry.getAttribute('position'),matrix=new T.Matrix4().multiplyMatrices(inverse,o.matrixWorld),coords=[],uv=[];for(let i=0;i<position.count;i++){const p=new T.Vector3().fromBufferAttribute(position,i).applyMatrix4(matrix);coords.push(p.x,p.y,p.z);uv.push(p.x*.8+p.z*.23,p.y*1.8+p.z*.9)}o.geometry.setAttribute('surfaceLocal',new T.Float32BufferAttribute(coords,3));o.geometry.setAttribute('uv',new T.Float32BufferAttribute(uv,2))}
+ skin.onBeforeCompile=shader=>{shader.uniforms.effectKind=mode;shader.vertexShader='attribute vec3 surfaceLocal; varying vec3 effectPosition;\n'+shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\neffectPosition=surfaceLocal;');shader.fragmentShader='uniform float effectKind; varying vec3 effectPosition;\n'+shader.fragmentShader.replace('#include <color_fragment>',`#include <color_fragment>
+ if(effectKind>0.5&&effectKind<1.5){
+  vec3 p=effectPosition;float front=smoothstep(1.35,1.60,p.z);
+  float stain=1.0-smoothstep(0.30,0.68,length((p.xy-vec2(-1.1,0.54))*vec2(1.35,2.9))+0.06*sin(p.x*37.0+p.y*23.0));
+  float mark=(1.0-smoothstep(0.018,0.035,abs(p.y-0.58-0.048*sin(p.x*8.0))))*smoothstep(0.2,0.4,p.x)*(1.0-smoothstep(1.8,2.2,p.x));
+  float variation=(1.0-smoothstep(0.25,0.60,length((p.xy-vec2(0.35,0.36))*vec2(1.7,4.3))));
+  diffuseColor.rgb=mix(diffuseColor.rgb,vec3(0.28,0.21,0.13),front*stain*0.8);
+  diffuseColor.rgb=mix(diffuseColor.rgb,vec3(0.48,0.53,0.56),front*mark*0.65);
+  diffuseColor.rgb=mix(diffuseColor.rgb,vec3(0.12,0.19,0.24),front*variation*0.6);
+ }
+`)};
+ const rim=root.getObjectByName('Plenum_borda_inferior'),edges=new T.LineSegments(new T.EdgesGeometry(rim.geometry,30),new T.LineBasicMaterial({color:'#b77d24'}));edges.name='Cantos_destacados_para_o_toque';root.add(edges);
+ // Relevo externo irregular, com bordas que se encontram com a parede real.
+ const wall=root.getObjectByName('Plenum_parede_externa_inferior').geometry.getAttribute('position'),front=new Map();
+ for(let i=0;i<wall.count;i++){const x=wall.getX(i),z=wall.getZ(i);if(z>1.1)front.set(x,Math.max(front.get(x)??-Infinity,z))}
+ const outline=[...front].sort((a,b)=>a[0]-b[0]),surfaceZ=x=>{for(let i=1;i<outline.length;i++){const a=outline[i-1],b=outline[i];if(x>=a[0]&&x<=b[0])return T.MathUtils.lerp(a[1],b[1],(x-a[0])/(b[0]-a[0]))}return 1.8};
+ const patchGeo=new T.PlaneGeometry(3.5,.39,54,12),pos=patchGeo.getAttribute('position'),colors=[];
+ for(let i=0;i<pos.count;i++){const x=pos.getX(i),y=pos.getY(i)+.39,u=Math.abs(x)/1.75,v=Math.abs(y-.39)/.195,edge=Math.max(0,1-u**6)*Math.max(0,1-v**6),noise=(Math.sin(i*73.31)*43758.54)%1,h=Math.abs(noise),c=new T.Color('#47575e').lerp(new T.Color('#a8ada5'),h*.82);pos.setXYZ(i,x,y,surfaceZ(x)+.003+edge*(.012+h*.065));colors.push(c.r,c.g,c.b)}
+ patchGeo.setAttribute('color',new T.Float32BufferAttribute(colors,3));patchGeo.computeVertexNormals();const patch=new T.Mesh(patchGeo,new T.MeshStandardMaterial({vertexColors:true,roughness:.98,flatShading:true,side:T.DoubleSide}));patch.name='Relevo_didatico_de_alta_rugosidade';root.add(patch);
+ const marking=root.getObjectByName('Superficies_de_marcacao_sem_gravacao'),highlight=root.getObjectByName('Destaques_didaticos_das_marcacoes');
+ function set(index){mode.value=index;marking.visible=highlight.visible=index===0;edges.visible=patch.visible=index===2;skin.color.copy(index===2?new T.Color('#6b7477'):baseColor);skin.roughness=index===2?.96:.36;skin.bumpScale=index===2?.095:0;skin.clearcoat=index===2?0:.20;skin.emissive.set(index===3?'#123d6e':'#000000');skin.emissiveIntensity=index===3?.22:0}
+ set(0);return{set,nomes:['marcacoes','aparencia','tatil','ruido']};
+}
+
 // Inspeção 3D sob demanda. O enquadramento acompanha giro, corte, zoom e tamanho do visor.
 function criarVisorColetor(T,{visivel=()=>true}={}){
  const $=id=>document.getElementById(id),V=(x=0,y=0,z=0)=>new T.Vector3(x,y,z),clamp=T.MathUtils.clamp;
  const host=$('coletor-viewport'),studio=new T.Scene(),model=criarColetorK24(T),pivot=new T.Group();studio.add(pivot);pivot.add(model.root);
+ const effects=criarEfeitosColetor(T,model);
  const box=new T.Box3().setFromObject(model.root),center=box.getCenter(V());model.root.position.sub(center);
  studio.add(new T.HemisphereLight('#ffffff','#afbecb',2.4));const key=new T.DirectionalLight('#fff4e5',3.1);key.position.set(-4,8,7);key.castShadow=true;key.shadow.mapSize.set(1024,1024);Object.assign(key.shadow.camera,{left:-5,right:5,top:5,bottom:-5,far:30});key.shadow.normalBias=.014;studio.add(key);
  const fill=new T.DirectionalLight('#bddbff',1.8);fill.position.set(5,3,-4);studio.add(fill);
@@ -54843,7 +54909,7 @@ function criarVisorColetor(T,{visivel=()=>true}={}){
  const r=new T.WebGLRenderer({antialias:true,alpha:true});r.setClearColor(0xffffff,0);r.setPixelRatio(Math.min(devicePixelRatio,1.5));r.shadowMap.enabled=true;r.shadowMap.type=T.PCFSoftShadowMap;r.shadowMap.autoUpdate=false;r.toneMapping=T.ACESFilmicToneMapping;r.outputColorSpace=T.SRGBColorSpace;host.prepend(r.domElement);
  r.domElement.setAttribute('aria-label','Coletor 3D: arraste para girar e use a roda do mouse para aproximar');
  const c=new T.PerspectiveCamera(34,1,.1,120),initialDirection=V(-.42,.30,1.35).normalize(),direction=initialDirection.clone(),target=V();
- let width=0,height=0,cut=true,drag=null,rendered=0,zoom=1.1,focus=false,framing=null;
+ let width=0,height=0,cut=true,drag=null,rendered=0,zoom=1.1,focus=false,framing=null,slide=0;
  // A nuvem usa os vértices reais de todas as peças visíveis. É preparada uma vez
  // por versão (corte/completa) e reutilizada, evitando caixas vazias que diminuiriam o modelo.
  const pointCache=new Map(),projected=V();
@@ -54870,20 +54936,26 @@ function criarVisorColetor(T,{visivel=()=>true}={}){
   for(const p of points){const q=projected.copy(p).project(c);framing.x0=Math.min(framing.x0,q.x);framing.x1=Math.max(framing.x1,q.x);framing.y0=Math.min(framing.y0,q.y);framing.y1=Math.max(framing.y1,q.y);framing.z0=Math.min(framing.z0,q.z);framing.z1=Math.max(framing.z1,q.z)}
   $('coletor-zoom').textContent=Math.round(zoom*100)+'%';$('coletor-menos').disabled=zoom<=.6001;$('coletor-mais').disabled=zoom>=1.2499;
  }
- function updatePin(){model.root.updateWorldMatrix(true,true);const p=model.root.localToWorld(model.alvoMarcacoes.clone()),normal=V(0,0,1).transformDirection(model.root.matrixWorld),front=normal.dot(c.position.clone().sub(p))>0,v=p.project(c),pin=$('marcacao-alvo');pin.classList.toggle('hidden',!front||Math.abs(v.x)>.94||Math.abs(v.y)>.92||v.z< -1||v.z>1);pin.style.left=((v.x*.5+.5)*width-13)+'px';pin.style.top=((-v.y*.5+.5)*height-34)+'px'}
+ function screenPoint(point){const p=model.root.localToWorld(point.clone()).project(c);return{x:(p.x*.5+.5)*width,y:(-p.y*.5+.5)*height}}
+ function updatePin(){model.root.updateWorldMatrix(true,true);const p=model.root.localToWorld(model.alvoMarcacoes.clone()),normal=V(0,0,1).transformDirection(model.root.matrixWorld),front=normal.dot(c.position.clone().sub(p))>0,v=p.project(c),pin=$('marcacao-alvo');pin.classList.toggle('hidden',slide!==0||!front||Math.abs(v.x)>.94||Math.abs(v.y)>.92||v.z< -1||v.z>1);pin.style.left=((v.x*.5+.5)*width-13)+'px';pin.style.top=((-v.y*.5+.5)*height-34)+'px';
+  $('maos-tato').classList.toggle('hidden',slide!==2);$('ondas-ruido').classList.toggle('hidden',slide!==3);
+  if(slide===2){const size=clamp(width*.20,78,128);for(const [j,hand]of [...$('maos-tato').children].entries()){const a=screenPoint(V(j?1.7:-1.4,.65,1.78)),x=j?a.x-size*.08:a.x-size*.92;hand.style.width=size+'px';hand.style.height=size*4/3+'px';hand.style.left=clamp(x,8,width-size-8)+'px';hand.style.top=clamp(a.y-15,8,height-size*4/3-8)+'px'}}
+  if(slide===3){for(const [i,wave]of [...$('ondas-ruido').children].entries()){const p=screenPoint(i?V(2.3,.6,1.8):V(-3.0,.67,.65));wave.style.left=clamp(p.x-80,2,width-162)+'px';wave.style.top=clamp(p.y-80,2,height-162)+'px'}}
+ }
  function render(){if(!visivel()||host.clientWidth<1)return;r.shadowMap.needsUpdate=true;r.render(studio,c);rendered++;updatePin()}
  function refresh(){position();render()}
  function resize(){const w=host.clientWidth,h=host.clientHeight;if(w<1||h<1)return;if(w!==width||h!==height){width=w;height=h;r.setSize(w,h);c.aspect=w/h;c.updateProjectionMatrix();refresh()}}
  function reset(){pivot.rotation.set(0,0,0);zoom=1.1;focus=false;direction.copy(initialDirection);refresh()}
  function zoomBy(factor){zoom=clamp(zoom*factor,.6,1.25);refresh()}
  function focusMarkings(){pivot.rotation.set(0,0,0);direction.copy(V(-.03,.14,1).normalize());zoom=1.25;focus=true;refresh()}
+ function mostrarSlide(index){if(index===slide)return;slide=index;effects.set(index);pointCache.clear();cut=index===0;model.corte(cut);$('coletor-corte').setAttribute('aria-pressed',String(!cut));$('coletor-corte').textContent=cut?'Vista completa':'Vista em corte';$('coletor-marcas').textContent=index===0?'Focar marcações':index===1?'Focar aparência':index===2?'Focar superfície':'Focar coletor';reset()}
  r.domElement.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY};r.domElement.setPointerCapture(e.pointerId);e.stopPropagation()});
  r.domElement.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;pivot.rotation.y+=dx*.009;pivot.rotation.x=clamp(pivot.rotation.x+dy*.007,-.60,.60);drag={x:e.clientX,y:e.clientY};refresh()});
  r.domElement.addEventListener('pointerup',()=>{drag=null});r.domElement.addEventListener('pointercancel',()=>{drag=null});r.domElement.addEventListener('wheel',e=>{e.preventDefault();zoomBy(Math.exp(-e.deltaY*.0012))},{passive:false});
  $('coletor-menos').addEventListener('click',()=>zoomBy(1/1.2));$('coletor-mais').addEventListener('click',()=>zoomBy(1.2));$('coletor-marcas').addEventListener('click',focusMarkings);
  $('coletor-corte').addEventListener('click',()=>{cut=!cut;model.corte(cut);$('coletor-corte').setAttribute('aria-pressed',String(!cut));$('coletor-corte').textContent=cut?'Vista completa':'Vista em corte';refresh()});
  $('coletor-restaurar').addEventListener('click',reset);new ResizeObserver(resize).observe(host);
- return{resize,reset,exportar:cut=>model.exportar(cut),estado:()=>({cut,rendered,width,height,zoom,focus,enquadramento:framing,marcacoesAusentes:3,dutos:model.runners.length,rotation:pivot.rotation.toArray().slice(0,3)})};
+ return{resize,reset,mostrarSlide,exportar:cut=>criarColetorK24(T).exportar(cut),estado:()=>({cut,rendered,width,height,zoom,focus,modo:effects.nomes[slide],maos:slide===2?2:0,ondas:slide===3,enquadramento:framing,marcacoesAusentes:slide===0?3:0,dutos:model.runners.length,rotation:pivot.rotation.toArray().slice(0,3)})};
 }
 
 try {
@@ -55011,7 +55083,7 @@ function updateForestLOD(focus,aerial=false){
  lodFocus.copy(focus);lodAerial=aerial;lodCameraPosition.copy(camera.position);lodCameraQuaternion.copy(camera.quaternion);lodAspect=camera.aspect;
  forestCullCamera.position.copy(camera.position);forestCullCamera.quaternion.copy(camera.quaternion);forestCullCamera.aspect=camera.aspect*1.1;forestCullCamera.updateProjectionMatrix();forestCullCamera.updateMatrixWorld();forestFrustum.setFromProjectionMatrix(new T.Matrix4().multiplyMatrices(forestCullCamera.projectionMatrix,forestCullCamera.matrixWorldInverse));visibleTrees=0;
  function finish(meshes,count){for(const m of meshes){m.count=count;if(count){m.instanceMatrix.clearUpdateRanges();m.instanceMatrix.addUpdateRange(0,count*16);m.instanceMatrix.needsUpdate=true}}}
- for(const group of forestLodGroups){let near=0,far=0;for(const t of group.points){const h=vegetation.variants[t.variant].height*t.scale;forestSphere.center.copy(t.p).add(V(0,h*.60,0));forestSphere.radius=h*.67;if(!forestFrustum.intersectsSphere(forestSphere))continue;visibleTrees++;const distant=aerial||Math.hypot(t.p.x-focus.x,t.p.z-focus.z)>63;for(const m of group[distant?'low':'high'])m.setMatrixAt(distant?far:near,t.matrix);if(distant)far++;else near++}finish(group.high,near);finish(group.low,far)}
+ for(const group of forestLodGroups){let near=0,far=0;for(const t of group.points){if(t.reserved)continue;const h=vegetation.variants[t.variant].height*t.scale;forestSphere.center.copy(t.p).add(V(0,h*.60,0));forestSphere.radius=h*.67;if(!forestFrustum.intersectsSphere(forestSphere))continue;visibleTrees++;const distant=aerial||Math.hypot(t.p.x-focus.x,t.p.z-focus.z)>63;for(const m of group[distant?'low':'high'])m.setMatrixAt(distant?far:near,t.matrix);if(distant)far++;else near++}finish(group.high,near);finish(group.low,far)}
 }
 updateForestLOD(at(stops[0]));
 // Oclusão suave de contato complementa as sombras projetadas, especialmente na vista aérea.
@@ -55089,6 +55161,8 @@ const contentSides=CONFIG.paradas.map(p=>p.lado).concat('left');
 const probeCamera=new T.PerspectiveCamera(42,camera.aspect,.1,1200);
 const roadProbes=[];for(let j=0;j<=550;j++){const u=j/550;for(const s of [-3.4,-1.7,0,1.7,3.4])roadProbes.push(at(u).addScaledVector(side(u),s))}
 let poses=[],layoutAudit=[];
+let clearedTrees=0;
+const visibility=criarVisibilidadeMapa(T,{vegetation,forestPoints,carCorners,labels,stops,orient,crashQuaternion:()=>directionQuaternion(crashDirection),tree,wreckPosition});
 // O painel agora é central. Mantemos a composição cinematográfica já aprovada do mapa.
 function contentRect(i){const p=CONFIG.composicaoMapa,x=contentSides[i]==='left'?p.margemLateral:1-p.margemLateral-p.largura;return{x0:x*2-1,x1:(x+p.largura)*2-1,y0:1-2*(p.topo+p.altura),y1:1-2*p.topo}}
 function roadIntrusions(pose,i,margin=.015){
@@ -55108,20 +55182,26 @@ function framePoint(point,screenX,screenY){
  look.addScaledVector(right,relative.dot(right)-screenX*halfHeight*camera.aspect).addScaledVector(up,relative.dot(up)-screenY*halfHeight);
 }
 function fitPose(p,i,includeTree=false){
- const sign=contentSides[i]==='left'?1:-1;let best=null,bestCost=Infinity;
- const nearby=forestPoints.filter(t=>Math.hypot(t.p.x-p.x,t.p.z-p.z)<38);
- for(const h of [23,27,31])for(const distance of [26,30])for(let k=0;k<48;k++){
-  const yaw=k*Math.PI*2/48,offset=V(Math.sin(yaw)*distance,h,Math.cos(yaw)*distance);
-  const pose=compose(p,offset,sign*.60),hits=roadIntrusions(pose,i);
-  const preference=Math.abs(Math.atan2(Math.sin(yaw-i*.9),Math.cos(yaw-i*.9)));
-  let treePenalty=0;
-  if(includeTree){for(const x of [-2.4,2.4])for(const y of [0,7])for(const z of [-2.4,2.4]){const v=treePosition.clone().add(V(x,y,z)).project(probeCamera);if(v.x*sign<.17||v.x*sign>.94||v.y<-.66||v.y>.78)treePenalty+=10000}}
-  const eye=pose.look.clone().add(pose.boom),target=p.clone().add(V(0,.8,0)),ray=target.clone().sub(eye),rayLength=ray.lengthSq();let blocked=0;
-  for(const t of nearby){const v=vegetation.variants[t.variant];if(v.type==='seca')continue;const center=t.p.clone().add(V(0,v.height*t.scale*(v.type==='conifera'?.60:.82),0)),along=clamp(center.clone().sub(eye).dot(ray)/rayLength,0,1),closest=eye.clone().addScaledVector(ray,along);if(along>.05&&along<.97&&closest.distanceTo(center)<(v.type==='conifera'?1.8:2.65)*t.scale)blocked++}
-  const cost=hits*100000+blocked*2000+(h-23)*.015+(distance-26)*.01+preference*.01+treePenalty;
-  if(cost<bestCost){bestCost=cost;best={...pose,hits,yaw}}
- }return best;
+ const sign=contentSides[i]==='left'?1:-1,nearby=visibility.nearby(p),candidates=[];let best=null,bestCost=Infinity;
+ for(const h of (includeTree?[8,11,14]:i===LAST_STOP?[16,20,24]:[27,31,35]))for(const distance of [26,30])for(let k=0;k<48;k++)for(const framing of (includeTree?[.20,.30,.40]:[.50,.60])){
+  const yaw=k*Math.PI*2/48,offset=V(Math.sin(yaw)*distance,h,Math.cos(yaw)*distance),pose=compose(p,offset,sign*framing),eye=pose.look.clone().add(offset);
+  if(includeTree&&eye.clone().sub(wreckPosition).setY(0).normalize().dot(crashDirection)>-.20)continue;
+  if(i===LAST_STOP&&!includeTree&&eye.clone().sub(p).setY(0).normalize().dot(crashDirection)>-.20)continue;
+  const hits=roadIntrusions(pose,i),preference=Math.abs(Math.atan2(Math.sin(yaw-i*.9),Math.cos(yaw-i*.9)));
+  candidates.push({...pose,hits,yaw,screenX:sign*framing,point:p,roughCost:hits*.05+preference+(h-27)*.025+(distance-26)*.01});
+ }
+ candidates.sort((a,b)=>a.roughCost-b.roughCost);
+ for(let k=0;k<candidates.length;k++){
+  if(k>=24&&best?.audit.fixed===0&&best.audit.inside)break;
+  const pose=candidates[k];probeCamera.position.copy(pose.look).add(pose.boom);probeCamera.lookAt(pose.look);probeCamera.updateMatrixWorld();
+  const audit=visibility.audit({...pose,camera:probeCamera},i,{crash:includeTree,nearby}),cost=(audit.inside?0:1e8)+audit.fixed*1e7+audit.blockers.length*1000+pose.roughCost;
+  if(cost<bestCost){bestCost=cost;best={...pose,audit}}
+ }
+ for(const t of best.audit.blockers)if(!t.reserved){t.reserved=true;clearedTrees++;const j=forestPoints.indexOf(t);contacts.setMatrixAt(j,new T.Matrix4().makeScale(0,0,0))}
+ contacts.instanceMatrix.needsUpdate=true;lodFocus.set(1e6,0,1e6);renderer.shadowMap.needsUpdate=true;return best;
 }
+function auditPose(pose,i,crash=false){probeCamera.position.copy(pose.look).add(pose.boom);probeCamera.lookAt(pose.look);probeCamera.updateMatrixWorld();const a=visibility.audit({...pose,camera:probeCamera},i,{crash,nearby:visibility.nearby(pose.point)});return{carro:a.car,numero:a.numero,arvoreImpacto:a.fixed,enquadrado:a.inside}}
+function verificarVisibilidade(){return{paradas:poses.slice(0,STOP_COUNT).map((p,i)=>auditPose(p,i)),acidente:auditPose(crashPose,LAST_STOP,true),arvoresSemFolhas:vegetation.variants.filter(v=>!v.leaves||!v.low.leaves).length,arvoresRetiradasDosCorredores:clearedTrees}}
 function makePoses(){
  probeCamera.aspect=camera.aspect;probeCamera.updateProjectionMatrix();
  poses=stops.map((u,i)=>{
@@ -55156,15 +55236,20 @@ function resetCrash(){crash=null;crashed=false;fireTime=0;impacts=0;skidSamples=
 function finishWreck(){car.position.copy(wreckPosition);car.quaternion.copy(directionQuaternion(crashDirection));syncDamaged();damaged.aplicar(1);damaged.root.visible=true;car.visible=false;fire.visible=true;skid.visible=true;crashed=true;fireTime=Math.max(fireTime,1)}
 function beginCrash(rolling=false){const speed=rolling?(stops[LAST_STOP]-stops[LAST_STOP-1])*total/TRAVEL_DURATION:escapeLength/.85;crash={time:0,impacted:false,rolling,speed,contactTime:escapeLength/speed+(rolling?0:.08),travelled:0,initialLook:look.clone(),initialBoom:boom.clone()};appendSkids();ui()}
 function setContent(){
- const end=index===FINAL_SLIDE,first=index===0,busy=!!motion||!!cameraTween||!!crash,s=CONFIG.primeiroSlide;
- $('conteudo').className='content'+(contentSides[index]==='right'?' right':'')+(end?' conclusion':'')+(busy?' absent':'')+(first?' model-slide':'');
+ const end=index===FINAL_SLIDE,first=index===0,modelSlide=index<4,busy=!!motion||!!cameraTween||!!crash,s=first?CONFIG.primeiroSlide:CONFIG.slidesSensoriais[index+1];
+ $('conteudo').className='content'+(contentSides[index]==='right'?' right':'')+(end?' conclusion':'')+(busy?' absent':'')+(modelSlide?' model-slide':'')+(modelSlide&&!first?' sensory-slide':'');
  $('titulo-parada').textContent=end?'CONCLUSÃO':`SEVERIDADE ${index+1} · EFEITO NO SISTEMA`;
- $('titulo').textContent=first?s.titulo:end?'Uma visão do caminho completo.':index===LAST_STOP&&crashed?'Perda de controle. Impacto frontal.':`Severidade ${index+1}`;
- $('descricao').textContent=first?s.funcao:end?'Aqui entra a conclusão da apresentação, com a jornada inteira ao lado.':index===LAST_STOP&&crashed?'Demonstração visual da batida. Selecione 10 novamente para repetir a sequência.':'Espaço reservado para o conteúdo desta severidade.';
- $('sistema-titulo').textContent=s.sistemaTitulo;$('sistema-texto').textContent=s.sistemaTexto;
- $('mahle-titulo').textContent=s.mahleTitulo;$('mahle-texto').textContent=s.mahleTexto;$('mahle-destaque').textContent=s.mahleDestaque;
- $('primeiro-conteudo').classList.toggle('hidden',!first);$('ferramentas-modelo').classList.toggle('hidden',!first);
- if(first)requestAnimationFrame(()=>manifoldView.resize());
+ $('titulo').textContent=modelSlide?s.titulo:end?'Uma visão do caminho completo.':index===LAST_STOP&&crashed?'Perda de controle. Impacto frontal.':`Severidade ${index+1}`;
+ $('descricao').textContent=modelSlide?s.funcao:end?'Aqui entra a conclusão da apresentação, com a jornada inteira ao lado.':index===LAST_STOP&&crashed?'Demonstração visual da batida. Selecione 10 novamente para repetir a sequência.':'Espaço reservado para o conteúdo desta severidade.';
+ $('primeiro-conteudo').classList.toggle('hidden',!modelSlide);$('ferramentas-modelo').classList.toggle('hidden',!modelSlide);
+ if(modelSlide){
+  $('sistema-contexto').textContent=first?'NO SISTEMA · S1':`EFEITO NO SISTEMA · S${index+1}`;$('exemplos-contexto').textContent=first?'RESSALVA PARA A MAHLE':'EXEMPLOS · INTENSIDADE PERCEBIDA';
+  $('sistema-titulo').textContent=s.sistemaTitulo;$('sistema-texto').textContent=s.sistemaTexto;
+  $('mahle-titulo').textContent=first?s.mahleTitulo:s.exemplosTitulo;$('mahle-texto').textContent=first?s.mahleTexto:s.exemplosTexto;$('mahle-destaque').textContent=first?s.mahleDestaque:s.destaque;
+  $('modelo-caption').textContent=first?'Três campos sem gravação · áreas destacadas no injetado':s.caption;
+  (first?['Data de injeção','Número do componente','Número de cavidade']:s.legendas).forEach((label,i)=>$('legenda-'+i).textContent=label);
+  manifoldView.mostrarSlide(index);requestAnimationFrame(()=>manifoldView.resize());
+ }
 }
 function ensureSelectedVisible(){
  const list=$('numeros'),item=$('etapa-'+index),left=item.offsetLeft-list.offsetLeft;
@@ -55178,7 +55263,7 @@ function ui(){
  $('proximo').textContent=index===LAST_STOP?'Conclusão →':'Avançar →';
  $('estado').innerHTML=fade?'Trocando slide <span>Transição suave</span>':crash?`Severidade 10 <span>${crash.impacted?'Impacto frontal':'Perda de controle'}</span>`:cameraTween?'Novo enquadramento <span>Câmera em movimento</span>':motion?`Percurso ${String(index+1).padStart(2,'0')} → ${String(motion.to+1).padStart(2,'0')} <span>Em movimento</span>`:index===FINAL_SLIDE?'Conclusão <span>Jornada completa</span>':`Severidade ${index+1} <span>${crashed?'Após o impacto':'Aguardando avanço'}</span>`;
  for(let i=0;i<=FINAL_SLIDE;i++){$('etapa-'+i).className='step'+(i===index?' current':i<index?' done':'');$('etapa-'+i).setAttribute('aria-current',i===index?'step':'false')}
- labels.forEach((label,i)=>label.ring.material=i===index?blue:gray);
+ labels.forEach((label,i)=>{label.ring.material=i===index?blue:gray;label.label.rotation.z=i===LAST_STOP&&crashed?crashPose.yaw:poses[i].yaw});
  setContent();ensureSelectedVisible();
 }
 function setInstant(to){
@@ -55201,7 +55286,7 @@ function advance(direction){
  }
  const from=carU,end=stops[to];
  // Um único relógio sincroniza carro, órbita e composição: todos chegam juntos.
- motion={from,end,to,direction,time:0,duration:TRAVEL_DURATION,initialLook:look.clone(),initialBoom:boom.clone(),endPose:stopPose(to)};ui();
+ motion={from,end,to,direction,time:0,duration:TRAVEL_DURATION,initialLook:look.clone(),initialBoom:boom.clone(),startFrame:screenAt(at(from),{look,boom}).x,endPose:stopPose(to)};ui();
 }
 function fullscreen(){if(document.fullscreenElement)document.exitFullscreen?.();else document.documentElement.requestFullscreen?.().catch(()=>{})}
 $('proximo').addEventListener('click',()=>advance(1));$('anterior').addEventListener('click',()=>advance(-1));
@@ -55221,7 +55306,7 @@ addEventListener('keydown',e=>{
 let resizeTimer;
 addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{makePoses();if(!motion&&!cameraTween&&!fade&&!crash){const p=presentationPose(index);look.copy(p.look);boom.copy(p.boom)}else if(motion)motion.endPose=stopPose(motion.to);else if(cameraTween){const p=presentationPose(cameraTween.to);cameraTween.toLook=p.look;cameraTween.toBoom=p.boom}},150)});
 const first=stopPose(0);look.copy(first.look);boom.copy(first.boom);place(carU);
-const manifoldView=criarVisorColetor(T,{visivel:()=>index===0});
+const manifoldView=criarVisorColetor(T,{visivel:()=>index<4});
 function update(dt){
  mapClock+=dt;shadowAge+=dt;
  vegetation.wind.value+=dt;
@@ -55245,13 +55330,13 @@ function update(dt){
   place(carU);
   // Curva quintica: velocidade e aceleração nulas nas duas extremidades.
   // O POV já se move no primeiro quadro, sem gatilho de borda, perseguição ou correção tardia.
-  const initialScreenX=contentSides[index]==='left'?.60:-.60;
+  const initialScreenX=m.startFrame;
   const yaw0=Math.atan2(m.initialBoom.x,m.initialBoom.z),yaw1=Math.atan2(m.endPose.boom.x,m.endPose.boom.z);
   const yaw=yaw0+Math.atan2(Math.sin(yaw1-yaw0),Math.cos(yaw1-yaw0))*v;
   const radius=lerp(Math.hypot(m.initialBoom.x,m.initialBoom.z),Math.hypot(m.endPose.boom.x,m.endPose.boom.z),v);
   const lift=Math.sin(v*Math.PI)**2*3;
   boom.set(Math.sin(yaw)*radius,lerp(m.initialBoom.y,m.endPose.boom.y,v)+lift,Math.cos(yaw)*radius);
-  const endScreenX=contentSides[m.to]==='left'?.60:-.60;
+  const endScreenX=m.endPose.screenX;
   // Composição lateral na saída/chegada; liberdade central durante a viagem.
   const framing=lerp(initialScreenX,endScreenX,v)*(1-Math.sin(v*Math.PI)**2*.75);
   look.copy(compose(at(carU),boom,framing).look);
@@ -55282,7 +55367,7 @@ function update(dt){
   const yaw=yaw0+Math.atan2(Math.sin(yaw1-yaw0),Math.cos(yaw1-yaw0))*u;
   const radius=lerp(Math.hypot(c.initialBoom.x,c.initialBoom.z),Math.hypot(crashPose.boom.x,crashPose.boom.z),u);
   boom.set(Math.sin(yaw)*radius,lerp(c.initialBoom.y,crashPose.boom.y,u)+Math.sin(u*Math.PI)**2*1.5,Math.cos(yaw)*radius);
-  look.copy(compose(car.position.clone().add(V(0,.06,0)),boom,contentSides[LAST_STOP]==='left'?.60:-.60).look);
+  look.copy(compose(car.position.clone().add(V(0,.06,0)),boom,lerp(stopPose(LAST_STOP).screenX,crashPose.screenX,u)).look);
   if(c.time>=duration){finishWreck();look.copy(crashPose.look);boom.copy(crashPose.boom);crash=null;ui()}
  }
  if(fire.visible){
@@ -55313,10 +55398,10 @@ function verificarGeometria(){
  let minClearance=Infinity,negative=0;
  function meshHeight(x,z){const nx=TERRAIN_SEGMENTS_X,nz=TERRAIN_SEGMENTS_Z,fx=clamp((x+TERRAIN_WIDTH/2)/(TERRAIN_WIDTH/nx),0,nx-.001),fz=clamp((z+TERRAIN_DEPTH/2)/(TERRAIN_DEPTH/nz),0,nz-.001),i=Math.floor(fx),j=Math.floor(fz),u=fx-i,v=fz-j,a=landPositions.getY(j*(nx+1)+i),b=landPositions.getY((j+1)*(nx+1)+i),c=landPositions.getY((j+1)*(nx+1)+i+1),d=landPositions.getY(j*(nx+1)+i+1);return u+v<=1?a*(1-u-v)+b*v+d*u:b*(1-u)+d*(1-v)+c*(u+v-1)}
  for(let i=1;i<roadPoints.length-1;i++){const p=roadPoints[i],d=roadPoints[i+1].clone().sub(roadPoints[i-1]),s=V(-d.z,0,d.x).normalize();for(const offset of [-3.05,0,3.05]){const q=p.clone().addScaledVector(s,offset),clearance=p.y-meshHeight(q.x,q.z);minClearance=Math.min(minClearance,clearance);if(clearance<=0)negative++}}
- return{minClearance,negative,closureGap:roadPoints[0].distanceTo(roadPoints.at(-1)),roadLength:roadDistances.at(-1),forestCount:forestPoints.length,comprimentoApresentacao:total,distanciasEntreParadas:stops.slice(1).map((u,i)=>(u-stops[i])*total),duracaoTransicao:TRAVEL_DURATION,escalaHorizontal:CONFIG.percurso.escalaHorizontal,variantStats:vegetation.variants.map(v=>({tipo:v.type,triangles:(v.wood.getAttribute('position').count+(v.leaves?.getAttribute('position').count||0))/3,altura:v.height})),contactTimeRolling:escapeLength/((stops[LAST_STOP]-stops[LAST_STOP-1])*total/TRAVEL_DURATION)};
+ return{minClearance,negative,closureGap:roadPoints[0].distanceTo(roadPoints.at(-1)),roadLength:roadDistances.at(-1),forestCount:forestPoints.length-clearedTrees,comprimentoApresentacao:total,distanciasEntreParadas:stops.slice(1).map((u,i)=>(u-stops[i])*total),duracaoTransicao:TRAVEL_DURATION,escalaHorizontal:CONFIG.percurso.escalaHorizontal,variantStats:vegetation.variants.map(v=>({tipo:v.type,triangles:(v.wood.getAttribute('position').count+(v.leaves?.getAttribute('position').count||0))/3,altura:v.height})),contactTimeRolling:escapeLength/((stops[LAST_STOP]-stops[LAST_STOP-1])*total/TRAVEL_DURATION)};
 }
 // Diagnóstico local para validação: sem telemetria, sem persistência e sem rede.
-window.prototipo={estado:()=>({index,paradas:STOP_COUNT,slides:FINAL_SLIDE+1,carU,sceneRenders,shadowRenders,coletor:manifoldView.estado(),skidSamples,skidDrawCounts:skidTracks.map(t=>t.g.drawRange.count),moving:!!motion||!!cameraTween||!!crash,fading:!!fade,tracking:!!motion,crashTime:crash?.time??null,contactTime:crash?.contactTime??null,crashTravelled:crash?.travelled??null,forestCount:forestPoints.length,visibleTrees,treeVariants:vegetation.variants.length,roadClosed:roadPoints[0].distanceTo(roadPoints.at(-1))<.001,triangles:renderer.info.render.triangles,crashed,fire:fire.visible,impacts,damagedVisible:damaged.root.visible,tree:treePosition.toArray(),frontDirection:V(1,0,0).applyQuaternion(car.quaternion).toArray(),wreckPosition:wreckPosition.toArray(),crashLayout:roadIntrusions(crashPose,LAST_STOP,0),progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===FINAL_SLIDE,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide,verificarGeometria,exportarColetor:cut=>manifoldView.exportar(cut),exportarArvore:i=>vegetation.tree(i),exportarIntegro:()=>{const c=car.clone(true);c.position.set(0,0,0);c.quaternion.identity();c.visible=true;return c},exportarAmassado:()=>damaged.exportar()};
+window.prototipo={estado:()=>({index,paradas:STOP_COUNT,slides:FINAL_SLIDE+1,carU,sceneRenders,shadowRenders,coletor:manifoldView.estado(),skidSamples,skidDrawCounts:skidTracks.map(t=>t.g.drawRange.count),moving:!!motion||!!cameraTween||!!crash,fading:!!fade,tracking:!!motion,crashTime:crash?.time??null,contactTime:crash?.contactTime??null,crashTravelled:crash?.travelled??null,forestCount:forestPoints.length-clearedTrees,visibleTrees,treeVariants:vegetation.variants.length,roadClosed:roadPoints[0].distanceTo(roadPoints.at(-1))<.001,triangles:renderer.info.render.triangles,crashed,fire:fire.visible,impacts,damagedVisible:damaged.root.visible,tree:treePosition.toArray(),frontDirection:V(1,0,0).applyQuaternion(car.quaternion).toArray(),wreckPosition:wreckPosition.toArray(),crashLayout:roadIntrusions(crashPose,LAST_STOP,0),progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===FINAL_SLIDE,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide,verificarGeometria,verificarVisibilidade,exportarColetor:cut=>manifoldView.exportar(cut),exportarArvore:i=>vegetation.tree(i),exportarIntegro:()=>{const c=car.clone(true);c.position.set(0,0,0);c.quaternion.identity();c.visible=true;return c},exportarAmassado:()=>damaged.exportar()};
 ui();requestAnimationFrame(tick);
 } catch(error){console.error(error);$('erro').classList.remove('hidden');$('erro').textContent='Não foi possível iniciar a cena 3D. Abra este arquivo no Microsoft Edge ou Google Chrome com suporte a WebGL. Detalhe: '+error.message;$('estado').textContent='Cena indisponível';}
 })();

@@ -14,6 +14,44 @@
     {"severidade":9,"u":0.855,"lado":"left"},
     {"severidade":10,"u":0.955,"lado":"right"}
   ],
+  "slidesSensoriais": {
+    "2": {
+      "titulo":"Aparência do coletor",
+      "funcao":"Atender aos requisitos de aparência das superfícies moldadas do coletor de ar.",
+      "sistemaTitulo":"Ligeiramente desagradável",
+      "sistemaTexto":"Pequenas alterações visuais geram um incômodo discreto, sem prejudicar o fornecimento de ar nem o funcionamento do motor.",
+      "exemplosTitulo":"Marcas que chamam pouca atenção",
+      "exemplosTexto":"Manchas superficiais, leve variação de cor e marcas de fluxo aparentes na superfície moldada são exemplos desse efeito.",
+      "destaque":"Aparência, tato e ruído podem ocupar S2, S3 ou S4. A nota depende da intensidade do incômodo, não do tipo de exemplo.",
+      "caption":"Aspecto visual · manchas e marcas superficiais",
+      "legendas":["Manchas superficiais","Marcas de fluxo","Variação de cor"],
+      "efeito":"aparencia"
+    },
+    "3": {
+      "titulo":"Rugosidade e percepção tátil",
+      "funcao":"Garantir superfícies e bordas adequadas ao contato e ao manuseio do coletor de ar.",
+      "sistemaTitulo":"Moderadamente desagradável",
+      "sistemaTexto":"Uma superfície áspera ou uma borda incômoda provoca desconforto perceptível ao toque, sem perda de desempenho do coletor.",
+      "exemplosTitulo":"O toque evidencia a irregularidade",
+      "exemplosTexto":"Rugosidade elevada, rebarbas superficiais e cantos vivos podem incomodar o manuseio. Neste exemplo, o efeito é desconforto, sem lesão.",
+      "destaque":"Aparência, tato e ruído podem ocupar S2, S3 ou S4. A nota depende da intensidade do incômodo, não do tipo de exemplo.",
+      "caption":"Percepção tátil · mãos ilustram a intenção de toque",
+      "legendas":["Alta rugosidade","Cantos vivos","Contato ilustrado"],
+      "efeito":"tatil"
+    },
+    "4": {
+      "titulo":"Ruído de admissão",
+      "funcao":"Contribuir para a atenuação do ruído e das pulsações acústicas da admissão.",
+      "sistemaTitulo":"Muito desagradável",
+      "sistemaTexto":"Um som de admissão muito perceptível causa forte incômodo, mesmo com o fornecimento de ar e o funcionamento do motor preservados.",
+      "exemplosTitulo":"O som se destaca durante o uso",
+      "exemplosTexto":"Ronco de admissão, assobio ou ressonância que o coletor gera, amplifica ou deixa de atenuar são exemplos desse efeito.",
+      "destaque":"Aparência, tato e ruído podem ocupar S2, S3 ou S4. A nota depende da intensidade do incômodo, não do tipo de exemplo.",
+      "caption":"Ruído não atenuado · ondas sonoras ilustrativas",
+      "legendas":["Pulsos de pressão","Vibração das paredes","Som não atenuado"],
+      "efeito":"ruido"
+    }
+  },
   "primeiroSlide": {
     "titulo":"Marcação dos componentes",
     "funcao":"Garantir marcação dos componentes com data de injeção, número do componente e número de cavidade",

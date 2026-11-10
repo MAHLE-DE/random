@@ -11,7 +11,7 @@ for(const index of [-1,3,12,18]){
  const bounds=new T.Box3().setFromObject(collection),center=bounds.getCenter(new T.Vector3()),direction=c.position.clone().sub(center).normalize();let distance=c.position.distanceTo(center);
  for(let step=0;step<60;step++){c.position.copy(center).addScaledVector(direction,distance);c.lookAt(center);c.updateMatrixWorld();let visible=true;for(const x of [bounds.min.x,bounds.max.x])for(const y of [bounds.min.y,bounds.max.y])for(const z of [bounds.min.z,bounds.max.z]){const v=new T.Vector3(x,y,z).project(c);if(Math.abs(v.x)>.90||Math.abs(v.y)>.90)visible=false}if(visible)break;distance*=1.04}
  const r=new T.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});r.setSize(w,h);r.shadowMap.enabled=true;r.shadowMap.type=T.PCFShadowMap;light.shadow.radius=2.2;r.toneMapping=T.ACESFilmicToneMapping;r.render(s,c);const png=r.domElement.toDataURL();r.dispose();return png},index);
- const name=index<0?'galeria':index===3?'conifera':index===12?'frondosa':'seca';await fs.writeFile(`modelos/arvores/${name}.png`,Buffer.from(preview.split(',')[1],'base64'));
+ const name=index<0?'galeria':index===3?'conifera':index===12?'frondosa':'frondosa-variada';await fs.writeFile(`modelos/arvores/${name}.png`,Buffer.from(preview.split(',')[1],'base64'));
 }
 await page.screenshot({path:'.producao/floresta-inicio.png'});await page.locator('#etapa-5').click();await page.waitForFunction(()=>prototipo.estado().index===5&&!prototipo.estado().fading);await page.waitForTimeout(400);await page.screenshot({path:'.producao/floresta-aerea.png'});
 console.log(JSON.stringify({errors,state:await page.evaluate(()=>prototipo.estado())}));if(errors.length)throw new Error('Falha de execução');

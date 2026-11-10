@@ -55,7 +55,7 @@ transformed.z+=cos(forestTime*0.73+windRoot.z*0.12)*windWeight*0.035;`)};
   }
   return{wood:merge(wood),leaves:foliage.length?merge(foliage):null,height,type,seed};
  }
- const variants=Array.from({length:20},(_,i)=>{const type=i<12?'conifera':i<18?'frondosa':'seca',seed=927+i*173;return{...create(type,seed),low:create(type,seed,true)}});
+ const variants=Array.from({length:20},(_,i)=>{const type=i<12?'conifera':'frondosa',seed=927+i*173;return{...create(type,seed),low:create(type,seed,true)}});
  function tree(index=12){const v=variants[index],root=new T.Group();root.name='Arvore_'+v.type+'_'+index;for(const [g,m]of [[v.wood,bark],[v.leaves,leaves]])if(g){const o=new T.Mesh(g,m);o.castShadow=true;o.receiveShadow=true;if(m===leaves)o.customDepthMaterial=depth;root.add(o)}return root}
  return{variants,bark,leaves,depth,wind,tree};
 }

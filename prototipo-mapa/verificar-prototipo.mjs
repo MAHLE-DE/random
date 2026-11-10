@@ -53,16 +53,16 @@ try{
  for(const size of [{width:1600,height:900},{width:1280,height:960}]){
   await page.setViewportSize(size);await page.waitForTimeout(650);
   if((await page.evaluate(()=>prototipo.estado())).index!==0){await page.locator('#etapa-0').click();await idle()}
-  const poses=await page.evaluate(()=>prototipo.estado().layout);if(poses.some(p=>p.roadIntrusions>0))throw new Error('Composição do mapa alterada: '+JSON.stringify(poses));
+  const visibility=await page.evaluate(()=>prototipo.verificarVisibilidade());if(visibility.arvoresSemFolhas||[...visibility.paradas,visibility.acidente].some(p=>p.carro||p.numero||p.arvoreImpacto||!p.enquadrado))throw new Error('Visibilidade do mapa inválida: '+JSON.stringify(visibility));
   await page.evaluate(()=>{window.qaFrames=[];function collect(time){const s=prototipo.estado();if(s.moving||qaFrames.at(-1)?.moving)qaFrames.push({time,...s});requestAnimationFrame(collect)}if(!window.qaCollecting){qaCollecting=true;requestAnimationFrame(collect)}});
   await page.screenshot({path:`${output}/${size.width}-01.png`});
   for(let i=1;i<=final;i++){
    await page.locator('#proximo').click();if(i===last){await page.waitForFunction(()=>prototipo.estado().crashTime!==null);await page.waitForTimeout(200);await page.screenshot({path:`${output}/${size.width}-derrapagem.png`})}
    await idle();await page.waitForTimeout(280);const s=await page.evaluate(()=>prototipo.estado());if(s.index!==i)throw new Error('Destino de navegação incorreto');
-   if(i>0&&await page.locator('#coletor-viewport').isVisible())throw new Error('Coletor apareceu em outra cena');
+   if((await page.locator('#coletor-viewport').isVisible())!==(i<4))throw new Error('Visibilidade incorreta do coletor no slide '+(i+1));
    await page.screenshot({path:`${output}/${size.width}-${String(i+1).padStart(2,'0')}.png`});console.log('CENA',size.width,i+1);
   }
-  const end=await page.evaluate(()=>prototipo.estado());if(end.impacts!==1||!end.fire||!end.conclusion||end.crashLayout>0)throw new Error('Impacto/fogo/conclusão incorreto');
+  const end=await page.evaluate(()=>prototipo.estado());if(end.impacts!==1||!end.fire||!end.conclusion)throw new Error('Impacto/fogo/conclusão incorreto');
   await page.locator('#anterior').click();await idle();if((await page.evaluate(()=>prototipo.estado())).impacts!==1)throw new Error('Impacto se repetiu no retorno');
   for(let i=0;i<last;i++){await page.locator('#anterior').click();await idle()}
   const frames=await page.evaluate(()=>qaFrames),outside=frames.filter(s=>s.carBounds.some(v=>Math.abs(v[0])>.97||Math.abs(v[1])>.94));if(outside.length)throw new Error('Carro saiu da tela em '+outside.length+' quadros');

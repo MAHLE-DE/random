@@ -1,5 +1,18 @@
 # Validação do protótipo
 
+## Slides sensoriais e visibilidade do mapa — 10/11/2026
+
+- Slides 2, 3 e 4 desenvolvidos com função, exemplos e efeito percebido ligeiramente, moderadamente e muito desagradável. O texto ressalta nos três casos que aparência, tato e ruído podem ocupar S2, S3 ou S4, conforme a intensidade do incômodo.
+- Manchas e marcas de fluxo presas à superfície; relevo irregular e textura tátil com arestas destacadas; ondas animadas para o ruído gerado, amplificado ou não atenuado. Mãos em SVG originais, com orientação fixa em relação à tela, verificadas antes e depois do giro do coletor.
+- Quatro primeiros slides conferidos em 1600 × 900, 1280 × 720 e 1280 × 960, sem sobreposição de texto, modelo, legendas e ferramentas. Giro completo e inclinação nos três novos efeitos, nas versões completa e em corte, com zoom máximo: 72 gestos de giro, sem cortes da geometria.
+- Todas as 20 variantes têm folhas, tanto nos modelos próximos quanto nos simplificados. As duas variantes secas foram substituídas por copas largas. Modelos GLB e galeria atualizados.
+- Volumes por faixas de altura das árvores comparados às regiões projetadas do carro e dos números. Corredores desobstruídos nos dez enquadramentos, nas três resoluções. Árvores retiradas desses corredores também têm suas sombras de contato removidas.
+- Enquadramento do acidente mais baixo e pelo lado do carro, com zero interferências das copas na região do veículo. A aproximação final já prepara esse POV; o contato com o tronco e o fogo continuam visíveis.
+- Regressão de avanço, retorno, conclusão, repetição e cancelamento aprovada em 16:9 e 4:3: 1.943 e 2.279 quadros monitorados, sem cortes do carro. Viagens de 2,5 segundos e distâncias ampliadas preservadas. O marcador 10 permanece enquadrado junto ao carro após a batida.
+- Sem erros JavaScript ou de shader e sem conexões HTTP/HTTPS. Mãos e ondas animam sem redesenho contínuo do coletor. Execução local por `file://`, em contexto offline.
+
+Resumo em `validacao-sensoriais.json`. Relatórios e capturas em `.producao/qa-sensoriais/` e `.producao/qa-sensoriais-base/`. Prévias: [slide 2](previa-slide2.png), [slide 3](previa-slide3.png) e [slide 4](previa-slide4.png). Os registros abaixo documentam versões anteriores.
+
 ## Slide central, coletor sem cortes e percurso ampliado — 10/11/2026
 
 - Painel centralizado, com 80% da largura e da altura e margens de 10%, conferido em 1600 × 900, 1280 × 960 e 1280 × 720. Fundo com 85% de opacidade preservado.
