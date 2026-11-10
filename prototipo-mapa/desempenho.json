@@ -1,0 +1,21 @@
+{
+  "data": "2026-11-10",
+  "metodo": "Edge headless, offline, 1600 x 900, mesmos tres deslocamentos de 3 segundos",
+  "antes": {
+    "quadros": 115,
+    "tempoMedioMs": 74.20608695652172,
+    "fpsMedio": 13.475983453835973,
+    "medianaMs": 66.70000000000073,
+    "p90Ms": 83.60000000000036
+  },
+  "depois": {
+    "quadros": 265,
+    "tempoMedioMs": 33.335471698113196,
+    "fpsMedio": 29.99807559515051,
+    "medianaMs": 33.29999999999927,
+    "p90Ms": 66.60000000000036
+  },
+  "fatorMelhoria": 2.2260398061420505,
+  "escopo": "Medição local, sem garantia de FPS em outro equipamento ou em todas as cenas",
+  "script": "prototipo-mapa/medir-desempenho.mjs"
+}

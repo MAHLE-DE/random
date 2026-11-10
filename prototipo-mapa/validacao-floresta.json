@@ -1,26 +1,32 @@
 {
   "data": "2026-11-10",
   "aprovado": true,
-  "arvores": 4010,
+  "arvores": 5638,
   "variantes": 20,
   "pontasAbertas": false,
-  "distanciaFechamento": 0,
   "intersecoesAsfaltoTerreno": 0,
   "separacaoMinima": 0.14777259191250502,
+  "coletor": {
+    "dutos": 4,
+    "corte": true,
+    "completo": true,
+    "rotacao": true,
+    "reenquadramento": true
+  },
   "erros": 0,
   "requisicoesHTTP": 0,
   "resolucoes": [
     {
       "largura": 1600,
       "altura": 900,
-      "quadrosMonitorados": 419,
-      "velocidadeFinalSobreInicial": 1.001493244768988
+      "quadrosMonitorados": 827,
+      "velocidadeFinalSobreInicial": 1.0044847225712774
     },
     {
       "largura": 1280,
       "altura": 960,
-      "quadrosMonitorados": 459,
-      "velocidadeFinalSobreInicial": 1.0069561000175142
+      "quadrosMonitorados": 1093,
+      "velocidadeFinalSobreInicial": 1.0059937758147697
     }
   ],
   "script": "prototipo-mapa/verificar-prototipo.mjs"

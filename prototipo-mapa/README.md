@@ -7,6 +7,7 @@ Abra **[iniciar.html](iniciar.html)** no Microsoft Edge ou Google Chrome. O arqu
 - **Espaço, seta direita ou Page Down:** próximo slide, seguindo o percurso.
 - **Seta esquerda ou Page Up:** voltar pelo percurso.
 - **F:** entrar ou sair da tela cheia. Escape também sai da tela cheia.
+- **Primeiro slide:** arraste o coletor para girar. Use **Vista em corte / Vista completa** para alternar e **Reenquadrar** para voltar à posição inicial.
 - **Números no canto inferior esquerdo:** selecionar diretamente um slide com fade de saída e entrada. Um salto interrompe um percurso em andamento.
 - **Setas pequenas da lista, rolagem horizontal ou roda do mouse sobre a lista:** navegar pelos números. São cinco números completos visíveis por vez.
 
@@ -28,13 +29,27 @@ Para testar diretamente, selecione **05** na barra. Selecionar **05 novamente** 
 
 O [modelo amassado separado](../modelos/carro-amassado.glb) tem geometria deformada já aplicada, sem depender da animação ou de vídeo. A [prévia](../modelos/previa-carro-amassado.png) permite conferir o resultado. A deformação é ilustrativa e não corresponde a uma simulação física ou a um veículo real.
 
-O conteúdo mostrado nos retângulos é apenas uma indicação de espaço. O coletor e o conteúdo técnico ainda não foram reinseridos.
+O primeiro slide contém o novo coletor 3D, centralizado na área de apresentação. Os demais retângulos continuam reservados para desenvolver o conteúdo slide a slide.
 
-O cenário contém 4.010 árvores distribuídas em grupos e clareiras, com 20 variantes: 12 coníferas, seis árvores de copa larga e duas árvores secas. Os modelos próximos têm entre 956 e 1.596 triângulos, com troncos curvos, galhos, raízes e copas assimétricas. As árvores distantes usam versões simplificadas das mesmas famílias. Há grama agrupada, pedras, variação de cor no terreno, luz solar quente, preenchimento frio, sombras de 4096 × 4096 e movimento leve das copas.
+O cenário contém 5.638 árvores distribuídas em grupos e clareiras, com 20 variantes: 12 coníferas, seis árvores de copa larga e duas árvores secas. Os modelos próximos têm entre 856 e 1.496 triângulos, com troncos curvos, galhos e copas assimétricas, sem as raízes externas da versão anterior. A floresta foi estendida para preencher também o canto superior esquerdo da vista geral. Há grama agrupada, pedras, variação de cor no terreno, luz solar quente, preenchimento frio, sombras de 4096 × 4096 e movimento leve das copas.
 
 A árvore do impacto é da mesma família das árvores de copa larga da floresta, com tronco livre na altura do carro. Os marcadores têm clareiras próprias, sem árvores ou grama sobre os discos. As malhas são compartilhadas por instâncias; o nível de detalhe acompanha a proximidade do carro e a visão aérea.
 
 A estrada ganhou uma continuação externa curva, fechada, que preserva o trecho original das cinco paradas e elimina pontas visíveis. O terreno acompanha toda a estrada. As faixas centrais e laterais são desenhadas no próprio material do asfalto, com suavização de bordas, para evitar camadas sobrepostas e cintilação na vista distante. A logo vetorial MAHLE no capô continua orientada para leitura pela frente.
+
+Na vista geral, a continuação agora entra pelo lado esquerdo e segue para a direita, em vez de aparecer vindo da borda inferior. As cinco paradas originais foram mantidas.
+
+## Coletor do primeiro slide
+
+É uma reconstrução didática própria, inspirada no CAD K24 indicado pelo usuário, com plenum, quatro dutos ocos, flange com furos, entrada lateral e espessuras visíveis. As peças foram separadas para servir de base aos efeitos nos próximos slides. O primeiro enquadramento mostra o corte, como na referência. A vista completa é acessível pelo botão.
+
+Os [modelos GLB e as referências](../modelos/coletor-k24/REFERENCIAS.md) ficam em `modelos/coletor-k24/`. O visor só desenha o coletor quando necessário, sem rotação automática ou atualização contínua durante as viagens do carro.
+
+## Desempenho
+
+O campo de visão filtra as instâncias de árvores enviadas à GPU, com margem para os movimentos da câmera e sombras. As árvores próximas continuam detalhadas; as distantes usam versões simplificadas. As sombras estáveis da floresta são reutilizadas e atualizadas ao mudar a região visível; o contato do carro com o solo é desenhado separadamente. Quando o mapa está parado, o desenho do ambiente é limitado a oito atualizações por segundo, mantendo o vento leve sem renderizar a floresta inteira continuamente.
+
+Em comparação local no Edge sem interface, em 1600 × 900, os mesmos três deslocamentos passaram de aproximadamente 74,2 ms por quadro para 33,3 ms: cerca de 13,5 para 30 FPS médios. Isso mede esta máquina e este percurso, não garante uma taxa específica em todo computador. Método e resultados estão em `desempenho.json`.
 
 Na aproximação da quinta parada, o movimento continua diretamente para a derrapagem. A velocidade é controlada pela distância efetivamente percorrida na curva, mantendo o embalo até o impacto, quando ocorre a parada brusca e a deformação. As marcas são geradas quadro a quadro a partir dos pneus traseiros. A seleção direta de 05 reinicia a sequência com fade e uma aceleração inicial curta.
 
@@ -44,6 +59,9 @@ Veja a [galeria de variantes](../modelos/arvores/galeria.png) e os modelos GLB d
 
 - `movimento.js`: mapa, carro, enquadramentos, animação e navegação.
 - `dano.js`: geração da variante amassada e deformação progressiva do impacto.
+- `coletor.js`: geometria editável do coletor K24 didático e suas versões completa/em corte.
+- `exportar-coletor.mjs`: modelos GLB e prévias do coletor.
+- `medir-desempenho.mjs`: comparação repetível dos três primeiros deslocamentos.
 - `vegetacao.js`: modelos das 20 variantes, materiais e oscilação das copas.
 - `exportar-arvores.mjs`: geração de modelos GLB editáveis das três famílias.
 - `visualizar-modelos.mjs`: renderização das prévias e da galeria de árvores.

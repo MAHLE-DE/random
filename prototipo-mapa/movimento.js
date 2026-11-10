@@ -10,6 +10,7 @@ const ease=x=>x*x*x*(x*(x*6-15)+10);
 const lerp=T.MathUtils.lerp;
 __DANO_SOURCE__
 __VEGETACAO_SOURCE__
+__COLETOR_SOURCE__
 try {
 const scene=new T.Scene();scene.background=new T.Color('#b4c99b');
 scene.fog=new T.Fog('#b4c99b',110,245);
@@ -19,6 +20,7 @@ renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth
 renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;
 renderer.toneMappingExposure=1.05;renderer.shadowMap.enabled=true;
 renderer.shadowMap.type=T.PCFShadowMap;$('mundo').appendChild(renderer.domElement);
+renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;
 scene.add(new T.HemisphereLight('#c8e2eb','#303d29',1.25));
 const sun=new T.DirectionalLight('#fff0ce',3.0);sun.position.set(-38,58,26);
 sun.castShadow=true;sun.shadow.mapSize.set(4096,4096);
@@ -36,7 +38,7 @@ function at(u){return route.getPointAt(clamp(u,0,1))}
 function tangent(u){return route.getTangentAt(clamp(u,0,1)).normalize()}
 function side(u){const t=tangent(u);return V(-t.z,0,t.x).normalize()}
 // Continuação exterior fechada: mantém o percurso original, mas elimina as duas pontas.
-const extensionControl=[control.at(-2),control.at(-1),control.at(-1).clone().addScaledVector(tangent(1),35),V(155,1,-4),V(190,.6,35),V(175,.9,105),V(110,1.3,142),V(40,.7,135),V(-25,1.3,155),V(-100,.8,130),V(-160,.6,70),V(-170,.5,-5),V(-125,.7,-65),V(-80,.8,-75),V(-90,.4,-30),V(-120,.4,20),V(-100,.6,65),control[0].clone().addScaledVector(tangent(0),-35),control[0],control[1]];
+const extensionControl=[control.at(-2),control.at(-1),control.at(-1).clone().addScaledVector(tangent(1),35),V(155,1,-4),V(200,.6,-70),V(155,.9,-150),V(50,1.3,-180),V(-55,.7,-165),V(-165,1.3,-115),V(-230,.8,-20),V(-175,.6,30),control[0].clone().addScaledVector(tangent(0),-35),control[0],control[1]];
 const extension=new T.CatmullRomCurve3(extensionControl,false,'centripetal');
 const extensionAt=u=>extension.getPoint(lerp(1/(extensionControl.length-1),(extensionControl.length-2)/(extensionControl.length-1),u));
 const groundRoute=[...Array.from({length:321},(_,i)=>at(i/320)),...Array.from({length:1000},(_,i)=>extensionAt((i+1)/1000))];
@@ -91,8 +93,10 @@ for(let i=0;i<70;i++){
 const labels=[];
 // Floresta ampla com instâncias compartilhadas: continuidade visual sem milhares de objetos.
 const forestPoints=[],forestBins=new Map();
-for(let gx=-42;gx<=42;gx++)for(let gz=-42;gz<=42;gz++){
+for(let gx=-56;gx<=56;gx++)for(let gz=-56;gz<=56;gz++){
+ if((Math.abs(gx)>42||Math.abs(gz)>42)&&rand()>.60)continue;
  const x=18+gx*6.3+(rand()-.5)*6.3,z=6+gz*6.3+(rand()-.5)*6.3;
+ if(Math.abs(x)>342||Math.abs(z)>342)continue;
  const grove=.65+.18*Math.sin(x*.035+Math.cos(z*.026)*1.7)+.14*Math.cos(z*.043-x*.012);
  if(rand()>grove||groundInfo(x,z).distance<5.1)continue;
  const bx=Math.floor(x/4),bz=Math.floor(z/4);let crowded=false;
@@ -115,8 +119,15 @@ for(let k=0;k<vegetation.variants.length;k++){
  const group={points,high:[],low:[]};forestLodGroups.push(group);
  for(const low of [false,true]){const variant=low?vegetation.variants[k].low:vegetation.variants[k];for(const [geometry,material]of [[variant.wood,vegetation.bark],[variant.leaves,vegetation.leaves]])if(geometry){const inst=new T.InstancedMesh(geometry,material,points.length);inst.castShadow=true;inst.receiveShadow=true;inst.frustumCulled=false;inst.instanceMatrix.setUsage(T.DynamicDrawUsage);if(material===vegetation.leaves)inst.customDepthMaterial=vegetation.depth;forest.add(inst);group[low?'low':'high'].push(inst)}}
 }
-let lodFocus=V(1e6,0,1e6),lodAerial=false;
-function updateForestLOD(focus,aerial=false){if(lodFocus.distanceToSquared(focus)<36&&aerial===lodAerial)return;lodFocus.copy(focus);lodAerial=aerial;for(const group of forestLodGroups){let near=0,far=0;for(const t of group.points){const distant=aerial||Math.hypot(t.p.x-focus.x,t.p.z-focus.z)>63;for(const m of group[distant?'low':'high'])m.setMatrixAt(distant?far:near,t.matrix);if(distant)far++;else near++}for(const m of group.high){m.count=near;m.instanceMatrix.needsUpdate=true}for(const m of group.low){m.count=far;m.instanceMatrix.needsUpdate=true}}}
+let lodFocus=V(1e6,0,1e6),lodAerial=false,lodCameraPosition=V(1e6,0,1e6),lodCameraQuaternion=new T.Quaternion(),lodAspect=0,visibleTrees=0;
+const forestCullCamera=new T.PerspectiveCamera(64,camera.aspect*1.1,.8,700),forestFrustum=new T.Frustum(),forestSphere=new T.Sphere();
+function updateForestLOD(focus,aerial=false){
+ if(lodFocus.distanceToSquared(focus)<36&&aerial===lodAerial&&lodCameraPosition.distanceToSquared(camera.position)<16&&lodCameraQuaternion.angleTo(camera.quaternion)<.04&&lodAspect===camera.aspect)return;
+ lodFocus.copy(focus);lodAerial=aerial;lodCameraPosition.copy(camera.position);lodCameraQuaternion.copy(camera.quaternion);lodAspect=camera.aspect;
+ forestCullCamera.position.copy(camera.position);forestCullCamera.quaternion.copy(camera.quaternion);forestCullCamera.aspect=camera.aspect*1.1;forestCullCamera.updateProjectionMatrix();forestCullCamera.updateMatrixWorld();forestFrustum.setFromProjectionMatrix(new T.Matrix4().multiplyMatrices(forestCullCamera.projectionMatrix,forestCullCamera.matrixWorldInverse));visibleTrees=0;
+ function finish(meshes,count){for(const m of meshes){m.count=count;if(count){m.instanceMatrix.clearUpdateRanges();m.instanceMatrix.addUpdateRange(0,count*16);m.instanceMatrix.needsUpdate=true}}}
+ for(const group of forestLodGroups){let near=0,far=0;for(const t of group.points){const h=vegetation.variants[t.variant].height*t.scale;forestSphere.center.copy(t.p).add(V(0,h*.60,0));forestSphere.radius=h*.67;if(!forestFrustum.intersectsSphere(forestSphere))continue;visibleTrees++;const distant=aerial||Math.hypot(t.p.x-focus.x,t.p.z-focus.z)>63;for(const m of group[distant?'low':'high'])m.setMatrixAt(distant?far:near,t.matrix);if(distant)far++;else near++}finish(group.high,near);finish(group.low,far)}
+}
 updateForestLOD(at(stops[0]));
 // Oclusão suave de contato complementa as sombras projetadas, especialmente na vista aérea.
 const contactMaterial=new T.MeshBasicMaterial({color:'#172b1c',transparent:true,opacity:.19,depthWrite:false});
@@ -161,6 +172,11 @@ const car=readCar('__CARRO_BASE64__');scene.add(car);
 const sideLogo=car.getObjectByName('Logotipo_vetorial_lateral_1');
 if(sideLogo){const hood=sideLogo.clone(true);hood.name='Logotipo_MAHLE_no_capo';hood.quaternion.setFromRotationMatrix(new T.Matrix4().makeBasis(V(0,0,-1),V(.9935,-.1135,0).normalize(),V(-.1135,-.9935,0).normalize()));hood.scale.set(.010,.018,.010);hood.position.set(.82,1.087,.565);car.add(hood)}
 const damaged=criarCarroAmassado(T,car);scene.add(damaged.root);damaged.root.visible=false;
+// Sombras da floresta são estáveis e reutilizadas. O carro usa contato dinâmico próprio.
+car.traverse(o=>{if(o.isMesh)o.castShadow=false});damaged.root.traverse(o=>{if(o.isMesh)o.castShadow=false});
+const carContact=new T.Group(),carShadowMaterial=new T.MeshBasicMaterial({color:'#102015',transparent:true,opacity:.34,depthWrite:false});
+carShadowMaterial.onBeforeCompile=s=>{s.vertexShader='varying vec2 shadowUv;\n'+s.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nshadowUv=uv;');s.fragmentShader='varying vec2 shadowUv;\n'+s.fragmentShader.replace('#include <color_fragment>','#include <color_fragment>\ndiffuseColor.a*=(1.0-smoothstep(0.30,0.50,abs(shadowUv.x-0.5)))*(1.0-smoothstep(0.24,0.50,abs(shadowUv.y-0.5)));')};
+const carShadow=new T.Mesh(new T.PlaneGeometry(3.8,1.9),carShadowMaterial);carShadow.rotation.x=-Math.PI/2;carContact.add(carShadow);scene.add(carContact);
 const fire=new T.Group();fire.name='Fogo_pos_impacto';damaged.root.add(fire);fire.visible=false;
 const flames=[],smoke=[];
 const flameShape=new T.LatheGeometry([new T.Vector2(0,0),new T.Vector2(.20,.12),new T.Vector2(.28,.4),new T.Vector2(.15,.9),new T.Vector2(.035,1.4),new T.Vector2(0,1.7)],10);
@@ -182,6 +198,7 @@ const wheels=[],steers=[];car.traverse(o=>{if(o.name.startsWith('Roda_giratoria'
 // O eixo longitudinal do modelo é +X; a base local acompanha a inclinação.
 function orient(u){const x=tangent(u),z=new T.Vector3().crossVectors(x,V(0,1,0)).normalize(),y=new T.Vector3().crossVectors(z,x).normalize();return new T.Quaternion().setFromRotationMatrix(new T.Matrix4().makeBasis(x,y,z))}
 let carU=stops[0],index=0,motion=null,lastTime=null,cameraTween=null,fade=null,crash=null,crashed=false,fireTime=0,impacts=0,crashPose=null;
+let mapDirty=true,mapClock=0,lastMapDraw=-10,shadowAge=10,shadowAnchor=V(1e6,0,1e6),shadowAerial=null,shadowRenders=0,sceneRenders=0;
 let look=V(),boom=V(),carTurn=orient(carU),wheelAngle=0;
 const contentSides=['left','right','left','right','left','left'];
 const probeCamera=new T.PerspectiveCamera(42,camera.aspect,.1,500);
@@ -253,6 +270,9 @@ function setContent(){
  $('titulo').innerHTML=end?'Uma visão do<br>caminho completo.':index===4&&crashed?'Perda de controle.<br>Impacto frontal.':'Espaço para<br>a apresentação.';
  $('descricao').textContent=end?'Aqui entra a conclusão da apresentação, com a jornada inteira ao lado.':index===4&&crashed?'Demonstração visual da batida. Selecione 05 novamente para repetir a sequência.':'Este retângulo está reservado para os textos, imagens e explicações de cada slide.';
  $('legenda-area').textContent=end?'ENCERRAMENTO DA JORNADA':'ÁREA DE CONTEÚDO · SEM ESTRADA';
+ const first=index===0;
+ $('conteudo').classList.toggle('model-slide',first);$('coletor-viewport').classList.toggle('hidden',!first);
+ if(first){$('titulo').textContent='Coletor de admissão';$('descricao').textContent='';$('legenda-area').textContent='REFERÊNCIA K24 · ARRASTE PARA GIRAR';requestAnimationFrame(()=>manifoldView.resize())}
 }
 function ensureSelectedVisible(){
  const list=$('numeros'),item=$('etapa-'+index),left=item.offsetLeft-list.offsetLeft;
@@ -260,6 +280,7 @@ function ensureSelectedVisible(){
  else if(left+item.offsetWidth>list.scrollLeft+list.clientWidth)list.scrollTo({left:left+item.offsetWidth-list.clientWidth,behavior:'smooth'});
 }
 function ui(){
+ mapDirty=true;
  const busy=!!motion||!!cameraTween||!!fade||!!crash;
  $('anterior').disabled=busy||index===0;$('proximo').disabled=busy||index===5;
  $('proximo').textContent=index===4?'Conclusão →':'Avançar →';
@@ -298,6 +319,7 @@ $('rolar-anterior').addEventListener('click',()=>scrollList(-1));$('rolar-proxim
 $('numeros').addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.preventDefault();$('numeros').scrollLeft+=e.deltaY}},{passive:false});
 addEventListener('keydown',e=>{
  if(e.repeat||e.altKey||e.ctrlKey||e.metaKey)return;
+ if(e.target.closest?.('.model-tools')&&[' ','Enter'].includes(e.key))return;
  // Espaço e Enter conservam a semântica dos botões quando a lista tem foco.
  if(e.target.closest?.('.slide-nav')&&[' ','Enter','ArrowLeft','ArrowRight'].includes(e.key)){
   if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();const next=clamp(Number(e.target.id.replace('etapa-',''))+(e.key==='ArrowRight'?1:-1),0,5);$('etapa-'+next)?.focus()}return;
@@ -307,7 +329,31 @@ addEventListener('keydown',e=>{
 let resizeTimer;
 addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{makePoses();if(!motion&&!cameraTween&&!fade&&!crash){const p=presentationPose(index);look.copy(p.look);boom.copy(p.boom)}else if(motion)motion.endPose=stopPose(motion.to);else if(cameraTween){const p=presentationPose(cameraTween.to);cameraTween.toLook=p.look;cameraTween.toBoom=p.boom}},150)});
 const first=stopPose(0);look.copy(first.look);boom.copy(first.boom);place(carU);
+function criarVisorColetor(){
+ const host=$('coletor-viewport'),studio=new T.Scene();studio.background=new T.Color('#ffffff');
+ const model=criarColetorK24(T),pivot=new T.Group();studio.add(pivot);pivot.add(model.root);
+ const box=new T.Box3().setFromObject(model.root),center=box.getCenter(V());model.root.position.sub(center);
+ studio.add(new T.HemisphereLight('#ffffff','#afbecb',2.4));const key=new T.DirectionalLight('#fff4e5',3.1);key.position.set(-4,8,7);key.castShadow=true;key.shadow.mapSize.set(1024,1024);Object.assign(key.shadow.camera,{left:-5,right:5,top:5,bottom:-5,far:30});key.shadow.normalBias=.014;studio.add(key);
+ const fill=new T.DirectionalLight('#bddbff',1.8);fill.position.set(5,3,-4);studio.add(fill);
+ const ground=new T.Mesh(new T.PlaneGeometry(18,18),new T.ShadowMaterial({opacity:.12}));ground.rotation.x=-Math.PI/2;ground.position.y=-center.y-.03;ground.receiveShadow=true;studio.add(ground);
+ const r=new T.WebGLRenderer({antialias:true,alpha:false});r.setPixelRatio(Math.min(devicePixelRatio,1.5));r.shadowMap.enabled=true;r.shadowMap.type=T.PCFSoftShadowMap;r.shadowMap.autoUpdate=false;r.toneMapping=T.ACESFilmicToneMapping;r.outputColorSpace=T.SRGBColorSpace;host.prepend(r.domElement);
+ const c=new T.PerspectiveCamera(34,1,.1,60);let width=0,height=0,cut=true,drag=null,rendered=0;
+ function fit(){const b=new T.Box3().setFromObject(model.root),target=b.getCenter(V()),direction=V(-.66,.85,1.1).normalize();let distance=6;
+  for(let n=0;n<80;n++){c.position.copy(target).addScaledVector(direction,distance);c.lookAt(target);c.updateMatrixWorld();let ok=true;for(const x of [b.min.x,b.max.x])for(const y of [b.min.y,b.max.y])for(const z of [b.min.z,b.max.z]){const p=V(x,y,z).project(c);if(Math.abs(p.x)>.90||Math.abs(p.y)>.85)ok=false}if(ok)break;distance*=1.045}
+ }
+ function render(){if(index!==0||host.clientWidth<1)return;r.shadowMap.needsUpdate=true;r.render(studio,c);rendered++}
+ function resize(){const w=host.clientWidth,h=host.clientHeight;if(w<1||h<1)return;if(w!==width||h!==height){width=w;height=h;r.setSize(w,h);c.aspect=w/h;c.updateProjectionMatrix();fit();render()}}
+ function reset(){pivot.rotation.set(0,0,0);fit();render()}
+ r.domElement.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY};r.domElement.setPointerCapture(e.pointerId);e.stopPropagation()});
+ r.domElement.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;pivot.rotation.y+=dx*.009;pivot.rotation.x=clamp(pivot.rotation.x+dy*.007,-.60,.60);drag={x:e.clientX,y:e.clientY};render()});
+ r.domElement.addEventListener('pointerup',()=>{drag=null});r.domElement.addEventListener('pointercancel',()=>{drag=null});
+ $('coletor-corte').addEventListener('click',()=>{cut=!cut;model.corte(cut);$('coletor-corte').setAttribute('aria-pressed',String(cut));$('coletor-corte').textContent=cut?'Vista em corte':'Vista completa';fit();render()});
+ $('coletor-restaurar').addEventListener('click',reset);new ResizeObserver(resize).observe(host);
+ return{resize,reset,exportar:cut=>model.exportar(cut),estado:()=>({cut,rendered,width,height,dutos:model.runners.length,rotation:pivot.rotation.toArray().slice(0,3)})};
+}
+const manifoldView=criarVisorColetor();
 function update(dt){
+ mapClock+=dt;shadowAge+=dt;
  vegetation.wind.value+=dt;
  if(fade){
   fade.time+=dt;const out=.27,hold=.08,into=.34;
@@ -378,13 +424,16 @@ function update(dt){
  // A visão geral precisa conservar o mapa visível também a grande distância.
  const aerialDistance=Math.max(0,boom.length()-50);
  scene.fog.near=110+aerialDistance*1.3;scene.fog.far=245+aerialDistance*2;
- const shadowExtent=48+smooth((boom.length()-55)/150)*112;
- if(Math.abs(sun.shadow.camera.right-shadowExtent)>.01){Object.assign(sun.shadow.camera,{left:-shadowExtent,right:shadowExtent,top:shadowExtent,bottom:-shadowExtent});sun.shadow.camera.updateProjectionMatrix()}
- const shadowTarget=look.clone();shadowTarget.x=Math.round(shadowTarget.x*32)/32;shadowTarget.z=Math.round(shadowTarget.z*32)/32;
- sun.position.copy(shadowTarget).add(V(-38,58,26));sun.target.position.copy(shadowTarget);sun.target.updateMatrixWorld();
+ const aerial=boom.length()>95;
+ if(shadowAnchor.distanceToSquared(look)>196||shadowAerial!==aerial||shadowAge>4){
+  shadowAerial=aerial;shadowAge=0;shadowAnchor.copy(look);shadowAnchor.x=Math.round(shadowAnchor.x*8)/8;shadowAnchor.z=Math.round(shadowAnchor.z*8)/8;
+  const extent=aerial?180:70;Object.assign(sun.shadow.camera,{left:-extent,right:extent,top:extent,bottom:-extent,far:aerial?420:220});sun.shadow.camera.updateProjectionMatrix();sun.position.copy(shadowAnchor).add(V(-38,58,26));sun.target.position.copy(shadowAnchor);sun.target.updateMatrixWorld();renderer.shadowMap.needsUpdate=true;
+ }
+ carContact.position.copy(car.position).add(V(0,.075,0));carContact.quaternion.copy(car.quaternion);carShadow.scale.x=damaged.root.visible?.82:1;
  camera.position.copy(look).add(boom);camera.lookAt(look);camera.updateMatrixWorld();
  updateForestLOD(car.position,boom.length()>95);
- renderer.render(scene,camera);
+ const active=!!motion||!!cameraTween||!!crash||!!fade||fire.visible;
+ if(active||mapDirty||mapClock-lastMapDraw>.125){if(renderer.shadowMap.needsUpdate)shadowRenders++;renderer.render(scene,camera);sceneRenders++;lastMapDraw=mapClock;mapDirty=false}
 }
 // Tempo real de apresentação, independente da taxa de quadros. Pausa quando a aba fica oculta.
 document.addEventListener('visibilitychange',()=>{lastTime=null});
@@ -396,7 +445,7 @@ function verificarGeometria(){
  return{minClearance,negative,closureGap:roadPoints[0].distanceTo(roadPoints.at(-1)),roadLength:roadDistances.at(-1),forestCount:forestPoints.length,variantStats:vegetation.variants.map(v=>({tipo:v.type,triangles:(v.wood.getAttribute('position').count+(v.leaves?.getAttribute('position').count||0))/3,altura:v.height})),contactTimeRolling:escapeLength/((stops[4]-stops[3])*total/3)};
 }
 // Diagnóstico local para validação: sem telemetria, sem persistência e sem rede.
-window.prototipo={estado:()=>({index,carU,skidSamples,skidDrawCounts:skidTracks.map(t=>t.g.drawRange.count),moving:!!motion||!!cameraTween||!!crash,fading:!!fade,tracking:!!motion,crashTime:crash?.time??null,contactTime:crash?.contactTime??null,crashTravelled:crash?.travelled??null,forestCount:forestPoints.length,treeVariants:vegetation.variants.length,roadClosed:roadPoints[0].distanceTo(roadPoints.at(-1))<.001,triangles:renderer.info.render.triangles,crashed,fire:fire.visible,impacts,damagedVisible:damaged.root.visible,tree:treePosition.toArray(),frontDirection:V(1,0,0).applyQuaternion(car.quaternion).toArray(),wreckPosition:wreckPosition.toArray(),crashLayout:roadIntrusions(crashPose,4,0),progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===5,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide,verificarGeometria,exportarArvore:i=>vegetation.tree(i),exportarIntegro:()=>{const c=car.clone(true);c.position.set(0,0,0);c.quaternion.identity();c.visible=true;return c},exportarAmassado:()=>damaged.exportar()};
+window.prototipo={estado:()=>({index,carU,sceneRenders,shadowRenders,coletor:manifoldView.estado(),skidSamples,skidDrawCounts:skidTracks.map(t=>t.g.drawRange.count),moving:!!motion||!!cameraTween||!!crash,fading:!!fade,tracking:!!motion,crashTime:crash?.time??null,contactTime:crash?.contactTime??null,crashTravelled:crash?.travelled??null,forestCount:forestPoints.length,visibleTrees,treeVariants:vegetation.variants.length,roadClosed:roadPoints[0].distanceTo(roadPoints.at(-1))<.001,triangles:renderer.info.render.triangles,crashed,fire:fire.visible,impacts,damagedVisible:damaged.root.visible,tree:treePosition.toArray(),frontDirection:V(1,0,0).applyQuaternion(car.quaternion).toArray(),wreckPosition:wreckPosition.toArray(),crashLayout:roadIntrusions(crashPose,4,0),progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===5,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide,verificarGeometria,exportarColetor:cut=>manifoldView.exportar(cut),exportarArvore:i=>vegetation.tree(i),exportarIntegro:()=>{const c=car.clone(true);c.position.set(0,0,0);c.quaternion.identity();c.visible=true;return c},exportarAmassado:()=>damaged.exportar()};
 ui();requestAnimationFrame(tick);
 } catch(error){console.error(error);$('erro').classList.remove('hidden');$('erro').textContent='Não foi possível iniciar a cena 3D. Abra este arquivo no Microsoft Edge ou Google Chrome com suporte a WebGL. Detalhe: '+error.message;$('estado').textContent='Cena indisponível';}
 })();

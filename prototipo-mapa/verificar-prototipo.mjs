@@ -7,6 +7,11 @@ try{
  const page=await browser.newPage({offline:true,viewport:{width:1600,height:900}});
  page.on('pageerror',e=>report.errors.push(e.message));page.on('console',m=>{if(m.type()==='error')report.errors.push(m.text().slice(0,1200))});page.on('request',r=>report.requests.push(r.url()));
  await page.goto(pathToFileURL(path.resolve('prototipo-mapa/iniciar.html')).href);await page.waitForFunction(()=>window.prototipo,{timeout:60000});
+ await page.waitForFunction(()=>prototipo.estado().coletor.rendered>0);
+ const initialModel=await page.evaluate(()=>prototipo.estado().coletor);if(initialModel.dutos!==4||!initialModel.cut||initialModel.width<=0)throw new Error('Coletor não iniciou no slide 1');
+ await page.locator('#coletor-corte').click();if((await page.evaluate(()=>prototipo.estado().coletor)).cut)throw new Error('Vista completa do coletor falhou');await page.locator('#coletor-corte').click();
+ const modelBox=await page.locator('#coletor-viewport canvas').boundingBox();await page.mouse.move(modelBox.x+modelBox.width*.5,modelBox.y+modelBox.height*.5);await page.mouse.down();await page.mouse.move(modelBox.x+modelBox.width*.5+65,modelBox.y+modelBox.height*.5+12,{steps:5});await page.mouse.up();if(Math.abs((await page.evaluate(()=>prototipo.estado().coletor)).rotation[1])<.2)throw new Error('Rotação do coletor falhou');await page.locator('#coletor-restaurar').click();
+ report.coletor={dutos:initialModel.dutos,corte:true,completo:true,rotacao:true,reenquadramento:true};
  report.geometry=await page.evaluate(()=>prototipo.verificarGeometria());
  if(report.geometry.minClearance<=0||report.geometry.negative||report.geometry.closureGap>.001)throw new Error('Geometria da estrada inválida: '+JSON.stringify(report.geometry));
  if(report.geometry.forestCount<3500||report.geometry.variantStats.length<20)throw new Error('Variedade/densidade insuficiente');
@@ -19,6 +24,7 @@ try{
   for(let i=1;i<=5;i++){
    await page.locator('#proximo').click();if(i===4){await page.waitForFunction(()=>prototipo.estado().crashTime!==null);await page.waitForTimeout(200);await page.screenshot({path:`${output}/${size.width}-derrapagem.png`})}
    await idle();await page.waitForTimeout(280);const s=await page.evaluate(()=>prototipo.estado());if(s.index!==i)throw new Error('Destino de navegação incorreto');
+   if(i>0&&await page.locator('#coletor-viewport').isVisible())throw new Error('Coletor apareceu em outra cena');
    await page.screenshot({path:`${output}/${size.width}-${String(i+1).padStart(2,'0')}.png`});console.log('CENA',size.width,i+1);
   }
   const final=await page.evaluate(()=>prototipo.estado());if(final.impacts!==1||!final.fire)throw new Error('Impacto/fogo final incorreto');

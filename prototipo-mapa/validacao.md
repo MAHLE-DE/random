@@ -1,5 +1,19 @@
 # Validação do protótipo
 
+## Coletor no slide 1 e desempenho — 10/11/2026
+
+- Removidas as raízes externas das 20 variantes, tanto no protótipo quanto nos modelos GLB e prévias.
+- Floresta ampliada para 5.638 árvores, cobrindo o canto superior esquerdo da vista geral; continuação da estrada revista para entrar pela esquerda e seguir para a direita, mantendo as cinco paradas.
+- Comparação no mesmo Edge headless, offline e em 1600 × 900, nos mesmos três deslocamentos: tempo médio de quadro de 74,2 ms para 33,3 ms; aproximadamente 13,5 para 30 FPS. Mediana de 66,7 ms para 33,3 ms. Resultado local, não uma promessa de FPS para todos os equipamentos ou cenas.
+- Sombras estáveis reutilizadas, instâncias fora do campo de visão filtradas e contato do carro desenhado separadamente. Atualizações do mapa parado limitadas a oito por segundo. O visor do coletor desenha somente ao mudar enquadramento ou interação.
+- Novo coletor didático reconstruído a partir da referência visual K24 indicada, com quatro dutos, plenum, entrada lateral, flange com furos e paredes com espessura. Não foi importado o CAD original.
+- Vista em corte e vista completa, rotação por arraste, reenquadramento, enquadramento central e isolamento do modelo ao slide 1 conferidos em 16:9 e 4:3.
+- Modelos GLB completo/em corte exportados e prévias inspecionadas visualmente. Fonte e referências em `modelos/coletor-k24/REFERENCIAS.md`.
+- Testes completos de avanço, retorno, derrapagem, impacto único, repetição e cancelamento aprovados: 827 quadros monitorados em 16:9 e 1.093 em 4:3, sem cortes do carro e sem requisições HTTP/HTTPS.
+- Sem interseções entre terreno e asfalto nas amostras geométricas; relação entre velocidades final/inicial da derrapagem de 1,0045 e 1,0060.
+
+Resultados estruturados: `desempenho.json` e `validacao-floresta.json`.
+
 ## Floresta detalhada e estrada sem pontas — 10/11/2026
 
 Testes executados antes do commit, com `verificar-prototipo.mjs`, em contexto de navegador offline. O resumo estruturado está em `validacao-floresta.json`.

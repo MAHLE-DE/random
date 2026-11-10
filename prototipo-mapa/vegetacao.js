@@ -27,7 +27,6 @@ transformed.z+=cos(forestTime*0.73+windRoot.z*0.12)*windWeight*0.035;`)};
   const green=new T.Color(type==='conifera'?'#274a37':'#42683a').lerp(new T.Color('#74954a'),random()*.45);
   const trunkPoints=[];for(let j=0;j<=6;j++){const t=j/6;trunkPoints.push(V(lean.x*t*t+Math.sin(t*7+seed)*.055*t,height*t,lean.z*t*t+Math.sin(t*6+seed)*.06*t))}
   for(let j=0;j<6;j++)limb(wood,trunkPoints[j],trunkPoints[j+1],radius*(1-j/6*.87),radius*(1-(j+1)/6*.87),brown,lod?6:9);
-  if(!lod)for(let j=0;j<5;j++){const a=j*6.28/5+seed;limb(wood,V(Math.cos(a)*radius*2.3,.015,Math.sin(a)*radius*2.3),V(Math.cos(a)*radius*.6,.55,Math.sin(a)*radius*.6),radius*.36,.06,brown,5)}
   if(type==='conifera'){
    const tiers=lod?4:7,radial=lod?9:15;
    for(let layer=0;layer<tiers;layer++){

@@ -35,6 +35,9 @@ THE SOFTWARE.
 header{z-index:5;top:30px;left:36px;right:36px}.header-label{font-size:11px;letter-spacing:.16em;color:#637b90;padding-top:8px}.content{position:absolute;z-index:2;left:5%;top:22%;width:43%;height:52%;border:1px dashed #cbd9ed;border-radius:4px;padding:clamp(20px,3vw,48px);display:flex;flex-direction:column;justify-content:center;transition:opacity .22s;pointer-events:none}.content.right{left:52%}.content.absent{opacity:0}.content h1{font-size:clamp(24px,3vw,48px);font-weight:500;line-height:1.13;letter-spacing:-.045em;margin:0 0 20px}.content p{margin:0;color:#65798b;font-size:clamp(13px,1.2vw,18px);line-height:1.6;max-width:29em}.content .area-label{position:absolute;bottom:18px;left:clamp(20px,3vw,48px);font-size:10px;letter-spacing:.16em;color:#6f87a0}.content.conclusion{border-color:transparent}.bottom{z-index:5;bottom:24px;left:36px;right:36px}.panel{padding:13px 16px;border-radius:16px}.status{font-size:12px;margin-bottom:11px}.slide-nav{display:flex;align-items:center;gap:8px}.numbers{display:flex;gap:8px;width:212px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#bbcee9 transparent;padding:2px 0 7px}.step{flex:0 0 36px;width:36px;height:32px;padding:0;scroll-snap-align:start;border-radius:8px;cursor:pointer}.nav-scroll{width:24px;height:30px;padding:0;border:0;background:transparent;color:#7088a0}.veil{position:absolute;z-index:3;inset:0;background:#fff;opacity:0;pointer-events:none}.error{z-index:20}@media(max-width:700px){header{top:20px;left:20px;right:20px}.header-label{max-width:200px;line-height:1.5;font-size:10px}.bottom{left:16px;right:16px;bottom:16px;gap:10px;flex-wrap:nowrap}.panel{padding:10px}.controls button{padding:0 10px;font-size:12px;min-width:0}.content{padding:16px}.content h1{font-size:22px}.content p{font-size:12px}.content .area-label{left:16px;font-size:8px}.numbers{width:172px;gap:8px}.step{flex-basis:28px;width:28px}.slide-nav{gap:2px}.status span{display:none}.nav-scroll{width:16px}}
 .content,.content.conclusion{background:#fff}header .brand,header .header-label{background:rgba(255,255,255,.96);border-radius:5px;box-shadow:0 3px 12px #142d1520}.help{background:rgba(255,255,255,.94);padding:5px 8px;border-radius:6px}
 </style>
+<style>
+.content.model-slide{justify-content:flex-start;padding:26px 32px}.model-slide h1{font-size:clamp(21px,2.1vw,32px);margin:0;letter-spacing:-.035em}.model-slide .eyebrow{margin-bottom:10px}#coletor-viewport{position:absolute;left:16px;right:16px;top:94px;bottom:39px;pointer-events:auto;overflow:hidden}#coletor-viewport canvas{cursor:grab;touch-action:none}#coletor-viewport canvas:active{cursor:grabbing}.model-tools{position:absolute;bottom:0;right:5px;display:flex;gap:6px;z-index:1}.model-tools button{height:26px;padding:0 9px;font-size:11px;border-radius:7px;background:rgba(255,255,255,.94)}.model-tools button[aria-pressed="true"]{color:#0043bc;border-color:#9fb9e8}@media(max-width:700px){.content.model-slide{padding:18px 16px}.model-slide h1{font-size:20px}#coletor-viewport{top:84px;left:5px;right:5px}.model-tools button{padding:0 5px;font-size:10px}}
+</style>
 <main id="mundo" aria-label="Mapa tridimensional com estrada e carro animado"></main>
 <header><div class="header-label">JORNADA EM MOVIMENTO · PROTÓTIPO</div><svg class="brand" role="img" aria-label="MAHLE"
    xmlns:svg="http://www.w3.org/2000/svg"
@@ -53,7 +56,7 @@ header{z-index:5;top:30px;left:36px;right:36px}.header-label{font-size:11px;lett
 </svg>
 <!-- version: 20171223, original size: 113 25, border: 3% -->
 </header>
-<section class="content" id="conteudo" aria-label="Área reservada à apresentação"><div class="eyebrow" id="titulo-parada">PARADA 01</div><h1 id="titulo">Espaço para<br>a apresentação.</h1><p id="descricao">Este retângulo está reservado para os textos, imagens e explicações de cada slide.</p><div class="area-label" id="legenda-area">ÁREA DE CONTEÚDO · SEM ESTRADA</div></section>
+<section class="content" id="conteudo" aria-label="Área reservada à apresentação"><div class="eyebrow" id="titulo-parada">PARADA 01</div><h1 id="titulo">Espaço para<br>a apresentação.</h1><p id="descricao">Este retângulo está reservado para os textos, imagens e explicações de cada slide.</p><div id="coletor-viewport" class="hidden" aria-label="Modelo tridimensional do coletor de admissão K24"><div class="model-tools"><button id="coletor-corte" type="button" aria-pressed="true">Vista em corte</button><button id="coletor-restaurar" type="button">Reenquadrar</button></div></div><div class="area-label" id="legenda-area">ÁREA DE CONTEÚDO · SEM ESTRADA</div></section>
 <div class="veil" id="fade"></div>
 <div class="bottom"><div class="panel"><div class="status" role="status" aria-live="polite" id="estado">Preparando o mapa…</div><nav class="slide-nav" aria-label="Selecionar slide"><button class="nav-scroll" id="rolar-anterior" aria-label="Rolar lista para a esquerda">‹</button><div class="numbers" id="numeros"><button class="step" id="etapa-0" aria-label="Selecionar slide 1" type="button">01</button><button class="step" id="etapa-1" aria-label="Selecionar slide 2" type="button">02</button><button class="step" id="etapa-2" aria-label="Selecionar slide 3" type="button">03</button><button class="step" id="etapa-3" aria-label="Selecionar slide 4" type="button">04</button><button class="step" id="etapa-4" aria-label="Selecionar slide 5" type="button">05</button><button class="step" id="etapa-5" aria-label="Selecionar slide 6, conclusão" type="button">06</button></div><button class="nav-scroll" id="rolar-proximo" aria-label="Rolar lista para a direita">›</button></nav></div><div><div class="controls"><button id="anterior" aria-label="Voltar um slide">← Voltar</button><button id="proximo" class="primary">Avançar →</button></div><div class="help">Espaço / → avançar · ← voltar · F tela cheia</div></div></div>
 <div class="error hidden" id="erro" role="alert"></div>
@@ -54707,7 +54710,6 @@ transformed.z+=cos(forestTime*0.73+windRoot.z*0.12)*windWeight*0.035;`)};
   const green=new T.Color(type==='conifera'?'#274a37':'#42683a').lerp(new T.Color('#74954a'),random()*.45);
   const trunkPoints=[];for(let j=0;j<=6;j++){const t=j/6;trunkPoints.push(V(lean.x*t*t+Math.sin(t*7+seed)*.055*t,height*t,lean.z*t*t+Math.sin(t*6+seed)*.06*t))}
   for(let j=0;j<6;j++)limb(wood,trunkPoints[j],trunkPoints[j+1],radius*(1-j/6*.87),radius*(1-(j+1)/6*.87),brown,lod?6:9);
-  if(!lod)for(let j=0;j<5;j++){const a=j*6.28/5+seed;limb(wood,V(Math.cos(a)*radius*2.3,.015,Math.sin(a)*radius*2.3),V(Math.cos(a)*radius*.6,.55,Math.sin(a)*radius*.6),radius*.36,.06,brown,5)}
   if(type==='conifera'){
    const tiers=lod?4:7,radial=lod?9:15;
    for(let layer=0;layer<tiers;layer++){
@@ -54741,6 +54743,63 @@ transformed.z+=cos(forestTime*0.73+windRoot.z*0.12)*windWeight*0.035;`)};
  return{variants,bark,leaves,depth,wind,tree};
 }
 
+// Reconstrução didática original, inspirada no modelo público K24 do tutorial indicado.
+// Dimensões relativas para visualização: não usar como desenho de fabricação.
+function criarColetorK24(T,{espessura=.055}={}){
+ const V=(x=0,y=0,z=0)=>new T.Vector3(x,y,z),root=new T.Group();root.name='Coletor_K24_didatico';
+ const upper=new T.Group();upper.name='Metade_superior';root.add(upper);
+ const shell=new T.MeshPhysicalMaterial({color:'#263039',roughness:.36,metalness:.18,clearcoat:.20,clearcoatRoughness:.45,side:T.DoubleSide});
+ const interior=new T.MeshStandardMaterial({color:'#45545d',roughness:.48,metalness:.15,side:T.DoubleSide});
+ const cutMaterial=new T.MeshStandardMaterial({color:'#96a8b2',metalness:.5,roughness:.35,side:T.DoubleSide});
+ const flangeMaterial=new T.MeshStandardMaterial({color:'#38454d',metalness:.38,roughness:.40,side:T.DoubleSide});
+ const cutOnly=[],fullOnly=[],runners=[];
+ function mesh(g,m,name,parent=root){const o=new T.Mesh(g,m);o.name=name;o.castShadow=true;o.receiveShadow=true;parent.add(o);return o}
+ function surface(vertices,indices,material,name,parent=root){const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(vertices,3));g.setIndex(indices);g.computeVertexNormals();return mesh(g,material,name,parent)}
+ function polygon(points){const s=new T.Shape();points.forEach(([x,y],i)=>i?s.lineTo(x,y):s.moveTo(x,y));s.closePath();return s}
+ function plate(shape,depth,z,name,material=flangeMaterial,parent=root){const o=mesh(new T.ExtrudeGeometry(shape,{depth,bevelEnabled:true,bevelSegments:2,bevelSize:.009,bevelThickness:.009,curveSegments:48}),material,name,parent);o.position.z=z;return o}
+ const footprint=new T.Shape();footprint.moveTo(-2.72,.30);footprint.lineTo(2.60,.30);footprint.quadraticCurveTo(2.85,.30,2.85,-.05);footprint.lineTo(2.78,-1.32);footprint.quadraticCurveTo(2.72,-1.68,2.35,-1.73);footprint.quadraticCurveTo(0,-1.90,-2.48,-1.65);footprint.quadraticCurveTo(-2.86,-1.58,-2.86,-1.25);footprint.lineTo(-2.86,-.02);footprint.quadraticCurveTo(-2.86,.30,-2.72,.30);footprint.closePath();
+ const base=mesh(new T.ExtrudeGeometry(footprint,{depth:.085,bevelEnabled:true,bevelSize:.018,bevelThickness:.018,bevelSegments:3,curveSegments:48}),shell,'Plenum_fundo');base.rotation.x=-Math.PI/2;
+ const outline=footprint.getPoints(72).map(p=>V(p.x,0,-p.y));
+ function walls(y0,y1,parent,suffix){const outer=[],inner=[],rim=[],ids=[];let n=0;
+  for(let i=0;i<outline.length-1;i++){const a=outline[i],b=outline[i+1];if((Math.abs(a.z+.30)<1e-6&&Math.abs(b.z+.30)<1e-6)||(a.x+b.x)/2< -2.73)continue;const ai=V(a.x*(1-espessura/2.85),0,.65+(a.z-.65)*(1-espessura/1.05)),bi=V(b.x*(1-espessura/2.85),0,.65+(b.z-.65)*(1-espessura/1.05));
+   outer.push(a.x,y0,a.z,b.x,y0,b.z,b.x,y1,b.z,a.x,y1,a.z);inner.push(ai.x,y0,ai.z,ai.x,y1,ai.z,bi.x,y1,bi.z,bi.x,y0,bi.z);rim.push(a.x,y1,a.z,b.x,y1,b.z,bi.x,y1,bi.z,ai.x,y1,ai.z);ids.push(n,n+1,n+2,n,n+2,n+3);n+=4;
+  }
+  surface(outer,ids,shell,'Plenum_parede_externa_'+suffix,parent);surface(inner,ids,interior,'Plenum_parede_interna_'+suffix,parent);surface(rim,ids,cutMaterial,'Plenum_borda_'+suffix,parent);
+ }
+ walls(.07,.67,root,'inferior');walls(.67,1.12,upper,'superior');
+ const lid=mesh(new T.ExtrudeGeometry(footprint,{depth:.065,bevelEnabled:true,bevelSize:.018,bevelThickness:.018,bevelSegments:3,curveSegments:48}),shell,'Tampa_do_plenum',upper);lid.rotation.x=-Math.PI/2;lid.position.y=1.12;
+ const xs=[-1.80,-.60,.60,1.80],outerRadius=.35,innerRadius=outerRadius-espessura;
+ function hollow(curve,r0,r1,theta0,theta1,name,parent){const vertices=[],innerVertices=[],indices=[],edgeVertices=[],edgeIndices=[],n=56,m=40;
+  for(let j=0;j<=n;j++){const c=curve.getPoint(j/n),d=curve.getTangent(j/n).normalize(),right=V().crossVectors(V(0,1,0),d).normalize(),up=V().crossVectors(d,right).normalize();for(let k=0;k<=m;k++){const angle=theta0+(theta1-theta0)*k/m,radial=right.clone().multiplyScalar(Math.cos(angle)).addScaledVector(up,Math.sin(angle));vertices.push(...c.clone().addScaledVector(radial,r0).toArray());innerVertices.push(...c.clone().addScaledVector(radial,r1).toArray())}}
+  for(let j=0;j<n;j++)for(let k=0;k<m;k++){const a=j*(m+1)+k,b=a+m+1;indices.push(a,b,a+1,a+1,b,b+1)}
+  const g=new T.Group();g.name=name;parent.add(g);surface(vertices,indices,shell,name+'_exterior',g);surface(innerVertices,indices,interior,name+'_interior',g);
+  for(const k of [0,m])for(let j=0;j<n;j++){const a=j*(m+1)+k,b=(j+1)*(m+1)+k,base=edgeVertices.length/3;edgeVertices.push(...vertices.slice(a*3,a*3+3),...vertices.slice(b*3,b*3+3),...innerVertices.slice(b*3,b*3+3),...innerVertices.slice(a*3,a*3+3));edgeIndices.push(base,base+1,base+2,base,base+2,base+3)}
+  for(const j of [0,n])for(let k=0;k<m;k++){const a=j*(m+1)+k,b=a+1,base=edgeVertices.length/3;edgeVertices.push(...vertices.slice(a*3,a*3+3),...vertices.slice(b*3,b*3+3),...innerVertices.slice(b*3,b*3+3),...innerVertices.slice(a*3,a*3+3));edgeIndices.push(base,base+1,base+2,base,base+2,base+3)}
+  surface(edgeVertices,edgeIndices,cutMaterial,name+'_espessura',g);return g;
+ }
+ xs.forEach((x,i)=>{const curve=new T.CatmullRomCurve3([V(x,.67,-.28),V(x,.68,-.65),V(x,.84,-1.65),V(x,1.10,-2.70),V(x,1.12,-3.12)]);runners.push(hollow(curve,outerRadius,innerRadius,Math.PI,Math.PI*2,'Duto_'+(i+1)+'_inferior',root));hollow(curve,outerRadius,innerRadius,0,Math.PI,'Duto_'+(i+1)+'_superior',upper)});
+ // Parede traseira em corte com quatro recortes semicirculares, alinhados aos dutos.
+ const backPoints=[[-2.73,.07],[2.73,.07],[2.73,.67]];
+ for(const x of [...xs].reverse()){backPoints.push([x+innerRadius,.67]);for(let j=0;j<=36;j++){const a=j*Math.PI/36;backPoints.push([x+innerRadius*Math.cos(a),.67-innerRadius*Math.sin(a)])}}
+ backPoints.push([-2.73,.67]);const backCut=plate(polygon(backPoints),.065,-.34,'Parede_traseira_em_corte');cutOnly.push(backCut);
+ const backShape=polygon([[-2.73,.07],[2.73,.07],[2.73,1.12],[-2.73,1.12]]);for(const x of xs){const hole=new T.Path();hole.absellipse(x,.67,innerRadius,innerRadius,0,Math.PI*2,true);backShape.holes.push(hole)}fullOnly.push(plate(backShape,.065,-.34,'Parede_traseira_inteira'));
+ // Entrada lateral do plenum, aberta no corte, com parede e colar próprios.
+ const leftPoints=[[-.25,.07],[1.56,.07],[1.56,.67],[1.08,.67]];for(let j=0;j<=48;j++){const a=j*Math.PI/48;leftPoints.push([.65+.43*Math.cos(a),.67-.43*Math.sin(a)])}leftPoints.push([-.25,.67]);
+ function leftWall(shape,name){const o=plate(shape,.07,0,name,shell);o.position.set(-2.73,0,0);o.quaternion.setFromRotationMatrix(new T.Matrix4().makeBasis(V(0,0,1),V(0,1,0),V(-1,0,0)));return o}
+ cutOnly.push(leftWall(polygon(leftPoints),'Entrada_parede_em_corte'));
+ const leftFull=polygon([[-.25,.07],[1.56,.07],[1.56,1.12],[-.25,1.12]]),inletHole=new T.Path();inletHole.absellipse(.65,.67,.43,.43,0,Math.PI*2,true);leftFull.holes.push(inletHole);fullOnly.push(leftWall(leftFull,'Entrada_parede_inteira'));
+ const inletCurve=new T.LineCurve3(V(-3.36,.67,.65),V(-2.71,.67,.65));hollow(inletCurve,.485,.43,Math.PI,Math.PI*2,'Entrada_lateral_inferior',root);hollow(inletCurve,.485,.43,0,Math.PI,'Entrada_lateral_superior',upper);
+ // Flange de fixação com passagens e furos reais, sem discos pintados simulando abertura.
+ const flange=new T.Shape();flange.moveTo(-2.9,.50);flange.lineTo(2.9,.50);flange.lineTo(2.9,1.80);flange.lineTo(-2.9,1.80);flange.closePath();
+ for(const x of xs){const hole=new T.Path();hole.absellipse(x,1.12,innerRadius,innerRadius,0,Math.PI*2,true);flange.holes.push(hole)}
+ for(const [x,y]of [[-2.63,.69],[-2.63,1.61],[2.63,.69],[2.63,1.61],...xs.map(x=>[x,1.66])]){const hole=new T.Path();hole.absellipse(x,y,.065,.065,0,Math.PI*2,true);flange.holes.push(hole)}
+ plate(flange,.14,-3.26,'Flange_de_fixacao_com_furos');
+ for(let i=0;i<4;i++){const ring=mesh(new T.TorusGeometry(.353,.027,8,56),flangeMaterial,'Assento_duto_'+(i+1));ring.position.set(xs[i],1.12,-3.10)}
+ function corte(active=true){upper.visible=!active;cutOnly.forEach(o=>o.visible=active);fullOnly.forEach(o=>o.visible=!active);root.userData.corte=active}
+ root.userData={tipo:'Reconstrução didática de coletor K24',referencia:'K24 Intake Manifold - EP6 YOUTUBE',espessuraRelativa:espessura,dutos:4};corte(true);
+ return{root,upper,runners,corte,exportar(cut=false){const r=root.clone(true);r.position.set(0,0,0);r.quaternion.identity();r.getObjectByName('Metade_superior').visible=!cut;for(const o of cutOnly)r.getObjectByName(o.name).visible=cut;for(const o of fullOnly)r.getObjectByName(o.name).visible=!cut;r.userData.corte=cut;return r}};
+}
+
 try {
 const scene=new T.Scene();scene.background=new T.Color('#b4c99b');
 scene.fog=new T.Fog('#b4c99b',110,245);
@@ -54750,6 +54809,7 @@ renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth
 renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;
 renderer.toneMappingExposure=1.05;renderer.shadowMap.enabled=true;
 renderer.shadowMap.type=T.PCFShadowMap;$('mundo').appendChild(renderer.domElement);
+renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;
 scene.add(new T.HemisphereLight('#c8e2eb','#303d29',1.25));
 const sun=new T.DirectionalLight('#fff0ce',3.0);sun.position.set(-38,58,26);
 sun.castShadow=true;sun.shadow.mapSize.set(4096,4096);
@@ -54767,7 +54827,7 @@ function at(u){return route.getPointAt(clamp(u,0,1))}
 function tangent(u){return route.getTangentAt(clamp(u,0,1)).normalize()}
 function side(u){const t=tangent(u);return V(-t.z,0,t.x).normalize()}
 // Continuação exterior fechada: mantém o percurso original, mas elimina as duas pontas.
-const extensionControl=[control.at(-2),control.at(-1),control.at(-1).clone().addScaledVector(tangent(1),35),V(155,1,-4),V(190,.6,35),V(175,.9,105),V(110,1.3,142),V(40,.7,135),V(-25,1.3,155),V(-100,.8,130),V(-160,.6,70),V(-170,.5,-5),V(-125,.7,-65),V(-80,.8,-75),V(-90,.4,-30),V(-120,.4,20),V(-100,.6,65),control[0].clone().addScaledVector(tangent(0),-35),control[0],control[1]];
+const extensionControl=[control.at(-2),control.at(-1),control.at(-1).clone().addScaledVector(tangent(1),35),V(155,1,-4),V(200,.6,-70),V(155,.9,-150),V(50,1.3,-180),V(-55,.7,-165),V(-165,1.3,-115),V(-230,.8,-20),V(-175,.6,30),control[0].clone().addScaledVector(tangent(0),-35),control[0],control[1]];
 const extension=new T.CatmullRomCurve3(extensionControl,false,'centripetal');
 const extensionAt=u=>extension.getPoint(lerp(1/(extensionControl.length-1),(extensionControl.length-2)/(extensionControl.length-1),u));
 const groundRoute=[...Array.from({length:321},(_,i)=>at(i/320)),...Array.from({length:1000},(_,i)=>extensionAt((i+1)/1000))];
@@ -54822,8 +54882,10 @@ for(let i=0;i<70;i++){
 const labels=[];
 // Floresta ampla com instâncias compartilhadas: continuidade visual sem milhares de objetos.
 const forestPoints=[],forestBins=new Map();
-for(let gx=-42;gx<=42;gx++)for(let gz=-42;gz<=42;gz++){
+for(let gx=-56;gx<=56;gx++)for(let gz=-56;gz<=56;gz++){
+ if((Math.abs(gx)>42||Math.abs(gz)>42)&&rand()>.60)continue;
  const x=18+gx*6.3+(rand()-.5)*6.3,z=6+gz*6.3+(rand()-.5)*6.3;
+ if(Math.abs(x)>342||Math.abs(z)>342)continue;
  const grove=.65+.18*Math.sin(x*.035+Math.cos(z*.026)*1.7)+.14*Math.cos(z*.043-x*.012);
  if(rand()>grove||groundInfo(x,z).distance<5.1)continue;
  const bx=Math.floor(x/4),bz=Math.floor(z/4);let crowded=false;
@@ -54846,8 +54908,15 @@ for(let k=0;k<vegetation.variants.length;k++){
  const group={points,high:[],low:[]};forestLodGroups.push(group);
  for(const low of [false,true]){const variant=low?vegetation.variants[k].low:vegetation.variants[k];for(const [geometry,material]of [[variant.wood,vegetation.bark],[variant.leaves,vegetation.leaves]])if(geometry){const inst=new T.InstancedMesh(geometry,material,points.length);inst.castShadow=true;inst.receiveShadow=true;inst.frustumCulled=false;inst.instanceMatrix.setUsage(T.DynamicDrawUsage);if(material===vegetation.leaves)inst.customDepthMaterial=vegetation.depth;forest.add(inst);group[low?'low':'high'].push(inst)}}
 }
-let lodFocus=V(1e6,0,1e6),lodAerial=false;
-function updateForestLOD(focus,aerial=false){if(lodFocus.distanceToSquared(focus)<36&&aerial===lodAerial)return;lodFocus.copy(focus);lodAerial=aerial;for(const group of forestLodGroups){let near=0,far=0;for(const t of group.points){const distant=aerial||Math.hypot(t.p.x-focus.x,t.p.z-focus.z)>63;for(const m of group[distant?'low':'high'])m.setMatrixAt(distant?far:near,t.matrix);if(distant)far++;else near++}for(const m of group.high){m.count=near;m.instanceMatrix.needsUpdate=true}for(const m of group.low){m.count=far;m.instanceMatrix.needsUpdate=true}}}
+let lodFocus=V(1e6,0,1e6),lodAerial=false,lodCameraPosition=V(1e6,0,1e6),lodCameraQuaternion=new T.Quaternion(),lodAspect=0,visibleTrees=0;
+const forestCullCamera=new T.PerspectiveCamera(64,camera.aspect*1.1,.8,700),forestFrustum=new T.Frustum(),forestSphere=new T.Sphere();
+function updateForestLOD(focus,aerial=false){
+ if(lodFocus.distanceToSquared(focus)<36&&aerial===lodAerial&&lodCameraPosition.distanceToSquared(camera.position)<16&&lodCameraQuaternion.angleTo(camera.quaternion)<.04&&lodAspect===camera.aspect)return;
+ lodFocus.copy(focus);lodAerial=aerial;lodCameraPosition.copy(camera.position);lodCameraQuaternion.copy(camera.quaternion);lodAspect=camera.aspect;
+ forestCullCamera.position.copy(camera.position);forestCullCamera.quaternion.copy(camera.quaternion);forestCullCamera.aspect=camera.aspect*1.1;forestCullCamera.updateProjectionMatrix();forestCullCamera.updateMatrixWorld();forestFrustum.setFromProjectionMatrix(new T.Matrix4().multiplyMatrices(forestCullCamera.projectionMatrix,forestCullCamera.matrixWorldInverse));visibleTrees=0;
+ function finish(meshes,count){for(const m of meshes){m.count=count;if(count){m.instanceMatrix.clearUpdateRanges();m.instanceMatrix.addUpdateRange(0,count*16);m.instanceMatrix.needsUpdate=true}}}
+ for(const group of forestLodGroups){let near=0,far=0;for(const t of group.points){const h=vegetation.variants[t.variant].height*t.scale;forestSphere.center.copy(t.p).add(V(0,h*.60,0));forestSphere.radius=h*.67;if(!forestFrustum.intersectsSphere(forestSphere))continue;visibleTrees++;const distant=aerial||Math.hypot(t.p.x-focus.x,t.p.z-focus.z)>63;for(const m of group[distant?'low':'high'])m.setMatrixAt(distant?far:near,t.matrix);if(distant)far++;else near++}finish(group.high,near);finish(group.low,far)}
+}
 updateForestLOD(at(stops[0]));
 // Oclusão suave de contato complementa as sombras projetadas, especialmente na vista aérea.
 const contactMaterial=new T.MeshBasicMaterial({color:'#172b1c',transparent:true,opacity:.19,depthWrite:false});
@@ -54892,6 +54961,11 @@ const car=readCar('Z2xURgIAAAD0BQMAuNsAAEpTT057ImFzc2V0Ijp7InZlcnNpb24iOiIyLjAiL
 const sideLogo=car.getObjectByName('Logotipo_vetorial_lateral_1');
 if(sideLogo){const hood=sideLogo.clone(true);hood.name='Logotipo_MAHLE_no_capo';hood.quaternion.setFromRotationMatrix(new T.Matrix4().makeBasis(V(0,0,-1),V(.9935,-.1135,0).normalize(),V(-.1135,-.9935,0).normalize()));hood.scale.set(.010,.018,.010);hood.position.set(.82,1.087,.565);car.add(hood)}
 const damaged=criarCarroAmassado(T,car);scene.add(damaged.root);damaged.root.visible=false;
+// Sombras da floresta são estáveis e reutilizadas. O carro usa contato dinâmico próprio.
+car.traverse(o=>{if(o.isMesh)o.castShadow=false});damaged.root.traverse(o=>{if(o.isMesh)o.castShadow=false});
+const carContact=new T.Group(),carShadowMaterial=new T.MeshBasicMaterial({color:'#102015',transparent:true,opacity:.34,depthWrite:false});
+carShadowMaterial.onBeforeCompile=s=>{s.vertexShader='varying vec2 shadowUv;\n'+s.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nshadowUv=uv;');s.fragmentShader='varying vec2 shadowUv;\n'+s.fragmentShader.replace('#include <color_fragment>','#include <color_fragment>\ndiffuseColor.a*=(1.0-smoothstep(0.30,0.50,abs(shadowUv.x-0.5)))*(1.0-smoothstep(0.24,0.50,abs(shadowUv.y-0.5)));')};
+const carShadow=new T.Mesh(new T.PlaneGeometry(3.8,1.9),carShadowMaterial);carShadow.rotation.x=-Math.PI/2;carContact.add(carShadow);scene.add(carContact);
 const fire=new T.Group();fire.name='Fogo_pos_impacto';damaged.root.add(fire);fire.visible=false;
 const flames=[],smoke=[];
 const flameShape=new T.LatheGeometry([new T.Vector2(0,0),new T.Vector2(.20,.12),new T.Vector2(.28,.4),new T.Vector2(.15,.9),new T.Vector2(.035,1.4),new T.Vector2(0,1.7)],10);
@@ -54913,6 +54987,7 @@ const wheels=[],steers=[];car.traverse(o=>{if(o.name.startsWith('Roda_giratoria'
 // O eixo longitudinal do modelo é +X; a base local acompanha a inclinação.
 function orient(u){const x=tangent(u),z=new T.Vector3().crossVectors(x,V(0,1,0)).normalize(),y=new T.Vector3().crossVectors(z,x).normalize();return new T.Quaternion().setFromRotationMatrix(new T.Matrix4().makeBasis(x,y,z))}
 let carU=stops[0],index=0,motion=null,lastTime=null,cameraTween=null,fade=null,crash=null,crashed=false,fireTime=0,impacts=0,crashPose=null;
+let mapDirty=true,mapClock=0,lastMapDraw=-10,shadowAge=10,shadowAnchor=V(1e6,0,1e6),shadowAerial=null,shadowRenders=0,sceneRenders=0;
 let look=V(),boom=V(),carTurn=orient(carU),wheelAngle=0;
 const contentSides=['left','right','left','right','left','left'];
 const probeCamera=new T.PerspectiveCamera(42,camera.aspect,.1,500);
@@ -54984,6 +55059,9 @@ function setContent(){
  $('titulo').innerHTML=end?'Uma visão do<br>caminho completo.':index===4&&crashed?'Perda de controle.<br>Impacto frontal.':'Espaço para<br>a apresentação.';
  $('descricao').textContent=end?'Aqui entra a conclusão da apresentação, com a jornada inteira ao lado.':index===4&&crashed?'Demonstração visual da batida. Selecione 05 novamente para repetir a sequência.':'Este retângulo está reservado para os textos, imagens e explicações de cada slide.';
  $('legenda-area').textContent=end?'ENCERRAMENTO DA JORNADA':'ÁREA DE CONTEÚDO · SEM ESTRADA';
+ const first=index===0;
+ $('conteudo').classList.toggle('model-slide',first);$('coletor-viewport').classList.toggle('hidden',!first);
+ if(first){$('titulo').textContent='Coletor de admissão';$('descricao').textContent='';$('legenda-area').textContent='REFERÊNCIA K24 · ARRASTE PARA GIRAR';requestAnimationFrame(()=>manifoldView.resize())}
 }
 function ensureSelectedVisible(){
  const list=$('numeros'),item=$('etapa-'+index),left=item.offsetLeft-list.offsetLeft;
@@ -54991,6 +55069,7 @@ function ensureSelectedVisible(){
  else if(left+item.offsetWidth>list.scrollLeft+list.clientWidth)list.scrollTo({left:left+item.offsetWidth-list.clientWidth,behavior:'smooth'});
 }
 function ui(){
+ mapDirty=true;
  const busy=!!motion||!!cameraTween||!!fade||!!crash;
  $('anterior').disabled=busy||index===0;$('proximo').disabled=busy||index===5;
  $('proximo').textContent=index===4?'Conclusão →':'Avançar →';
@@ -55029,6 +55108,7 @@ $('rolar-anterior').addEventListener('click',()=>scrollList(-1));$('rolar-proxim
 $('numeros').addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.preventDefault();$('numeros').scrollLeft+=e.deltaY}},{passive:false});
 addEventListener('keydown',e=>{
  if(e.repeat||e.altKey||e.ctrlKey||e.metaKey)return;
+ if(e.target.closest?.('.model-tools')&&[' ','Enter'].includes(e.key))return;
  // Espaço e Enter conservam a semântica dos botões quando a lista tem foco.
  if(e.target.closest?.('.slide-nav')&&[' ','Enter','ArrowLeft','ArrowRight'].includes(e.key)){
   if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();const next=clamp(Number(e.target.id.replace('etapa-',''))+(e.key==='ArrowRight'?1:-1),0,5);$('etapa-'+next)?.focus()}return;
@@ -55038,7 +55118,31 @@ addEventListener('keydown',e=>{
 let resizeTimer;
 addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{makePoses();if(!motion&&!cameraTween&&!fade&&!crash){const p=presentationPose(index);look.copy(p.look);boom.copy(p.boom)}else if(motion)motion.endPose=stopPose(motion.to);else if(cameraTween){const p=presentationPose(cameraTween.to);cameraTween.toLook=p.look;cameraTween.toBoom=p.boom}},150)});
 const first=stopPose(0);look.copy(first.look);boom.copy(first.boom);place(carU);
+function criarVisorColetor(){
+ const host=$('coletor-viewport'),studio=new T.Scene();studio.background=new T.Color('#ffffff');
+ const model=criarColetorK24(T),pivot=new T.Group();studio.add(pivot);pivot.add(model.root);
+ const box=new T.Box3().setFromObject(model.root),center=box.getCenter(V());model.root.position.sub(center);
+ studio.add(new T.HemisphereLight('#ffffff','#afbecb',2.4));const key=new T.DirectionalLight('#fff4e5',3.1);key.position.set(-4,8,7);key.castShadow=true;key.shadow.mapSize.set(1024,1024);Object.assign(key.shadow.camera,{left:-5,right:5,top:5,bottom:-5,far:30});key.shadow.normalBias=.014;studio.add(key);
+ const fill=new T.DirectionalLight('#bddbff',1.8);fill.position.set(5,3,-4);studio.add(fill);
+ const ground=new T.Mesh(new T.PlaneGeometry(18,18),new T.ShadowMaterial({opacity:.12}));ground.rotation.x=-Math.PI/2;ground.position.y=-center.y-.03;ground.receiveShadow=true;studio.add(ground);
+ const r=new T.WebGLRenderer({antialias:true,alpha:false});r.setPixelRatio(Math.min(devicePixelRatio,1.5));r.shadowMap.enabled=true;r.shadowMap.type=T.PCFSoftShadowMap;r.shadowMap.autoUpdate=false;r.toneMapping=T.ACESFilmicToneMapping;r.outputColorSpace=T.SRGBColorSpace;host.prepend(r.domElement);
+ const c=new T.PerspectiveCamera(34,1,.1,60);let width=0,height=0,cut=true,drag=null,rendered=0;
+ function fit(){const b=new T.Box3().setFromObject(model.root),target=b.getCenter(V()),direction=V(-.66,.85,1.1).normalize();let distance=6;
+  for(let n=0;n<80;n++){c.position.copy(target).addScaledVector(direction,distance);c.lookAt(target);c.updateMatrixWorld();let ok=true;for(const x of [b.min.x,b.max.x])for(const y of [b.min.y,b.max.y])for(const z of [b.min.z,b.max.z]){const p=V(x,y,z).project(c);if(Math.abs(p.x)>.90||Math.abs(p.y)>.85)ok=false}if(ok)break;distance*=1.045}
+ }
+ function render(){if(index!==0||host.clientWidth<1)return;r.shadowMap.needsUpdate=true;r.render(studio,c);rendered++}
+ function resize(){const w=host.clientWidth,h=host.clientHeight;if(w<1||h<1)return;if(w!==width||h!==height){width=w;height=h;r.setSize(w,h);c.aspect=w/h;c.updateProjectionMatrix();fit();render()}}
+ function reset(){pivot.rotation.set(0,0,0);fit();render()}
+ r.domElement.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY};r.domElement.setPointerCapture(e.pointerId);e.stopPropagation()});
+ r.domElement.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;pivot.rotation.y+=dx*.009;pivot.rotation.x=clamp(pivot.rotation.x+dy*.007,-.60,.60);drag={x:e.clientX,y:e.clientY};render()});
+ r.domElement.addEventListener('pointerup',()=>{drag=null});r.domElement.addEventListener('pointercancel',()=>{drag=null});
+ $('coletor-corte').addEventListener('click',()=>{cut=!cut;model.corte(cut);$('coletor-corte').setAttribute('aria-pressed',String(cut));$('coletor-corte').textContent=cut?'Vista em corte':'Vista completa';fit();render()});
+ $('coletor-restaurar').addEventListener('click',reset);new ResizeObserver(resize).observe(host);
+ return{resize,reset,exportar:cut=>model.exportar(cut),estado:()=>({cut,rendered,width,height,dutos:model.runners.length,rotation:pivot.rotation.toArray().slice(0,3)})};
+}
+const manifoldView=criarVisorColetor();
 function update(dt){
+ mapClock+=dt;shadowAge+=dt;
  vegetation.wind.value+=dt;
  if(fade){
   fade.time+=dt;const out=.27,hold=.08,into=.34;
@@ -55109,13 +55213,16 @@ function update(dt){
  // A visão geral precisa conservar o mapa visível também a grande distância.
  const aerialDistance=Math.max(0,boom.length()-50);
  scene.fog.near=110+aerialDistance*1.3;scene.fog.far=245+aerialDistance*2;
- const shadowExtent=48+smooth((boom.length()-55)/150)*112;
- if(Math.abs(sun.shadow.camera.right-shadowExtent)>.01){Object.assign(sun.shadow.camera,{left:-shadowExtent,right:shadowExtent,top:shadowExtent,bottom:-shadowExtent});sun.shadow.camera.updateProjectionMatrix()}
- const shadowTarget=look.clone();shadowTarget.x=Math.round(shadowTarget.x*32)/32;shadowTarget.z=Math.round(shadowTarget.z*32)/32;
- sun.position.copy(shadowTarget).add(V(-38,58,26));sun.target.position.copy(shadowTarget);sun.target.updateMatrixWorld();
+ const aerial=boom.length()>95;
+ if(shadowAnchor.distanceToSquared(look)>196||shadowAerial!==aerial||shadowAge>4){
+  shadowAerial=aerial;shadowAge=0;shadowAnchor.copy(look);shadowAnchor.x=Math.round(shadowAnchor.x*8)/8;shadowAnchor.z=Math.round(shadowAnchor.z*8)/8;
+  const extent=aerial?180:70;Object.assign(sun.shadow.camera,{left:-extent,right:extent,top:extent,bottom:-extent,far:aerial?420:220});sun.shadow.camera.updateProjectionMatrix();sun.position.copy(shadowAnchor).add(V(-38,58,26));sun.target.position.copy(shadowAnchor);sun.target.updateMatrixWorld();renderer.shadowMap.needsUpdate=true;
+ }
+ carContact.position.copy(car.position).add(V(0,.075,0));carContact.quaternion.copy(car.quaternion);carShadow.scale.x=damaged.root.visible?.82:1;
  camera.position.copy(look).add(boom);camera.lookAt(look);camera.updateMatrixWorld();
  updateForestLOD(car.position,boom.length()>95);
- renderer.render(scene,camera);
+ const active=!!motion||!!cameraTween||!!crash||!!fade||fire.visible;
+ if(active||mapDirty||mapClock-lastMapDraw>.125){if(renderer.shadowMap.needsUpdate)shadowRenders++;renderer.render(scene,camera);sceneRenders++;lastMapDraw=mapClock;mapDirty=false}
 }
 // Tempo real de apresentação, independente da taxa de quadros. Pausa quando a aba fica oculta.
 document.addEventListener('visibilitychange',()=>{lastTime=null});
@@ -55127,7 +55234,7 @@ function verificarGeometria(){
  return{minClearance,negative,closureGap:roadPoints[0].distanceTo(roadPoints.at(-1)),roadLength:roadDistances.at(-1),forestCount:forestPoints.length,variantStats:vegetation.variants.map(v=>({tipo:v.type,triangles:(v.wood.getAttribute('position').count+(v.leaves?.getAttribute('position').count||0))/3,altura:v.height})),contactTimeRolling:escapeLength/((stops[4]-stops[3])*total/3)};
 }
 // Diagnóstico local para validação: sem telemetria, sem persistência e sem rede.
-window.prototipo={estado:()=>({index,carU,skidSamples,skidDrawCounts:skidTracks.map(t=>t.g.drawRange.count),moving:!!motion||!!cameraTween||!!crash,fading:!!fade,tracking:!!motion,crashTime:crash?.time??null,contactTime:crash?.contactTime??null,crashTravelled:crash?.travelled??null,forestCount:forestPoints.length,treeVariants:vegetation.variants.length,roadClosed:roadPoints[0].distanceTo(roadPoints.at(-1))<.001,triangles:renderer.info.render.triangles,crashed,fire:fire.visible,impacts,damagedVisible:damaged.root.visible,tree:treePosition.toArray(),frontDirection:V(1,0,0).applyQuaternion(car.quaternion).toArray(),wreckPosition:wreckPosition.toArray(),crashLayout:roadIntrusions(crashPose,4,0),progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===5,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide,verificarGeometria,exportarArvore:i=>vegetation.tree(i),exportarIntegro:()=>{const c=car.clone(true);c.position.set(0,0,0);c.quaternion.identity();c.visible=true;return c},exportarAmassado:()=>damaged.exportar()};
+window.prototipo={estado:()=>({index,carU,sceneRenders,shadowRenders,coletor:manifoldView.estado(),skidSamples,skidDrawCounts:skidTracks.map(t=>t.g.drawRange.count),moving:!!motion||!!cameraTween||!!crash,fading:!!fade,tracking:!!motion,crashTime:crash?.time??null,contactTime:crash?.contactTime??null,crashTravelled:crash?.travelled??null,forestCount:forestPoints.length,visibleTrees,treeVariants:vegetation.variants.length,roadClosed:roadPoints[0].distanceTo(roadPoints.at(-1))<.001,triangles:renderer.info.render.triangles,crashed,fire:fire.visible,impacts,damagedVisible:damaged.root.visible,tree:treePosition.toArray(),frontDirection:V(1,0,0).applyQuaternion(car.quaternion).toArray(),wreckPosition:wreckPosition.toArray(),crashLayout:roadIntrusions(crashPose,4,0),progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===5,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide,verificarGeometria,exportarColetor:cut=>manifoldView.exportar(cut),exportarArvore:i=>vegetation.tree(i),exportarIntegro:()=>{const c=car.clone(true);c.position.set(0,0,0);c.quaternion.identity();c.visible=true;return c},exportarAmassado:()=>damaged.exportar()};
 ui();requestAnimationFrame(tick);
 } catch(error){console.error(error);$('erro').classList.remove('hidden');$('erro').textContent='Não foi possível iniciar a cena 3D. Abra este arquivo no Microsoft Edge ou Google Chrome com suporte a WebGL. Detalhe: '+error.message;$('estado').textContent='Cena indisponível';}
 })();
