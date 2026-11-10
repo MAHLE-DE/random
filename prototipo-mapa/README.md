@@ -14,11 +14,11 @@ Quando um botão numérico tem foco, Enter ou espaço selecionam o slide e as se
 
 ## Comportamento atual
 
-São cinco paradas e um sexto slide de conclusão. O carro percorre uma estrada 3D única, com curvas, diagonais e desníveis. A distância entre as paradas é a mesma do primeiro protótipo. A duração-base do percurso foi reduzida em 20%, preservando aceleração e desaceleração suaves.
+São cinco paradas e um sexto slide de conclusão. O carro percorre uma estrada 3D única, com curvas, diagonais e desníveis. A distância entre as paradas é a mesma do primeiro protótipo. Cada transição normal dura três segundos, incluindo os movimentos de câmera para entrar e sair da conclusão.
 
 Nas paradas, a câmera reserva um retângulo de 43% da largura e 52% da altura da janela para a apresentação, alternando os lados. A posição, altura e azimute são escolhidos por projeção da estrada completa, evitando a área reservada. Um fundo branco no retângulo mantém elementos decorativos afastados da leitura. Durante a viagem, o conteúdo some e a estrada pode atravessar o centro.
 
-A câmera começa a acompanhar o carro quando ele se afasta do enquadramento inicial ou se aproxima da borda. Ela orbita e ajusta altura durante o percurso, chegando à composição lateral da próxima parada. O carro permanece parado até o próximo comando. Não há direção manual.
+A câmera e o carro começam a se mover juntos, no primeiro quadro da transição. Um único relógio com curva de aceleração suave controla percurso, órbita, altura e composição: a velocidade e a aceleração são nulas nas extremidades, com movimento mais rápido no meio. O carro permanece dentro da tela e o enquadramento final fica pronto exatamente na chegada à parada, sem uma correção de câmera após o veículo parar. O carro permanece parado até o próximo comando. Não há direção manual.
 
 Depois da quinta parada, Avançar abre a conclusão: o carro permanece na última posição e a câmera se afasta para apresentar o mapa inteiro. Voltar retorna ao enquadramento da quinta parada. A visão geral não tem botão separado.
 

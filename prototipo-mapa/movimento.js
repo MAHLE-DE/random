@@ -83,6 +83,8 @@ function readCar(b64){
  json.nodes.forEach((n,i)=>(n.children||[]).forEach(k=>nodes[i].add(nodes[k])));const root=new T.Group();json.scenes[json.scene||0].nodes.forEach(i=>root.add(nodes[i]));return root;
 }
 const car=readCar('__CARRO_BASE64__');scene.add(car);
+const localCarBox=new T.Box3().setFromObject(car);
+const carCorners=[];for(const x of [localCarBox.min.x,localCarBox.max.x])for(const y of [localCarBox.min.y,localCarBox.max.y])for(const z of [localCarBox.min.z,localCarBox.max.z])carCorners.push(V(x,y,z));
 const wheels=[],steers=[];car.traverse(o=>{if(o.name.startsWith('Roda_giratoria'))wheels.push(o);if(o.name.startsWith('Manga_de_eixo'))steers.push(o)});
 // O eixo longitudinal do modelo é +X; a base local acompanha a inclinação.
 function orient(u){const x=tangent(u),z=new T.Vector3().crossVectors(x,V(0,1,0)).normalize(),y=new T.Vector3().crossVectors(z,x).normalize();return new T.Quaternion().setFromRotationMatrix(new T.Matrix4().makeBasis(x,y,z))}
@@ -170,10 +172,11 @@ function advance(direction){
  if(motion||cameraTween||fade)return;
  const to=index+direction;if(to<0||to>5)return;
  if(to===5||index===5){
-  const pose=stopPose(to);cameraTween={to,fromLook:look.clone(),fromBoom:boom.clone(),toLook:pose.look,toBoom:pose.boom,time:0};ui();return;
+  const pose=stopPose(to);cameraTween={to,fromLook:look.clone(),fromBoom:boom.clone(),toLook:pose.look,toBoom:pose.boom,time:0,duration:3};ui();return;
  }
- const from=carU,end=stops[to],length=Math.abs(end-from)*total;
- motion={from,end,to,direction,time:0,duration:Math.max(4.4,length/8.75),tracking:false,trackTime:0,initialLook:look.clone(),initialBoom:boom.clone(),endPose:stopPose(to)};ui();
+ const from=carU,end=stops[to];
+ // Um único relógio sincroniza carro, órbita e composição: todos chegam juntos.
+ motion={from,end,to,direction,time:0,duration:3,initialLook:look.clone(),initialBoom:boom.clone(),endPose:stopPose(to)};ui();
 }
 function fullscreen(){if(document.fullscreenElement)document.exitFullscreen?.();else document.documentElement.requestFullscreen?.().catch(()=>{})}
 $('proximo').addEventListener('click',()=>advance(1));$('anterior').addEventListener('click',()=>advance(-1));
@@ -199,63 +202,45 @@ function update(dt){
   if(!fade.switched&&fade.time>=out){fade.switched=true;setInstant(fade.to);ui()}
   if(fade.time>=out+hold+into){fade=null;$('fade').style.opacity=0;ui()}
  }
- if(cameraTween){const t=cameraTween;t.time+=dt;const u=ease(clamp(t.time/2.1,0,1));look.lerpVectors(t.fromLook,t.toLook,u);boom.lerpVectors(t.fromBoom,t.toBoom,u);if(u===1){index=t.to;cameraTween=null;ui()}}
+ if(cameraTween){const t=cameraTween;t.time+=dt;const u=ease(clamp(t.time/t.duration,0,1));look.lerpVectors(t.fromLook,t.toLook,u);boom.lerpVectors(t.fromBoom,t.toBoom,u);if(u===1){index=t.to;cameraTween=null;ui()}}
  if(motion){
   const m=motion;m.time+=dt;const q=clamp(m.time/m.duration,0,1),u=ease(q),previousU=carU;
   carU=lerp(m.from,m.end,u);
   // Voltar refaz o mesmo caminho de ré, mantendo a frente do carro orientada à estrada.
-  const targetTurn=orient(carU);carTurn.slerp(targetTurn,1-Math.exp(-dt*12));
+  carTurn.copy(orient(carU));
   const distance=(carU-previousU)*total;wheelAngle+=distance/.335;
   wheels.forEach(w=>w.rotation.z=-wheelAngle);
   const before=tangent(clamp(carU-.002,0,1)),after=tangent(clamp(carU+.002,0,1));
   const curvature=new T.Vector3().crossVectors(before,after).y;
-  steers.forEach(s=>{if(s.position.x>0)s.rotation.y=clamp(curvature*3,-.28,.28)});
+  steers.forEach(s=>{if(s.position.x>0)s.rotation.y=clamp(curvature*3,-.28,.28)*Math.sin(q*Math.PI)**2});
   place(carU);
-  camera.position.copy(look).add(boom);camera.lookAt(look);camera.updateMatrixWorld();
-  const ndc=car.position.clone().add(V(0,.8,0)).project(camera);
-  // A parada é lateral. O gatilho considera a saída da área inicial e a proximidade da borda.
+  // Curva quintica: velocidade e aceleração nulas nas duas extremidades.
+  // O POV já se move no primeiro quadro, sem gatilho de borda, perseguição ou correção tardia.
   const initialScreenX=contentSides[index]==='left'?.60:-.60;
-  if(!m.tracking&&(Math.abs(ndc.x)>.70||Math.abs(ndc.y)>.45||Math.abs(ndc.x-initialScreenX)>.42)){m.tracking=true;m.trackTime=0}
-  if(m.tracking){
-   m.trackTime+=dt;
-   const angleU=smooth((q-.10)/.78);
-   // Interpolar o azimute evita que a câmera atravesse o mapa ao orbitar entre lados.
-   const yaw0=Math.atan2(m.initialBoom.x,m.initialBoom.z),yaw1=Math.atan2(m.endPose.boom.x,m.endPose.boom.z);
-   const yaw=yaw0+Math.atan2(Math.sin(yaw1-yaw0),Math.cos(yaw1-yaw0))*angleU;
-   const radius=lerp(Math.hypot(m.initialBoom.x,m.initialBoom.z),Math.hypot(m.endPose.boom.x,m.endPose.boom.z),angleU);
-   const b=V(Math.sin(yaw)*radius,lerp(m.initialBoom.y,m.endPose.boom.y,angleU)+Math.sin(angleU*Math.PI)*3,Math.cos(yaw)*radius);
-   const right=V(b.z,0,-b.x).normalize();
-   const endSign=contentSides[m.to]==='left'?1:-1;
-   const framing=lerp(initialScreenX,endSign*.60,smooth((q-.55)/.40));
-   // Durante o percurso o carro ocupa o centro; só na chegada abre espaço para o texto.
-   const travelFraming=framing*(1-Math.sin(q*Math.PI)*.9);
-   const desired=compose(at(carU),b,travelFraming).look;
-   // O deslocamento começa sem salto; a câmera chega suavemente ao enquadramento de parada.
-   desired.lerpVectors(m.initialLook,desired,smooth(m.trackTime/.95));
-   look.lerp(desired,1-Math.exp(-dt*6));boom.lerp(b,1-Math.exp(-dt*4));
-  }
+  const yaw0=Math.atan2(m.initialBoom.x,m.initialBoom.z),yaw1=Math.atan2(m.endPose.boom.x,m.endPose.boom.z);
+  const yaw=yaw0+Math.atan2(Math.sin(yaw1-yaw0),Math.cos(yaw1-yaw0))*u;
+  const radius=lerp(Math.hypot(m.initialBoom.x,m.initialBoom.z),Math.hypot(m.endPose.boom.x,m.endPose.boom.z),u);
+  const lift=Math.sin(u*Math.PI)**2*3;
+  boom.set(Math.sin(yaw)*radius,lerp(m.initialBoom.y,m.endPose.boom.y,u)+lift,Math.cos(yaw)*radius);
+  const endScreenX=contentSides[m.to]==='left'?.60:-.60;
+  // Composição lateral na saída/chegada; liberdade central durante a viagem.
+  const framing=lerp(initialScreenX,endScreenX,u)*(1-Math.sin(u*Math.PI)**2*.75);
+  look.copy(compose(at(carU),boom,framing).look);
   if(q===1){
-   look.lerp(m.endPose.look,1-Math.exp(-dt*7));boom.lerp(m.endPose.boom,1-Math.exp(-dt*7));carTurn.slerp(targetTurn,1-Math.exp(-dt*14));place(carU);
-   if(look.distanceTo(m.endPose.look)<.012&&boom.distanceTo(m.endPose.boom)<.012){look.copy(m.endPose.look);boom.copy(m.endPose.boom);carTurn.copy(targetTurn);place(carU);steers.forEach(s=>s.rotation.y=0);index=m.to;motion=null;ui()}
+   look.copy(m.endPose.look);boom.copy(m.endPose.boom);steers.forEach(s=>s.rotation.y=0);index=m.to;motion=null;ui();
   }
  }
  // A visão geral precisa conservar o mapa visível também a grande distância.
  const aerialDistance=Math.max(0,boom.length()-50);
  scene.fog.near=90+aerialDistance*1.3;scene.fog.far=200+aerialDistance*2;
  camera.position.copy(look).add(boom);camera.lookAt(look);camera.updateMatrixWorld();
- if(motion){
-  // Margem de segurança contínua: o carro inteiro permanece visível nas órbitas.
-  const center=car.position.clone().add(V(0,.8,0)),screen=center.clone().project(camera);
-  const depth=-center.clone().applyMatrix4(camera.matrixWorldInverse).z;
-  const dx=(screen.x-clamp(screen.x,-.80,.80))*depth*Math.tan(T.MathUtils.degToRad(21))*camera.aspect;
-  const dy=(screen.y-clamp(screen.y,-.70,.70))*depth*Math.tan(T.MathUtils.degToRad(21));
-  if(dx||dy){look.addScaledVector(V().setFromMatrixColumn(camera.matrixWorld,0),dx).addScaledVector(V().setFromMatrixColumn(camera.matrixWorld,1),dy);camera.position.copy(look).add(boom);camera.lookAt(look)}
- }
  renderer.render(scene,camera);
 }
-function tick(time){const dt=lastTime===null?0:Math.min((time-lastTime)/1000,.06);lastTime=time;update(dt);requestAnimationFrame(tick)}
+// Tempo real de apresentação, independente da taxa de quadros. Pausa quando a aba fica oculta.
+document.addEventListener('visibilitychange',()=>{lastTime=null});
+function tick(time){const dt=lastTime===null?0:Math.max((time-lastTime)/1000,0);lastTime=time;update(dt);requestAnimationFrame(tick)}
 // Diagnóstico local para validação: sem telemetria, sem persistência e sem rede.
-window.prototipo={estado:()=>({index,carU,moving:!!motion||!!cameraTween,fading:!!fade,tracking:motion?.tracking||false,conclusion:index===5,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide};
+window.prototipo={estado:()=>({index,carU,moving:!!motion||!!cameraTween,fading:!!fade,tracking:!!motion,progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===5,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide};
 ui();requestAnimationFrame(tick);
 } catch(error){console.error(error);$('erro').classList.remove('hidden');$('erro').textContent='Não foi possível iniciar a cena 3D. Abra este arquivo no Microsoft Edge ou Google Chrome com suporte a WebGL. Detalhe: '+error.message;$('estado').textContent='Cena indisponível';}
 })();
