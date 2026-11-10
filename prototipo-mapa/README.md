@@ -30,7 +30,9 @@ O [modelo amassado separado](../modelos/carro-amassado.glb) tem geometria deform
 
 O conteúdo mostrado nos retângulos é apenas uma indicação de espaço. O coletor e o conteúdo técnico ainda não foram reinseridos.
 
-O cenário contém uma floresta extensa de árvores com copa facetada, distribuídas com variação de posição, orientação e escala. As malhas são compartilhadas por instâncias para reduzir o custo de renderização. A floresta se estende além dos enquadramentos do percurso e da visão geral, criando continuidade visual; a estrada e o chão foram mantidos. A logo vetorial MAHLE também está sobre o capô e acompanha sua deformação na batida.
+O cenário contém floresta de coníferas facetadas, grama, pedras, terreno verde e luz solar quente com sombras contrastadas. O asfalto é escuro com sinalização amarela. As malhas da vegetação são compartilhadas por instâncias para reduzir o custo de renderização. O terreno acompanha a altura da estrada; árvores, pedras e vegetação usam essa mesma superfície, sem uma pista suspensa sobre um plano inferior. A logo vetorial MAHLE no capô está orientada para leitura pela frente e acompanha a deformação na batida.
+
+Na aproximação da quinta parada, o movimento continua diretamente para a derrapagem, sem desacelerar até uma parada intermediária. As marcas são geradas quadro a quadro a partir dos pneus traseiros, acompanhando a guinada do carro, e ficam apoiadas na pista ou no terreno. A seleção direta de 05 continua reiniciando a sequência a partir da parada, com fade.
 
 ## Fontes e reprodução
 

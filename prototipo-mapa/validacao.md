@@ -1,5 +1,15 @@
 # Validação do protótipo
 
+## Cenário colorido e derrapagem contínua — 10/11/2026
+
+- Terreno com altura derivada da estrada e transição para relevo natural; vegetação e pedras posicionadas pela mesma função de altura.
+- Paleta verde, asfalto escuro, faixas amarelas e iluminação quente. Nenhuma imagem de referência foi incorporada ao cenário.
+- Logo do capô conferida em vista aproximada pela frente, sem espelhamento.
+- Marcas criadas pelas posições dos pneus traseiros e reveladas por segmentos. Teste confirmou crescimento de 2 para 58 amostras ao longo da derrapagem, sem revelar segmentos futuros.
+- Velocidade não nula na passagem da viagem à derrapagem, sem a parada intermediária anterior.
+- Impacto frontal único, fogo posterior, navegação e cancelamento verificados offline, incluindo 16:9 e 4:3.
+- Modelo amassado reexportado com a orientação corrigida da marca.
+
 Atualização de 10 de novembro de 2026: cenário preenchido por floresta extensa com malhas instanciadas e variações determinísticas; corredor da estrada e local do impacto preservados. Marca vetorial adicionada sobre o capô. Modelo amassado e prévia reexportados com essa marca. Execução offline, batida, navegação e enquadramentos novamente conferidos. A versão atual do repositório contém apenas os recursos do protótipo; a apresentação anterior permanece no histórico.
 
 Verificações realizadas em 9 de novembro de 2026, no Microsoft Edge, por execução automatizada da página local em contexto com rede bloqueada.
