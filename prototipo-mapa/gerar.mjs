@@ -14,7 +14,8 @@ const car=(await fs.readFile(path.join(root,'modelos/carro.glb'))).toString('bas
 let svg=await fs.readFile(path.join(root,'midias/mahle-azul.svg'),'utf8');
 svg=svg.slice(svg.indexOf('<svg')).replace('<svg','<svg class="brand" role="img" aria-label="MAHLE"');
 const damage=await fs.readFile(path.join(base,'dano.js'),'utf8');
-let app=(await fs.readFile(path.join(base,'movimento.js'),'utf8')).replace('__CARRO_BASE64__',car).replace('__DANO_SOURCE__',()=>damage);
+const vegetation=await fs.readFile(path.join(base,'vegetacao.js'),'utf8');
+let app=(await fs.readFile(path.join(base,'movimento.js'),'utf8')).replace('__CARRO_BASE64__',car).replace('__DANO_SOURCE__',()=>damage).replace('__VEGETACAO_SOURCE__',()=>vegetation);
 const steps=Array.from({length:6},(_,i)=>`<button class="step" id="etapa-${i}" aria-label="Selecionar slide ${i+1}${i===5?', conclusão':''}" type="button">${String(i+1).padStart(2,'0')}</button>`).join('');
 let html=await fs.readFile(path.join(base,'interface.html'),'utf8');
 html=html.replace('__LOGO__',svg).replace('__ETAPAS__',steps).replace('__THREE__',()=>bundled).replace('__APP__',()=>app);

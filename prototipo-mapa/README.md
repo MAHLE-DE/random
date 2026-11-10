@@ -18,7 +18,7 @@ São cinco paradas e um sexto slide de conclusão. O carro percorre uma estrada 
 
 Nas paradas, a câmera reserva um retângulo de 43% da largura e 52% da altura da janela para a apresentação, alternando os lados. A posição, altura e azimute são escolhidos por projeção da estrada completa, evitando a área reservada. Um fundo branco no retângulo mantém elementos decorativos afastados da leitura. Durante a viagem, o conteúdo some e a estrada pode atravessar o centro.
 
-A câmera e o carro começam a se mover juntos, no primeiro quadro da transição. Um único relógio com curva de aceleração suave controla percurso, órbita, altura e composição: a velocidade e a aceleração são nulas nas extremidades, com movimento mais rápido no meio. O carro permanece dentro da tela e o enquadramento final fica pronto exatamente na chegada à parada, sem uma correção de câmera após o veículo parar. O carro permanece parado até o próximo comando. Não há direção manual.
+A câmera e o carro começam a se mover juntos, no primeiro quadro da transição. Um único relógio controla percurso, órbita, altura e composição, com partida e chegada suaves nas paradas normais. A exceção é a quinta cena: o carro mantém o embalo para entrar diretamente na derrapagem. O carro permanece dentro da tela. Não há direção manual.
 
 Depois da quinta parada, Avançar abre a conclusão: o carro permanece na última posição e a câmera se afasta para apresentar o mapa inteiro. Voltar retorna ao enquadramento da quinta parada. A visão geral não tem botão separado.
 
@@ -30,14 +30,24 @@ O [modelo amassado separado](../modelos/carro-amassado.glb) tem geometria deform
 
 O conteúdo mostrado nos retângulos é apenas uma indicação de espaço. O coletor e o conteúdo técnico ainda não foram reinseridos.
 
-O cenário contém floresta de coníferas facetadas, grama, pedras, terreno verde e luz solar quente com sombras contrastadas. O asfalto é escuro com sinalização amarela. As malhas da vegetação são compartilhadas por instâncias para reduzir o custo de renderização. O terreno acompanha a altura da estrada; árvores, pedras e vegetação usam essa mesma superfície, sem uma pista suspensa sobre um plano inferior. A logo vetorial MAHLE no capô está orientada para leitura pela frente e acompanha a deformação na batida.
+O cenário contém 4.010 árvores distribuídas em grupos e clareiras, com 20 variantes: 12 coníferas, seis árvores de copa larga e duas árvores secas. Os modelos próximos têm entre 956 e 1.596 triângulos, com troncos curvos, galhos, raízes e copas assimétricas. As árvores distantes usam versões simplificadas das mesmas famílias. Há grama agrupada, pedras, variação de cor no terreno, luz solar quente, preenchimento frio, sombras de 4096 × 4096 e movimento leve das copas.
 
-Na aproximação da quinta parada, o movimento continua diretamente para a derrapagem, sem desacelerar até uma parada intermediária. As marcas são geradas quadro a quadro a partir dos pneus traseiros, acompanhando a guinada do carro, e ficam apoiadas na pista ou no terreno. A seleção direta de 05 continua reiniciando a sequência a partir da parada, com fade.
+A árvore do impacto é da mesma família das árvores de copa larga da floresta, com tronco livre na altura do carro. Os marcadores têm clareiras próprias, sem árvores ou grama sobre os discos. As malhas são compartilhadas por instâncias; o nível de detalhe acompanha a proximidade do carro e a visão aérea.
+
+A estrada ganhou uma continuação externa curva, fechada, que preserva o trecho original das cinco paradas e elimina pontas visíveis. O terreno acompanha toda a estrada. As faixas centrais e laterais são desenhadas no próprio material do asfalto, com suavização de bordas, para evitar camadas sobrepostas e cintilação na vista distante. A logo vetorial MAHLE no capô continua orientada para leitura pela frente.
+
+Na aproximação da quinta parada, o movimento continua diretamente para a derrapagem. A velocidade é controlada pela distância efetivamente percorrida na curva, mantendo o embalo até o impacto, quando ocorre a parada brusca e a deformação. As marcas são geradas quadro a quadro a partir dos pneus traseiros. A seleção direta de 05 reinicia a sequência com fade e uma aceleração inicial curta.
+
+Veja a [galeria de variantes](../modelos/arvores/galeria.png) e os modelos GLB de [conífera](../modelos/arvores/conifera.glb), [copa larga](../modelos/arvores/frondosa.glb) e [árvore seca](../modelos/arvores/seca.glb).
 
 ## Fontes e reprodução
 
 - `movimento.js`: mapa, carro, enquadramentos, animação e navegação.
 - `dano.js`: geração da variante amassada e deformação progressiva do impacto.
+- `vegetacao.js`: modelos das 20 variantes, materiais e oscilação das copas.
+- `exportar-arvores.mjs`: geração de modelos GLB editáveis das três famílias.
+- `visualizar-modelos.mjs`: renderização das prévias e da galeria de árvores.
+- `verificar-prototipo.mjs`: testes offline de geometria, navegação, enquadramentos, derrapagem e cancelamento.
 - `exportar-amassado.mjs`: exportação do modelo GLB e da prévia, usando Playwright apenas na máquina de produção.
 - `interface.html`: interface e espaços de conteúdo.
 - `gerar.mjs`: incorpora Three.js 0.170.0, o GLB original e o SVG em um HTML autossuficiente.
@@ -49,3 +59,5 @@ Somente para editar e reconstruir, em uma máquina de produção com Node.js: `n
 Para reconstruir também o modelo amassado, execute `node prototipo-mapa/exportar-amassado.mjs` em um ambiente de produção com Playwright instalado. O navegador pode ser indicado pela variável `PRESENTATION_BROWSER`. O exportador usa o `GLTFExporter.js` já incluído no repositório e rejeita uma exportação sem malhas.
 
 O arquivo bloqueia conexões de rede e mídias por sua política de conteúdo. Usa WebGL e depende de suporte gráfico no navegador. Os enquadramentos foram verificados em 16:9 e 4:3. Uma projeção real e o passador físico ainda devem ser conferidos no equipamento da apresentação.
+
+Para repetir os testes em um ambiente de produção com Playwright instalado: `node prototipo-mapa/verificar-prototipo.mjs`. Os relatórios e capturas ficam em `.producao/qa-floresta/`; o diretório pode ser alterado pela variável `QA_OUTPUT`.

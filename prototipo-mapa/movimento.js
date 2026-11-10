@@ -9,20 +9,22 @@ const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
 const ease=x=>x*x*x*(x*(x*6-15)+10);
 const lerp=T.MathUtils.lerp;
 __DANO_SOURCE__
+__VEGETACAO_SOURCE__
 try {
 const scene=new T.Scene();scene.background=new T.Color('#b4c99b');
 scene.fog=new T.Fog('#b4c99b',110,245);
-const camera=new T.PerspectiveCamera(42,innerWidth/innerHeight,.1,500);
+const camera=new T.PerspectiveCamera(42,innerWidth/innerHeight,.8,700);
 const renderer=new T.WebGLRenderer({antialias:true,alpha:false});
 renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(innerWidth,innerHeight);
 renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;
 renderer.toneMappingExposure=1.05;renderer.shadowMap.enabled=true;
-renderer.shadowMap.type=T.PCFSoftShadowMap;$('mundo').appendChild(renderer.domElement);
-scene.add(new T.HemisphereLight('#d5e6eb','#293b24',1.05));
-const sun=new T.DirectionalLight('#fff1cf',3.4);sun.position.set(-35,70,25);
+renderer.shadowMap.type=T.PCFShadowMap;$('mundo').appendChild(renderer.domElement);
+scene.add(new T.HemisphereLight('#c8e2eb','#303d29',1.25));
+const sun=new T.DirectionalLight('#fff0ce',3.0);sun.position.set(-38,58,26);
 sun.castShadow=true;sun.shadow.mapSize.set(4096,4096);
-Object.assign(sun.shadow.camera,{left:-110,right:110,top:110,bottom:-110,far:200});
-sun.shadow.bias=-.0003;sun.shadow.normalBias=.035;scene.add(sun);
+Object.assign(sun.shadow.camera,{left:-48,right:48,top:48,bottom:-48,near:1,far:180});
+sun.shadow.bias=-.00006;sun.shadow.normalBias=.022;sun.shadow.radius=2.2;scene.add(sun);scene.add(sun.target);
+const fillLight=new T.DirectionalLight('#bdd9e9',.40);fillLight.position.set(30,16,-35);scene.add(fillLight);
 const mat=(color,roughness=.7)=>new T.MeshStandardMaterial({color,roughness});
 const white=mat('#ffffff'),blue=mat('#0043bc'),pale=mat('#30372f'),gray=mat('#8d8868');
 function mesh(geo,m,parent=scene){const o=new T.Mesh(geo,m);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o}
@@ -33,41 +35,51 @@ const total=route.getLength();
 function at(u){return route.getPointAt(clamp(u,0,1))}
 function tangent(u){return route.getTangentAt(clamp(u,0,1)).normalize()}
 function side(u){const t=tangent(u);return V(-t.z,0,t.x).normalize()}
-const groundRoute=Array.from({length:321},(_,i)=>at(i/320));
-function groundInfo(x,z){let best=Infinity,h=0;for(let i=1;i<groundRoute.length;i++){const a=groundRoute[i-1],b=groundRoute[i],dx=b.x-a.x,dz=b.z-a.z,t=clamp(((x-a.x)*dx+(z-a.z)*dz)/(dx*dx+dz*dz),0,1),d=(x-a.x-dx*t)**2+(z-a.z-dz*t)**2;if(d<best){best=d;h=lerp(a.y,b.y,t)}}return{distance:Math.sqrt(best),road:h}}
+// Continuação exterior fechada: mantém o percurso original, mas elimina as duas pontas.
+const extensionControl=[control.at(-2),control.at(-1),control.at(-1).clone().addScaledVector(tangent(1),35),V(155,1,-4),V(190,.6,35),V(175,.9,105),V(110,1.3,142),V(40,.7,135),V(-25,1.3,155),V(-100,.8,130),V(-160,.6,70),V(-170,.5,-5),V(-125,.7,-65),V(-80,.8,-75),V(-90,.4,-30),V(-120,.4,20),V(-100,.6,65),control[0].clone().addScaledVector(tangent(0),-35),control[0],control[1]];
+const extension=new T.CatmullRomCurve3(extensionControl,false,'centripetal');
+const extensionAt=u=>extension.getPoint(lerp(1/(extensionControl.length-1),(extensionControl.length-2)/(extensionControl.length-1),u));
+const groundRoute=[...Array.from({length:321},(_,i)=>at(i/320)),...Array.from({length:1000},(_,i)=>extensionAt((i+1)/1000))];
+const groundCells=new Map(),cellSize=18;
+for(let i=1;i<groundRoute.length;i++){const a=groundRoute[i-1],b=groundRoute[i];for(let x=Math.floor((Math.min(a.x,b.x)-26)/cellSize);x<=Math.floor((Math.max(a.x,b.x)+26)/cellSize);x++)for(let z=Math.floor((Math.min(a.z,b.z)-26)/cellSize);z<=Math.floor((Math.max(a.z,b.z)+26)/cellSize);z++){const key=x+','+z;if(!groundCells.has(key))groundCells.set(key,[]);groundCells.get(key).push(i)}}
+function groundInfo(x,z){let best=1e10,h=0;for(const i of groundCells.get(Math.floor(x/cellSize)+','+Math.floor(z/cellSize))||[]){const a=groundRoute[i-1],b=groundRoute[i],dx=b.x-a.x,dz=b.z-a.z,t=clamp(((x-a.x)*dx+(z-a.z)*dz)/(dx*dx+dz*dz),0,1),d=(x-a.x-dx*t)**2+(z-a.z-dz*t)**2;if(d<best){best=d;h=lerp(a.y,b.y,t)}}return{distance:Math.sqrt(best),road:h}}
 const markerCenters=[.055,.265,.485,.715,.955].map(u=>at(u).addScaledVector(side(u),7.5));
-function baseGroundHeight(x,z){const n=groundInfo(x,z),field=.25+Math.sin(x*.035)*.5+Math.cos(z*.042)*.4;return lerp(n.road-.035,field,smooth((n.distance-4)/19))}
+function baseGroundHeight(x,z){const n=groundInfo(x,z),field=.25+Math.sin(x*.035)*.5+Math.cos(z*.042)*.4;return lerp(n.road-.16,field,smooth((n.distance-3.6)/19))}
 function groundHeight(x,z){let h=baseGroundHeight(x,z);for(const p of markerCenters){const r=Math.hypot(x-p.x,z-p.z);if(r<4)h=lerp(baseGroundHeight(p.x,p.z),h,smooth(r-3))}return h}
 const landGeometry=new T.PlaneGeometry(700,700,350,350);landGeometry.rotateX(-Math.PI/2);
 const landPositions=landGeometry.getAttribute('position'),landColors=[];
-for(let i=0;i<landPositions.count;i++){const x=landPositions.getX(i),z=landPositions.getZ(i);landPositions.setY(i,groundHeight(x,z));const tone=.5+.25*Math.sin(x*.15+Math.cos(z*.10))+.25*Math.cos(z*.18-x*.07),c=new T.Color('#719d3e').lerp(new T.Color('#96b84f'),clamp(tone,0,1)*.65);landColors.push(c.r,c.g,c.b)}
+for(let i=0;i<landPositions.count;i++){const x=landPositions.getX(i),z=landPositions.getZ(i);landPositions.setY(i,groundHeight(x,z));const tone=.5+.23*Math.sin(x*.15+Math.cos(z*.10))+.17*Math.cos(z*.18-x*.07)+.10*Math.sin(x*.63+z*.46),c=new T.Color('#527c36').lerp(new T.Color('#93ac4a'),clamp(tone,0,1));landColors.push(c.r,c.g,c.b)}
 landGeometry.setAttribute('color',new T.Float32BufferAttribute(landColors,3));landGeometry.computeVertexNormals();
 const floor=mesh(landGeometry,new T.MeshStandardMaterial({vertexColors:true,roughness:1,flatShading:true}));floor.name='Terreno_continuo_sob_a_estrada';
+const roadPoints=[...Array.from({length:1201},(_,i)=>at(i/1200)),...Array.from({length:3600},(_,i)=>extensionAt((i+1)/3600))];
+const roadDistances=[0];for(let i=1;i<roadPoints.length;i++)roadDistances.push(roadDistances[i-1]+roadPoints[i].distanceTo(roadPoints[i-1]));
 function ribbon(width,height,material){
- const p=[],ix=[],n=1200;
- for(let i=0;i<=n;i++){const u=i/n,c=at(u),s=side(u);for(const sign of [-1,1])p.push(...c.clone().addScaledVector(s,width*sign).add(V(0,height,0)).toArray())}
+ const p=[],ix=[],uv=[],n=roadPoints.length-1;
+ for(let i=0;i<=n;i++){const c=roadPoints[i],d=roadPoints[i===n?1:i+1].clone().sub(roadPoints[i===0?n-1:i-1]),s=V(-d.z,0,d.x).normalize();for(const sign of [-1,1]){p.push(...c.clone().addScaledVector(s,width*sign).add(V(0,height,0)).toArray());uv.push(width*sign,roadDistances[i])}}
  for(let i=0;i<n;i++){let a=i*2;ix.push(a,a+1,a+2,a+1,a+3,a+2)}
- const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(p,3));g.setIndex(ix);g.computeVertexNormals();return mesh(g,material);
+ const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(p,3));g.setAttribute('uv',new T.Float32BufferAttribute(uv,2));g.setIndex(ix);g.computeVertexNormals();const m=mesh(g,material);m.castShadow=false;return m;
 }
-// Bordas integradas à geometria, sem textura ou carregamento externo.
-ribbon(3.32,-.025,gray);ribbon(3.06,0,pale);
-function curveLine(offset,height,radius,material){const pp=[];for(let i=0;i<=1000;i++){const u=i/1000;pp.push(at(u).addScaledVector(side(u),offset).add(V(0,height,0)))}mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pp),1000,radius,5,false),material)}
-curveLine(-2.91,.025,.035,mat('#c6c2a1'));curveLine(2.91,.025,.035,mat('#c6c2a1'));
-const stripe=mat('#f1d657');
-for(let s=1;s<total;s+=3.5){const u=s/total,p=at(u),d=tangent(u);const o=mesh(new T.BoxGeometry(.095,.018,1.25),stripe);o.position.copy(p).add(V(0,.028,0));o.quaternion.setFromUnitVectors(V(0,0,1),d)}
+// Sinalização na mesma superfície do asfalto: sem camadas coplanares na vista distante.
+pale.polygonOffset=true;pale.polygonOffsetFactor=-1;pale.polygonOffsetUnits=-2;
+pale.onBeforeCompile=shader=>{shader.uniforms.roadYellow={value:new T.Color('#e8cd60')};shader.uniforms.roadEdge={value:new T.Color('#c8c8a7')};shader.vertexShader='varying vec2 roadUv;\n'+shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nroadUv=uv;');shader.fragmentShader='varying vec2 roadUv; uniform vec3 roadYellow; uniform vec3 roadEdge;\n'+shader.fragmentShader.replace('#include <color_fragment>',`#include <color_fragment>
+float aa=max(fwidth(roadUv.x),0.009);float center=1.0-smoothstep(0.055-aa,0.055+aa,abs(roadUv.x));
+float wave=sin(roadUv.y*1.7952);float dash=smoothstep(0.25-fwidth(wave),0.25+fwidth(wave),wave);
+float edge=1.0-smoothstep(0.023-aa,0.023+aa,abs(abs(roadUv.x)-2.91));
+float grain=sin(roadUv.y*11.0+roadUv.x*21.0)*0.015;
+diffuseColor.rgb*=1.0+grain;diffuseColor.rgb=mix(diffuseColor.rgb,roadYellow,center*dash);diffuseColor.rgb=mix(diffuseColor.rgb,roadEdge,edge);`)};
+ribbon(3.48,-.055,gray);const asphalt=ribbon(3.06,0,pale);asphalt.name='Asfalto_continuo_sinalizacao_integrada';
 // Paisagem discreta: volumes claros preservam o fundo branco e a leitura da estrada.
 const stops=[.055,.265,.485,.715,.955];
 const crashOrigin=at(stops[4]),exitSide=side(stops[4]),exitTangent=tangent(stops[4]);
-const treePosition=crashOrigin.clone().addScaledVector(exitTangent,8).addScaledVector(exitSide,7);
+const treePosition=crashOrigin.clone().addScaledVector(exitTangent,14).addScaledVector(exitSide,9);
 treePosition.y=groundHeight(treePosition.x,treePosition.z);
 const crashDirection=treePosition.clone().sub(crashOrigin).setY(0).normalize();
 const hitPosition=treePosition.clone().addScaledVector(crashDirection,-2.16);hitPosition.y=groundHeight(hitPosition.x,hitPosition.z)-.06;
 const wreckPosition=treePosition.clone().addScaledVector(crashDirection,-1.38);wreckPosition.y=groundHeight(wreckPosition.x,wreckPosition.z)-.06;
 const escapeCurve=new T.CubicBezierCurve3(crashOrigin.clone().add(V(0,-.06,0)),crashOrigin.clone().addScaledVector(exitTangent,3.6),hitPosition.clone().addScaledVector(crashDirection,-3),hitPosition.clone());
-const tree=new T.Group();tree.name='Arvore_do_impacto';tree.position.copy(treePosition);scene.add(tree);
-const trunkMat=mat('#65503a'),leafMat=mat('#2c5035'),leafLight=mat('#638b3d');
-const trunk=mesh(new T.CylinderGeometry(.30,.43,4.0,13),trunkMat,tree);trunk.position.y=1.85;
-for(const [x,y,z,r]of [[-.7,4.6,0,1.45],[.8,4.9,.1,1.65],[0,5.7,-.3,1.7],[.1,4.3,.8,1.35]]){const foliage=mesh(new T.IcosahedronGeometry(r,1),y>5?leafLight:leafMat,tree);foliage.position.set(x,y,z)}
+const vegetation=criarBibliotecaFlorestal(T);
+const tree=vegetation.tree(12);tree.name='Arvore_do_impacto_tronco_livre';tree.position.copy(treePosition);scene.add(tree);
+const escapeLength=escapeCurve.getLength();
 let seed=42;function rand(){seed=(seed*1664525+1013904223)>>>0;return seed/4294967296}
 for(let i=0;i<70;i++){
  const u=.02+rand()*.96,p=at(u).addScaledVector(side(u),(rand()>.5?1:-1)*(5.5+rand()*7));
@@ -78,21 +90,45 @@ for(let i=0;i<70;i++){
 }
 const labels=[];
 // Floresta ampla com instâncias compartilhadas: continuidade visual sem milhares de objetos.
-const forestPoints=[],roadSamples=Array.from({length:360},(_,i)=>at(i/359));
-for(let gx=-24;gx<=24;gx++)for(let gz=-24;gz<=24;gz++){
- if(rand()<.10)continue;
- const p=V(18+gx*11+(rand()-.5)*11,-.46,6+gz*11+(rand()-.5)*11);
- if(roadSamples.some(r=>Math.hypot(r.x-p.x,r.z-p.z)<6.5))continue;
- if(p.clone().setY(treePosition.y).distanceTo(treePosition)<8||p.clone().setY(treePosition.y).distanceTo(escapeCurve.getPoint(.6))<5)continue;
- p.y=groundHeight(p.x,p.z);forestPoints.push({p,scale:.70+rand()*.60,angle:rand()*Math.PI*2});
+const forestPoints=[],forestBins=new Map();
+for(let gx=-42;gx<=42;gx++)for(let gz=-42;gz<=42;gz++){
+ const x=18+gx*6.3+(rand()-.5)*6.3,z=6+gz*6.3+(rand()-.5)*6.3;
+ const grove=.65+.18*Math.sin(x*.035+Math.cos(z*.026)*1.7)+.14*Math.cos(z*.043-x*.012);
+ if(rand()>grove||groundInfo(x,z).distance<5.1)continue;
+ const bx=Math.floor(x/4),bz=Math.floor(z/4);let crowded=false;
+ for(let a=bx-1;a<=bx+1;a++)for(let b=bz-1;b<=bz+1;b++)for(const point of forestBins.get(a+','+b)||[])if(Math.hypot(point.x-x,point.z-z)<3.1)crowded=true;
+ if(crowded)continue;
+ const p=V(x,groundHeight(x,z),z);
+ if(Math.hypot(x-treePosition.x,z-treePosition.z)<6.5)continue;
+ let blocked=false;for(let j=0;j<=16;j++){const c=escapeCurve.getPoint(j/16);if(Math.hypot(x-c.x,z-c.z)<3.2)blocked=true}if(blocked)continue;
+ if(markerCenters.some(c=>Math.hypot(c.x-x,c.z-z)<6.2))continue;
+ const choice=rand(),variant=choice<.69?Math.floor(rand()*12):choice<.96?12+Math.floor(rand()*6):18+Math.floor(rand()*2);
+ const entry={p,scale:.68+rand()*.65,angle:rand()*Math.PI*2,variant,low:Math.hypot(x-18,z-6)>115};forestPoints.push(entry);
+ const key=bx+','+bz;if(!forestBins.has(key))forestBins.set(key,[]);forestBins.get(key).push(p);
 }
 const forest=new T.Group();forest.name='Floresta_continua';scene.add(forest);
-const layers=[{g:new T.CylinderGeometry(.22,.36,3.8,8),m:trunkMat,offset:[0,1.75,0],r:1},...[ [0,2.6,0,2.3],[0,3.9,0,1.8],[0,5.1,0,1.25]].map(([x,y,z,r],i)=>({g:new T.ConeGeometry(r,2.9,7),m:i%2?leafLight:leafMat,offset:[x,y,z],r:1}))];
 const dummy=new T.Object3D();
-for(const layer of layers){const inst=new T.InstancedMesh(layer.g,layer.m,forestPoints.length);inst.castShadow=true;inst.receiveShadow=true;forest.add(inst);forestPoints.forEach(({p,scale,angle},i)=>{const offset=V(...layer.offset).applyAxisAngle(V(0,1,0),angle).multiplyScalar(scale);dummy.position.copy(p).add(offset);dummy.rotation.set(0,angle,0);dummy.scale.setScalar(scale*layer.r);dummy.updateMatrix();inst.setMatrixAt(i,dummy.matrix)});inst.instanceMatrix.needsUpdate=true;inst.computeBoundingSphere()}
+const forestLodGroups=[];
+for(const t of forestPoints){dummy.position.copy(t.p);dummy.rotation.set(0,t.angle,0);dummy.scale.set(t.scale*(.9+.1*Math.sin(t.angle)),t.scale,t.scale);dummy.updateMatrix();t.matrix=dummy.matrix.clone()}
+for(let k=0;k<vegetation.variants.length;k++){
+ const points=forestPoints.filter(p=>p.variant===k);if(!points.length)continue;
+ const group={points,high:[],low:[]};forestLodGroups.push(group);
+ for(const low of [false,true]){const variant=low?vegetation.variants[k].low:vegetation.variants[k];for(const [geometry,material]of [[variant.wood,vegetation.bark],[variant.leaves,vegetation.leaves]])if(geometry){const inst=new T.InstancedMesh(geometry,material,points.length);inst.castShadow=true;inst.receiveShadow=true;inst.frustumCulled=false;inst.instanceMatrix.setUsage(T.DynamicDrawUsage);if(material===vegetation.leaves)inst.customDepthMaterial=vegetation.depth;forest.add(inst);group[low?'low':'high'].push(inst)}}
+}
+let lodFocus=V(1e6,0,1e6),lodAerial=false;
+function updateForestLOD(focus,aerial=false){if(lodFocus.distanceToSquared(focus)<36&&aerial===lodAerial)return;lodFocus.copy(focus);lodAerial=aerial;for(const group of forestLodGroups){let near=0,far=0;for(const t of group.points){const distant=aerial||Math.hypot(t.p.x-focus.x,t.p.z-focus.z)>63;for(const m of group[distant?'low':'high'])m.setMatrixAt(distant?far:near,t.matrix);if(distant)far++;else near++}for(const m of group.high){m.count=near;m.instanceMatrix.needsUpdate=true}for(const m of group.low){m.count=far;m.instanceMatrix.needsUpdate=true}}}
+updateForestLOD(at(stops[0]));
+// Oclusão suave de contato complementa as sombras projetadas, especialmente na vista aérea.
+const contactMaterial=new T.MeshBasicMaterial({color:'#172b1c',transparent:true,opacity:.19,depthWrite:false});
+contactMaterial.onBeforeCompile=s=>{s.vertexShader='varying vec2 contactUv;\n'+s.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\ncontactUv=uv;');s.fragmentShader='varying vec2 contactUv;\n'+s.fragmentShader.replace('#include <color_fragment>','#include <color_fragment>\ndiffuseColor.a*=1.0-smoothstep(0.0,0.5,length(contactUv-0.5));')};
+const contacts=new T.InstancedMesh(new T.PlaneGeometry(4.5,4.5),contactMaterial,forestPoints.length);scene.add(contacts);
+forestPoints.forEach(({p,scale,angle},i)=>{dummy.position.copy(p).add(V(0,.018,0));dummy.rotation.set(-Math.PI/2,0,angle);dummy.scale.setScalar(scale);dummy.updateMatrix();contacts.setMatrixAt(i,dummy.matrix)});contacts.computeBoundingSphere();
 const grassGeo=new T.BufferGeometry();grassGeo.setAttribute('position',new T.Float32BufferAttribute([-.16,0,0,0,.55,0,.07,0,0,0,0,-.14,0,.38,.03,0,0,.12,-.1,0,-.1,.13,.42,.12,.15,0,.1],3));grassGeo.computeVertexNormals();
-const grass=new T.InstancedMesh(grassGeo,new T.MeshStandardMaterial({color:'#48732b',side:T.DoubleSide,roughness:1}),4500);grass.receiveShadow=true;scene.add(grass);let grassCount=0;
-for(let i=0;i<5000&&grassCount<4500;i++){const x=-160+rand()*370,z=-155+rand()*330;if(groundInfo(x,z).distance<3.8)continue;dummy.position.set(x,groundHeight(x,z),z);dummy.rotation.set(0,rand()*Math.PI*2,0);dummy.scale.setScalar(.6+rand()*1.5);dummy.updateMatrix();grass.setMatrixAt(grassCount++,dummy.matrix)}grass.count=grassCount;grass.instanceMatrix.needsUpdate=true;grass.computeBoundingSphere();
+const grass=new T.InstancedMesh(grassGeo,new T.MeshStandardMaterial({color:'#416729',side:T.DoubleSide,roughness:1}),36000);grass.receiveShadow=true;scene.add(grass);let grassCount=0;
+function addGrass(x,z,scale){if(grassCount>=36000||groundInfo(x,z).distance<3.8||markerCenters.some(c=>Math.hypot(c.x-x,c.z-z)<3))return;dummy.position.set(x,groundHeight(x,z),z);dummy.rotation.set(0,rand()*Math.PI*2,0);dummy.scale.setScalar(scale);dummy.updateMatrix();grass.setMatrixAt(grassCount++,dummy.matrix)}
+for(let i=0;i<14000;i++)addGrass(-160+rand()*370,-155+rand()*330,.45+rand()*1.3);
+for(const t of forestPoints)for(let j=0;j<5;j++){const a=rand()*Math.PI*2,r=.65+rand()*2.1;addGrass(t.p.x+Math.cos(a)*r,t.p.z+Math.sin(a)*r,.5+rand()*.8)}
+grass.count=grassCount;grass.instanceMatrix.needsUpdate=true;grass.computeBoundingSphere();
 stops.forEach((u,i)=>{
  const p=at(u),s=side(u),d=tangent(u);
  // Discos fora da faixa: o carro para na própria estrada.
@@ -164,13 +200,16 @@ function compose(p,offset,screenX){
 }
 function fitPose(p,i,includeTree=false){
  const sign=contentSides[i]==='left'?1:-1;let best=null,bestCost=Infinity;
+ const nearby=forestPoints.filter(t=>Math.hypot(t.p.x-p.x,t.p.z-p.z)<38);
  for(const h of [23,27,31])for(const distance of [26,30])for(let k=0;k<48;k++){
   const yaw=k*Math.PI*2/48,offset=V(Math.sin(yaw)*distance,h,Math.cos(yaw)*distance);
   const pose=compose(p,offset,sign*.60),hits=roadIntrusions(pose,i);
   const preference=Math.abs(Math.atan2(Math.sin(yaw-i*.9),Math.cos(yaw-i*.9)));
   let treePenalty=0;
   if(includeTree){for(const x of [-2.4,2.4])for(const y of [0,7])for(const z of [-2.4,2.4]){const v=treePosition.clone().add(V(x,y,z)).project(probeCamera);if(v.x<.03||v.x>.94||v.y<-.66||v.y>.78)treePenalty+=10000}}
-  const cost=hits*100+(h-23)*.015+(distance-26)*.01+preference*.01+treePenalty;
+  const eye=pose.look.clone().add(pose.boom),target=p.clone().add(V(0,.8,0)),ray=target.clone().sub(eye),rayLength=ray.lengthSq();let blocked=0;
+  for(const t of nearby){const v=vegetation.variants[t.variant];if(v.type==='seca')continue;const center=t.p.clone().add(V(0,v.height*t.scale*(v.type==='conifera'?.60:.82),0)),along=clamp(center.clone().sub(eye).dot(ray)/rayLength,0,1),closest=eye.clone().addScaledVector(ray,along);if(along>.05&&along<.97&&closest.distanceTo(center)<(v.type==='conifera'?1.8:2.65)*t.scale)blocked++}
+  const cost=hits*100000+blocked*2000+(h-23)*.015+(distance-26)*.01+preference*.01+treePenalty;
   if(cost<bestCost){bestCost=cost;best={...pose,hits,yaw}}
  }return best;
 }
@@ -206,7 +245,7 @@ function directionQuaternion(d){const x=d.clone().normalize(),z=V().crossVectors
 function syncDamaged(){damaged.root.position.copy(car.position);damaged.root.quaternion.copy(car.quaternion)}
 function resetCrash(){crash=null;crashed=false;fireTime=0;impacts=0;skidSamples=0;skidTracks.forEach(t=>t.g.setDrawRange(0,0));damaged.aplicar(0);damaged.root.visible=false;car.visible=true;fire.visible=false;skid.visible=false}
 function finishWreck(){car.position.copy(wreckPosition);car.quaternion.copy(directionQuaternion(crashDirection));syncDamaged();damaged.aplicar(1);damaged.root.visible=true;car.visible=false;fire.visible=true;skid.visible=true;crashed=true;fireTime=Math.max(fireTime,1)}
-function beginCrash(rolling=false){crash={time:0,impacted:false,rolling,initialLook:look.clone(),initialBoom:boom.clone()};appendSkids();ui()}
+function beginCrash(rolling=false){const speed=rolling?(stops[4]-stops[3])*total/3:escapeLength/.85;crash={time:0,impacted:false,rolling,speed,contactTime:escapeLength/speed+(rolling?0:.08),travelled:0,initialLook:look.clone(),initialBoom:boom.clone()};appendSkids();ui()}
 function setContent(){
  const end=index===5,busy=!!motion||!!cameraTween||!!crash;
  $('conteudo').className='content'+(contentSides[index]==='right'?' right':'')+(end?' conclusion':'')+(busy?' absent':'');
@@ -269,6 +308,7 @@ let resizeTimer;
 addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{makePoses();if(!motion&&!cameraTween&&!fade&&!crash){const p=presentationPose(index);look.copy(p.look);boom.copy(p.boom)}else if(motion)motion.endPose=stopPose(motion.to);else if(cameraTween){const p=presentationPose(cameraTween.to);cameraTween.toLook=p.look;cameraTween.toBoom=p.boom}},150)});
 const first=stopPose(0);look.copy(first.look);boom.copy(first.boom);place(carU);
 function update(dt){
+ vegetation.wind.value+=dt;
  if(fade){
   fade.time+=dt;const out=.27,hold=.08,into=.34;
   $('fade').style.opacity=fade.time<out?smooth(fade.time/out):fade.time<out+hold?1:1-smooth((fade.time-out-hold)/into);
@@ -304,13 +344,14 @@ function update(dt){
   }
  }
  if(crash){
-  const c=crash;c.time+=dt;const contactTime=1.55,crushTime=.20,duration=3;
+  const c=crash;c.time+=dt;const contactTime=c.contactTime,crushTime=.16,duration=3;
   if(c.time<contactTime){
-   const q=clamp(c.time/contactTime,0,1),startSpeed=c.rolling?(stops[4]-stops[3])*total/3:0,a=startSpeed*contactTime/10.8,b=.8,u=clamp((a+b-2)*q**3+(3-2*a-b)*q*q+a*q,0,1),d=escapeCurve.getTangent(u).normalize();
-   car.position.copy(escapeCurve.getPoint(u));car.quaternion.copy(directionQuaternion(d));
+   const distance=c.rolling?c.time*c.speed:c.time<.16?.5*c.speed*c.time*c.time/.16:c.speed*(c.time-.08);
+   const u=clamp(distance/escapeLength,0,1),d=escapeCurve.getTangentAt(u).normalize(),travelled=distance-c.travelled;c.travelled=distance;
+   car.position.copy(escapeCurve.getPointAt(u));car.quaternion.copy(directionQuaternion(d));
    const surface=groundInfo(car.position.x,car.position.z);car.position.y=(surface.distance<3.1?surface.road:groundHeight(car.position.x,car.position.z))-.06;
    car.quaternion.multiply(new T.Quaternion().setFromAxisAngle(V(0,1,0),Math.sin(u*6*Math.PI)*Math.sin(u*Math.PI)**2*.25));
-   wheelAngle+=dt*12;wheels.forEach(w=>w.rotation.z=-wheelAngle);steers.forEach(s=>{if(s.position.x>0)s.rotation.y=Math.sin(u*6*Math.PI)*.35});
+   wheelAngle+=travelled/.335;wheels.forEach(w=>w.rotation.z=-wheelAngle);steers.forEach(s=>{if(s.position.x>0)s.rotation.y=Math.sin(u*6*Math.PI)*.35});
    appendSkids();
   }else{
    if(!c.impacted){c.impacted=true;impacts++;car.visible=false;damaged.root.visible=true;ui()}
@@ -337,15 +378,25 @@ function update(dt){
  // A visão geral precisa conservar o mapa visível também a grande distância.
  const aerialDistance=Math.max(0,boom.length()-50);
  scene.fog.near=110+aerialDistance*1.3;scene.fog.far=245+aerialDistance*2;
- sun.position.copy(look).add(V(-35,70,25));sun.target.position.copy(look);sun.target.updateMatrixWorld();
+ const shadowExtent=48+smooth((boom.length()-55)/150)*112;
+ if(Math.abs(sun.shadow.camera.right-shadowExtent)>.01){Object.assign(sun.shadow.camera,{left:-shadowExtent,right:shadowExtent,top:shadowExtent,bottom:-shadowExtent});sun.shadow.camera.updateProjectionMatrix()}
+ const shadowTarget=look.clone();shadowTarget.x=Math.round(shadowTarget.x*32)/32;shadowTarget.z=Math.round(shadowTarget.z*32)/32;
+ sun.position.copy(shadowTarget).add(V(-38,58,26));sun.target.position.copy(shadowTarget);sun.target.updateMatrixWorld();
  camera.position.copy(look).add(boom);camera.lookAt(look);camera.updateMatrixWorld();
+ updateForestLOD(car.position,boom.length()>95);
  renderer.render(scene,camera);
 }
 // Tempo real de apresentação, independente da taxa de quadros. Pausa quando a aba fica oculta.
 document.addEventListener('visibilitychange',()=>{lastTime=null});
 function tick(time){const dt=lastTime===null?0:Math.max((time-lastTime)/1000,0);lastTime=time;update(dt);requestAnimationFrame(tick)}
+function verificarGeometria(){
+ let minClearance=Infinity,negative=0;
+ function meshHeight(x,z){const fx=clamp((x+350)/2,0,349.999),fz=clamp((z+350)/2,0,349.999),i=Math.floor(fx),j=Math.floor(fz),u=fx-i,v=fz-j,a=landPositions.getY(j*351+i),b=landPositions.getY((j+1)*351+i),c=landPositions.getY((j+1)*351+i+1),d=landPositions.getY(j*351+i+1);return u+v<=1?a*(1-u-v)+b*v+d*u:b*(1-u)+d*(1-v)+c*(u+v-1)}
+ for(let i=1;i<roadPoints.length-1;i++){const p=roadPoints[i],d=roadPoints[i+1].clone().sub(roadPoints[i-1]),s=V(-d.z,0,d.x).normalize();for(const offset of [-3.05,0,3.05]){const q=p.clone().addScaledVector(s,offset),clearance=p.y-meshHeight(q.x,q.z);minClearance=Math.min(minClearance,clearance);if(clearance<=0)negative++}}
+ return{minClearance,negative,closureGap:roadPoints[0].distanceTo(roadPoints.at(-1)),roadLength:roadDistances.at(-1),forestCount:forestPoints.length,variantStats:vegetation.variants.map(v=>({tipo:v.type,triangles:(v.wood.getAttribute('position').count+(v.leaves?.getAttribute('position').count||0))/3,altura:v.height})),contactTimeRolling:escapeLength/((stops[4]-stops[3])*total/3)};
+}
 // Diagnóstico local para validação: sem telemetria, sem persistência e sem rede.
-window.prototipo={estado:()=>({index,carU,skidSamples,skidDrawCounts:skidTracks.map(t=>t.g.drawRange.count),moving:!!motion||!!cameraTween||!!crash,fading:!!fade,tracking:!!motion,crashTime:crash?.time??null,crashed,fire:fire.visible,impacts,damagedVisible:damaged.root.visible,tree:treePosition.toArray(),frontDirection:V(1,0,0).applyQuaternion(car.quaternion).toArray(),wreckPosition:wreckPosition.toArray(),crashLayout:roadIntrusions(crashPose,4,0),progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===5,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide,exportarIntegro:()=>{const c=car.clone(true);c.position.set(0,0,0);c.quaternion.identity();c.visible=true;return c},exportarAmassado:()=>damaged.exportar()};
+window.prototipo={estado:()=>({index,carU,skidSamples,skidDrawCounts:skidTracks.map(t=>t.g.drawRange.count),moving:!!motion||!!cameraTween||!!crash,fading:!!fade,tracking:!!motion,crashTime:crash?.time??null,contactTime:crash?.contactTime??null,crashTravelled:crash?.travelled??null,forestCount:forestPoints.length,treeVariants:vegetation.variants.length,roadClosed:roadPoints[0].distanceTo(roadPoints.at(-1))<.001,triangles:renderer.info.render.triangles,crashed,fire:fire.visible,impacts,damagedVisible:damaged.root.visible,tree:treePosition.toArray(),frontDirection:V(1,0,0).applyQuaternion(car.quaternion).toArray(),wreckPosition:wreckPosition.toArray(),crashLayout:roadIntrusions(crashPose,4,0),progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===5,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide,verificarGeometria,exportarArvore:i=>vegetation.tree(i),exportarIntegro:()=>{const c=car.clone(true);c.position.set(0,0,0);c.quaternion.identity();c.visible=true;return c},exportarAmassado:()=>damaged.exportar()};
 ui();requestAnimationFrame(tick);
 } catch(error){console.error(error);$('erro').classList.remove('hidden');$('erro').textContent='Não foi possível iniciar a cena 3D. Abra este arquivo no Microsoft Edge ou Google Chrome com suporte a WebGL. Detalhe: '+error.message;$('estado').textContent='Cena indisponível';}
 })();

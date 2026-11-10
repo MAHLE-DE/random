@@ -1,5 +1,22 @@
 # Validação do protótipo
 
+## Floresta detalhada e estrada sem pontas — 10/11/2026
+
+Testes executados antes do commit, com `verificar-prototipo.mjs`, em contexto de navegador offline. O resumo estruturado está em `validacao-floresta.json`.
+
+- 4.010 árvores e 20 variantes, com 956 a 1.596 triângulos nos modelos próximos. Modelos de conífera, copa larga e árvore seca renderizados de perto, reunidos em galeria e exportados em GLB.
+- Conferência visual das seis cenas em 1600 × 900 e 1280 × 960, incluindo a vista aérea. Árvores e grama afastadas dos marcadores; POV considera copas próximas ao escolher o enquadramento.
+- Uso de modelos simplificados à distância, preservando os detalhados próximos ao carro. Copas e suas sombras usam a mesma oscilação leve.
+- Circuito externo fechado, preservando as cinco paradas. Distância entre as extremidades da malha fechada: zero; não há pontas abertas.
+- Conferência da superfície triangular efetivamente renderizada do terreno: nenhuma interseção com o asfalto nas amostras centrais e laterais de todo o circuito; separação mínima de 0,1477 unidade da cena.
+- Sinalização integrada ao material do asfalto, eliminando as camadas de geometria sobrepostas. Plano próximo da câmera ajustado para melhorar a precisão de profundidade na vista geral.
+- 419 quadros monitorados em 16:9 e 459 em 4:3, sem cortes do carro nos limites da tela. Navegação, retorno da conclusão, repetição e cancelamento conferidos.
+- Relação entre velocidade final e inicial da derrapagem: 1,0015 em 16:9 e 1,0070 em 4:3. Não houve desaceleração artificial antes do contato com o tronco. A parada brusca e a deformação ocorrem no impacto.
+- Um impacto por execução, fogo posterior, marcas progressivas dos pneus e restauração do carro ao cancelar.
+- Nenhum erro JavaScript/compilação de shader registrado e nenhuma requisição HTTP/HTTPS.
+
+As capturas e o relatório completo são recriados em `.producao/qa-floresta/`. A galeria e as prévias dos modelos ficam em `modelos/arvores/`.
+
 ## Cenário colorido e derrapagem contínua — 10/11/2026
 
 - Terreno com altura derivada da estrada e transição para relevo natural; vegetação e pedras posicionadas pela mesma função de altura.

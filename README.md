@@ -4,6 +4,8 @@ Abra **[prototipo-mapa/iniciar.html](prototipo-mapa/iniciar.html)** no Edge ou C
 
 São cinco paradas conectadas por uma estrada contínua e um sexto slide de conclusão. Carro e câmera se movimentam juntos em transições de três segundos. Há espaços reservados para conteúdo, uma floresta ampla e logo MAHLE nas laterais e no capô.
 
+A floresta tem 20 variantes de árvores e cerca de 4 mil exemplares, com galhos, raízes, copas irregulares e vento leve. A estrada continua além dos enquadramentos, sem pontas visíveis. Veja a [galeria de árvores](modelos/arvores/galeria.png). Os testes offline e as prévias foram realizados antes do commit, incluindo a vista aérea e a velocidade da derrapagem.
+
 - **Espaço / →:** avançar. **←:** voltar. **F:** tela cheia.
 - A barra inferior esquerda mostra cinco números por vez e permite saltos com fade.
 - **05:** perda de controle, batida frontal em árvore, deformação, fogo e fumaça. Selecione 05 novamente para repetir.

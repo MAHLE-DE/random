@@ -1,0 +1,27 @@
+{
+  "data": "2026-11-10",
+  "aprovado": true,
+  "arvores": 4010,
+  "variantes": 20,
+  "pontasAbertas": false,
+  "distanciaFechamento": 0,
+  "intersecoesAsfaltoTerreno": 0,
+  "separacaoMinima": 0.14777259191250502,
+  "erros": 0,
+  "requisicoesHTTP": 0,
+  "resolucoes": [
+    {
+      "largura": 1600,
+      "altura": 900,
+      "quadrosMonitorados": 419,
+      "velocidadeFinalSobreInicial": 1.001493244768988
+    },
+    {
+      "largura": 1280,
+      "altura": 960,
+      "quadrosMonitorados": 459,
+      "velocidadeFinalSobreInicial": 1.0069561000175142
+    }
+  ],
+  "script": "prototipo-mapa/verificar-prototipo.mjs"
+}
