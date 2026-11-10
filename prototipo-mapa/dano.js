@@ -7,8 +7,9 @@ function criarCarroAmassado(T,original){
   if(!o.isMesh)return;
   o.geometry=o.geometry.clone();o.material=o.material.clone();
   const geometry=o.geometry,source=geometry.getAttribute('position'),target=source.clone();
-  const inverse=o.matrixWorld.clone().invert();let wheel=false,preserve=false,part=o;
-  while(part&&part!==root){if(/Roda_|Manga_/.test(part.name))wheel=true;if(/Cabine|Vidro|Para_brisa|Logotipo|Marca_MAHLE|Retrovisor/.test(part.name))preserve=true;part=part.parent}
+  const inverse=o.matrixWorld.clone().invert();let wheel=false,preserve=false,hood=false,part=o;
+  while(part&&part!==root){if(/Roda_|Manga_/.test(part.name))wheel=true;if(/no_capo/.test(part.name))hood=true;if(/Cabine|Vidro|Para_brisa|Logotipo|Marca_MAHLE|Retrovisor/.test(part.name))preserve=true;part=part.parent}
+  if(hood)preserve=false;
   const v=new T.Vector3();
   for(let i=0;i<source.count;i++){
    v.fromBufferAttribute(source,i).applyMatrix4(o.matrixWorld);

@@ -1,19 +1,23 @@
-# Projetos recorrentes
+# Jornada MAHLE — protótipo 3D offline
 
-Repositório de continuidade entre o notebook e o computador corporativo.
+Abra **[prototipo-mapa/iniciar.html](prototipo-mapa/iniciar.html)** no Edge ou Chrome. O arquivo pode ser copiado sozinho para outro computador: contém código, biblioteca, modelo e marca. Não precisa de internet, instalação, servidor ou vídeo.
 
-Antes de continuar em outra máquina, atualizar com `git pull --ff-only`. Ao encerrar um trabalho, registrar as alterações em commit e enviá-las ao repositório para manter o contexto disponível.
+São cinco paradas conectadas por uma estrada contínua e um sexto slide de conclusão. Carro e câmera se movimentam juntos em transições de três segundos. Há espaços reservados para conteúdo, uma floresta ampla e logo MAHLE nas laterais e no capô.
 
-O trabalho atual é a apresentação da Semana da Qualidade da MAHLE em Mogi Guaçu. O conteúdo é inteiramente em português, com fundo predominantemente branco, azuis complementares e logotipo azul no canto superior direito.
+- **Espaço / →:** avançar. **←:** voltar. **F:** tela cheia.
+- A barra inferior esquerda mostra cinco números por vez e permite saltos com fade.
+- **05:** perda de controle, batida frontal em árvore, deformação, fogo e fumaça. Selecione 05 novamente para repetir.
+- **06:** conclusão com visão geral do mapa.
 
-O desenvolvimento ativo passou para o **[protótipo interativo offline do mapa 3D](prototipo-mapa/iniciar.html)**. Ele testa o carro percorrendo um mapa contínuo, a câmera móvel, os espaços reservados para apresentação e a navegação por slides. São cinco paradas e uma conclusão com visão geral. Consulte [operação e fontes](prototipo-mapa/README.md). O conteúdo técnico ficará para uma etapa posterior; os PPTX abaixo preservam a versão anterior.
+Consulte [operação e reprodução](prototipo-mapa/README.md) e [validação](prototipo-mapa/validacao.md). O [modelo amassado](modelos/carro-amassado.glb) e sua [prévia](modelos/previa-carro-amassado.png) estão separados.
 
-A quinta parada inclui a demonstração de perda de controle, impacto frontal em árvore, deformação e fogo em tempo real. Para repetir, selecione 05 novamente. O [modelo amassado](modelos/carro-amassado.glb) está disponível separadamente.
+## Estrutura
 
-Os arquivos finais ficam em [`entrega`](entrega/): [principal](entrega/qualidade-mahle.pptx), [estática](entrega/qualidade-mahle-estatica.pptx), [contingência reduzida](entrega/qualidade-mahle-contingencia.pptx) e [visão da jornada](entrega/jornada-completa.png). O contexto técnico está em [`fontes/criterios.md`](fontes/criterios.md) e a correspondência das funções do DFMEA em [`fontes/matriz-dfmea.md`](fontes/matriz-dfmea.md). Os modelos genéricos reutilizáveis ficam em [`modelos`](modelos/), as mídias em [`midias`](midias/) e o roteiro em [`roteiros`](roteiros/).
+- `prototipo-mapa/`: protótipo autossuficiente, interface e fontes editáveis.
+- `modelos/`: carro original e variante amassada.
+- `midias/`: fontes vetoriais da marca.
+- `fontes/vendor/`: Three.js, exportador GLB e licença.
 
-Para apresentar, basta o PPTX escolhido e o PowerPoint compatível. As bibliotecas e ferramentas de produção não são necessárias. Consulte [`roteiros/operacao.md`](roteiros/operacao.md).
+O repositório atual foi limpo para concentrar este protótipo. A apresentação anterior e seus recursos continuam no histórico do Git. Não foi reescrito o histórico.
 
-Os casos são hipóteses educativas, sem vínculo com cliente, número de peça, ocorrência real ou dados de produção da MAHLE. As notas originais informadas pelo usuário permanecem na matriz e não constituem uma revisão do DFMEA aprovado.
-
-O projeto contém três versões: principal com animações, segurança estática e contingência reduzida. As especificações originais permanecem em `prompt_apresentacao.txt` e `prompt2.txt`; os esclarecimentos posteriores em conversa têm prioridade, incluindo o uso exclusivo do português e o tema branco.
+Para continuar em outra máquina: `git pull --ff-only`. Ao encerrar alterações, fazer commit e push para manter as máquinas sincronizadas. Somente a produção exige ferramentas de programação; a apresentação requer apenas navegador com WebGL.

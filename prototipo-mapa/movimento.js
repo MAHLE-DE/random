@@ -69,6 +69,19 @@ for(let i=0;i<70;i++){
  o.position.copy(p);o.position.y=-.46+h*.85;o.scale.set(1.1+rand()*2.2,h,1.1+rand()*2.2);o.rotation.y=rand()*6;
 }
 const labels=[];
+// Floresta ampla com instâncias compartilhadas: continuidade visual sem milhares de objetos.
+const forestPoints=[],roadSamples=Array.from({length:360},(_,i)=>at(i/359));
+for(let gx=-24;gx<=24;gx++)for(let gz=-24;gz<=24;gz++){
+ if(rand()<.10)continue;
+ const p=V(18+gx*11+(rand()-.5)*11,-.46,6+gz*11+(rand()-.5)*11);
+ if(roadSamples.some(r=>Math.hypot(r.x-p.x,r.z-p.z)<6.5))continue;
+ if(p.clone().setY(treePosition.y).distanceTo(treePosition)<8||p.clone().setY(treePosition.y).distanceTo(escapeCurve.getPoint(.6))<5)continue;
+ forestPoints.push({p,scale:.70+rand()*.60,angle:rand()*Math.PI*2});
+}
+const forest=new T.Group();forest.name='Floresta_continua';scene.add(forest);
+const layers=[{g:new T.CylinderGeometry(.30,.43,4,8),m:trunkMat,offset:[0,1.85,0],r:1},...[[ -.7,4.6,0,1.45],[.8,4.9,.1,1.65],[0,5.7,-.3,1.7],[.1,4.3,.8,1.35]].map(([x,y,z,r],i)=>({g:new T.IcosahedronGeometry(1,0),m:i%2?leafLight:leafMat,offset:[x,y,z],r}))];
+const dummy=new T.Object3D();
+for(const layer of layers){const inst=new T.InstancedMesh(layer.g,layer.m,forestPoints.length);inst.castShadow=true;inst.receiveShadow=true;forest.add(inst);forestPoints.forEach(({p,scale,angle},i)=>{const offset=V(...layer.offset).applyAxisAngle(V(0,1,0),angle).multiplyScalar(scale);dummy.position.copy(p).add(offset);dummy.rotation.set(0,angle,0);dummy.scale.setScalar(scale*layer.r);dummy.updateMatrix();inst.setMatrixAt(i,dummy.matrix)});inst.instanceMatrix.needsUpdate=true;inst.computeBoundingSphere()}
 stops.forEach((u,i)=>{
  const p=at(u),s=side(u),d=tangent(u);
  // Discos fora da faixa: o carro para na própria estrada.
@@ -97,6 +110,9 @@ function readCar(b64){
  json.nodes.forEach((n,i)=>(n.children||[]).forEach(k=>nodes[i].add(nodes[k])));const root=new T.Group();json.scenes[json.scene||0].nodes.forEach(i=>root.add(nodes[i]));return root;
 }
 const car=readCar('__CARRO_BASE64__');scene.add(car);
+// A marca lateral já é geometria vetorial: reaproveitada sobre o capô, sem textura externa.
+const sideLogo=car.getObjectByName('Logotipo_vetorial_lateral_1');
+if(sideLogo){const hood=sideLogo.clone(true);hood.name='Logotipo_MAHLE_no_capo';hood.quaternion.setFromRotationMatrix(new T.Matrix4().makeBasis(V(0,0,1),V(.9935,-.1135,0).normalize(),V(.1135,.9935,0).normalize()));hood.scale.set(.010,.018,.010);hood.position.set(.82,1.087,-.565);car.add(hood)}
 const damaged=criarCarroAmassado(T,car);scene.add(damaged.root);damaged.root.visible=false;
 const fire=new T.Group();fire.name='Fogo_pos_impacto';damaged.root.add(fire);fire.visible=false;
 const flames=[],smoke=[];

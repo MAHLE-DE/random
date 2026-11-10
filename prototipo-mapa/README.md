@@ -30,6 +30,8 @@ O [modelo amassado separado](../modelos/carro-amassado.glb) tem geometria deform
 
 O conteúdo mostrado nos retângulos é apenas uma indicação de espaço. O coletor e o conteúdo técnico ainda não foram reinseridos.
 
+O cenário contém uma floresta extensa de árvores com copa facetada, distribuídas com variação de posição, orientação e escala. As malhas são compartilhadas por instâncias para reduzir o custo de renderização. A floresta se estende além dos enquadramentos do percurso e da visão geral, criando continuidade visual; a estrada e o chão foram mantidos. A logo vetorial MAHLE também está sobre o capô e acompanha sua deformação na batida.
+
 ## Fontes e reprodução
 
 - `movimento.js`: mapa, carro, enquadramentos, animação e navegação.
