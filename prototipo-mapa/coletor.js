@@ -50,7 +50,15 @@ function criarColetorK24(T,{espessura=.055}={}){
  for(const [x,y]of [[-2.63,.69],[-2.63,1.61],[2.63,.69],[2.63,1.61],...xs.map(x=>[x,1.66])]){const hole=new T.Path();hole.absellipse(x,y,.065,.065,0,Math.PI*2,true);flange.holes.push(hole)}
  plate(flange,.14,-3.26,'Flange_de_fixacao_com_furos');
  for(let i=0;i<4;i++){const ring=mesh(new T.TorusGeometry(.353,.027,8,56),flangeMaterial,'Assento_duto_'+(i+1));ring.position.set(xs[i],1.12,-3.10)}
+ // Superfícies moldadas lisas: os campos estão fisicamente vazios, sem códigos fictícios.
+ const marking=new T.Group();marking.name='Superficies_de_marcacao_sem_gravacao';root.add(marking);
+ const highlight=new T.Group();highlight.name='Destaques_didaticos_das_marcacoes';root.add(highlight);
+ const padMaterial=new T.MeshStandardMaterial({color:'#455560',roughness:.65,metalness:.06});
+ for(const [i,name]of ['Data_de_injecao','Numero_do_componente','Numero_da_cavidade'].entries()){
+  const geometry=new T.BoxGeometry(.57,.19,.055),pad=mesh(geometry,padMaterial,name+'_ausente',marking);pad.position.set(-.93+i*.66,.31,1.80);pad.userData.gravacao=null;
+  const line=new T.LineSegments(new T.EdgesGeometry(geometry),new T.LineBasicMaterial({color:'#d48a20',transparent:true,opacity:.95}));line.position.copy(pad.position);line.name='Contorno_'+name;highlight.add(line);
+ }
  function corte(active=true){upper.visible=!active;cutOnly.forEach(o=>o.visible=active);fullOnly.forEach(o=>o.visible=!active);root.userData.corte=active}
  root.userData={tipo:'Reconstrução didática de coletor K24',referencia:'K24 Intake Manifold - EP6 YOUTUBE',espessuraRelativa:espessura,dutos:4};corte(true);
- return{root,upper,runners,corte,exportar(cut=false){const r=root.clone(true);r.position.set(0,0,0);r.quaternion.identity();r.getObjectByName('Metade_superior').visible=!cut;for(const o of cutOnly)r.getObjectByName(o.name).visible=cut;for(const o of fullOnly)r.getObjectByName(o.name).visible=!cut;r.userData.corte=cut;return r}};
+ return{root,upper,runners,corte,alvoMarcacoes:V(-.27,.31,1.84),exportar(cut=false){const r=root.clone(true);r.position.set(0,0,0);r.quaternion.identity();r.getObjectByName('Destaques_didaticos_das_marcacoes')?.removeFromParent();r.getObjectByName('Metade_superior').visible=!cut;for(const o of cutOnly)r.getObjectByName(o.name).visible=cut;for(const o of fullOnly)r.getObjectByName(o.name).visible=!cut;r.userData.corte=cut;return r}};
 }

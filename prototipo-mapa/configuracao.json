@@ -1,0 +1,25 @@
+{
+  "painel": {"margemLateral": 0.05, "largura": 0.516, "topo": 0.168, "altura": 0.624, "opacidade": 0.85},
+  "paradas": [
+    {"severidade":1,"u":0.055,"lado":"left"},
+    {"severidade":2,"u":0.155,"lado":"right"},
+    {"severidade":3,"u":0.255,"lado":"left"},
+    {"severidade":4,"u":0.355,"lado":"right"},
+    {"severidade":5,"u":0.455,"lado":"left"},
+    {"severidade":6,"u":0.555,"lado":"right"},
+    {"severidade":7,"u":0.655,"lado":"left"},
+    {"severidade":8,"u":0.755,"lado":"right"},
+    {"severidade":9,"u":0.855,"lado":"left"},
+    {"severidade":10,"u":0.955,"lado":"right"}
+  ],
+  "primeiroSlide": {
+    "titulo":"Marcação dos componentes",
+    "funcao":"Garantir marcação dos componentes com data de injeção, número do componente e número de cavidade",
+    "sistemaTitulo":"Sem efeito funcional",
+    "sistemaTexto":"Marcações ausentes ou incorretas não alteram as funções primárias nem as secundárias do coletor de ar.",
+    "mahleTitulo":"A rastreabilidade faz diferença",
+    "mahleTexto":"Em caso de problema no cliente, a identificação incompleta dificulta delimitar as peças que precisam de ação.",
+    "mahleDestaque":"Quanto maior o conjunto de peças sem identificação confiável, maior pode ser o custo para a MAHLE.",
+    "nota":"A severidade 1 se refere ao efeito funcional no sistema."
+  }
+}

@@ -1,5 +1,21 @@
 # Validação do protótipo
 
+## Primeiro slide de severidade e dez paradas — 10/11/2026
+
+- Dez paradas para severidades 1 a 10 e conclusão separada, com seleção por uma janela de cinco itens. Salto distante com fade medido em 738 ms.
+- Painel com 51,6% da largura e 62,4% da altura, aumento de 20% em cada dimensão, fundo branco com 85% de opacidade e logo azul dentro do canto superior direito.
+- Primeiro slide inspecionado em 1600 × 900, 1280 × 960 e 1280 × 720: texto, coletor, legenda e controles sem sobreposição. Função conferida com a redação solicitada.
+- Explicação separa severidade 1 no sistema da ressalva sobre rastreabilidade e custo potencial à MAHLE, sem atribuir nota numérica ao efeito econômico.
+- Três superfícies vazias no modelo representam data de injeção, número do componente e cavidade ausentes. Contornos e aviso são recursos didáticos; os GLB exportados conservam os campos vazios e removem os contornos.
+- Giro, corte/conjunto completo, zoom por botões e roda do mouse, foco nas marcações e reenquadramento de 140% testados. Visor sem renderização contínua quando não há interação.
+- Avanço por todas as paradas, conclusão, retorno, repetição e cancelamento da batida aprovados em 16:9 e 4:3. Foram monitorados 1.911 e 2.378 quadros em movimento, sem cortes do carro.
+- Corrigido o afastamento para a conclusão: a posição projetada do carro acompanha suavemente a transição entre enquadramentos, evitando que ele saia pela borda inferior ao ganhar altura.
+- Relação entre velocidades final/inicial da derrapagem de 1,0050 e 1,0055. Marcas progressivas, um único impacto e fogo posterior preservados. Batida agora na parada 10.
+- Nenhum erro JavaScript ou de shader registrado; nenhuma requisição HTTP/HTTPS. Abertura local por `file://` com contexto de navegador offline.
+- Floresta com 5.613 árvores após criar as clareiras das dez paradas. Estrada sem interseções com o terreno nas amostras e fechamento da malha com distância zero entre pontas.
+
+Resumo desta versão em `validacao-slide1.json`; capturas e relatório completo são recriados em `.producao/qa-slide1/`. Os resultados abaixo documentam versões anteriores.
+
 ## Coletor no slide 1 e desempenho — 10/11/2026
 
 - Removidas as raízes externas das 20 variantes, tanto no protótipo quanto nos modelos GLB e prévias.

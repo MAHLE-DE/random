@@ -16,8 +16,10 @@ svg=svg.slice(svg.indexOf('<svg')).replace('<svg','<svg class="brand" role="img"
 const damage=await fs.readFile(path.join(base,'dano.js'),'utf8');
 const vegetation=await fs.readFile(path.join(base,'vegetacao.js'),'utf8');
 const manifold=await fs.readFile(path.join(base,'coletor.js'),'utf8');
-let app=(await fs.readFile(path.join(base,'movimento.js'),'utf8')).replace('__CARRO_BASE64__',car).replace('__DANO_SOURCE__',()=>damage).replace('__VEGETACAO_SOURCE__',()=>vegetation).replace('__COLETOR_SOURCE__',()=>manifold);
-const steps=Array.from({length:6},(_,i)=>`<button class="step" id="etapa-${i}" aria-label="Selecionar slide ${i+1}${i===5?', conclusão':''}" type="button">${String(i+1).padStart(2,'0')}</button>`).join('');
+const viewer=await fs.readFile(path.join(base,'visor-coletor.js'),'utf8');
+const config=JSON.parse(await fs.readFile(path.join(base,'configuracao.json'),'utf8'));
+let app=(await fs.readFile(path.join(base,'movimento.js'),'utf8')).replace('__CARRO_BASE64__',car).replace('__DANO_SOURCE__',()=>damage).replace('__VEGETACAO_SOURCE__',()=>vegetation).replace('__COLETOR_SOURCE__',()=>manifold).replace('__VISOR_SOURCE__',()=>viewer).replace('__CONFIG_SOURCE__',()=>`const CONFIG=${JSON.stringify(config)};const STOP_COUNT=CONFIG.paradas.length,LAST_STOP=STOP_COUNT-1,FINAL_SLIDE=STOP_COUNT,STOP_PARAMS=CONFIG.paradas.map(p=>p.u);`);
+const steps=Array.from({length:config.paradas.length+1},(_,i)=>`<button class="step" id="etapa-${i}" aria-label="${i===config.paradas.length?'Selecionar conclusão':'Selecionar severidade '+(i+1)}" type="button">${i===config.paradas.length?'Fim':String(i+1).padStart(2,'0')}</button>`).join('');
 let html=await fs.readFile(path.join(base,'interface.html'),'utf8');
 html=html.replace('__LOGO__',svg).replace('__ETAPAS__',steps).replace('__THREE__',()=>bundled).replace('__APP__',()=>app);
 html=html.replace('<html lang="pt-BR">',()=>`<!-- Licença da biblioteca incorporada:\n${license}\n-->\n<html lang="pt-BR">`);

@@ -1,17 +1,34 @@
 // Testes de produção: requer Node.js e Playwright. O HTML entregue não depende deles.
 import {chromium} from 'playwright';import fs from 'node:fs/promises';import path from 'node:path';import {pathToFileURL} from 'node:url';
-const output=process.env.QA_OUTPUT||'.producao/qa-floresta';await fs.mkdir(output,{recursive:true});
+const output=process.env.QA_OUTPUT||'.producao/qa-slide1';await fs.mkdir(output,{recursive:true});
 const browser=await chromium.launch({executablePath:process.env.PRESENTATION_BROWSER||'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',headless:true});
-const report={errors:[],requests:[],sizes:[]};
+const report={errors:[],requests:[],sizes:[],firstSlide:[]};
 try{
  const page=await browser.newPage({offline:true,viewport:{width:1600,height:900}});
  page.on('pageerror',e=>report.errors.push(e.message));page.on('console',m=>{if(m.type()==='error')report.errors.push(m.text().slice(0,1200))});page.on('request',r=>report.requests.push(r.url()));
  await page.goto(pathToFileURL(path.resolve('prototipo-mapa/iniciar.html')).href);await page.waitForFunction(()=>window.prototipo,{timeout:60000});
  await page.waitForFunction(()=>prototipo.estado().coletor.rendered>0);
+ const initial=await page.evaluate(()=>prototipo.estado()),last=initial.paradas-1,final=initial.paradas;
+ if(initial.paradas!==10||initial.slides!==11||await page.locator('.step').count()!==11)throw new Error('Esperadas dez severidades e conclusão');
  const initialModel=await page.evaluate(()=>prototipo.estado().coletor);if(initialModel.dutos!==4||!initialModel.cut||initialModel.width<=0)throw new Error('Coletor não iniciou no slide 1');
  await page.locator('#coletor-corte').click();if((await page.evaluate(()=>prototipo.estado().coletor)).cut)throw new Error('Vista completa do coletor falhou');await page.locator('#coletor-corte').click();
  const modelBox=await page.locator('#coletor-viewport canvas').boundingBox();await page.mouse.move(modelBox.x+modelBox.width*.5,modelBox.y+modelBox.height*.5);await page.mouse.down();await page.mouse.move(modelBox.x+modelBox.width*.5+65,modelBox.y+modelBox.height*.5+12,{steps:5});await page.mouse.up();if(Math.abs((await page.evaluate(()=>prototipo.estado().coletor)).rotation[1])<.2)throw new Error('Rotação do coletor falhou');await page.locator('#coletor-restaurar').click();
- report.coletor={dutos:initialModel.dutos,corte:true,completo:true,rotacao:true,reenquadramento:true};
+ await page.locator('#coletor-mais').click();if((await page.evaluate(()=>prototipo.estado().coletor.zoom))<=initialModel.zoom)throw new Error('Zoom + falhou');await page.locator('#coletor-menos').click();
+ await page.locator('#coletor-viewport').hover();await page.mouse.wheel(0,-220);if((await page.evaluate(()=>prototipo.estado().coletor.zoom))<=initialModel.zoom)throw new Error('Zoom pela roda falhou');
+ await page.locator('#coletor-marcas').click();if(!(await page.evaluate(()=>prototipo.estado().coletor.focus)))throw new Error('Foco nas marcações falhou');await page.screenshot({path:`${output}/foco-marcacoes.png`});
+ await page.locator('#coletor-restaurar').click();const resetModel=await page.evaluate(()=>prototipo.estado().coletor);if(resetModel.focus||Math.abs(resetModel.zoom-1.4)>.001||resetModel.rotation.some(v=>v!==0))throw new Error('Reenquadramento falhou');
+ const renders=resetModel.rendered;await page.waitForTimeout(600);if((await page.evaluate(()=>prototipo.estado().coletor.rendered))!==renders)throw new Error('Visor renderizando sem interação');
+ report.coletor={dutos:initialModel.dutos,marcacoesAusentes:initialModel.marcacoesAusentes,corte:true,completo:true,rotacao:true,zoomBotoes:true,zoomRoda:true,foco:true,reenquadramento:true,sobDemanda:true};
+ for(const size of [{width:1600,height:900},{width:1280,height:960},{width:1280,height:720}]){
+  await page.setViewportSize(size);await page.waitForTimeout(700);
+  const layout=await page.evaluate(()=>{const box=e=>e.getBoundingClientRect().toJSON(),panel=document.querySelector('#conteudo');return{panel:box(panel),logo:box(document.querySelector('.slide-brand')),text:box(document.querySelector('.meaning')),model:box(document.querySelector('#coletor-viewport')),legend:box(document.querySelector('.field-legend')),tools:box(document.querySelector('#ferramentas-modelo')),alpha:getComputedStyle(panel).backgroundColor,scroll:panel.scrollHeight,client:panel.clientHeight,functionText:document.querySelector('#descricao').textContent,removed:[...document.querySelectorAll('#conteudo *')].some(e=>e.children.length===0&&/REFERÊNCIA K24|ARRASTE PARA GIRAR/.test(e.textContent)),navWidth:document.querySelector('#numeros').clientWidth,stepWidth:document.querySelector('.step').offsetWidth}});
+  if(Math.abs(layout.panel.width-size.width*.516)>1||Math.abs(layout.panel.height-size.height*.624)>1||!layout.alpha.includes('0.85'))throw new Error('Tamanho/transparência do painel incorreto');
+  if(layout.logo.right>layout.panel.right||layout.logo.top<layout.panel.top||layout.logo.left<layout.panel.left+layout.panel.width*.7)throw new Error('Logo fora do canto do slide');
+  if(layout.text.right>layout.model.left+1||layout.legend.bottom>layout.tools.top+1||layout.scroll>layout.client+1||layout.removed)throw new Error('Conteúdo sobreposto/recortado: '+JSON.stringify(layout));
+  if(layout.functionText!=='Garantir marcação dos componentes com data de injeção, número do componente e número de cavidade')throw new Error('Função diferente da solicitada');
+  if(layout.navWidth!==5*layout.stepWidth+4*8)throw new Error('Lista não mostra cinco números');
+  report.firstSlide.push({...size,...layout});await page.screenshot({path:`${output}/${size.width}x${size.height}-01.png`});
+ }
  report.geometry=await page.evaluate(()=>prototipo.verificarGeometria());
  if(report.geometry.minClearance<=0||report.geometry.negative||report.geometry.closureGap>.001)throw new Error('Geometria da estrada inválida: '+JSON.stringify(report.geometry));
  if(report.geometry.forestCount<3500||report.geometry.variantStats.length<20)throw new Error('Variedade/densidade insuficiente');
@@ -19,27 +36,29 @@ try{
  for(const size of [{width:1600,height:900},{width:1280,height:960}]){
   await page.setViewportSize(size);await page.waitForTimeout(650);
   if((await page.evaluate(()=>prototipo.estado())).index!==0){await page.locator('#etapa-0').click();await idle()}
+  const poses=await page.evaluate(()=>prototipo.estado().layout);if(poses.some(p=>p.roadIntrusions>0))throw new Error('Estrada no painel em uma parada: '+JSON.stringify(poses));
   await page.evaluate(()=>{window.qaFrames=[];function collect(time){const s=prototipo.estado();if(s.moving)qaFrames.push({time,...s});requestAnimationFrame(collect)}if(!window.qaCollecting){qaCollecting=true;requestAnimationFrame(collect)}});
   await page.screenshot({path:`${output}/${size.width}-01.png`});
-  for(let i=1;i<=5;i++){
-   await page.locator('#proximo').click();if(i===4){await page.waitForFunction(()=>prototipo.estado().crashTime!==null);await page.waitForTimeout(200);await page.screenshot({path:`${output}/${size.width}-derrapagem.png`})}
+  for(let i=1;i<=final;i++){
+   await page.locator('#proximo').click();if(i===last){await page.waitForFunction(()=>prototipo.estado().crashTime!==null);await page.waitForTimeout(200);await page.screenshot({path:`${output}/${size.width}-derrapagem.png`})}
    await idle();await page.waitForTimeout(280);const s=await page.evaluate(()=>prototipo.estado());if(s.index!==i)throw new Error('Destino de navegação incorreto');
    if(i>0&&await page.locator('#coletor-viewport').isVisible())throw new Error('Coletor apareceu em outra cena');
    await page.screenshot({path:`${output}/${size.width}-${String(i+1).padStart(2,'0')}.png`});console.log('CENA',size.width,i+1);
   }
-  const final=await page.evaluate(()=>prototipo.estado());if(final.impacts!==1||!final.fire)throw new Error('Impacto/fogo final incorreto');
+  const end=await page.evaluate(()=>prototipo.estado());if(end.impacts!==1||!end.fire||!end.conclusion||end.crashLayout>0)throw new Error('Impacto/fogo/conclusão incorreto');
   await page.locator('#anterior').click();await idle();if((await page.evaluate(()=>prototipo.estado())).impacts!==1)throw new Error('Impacto se repetiu no retorno');
-  for(let i=0;i<4;i++){await page.locator('#anterior').click();await idle()}
+  for(let i=0;i<last;i++){await page.locator('#anterior').click();await idle()}
   const frames=await page.evaluate(()=>qaFrames),outside=frames.filter(s=>s.carBounds.some(v=>Math.abs(v[0])>.97||Math.abs(v[1])>.94));if(outside.length)throw new Error('Carro saiu da tela em '+outside.length+' quadros');
   const skid=frames.filter(s=>s.crashTime!==null&&s.crashTime<s.contactTime&&s.crashTime>.08),speeds=skid.slice(1).map((s,i)=>Math.hypot(...s.car.map((v,j)=>v-skid[i].car[j]))/((s.time-skid[i].time)/1000));
-  const first=speeds.slice(0,Math.max(1,Math.floor(speeds.length/3))),last=speeds.slice(-Math.max(1,Math.floor(speeds.length/3))),average=a=>a.reduce((a,v)=>a+v,0)/a.length,ratio=average(last)/average(first);
+  const first=speeds.slice(0,Math.max(1,Math.floor(speeds.length/3))),lastSpeeds=speeds.slice(-Math.max(1,Math.floor(speeds.length/3))),average=a=>a.reduce((a,v)=>a+v,0)/a.length,ratio=average(lastSpeeds)/average(first);
   if(!Number.isFinite(ratio)||ratio<.90)throw new Error('Desaceleração excessiva antes da batida: '+ratio);
   for(const s of skid)if(s.skidDrawCounts.some(n=>n!==(s.skidSamples-1)*6))throw new Error('Marcas de derrapagem reveladas antes dos pneus');
-  report.sizes.push({...size,frames:frames.length,initialSpeed:average(first),finalSpeed:average(last),speedRatio:ratio,contactTime:skid[0]?.contactTime,final});
+  report.sizes.push({...size,frames:frames.length,initialSpeed:average(first),finalSpeed:average(lastSpeeds),speedRatio:ratio,contactTime:skid[0]?.contactTime,final:end});
  }
  // Replay e cancelamento devem restaurar o carro e os efeitos.
- await page.locator('#etapa-4').click();await page.waitForFunction(()=>prototipo.estado().crashTime!==null);await page.locator('#etapa-1').click();await idle();await page.waitForTimeout(3300);
+ await page.locator('#etapa-'+last).click();await page.waitForFunction(()=>prototipo.estado().crashTime!==null);await page.locator('#etapa-1').click();await idle();await page.waitForTimeout(3300);
  const reset=await page.evaluate(()=>prototipo.estado());if(reset.fire||reset.crashed||reset.index!==1)throw new Error('Cancelamento da sequência falhou');
+ const start=Date.now();await page.evaluate(final=>prototipo.selectSlide(final),final);await idle();report.fadeMs=Date.now()-start;if(report.fadeMs>2000)throw new Error('Salto distante percorreu a estrada');
  if(report.errors.length||report.requests.some(r=>/^https?:/.test(r)))throw new Error('Erro de execução ou dependência de rede');
  await fs.writeFile(`${output}/relatorio.json`,JSON.stringify(report,null,2));console.log('APROVADO',JSON.stringify({geometry:report.geometry,sizes:report.sizes.map(s=>({width:s.width,frames:s.frames,speedRatio:s.speedRatio}))}));
 }catch(error){await fs.writeFile(`${output}/falha.json`,JSON.stringify({...report,error:error.message},null,2));throw error}finally{await browser.close()}

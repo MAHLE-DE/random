@@ -24,22 +24,23 @@ THE SOFTWARE.
 
 -->
 <html lang="pt-BR">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="color-scheme" content="light">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; font-src 'none'; connect-src 'none'; media-src 'none'">
-<title>MAHLE · Jornada em movimento</title>
+<title>MAHLE · Jornada da qualidade</title>
 <style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#fff;color:#18364e;font-family:Arial,sans-serif}canvas{display:block;width:100%;height:100%}header{position:absolute;top:36px;left:42px;right:42px;display:flex;justify-content:space-between;align-items:flex-start;pointer-events:none}.eyebrow{font-size:11px;font-weight:700;letter-spacing:.2em;color:#0043bc;margin-bottom:12px}h1{font-size:clamp(22px,3vw,38px);font-weight:500;letter-spacing:-.045em;margin:0}.brand{width:112px;height:auto;margin-top:5px}.caption{margin-top:10px;font-size:13px;color:#65798b}.bottom{position:absolute;bottom:28px;left:42px;right:42px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px}.panel{background:rgba(255,255,255,.94);border:1px solid #e4ebf3;border-radius:18px;padding:16px 20px;box-shadow:0 8px 35px #28487109}.status{font-size:13px;min-height:16px;margin-bottom:13px;letter-spacing:.01em}.status span{color:#788b9c;margin-left:12px}.steps{display:flex;align-items:center;gap:0}.step{width:30px;height:30px;border:0;border-radius:50%;background:#edf2f8;color:#72859a;font-size:11px;display:grid;place-items:center}.step.current{background:#0043bc;color:white}.step.done{background:#dce8fc;color:#0043bc}.connector{width:28px;height:2px;background:#e6ecf4}.controls{display:flex;align-items:center;gap:8px}button{border:1px solid #dce5f0;background:white;color:#18364e;border-radius:12px;height:44px;padding:0 17px;font:14px Arial;cursor:pointer;transition:background .18s,opacity .18s}button:hover{background:#edf3fc}button:focus-visible{outline:3px solid #8eb5fc;outline-offset:3px}button.primary{background:#0043bc;color:white;border-color:#0043bc;min-width:122px}button.primary:hover{background:#003794}button:disabled{opacity:.35;cursor:default}.help{font-size:11px;color:#72859a;text-align:right;margin-top:11px}.error{position:absolute;inset:25%;background:white;padding:30px;border:1px solid #ccd9ed;border-radius:16px;line-height:1.6}.hidden{display:none}@media(max-width:700px){header{top:24px;left:22px;right:22px}.brand{width:82px}.caption{max-width:230px;line-height:1.5}.bottom{left:20px;right:20px;bottom:20px;flex-wrap:wrap}.panel{padding:12px 15px}.controls button{padding:0 12px}.help{display:none}.connector{width:20px}h1{font-size:25px}}
-/* Composição de apresentação e navegação compacta. */
-header{z-index:5;top:30px;left:36px;right:36px}.header-label{font-size:11px;letter-spacing:.16em;color:#637b90;padding-top:8px}.content{position:absolute;z-index:2;left:5%;top:22%;width:43%;height:52%;border:1px dashed #cbd9ed;border-radius:4px;padding:clamp(20px,3vw,48px);display:flex;flex-direction:column;justify-content:center;transition:opacity .22s;pointer-events:none}.content.right{left:52%}.content.absent{opacity:0}.content h1{font-size:clamp(24px,3vw,48px);font-weight:500;line-height:1.13;letter-spacing:-.045em;margin:0 0 20px}.content p{margin:0;color:#65798b;font-size:clamp(13px,1.2vw,18px);line-height:1.6;max-width:29em}.content .area-label{position:absolute;bottom:18px;left:clamp(20px,3vw,48px);font-size:10px;letter-spacing:.16em;color:#6f87a0}.content.conclusion{border-color:transparent}.bottom{z-index:5;bottom:24px;left:36px;right:36px}.panel{padding:13px 16px;border-radius:16px}.status{font-size:12px;margin-bottom:11px}.slide-nav{display:flex;align-items:center;gap:8px}.numbers{display:flex;gap:8px;width:212px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#bbcee9 transparent;padding:2px 0 7px}.step{flex:0 0 36px;width:36px;height:32px;padding:0;scroll-snap-align:start;border-radius:8px;cursor:pointer}.nav-scroll{width:24px;height:30px;padding:0;border:0;background:transparent;color:#7088a0}.veil{position:absolute;z-index:3;inset:0;background:#fff;opacity:0;pointer-events:none}.error{z-index:20}@media(max-width:700px){header{top:20px;left:20px;right:20px}.header-label{max-width:200px;line-height:1.5;font-size:10px}.bottom{left:16px;right:16px;bottom:16px;gap:10px;flex-wrap:nowrap}.panel{padding:10px}.controls button{padding:0 10px;font-size:12px;min-width:0}.content{padding:16px}.content h1{font-size:22px}.content p{font-size:12px}.content .area-label{left:16px;font-size:8px}.numbers{width:172px;gap:8px}.step{flex-basis:28px;width:28px}.slide-nav{gap:2px}.status span{display:none}.nav-scroll{width:16px}}
-.content,.content.conclusion{background:#fff}header .brand,header .header-label{background:rgba(255,255,255,.96);border-radius:5px;box-shadow:0 3px 12px #142d1520}.help{background:rgba(255,255,255,.94);padding:5px 8px;border-radius:6px}
-</style>
-<style>
-.content.model-slide{justify-content:flex-start;padding:26px 32px}.model-slide h1{font-size:clamp(21px,2.1vw,32px);margin:0;letter-spacing:-.035em}.model-slide .eyebrow{margin-bottom:10px}#coletor-viewport{position:absolute;left:16px;right:16px;top:94px;bottom:39px;pointer-events:auto;overflow:hidden}#coletor-viewport canvas{cursor:grab;touch-action:none}#coletor-viewport canvas:active{cursor:grabbing}.model-tools{position:absolute;bottom:0;right:5px;display:flex;gap:6px;z-index:1}.model-tools button{height:26px;padding:0 9px;font-size:11px;border-radius:7px;background:rgba(255,255,255,.94)}.model-tools button[aria-pressed="true"]{color:#0043bc;border-color:#9fb9e8}@media(max-width:700px){.content.model-slide{padding:18px 16px}.model-slide h1{font-size:20px}#coletor-viewport{top:84px;left:5px;right:5px}.model-tools button{padding:0 5px;font-size:10px}}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#fff;color:#18364e;font-family:Arial,sans-serif}canvas{display:block;width:100%;height:100%}.hidden{display:none!important}
+.content{position:absolute;z-index:2;left:5%;top:16.8%;width:51.6%;height:62.4%;padding:26px 30px 70px;background:rgba(255,255,255,.85);border:1px solid #ffffff80;border-radius:8px;box-shadow:0 12px 40px #20391818;transition:opacity .20s;pointer-events:none;display:flex;flex-direction:column}.content.right{left:43.4%}.content.absent{opacity:0;pointer-events:none}.content.absent *{pointer-events:none!important}.slide-brand{position:absolute;right:26px;top:24px;width:98px;height:28px}.brand{width:100%;height:100%;object-fit:contain}.eyebrow{font-size:11px;letter-spacing:.13em;font-weight:700;color:#0043bc;line-height:1.4;margin:0 120px 9px 0}.content h1{font-size:clamp(24px,2.1vw,36px);font-weight:500;letter-spacing:-.04em;line-height:1.12;margin:0 110px 12px 0}.slide-function{font-size:clamp(13px,1vw,16px);line-height:1.4;color:#304c61;margin:0;max-width:100%}.function-label{font-size:10px;letter-spacing:.10em;font-weight:bold;color:#647b90;margin-right:7px}.content #descricao{font-size:17px;line-height:1.5;color:#526a7b}.content:not(.model-slide) #descricao{max-width:80%}.first-content{display:grid;grid-template-columns:43% 57%;gap:18px;min-height:0;flex:1;margin-top:22px}.meaning{display:flex;flex-direction:column;gap:22px;min-width:0;padding-right:4px}.meaning section{border-left:3px solid #0043bc;padding-left:13px}.meaning section.business{border-color:#b87924}.meaning h2{font-size:clamp(16px,1.16vw,20px);font-weight:600;line-height:1.25;letter-spacing:-.02em;margin:0 0 9px}.meaning p{font-size:clamp(13px,.97vw,16px);line-height:1.45;margin:0;color:#304b60}.meaning .emphasis{margin-top:9px;font-weight:bold;color:#75501d}.section-kicker{font-size:10px;color:#526f87;letter-spacing:.1em;font-weight:bold;margin-bottom:6px}.business .section-kicker{color:#936523}.model-pane{position:relative;min-height:0;min-width:0;margin-left:-6px}.model-caption{font-size:11px;line-height:1.3;color:#9c5b15;letter-spacing:.02em;margin:0 8px 5px}.model-caption strong{font-weight:600}#coletor-viewport{position:absolute;inset:23px 0 30px;pointer-events:auto;overflow:hidden}#coletor-viewport canvas{cursor:grab;touch-action:none}#coletor-viewport canvas:active{cursor:grabbing}.field-legend{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-around;gap:5px;font-size:10px;color:#5b6873;line-height:1.3}.field-legend span{display:flex;align-items:center;gap:4px}.empty-mark{display:inline-block;width:16px;height:10px;border:1px dashed #bf8430;border-radius:2px}.model-pin{position:absolute;width:21px;height:21px;border:1.5px solid #bb7720;border-radius:50%;background:#fff5dc;color:#965a12;font-size:12px;line-height:18px;text-align:center;font-weight:bold;pointer-events:none;box-shadow:0 2px 5px #60400e20}.model-tools{position:absolute;bottom:12px;right:12px;max-width:56%;display:flex;justify-content:flex-end;flex-wrap:wrap;gap:5px;pointer-events:auto;align-items:center}.model-tools button{height:29px;padding:0 8px;font-size:11px;border-radius:7px;background:#fffffff2}.model-tools button.zoom{width:28px;padding:0;font-size:17px}.zoom-value{font-size:10px;color:#466078;min-width:32px;text-align:center}.model-tools button[aria-pressed="true"]{color:#0043bc;border-color:#9fb9e8}
+.bottom{position:absolute;z-index:5;bottom:24px;left:36px;right:36px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px}.panel{background:rgba(255,255,255,.94);border:1px solid #e4ebf3;border-radius:16px;padding:13px 16px;box-shadow:0 8px 35px #28487109}.status{font-size:12px;min-height:15px;margin-bottom:11px}.status span{color:#788b9c;margin-left:10px}.slide-nav{display:flex;align-items:center;gap:8px}.numbers{display:flex;gap:8px;width:212px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#bbcee9 transparent;padding:2px 0 7px}.step{flex:0 0 36px;width:36px;height:32px;padding:0;scroll-snap-align:start;border:0;border-radius:8px;background:#edf2f8;color:#72859a;font-size:11px;display:grid;place-items:center}.step.current{background:#0043bc;color:white}.step.done{background:#dce8fc;color:#0043bc}.nav-scroll{width:24px;height:30px;padding:0;border:0;background:transparent;color:#7088a0}.controls{display:flex;align-items:center;gap:8px}button{border:1px solid #dce5f0;background:white;color:#18364e;border-radius:11px;height:42px;padding:0 17px;font:14px Arial;cursor:pointer;transition:background .18s,opacity .18s}button:hover{background:#edf3fc}button:focus-visible{outline:3px solid #8eb5fc;outline-offset:2px}button.primary{background:#0043bc;color:white;border-color:#0043bc;min-width:122px}button.primary:hover{background:#003794}button:disabled{opacity:.35;cursor:default}.help{font-size:11px;color:#72859a;text-align:right;margin-top:10px;background:#fffffff0;padding:5px 8px;border-radius:6px}.error{position:absolute;z-index:20;inset:25%;background:white;padding:30px;border:1px solid #ccd9ed;border-radius:16px;line-height:1.6}.veil{position:absolute;z-index:3;inset:0;background:#fff;opacity:0;pointer-events:none}
+@media(max-height:800px){.content{padding:20px 24px 66px}.slide-brand{top:20px;right:22px;width:86px;height:24px}.eyebrow{font-size:10px;margin-bottom:6px}.content h1{margin-bottom:8px}.first-content{margin-top:13px;gap:13px}.meaning{gap:14px}.meaning h2{margin-bottom:6px;font-size:16px}.meaning p{font-size:12.5px;line-height:1.38}.meaning .emphasis{margin-top:6px}.section-kicker{font-size:9px;margin-bottom:4px}.slide-function{font-size:12.5px;line-height:1.33}.model-tools{max-width:57%}.bottom{bottom:14px}}
+@media(max-width:900px){.content{padding:20px 20px 78px}.slide-brand{right:17px;width:76px}.content h1{margin-right:75px;font-size:24px}.eyebrow{margin-right:80px;font-size:9px}.first-content{gap:10px;grid-template-columns:45% 55%}.meaning section{padding-left:8px}.meaning p{font-size:12px}.meaning h2{font-size:15px}.slide-function{font-size:12px}.model-tools{max-width:58%}.field-legend{font-size:9px}.model-caption{font-size:10px}}
+.first-content{grid-template-columns:minmax(0,43fr) minmax(0,57fr)}.content.model-slide #descricao{font-size:clamp(13px,1vw,16px);line-height:1.4;color:#304c61}
+.content .model-tools{max-width:60%}
+@media(max-height:800px){.content.model-slide #descricao{font-size:12.5px;line-height:1.33}}
+@media(max-width:900px){.first-content{grid-template-columns:minmax(0,45fr) minmax(0,55fr)}}
 </style>
 <main id="mundo" aria-label="Mapa tridimensional com estrada e carro animado"></main>
-<header><div class="header-label">JORNADA EM MOVIMENTO · PROTÓTIPO</div><svg class="brand" role="img" aria-label="MAHLE"
+<section class="content" id="conteudo" aria-label="Slide da apresentação">
+ <div class="slide-brand"><svg class="brand" role="img" aria-label="MAHLE"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
    id="svg8489"
@@ -55,10 +56,18 @@ header{z-index:5;top:30px;left:36px;right:36px}.header-label{font-size:11px;lett
      style="fill:#0043BC" />
 </svg>
 <!-- version: 20171223, original size: 113 25, border: 3% -->
-</header>
-<section class="content" id="conteudo" aria-label="Área reservada à apresentação"><div class="eyebrow" id="titulo-parada">PARADA 01</div><h1 id="titulo">Espaço para<br>a apresentação.</h1><p id="descricao">Este retângulo está reservado para os textos, imagens e explicações de cada slide.</p><div id="coletor-viewport" class="hidden" aria-label="Modelo tridimensional do coletor de admissão K24"><div class="model-tools"><button id="coletor-corte" type="button" aria-pressed="true">Vista em corte</button><button id="coletor-restaurar" type="button">Reenquadrar</button></div></div><div class="area-label" id="legenda-area">ÁREA DE CONTEÚDO · SEM ESTRADA</div></section>
+</div><div class="eyebrow" id="titulo-parada">SEVERIDADE 1 · EFEITO NO SISTEMA</div><h1 id="titulo">Marcação dos componentes</h1><p id="descricao" class="slide-function"></p>
+ <div class="first-content hidden" id="primeiro-conteudo">
+  <div class="meaning">
+   <section><div class="section-kicker">NO SISTEMA · S1</div><h2 id="sistema-titulo">Sem efeito funcional</h2><p id="sistema-texto"></p></section>
+   <section class="business"><div class="section-kicker">RESSALVA PARA A MAHLE</div><h2 id="mahle-titulo">A rastreabilidade faz diferença</h2><p id="mahle-texto"></p><p class="emphasis" id="mahle-destaque"></p></section>
+  </div>
+  <div class="model-pane"><div class="model-caption"><strong>Três campos sem gravação</strong> · áreas destacadas no injetado</div><div id="coletor-viewport" aria-label="Modelo 3D com áreas de marcação ausentes"><div id="marcacao-alvo" class="model-pin">!</div></div><div class="field-legend"><span><i class="empty-mark"></i>Data de injeção</span><span><i class="empty-mark"></i>Nº componente</span><span><i class="empty-mark"></i>Nº cavidade</span></div></div>
+ </div>
+ <div class="model-tools hidden" id="ferramentas-modelo"><button class="zoom" id="coletor-menos" aria-label="Afastar coletor">−</button><span class="zoom-value" id="coletor-zoom">125%</span><button class="zoom" id="coletor-mais" aria-label="Aproximar coletor">+</button><button id="coletor-marcas">Focar marcações</button><button id="coletor-corte" aria-pressed="false">Vista completa</button><button id="coletor-restaurar">Reenquadrar</button></div>
+</section>
 <div class="veil" id="fade"></div>
-<div class="bottom"><div class="panel"><div class="status" role="status" aria-live="polite" id="estado">Preparando o mapa…</div><nav class="slide-nav" aria-label="Selecionar slide"><button class="nav-scroll" id="rolar-anterior" aria-label="Rolar lista para a esquerda">‹</button><div class="numbers" id="numeros"><button class="step" id="etapa-0" aria-label="Selecionar slide 1" type="button">01</button><button class="step" id="etapa-1" aria-label="Selecionar slide 2" type="button">02</button><button class="step" id="etapa-2" aria-label="Selecionar slide 3" type="button">03</button><button class="step" id="etapa-3" aria-label="Selecionar slide 4" type="button">04</button><button class="step" id="etapa-4" aria-label="Selecionar slide 5" type="button">05</button><button class="step" id="etapa-5" aria-label="Selecionar slide 6, conclusão" type="button">06</button></div><button class="nav-scroll" id="rolar-proximo" aria-label="Rolar lista para a direita">›</button></nav></div><div><div class="controls"><button id="anterior" aria-label="Voltar um slide">← Voltar</button><button id="proximo" class="primary">Avançar →</button></div><div class="help">Espaço / → avançar · ← voltar · F tela cheia</div></div></div>
+<div class="bottom"><div class="panel"><div class="status" role="status" aria-live="polite" id="estado">Preparando o mapa…</div><nav class="slide-nav" aria-label="Selecionar severidade"><button class="nav-scroll" id="rolar-anterior" aria-label="Rolar lista para a esquerda">‹</button><div class="numbers" id="numeros"><button class="step" id="etapa-0" aria-label="Selecionar severidade 1" type="button">01</button><button class="step" id="etapa-1" aria-label="Selecionar severidade 2" type="button">02</button><button class="step" id="etapa-2" aria-label="Selecionar severidade 3" type="button">03</button><button class="step" id="etapa-3" aria-label="Selecionar severidade 4" type="button">04</button><button class="step" id="etapa-4" aria-label="Selecionar severidade 5" type="button">05</button><button class="step" id="etapa-5" aria-label="Selecionar severidade 6" type="button">06</button><button class="step" id="etapa-6" aria-label="Selecionar severidade 7" type="button">07</button><button class="step" id="etapa-7" aria-label="Selecionar severidade 8" type="button">08</button><button class="step" id="etapa-8" aria-label="Selecionar severidade 9" type="button">09</button><button class="step" id="etapa-9" aria-label="Selecionar severidade 10" type="button">10</button><button class="step" id="etapa-10" aria-label="Selecionar conclusão" type="button">Fim</button></div><button class="nav-scroll" id="rolar-proximo" aria-label="Rolar lista para a direita">›</button></nav></div><div><div class="controls"><button id="anterior" aria-label="Voltar um slide">← Voltar</button><button id="proximo" class="primary">Avançar →</button></div><div class="help">Espaço / → avançar · ← voltar · F tela cheia</div></div></div>
 <div class="error hidden" id="erro" role="alert"></div>
 <script>/**
  * @license
@@ -54635,6 +54644,7 @@ const T = { ACESFilmicToneMapping, AddEquation, AddOperation, AdditiveAnimationB
    Biblioteca e modelo são incorporados por gerar.mjs. Nenhuma requisição de rede. */
 (() => {
 'use strict';
+const CONFIG={"painel":{"margemLateral":0.05,"largura":0.516,"topo":0.168,"altura":0.624,"opacidade":0.85},"paradas":[{"severidade":1,"u":0.055,"lado":"left"},{"severidade":2,"u":0.155,"lado":"right"},{"severidade":3,"u":0.255,"lado":"left"},{"severidade":4,"u":0.355,"lado":"right"},{"severidade":5,"u":0.455,"lado":"left"},{"severidade":6,"u":0.555,"lado":"right"},{"severidade":7,"u":0.655,"lado":"left"},{"severidade":8,"u":0.755,"lado":"right"},{"severidade":9,"u":0.855,"lado":"left"},{"severidade":10,"u":0.955,"lado":"right"}],"primeiroSlide":{"titulo":"Marcação dos componentes","funcao":"Garantir marcação dos componentes com data de injeção, número do componente e número de cavidade","sistemaTitulo":"Sem efeito funcional","sistemaTexto":"Marcações ausentes ou incorretas não alteram as funções primárias nem as secundárias do coletor de ar.","mahleTitulo":"A rastreabilidade faz diferença","mahleTexto":"Em caso de problema no cliente, a identificação incompleta dificulta delimitar as peças que precisam de ação.","mahleDestaque":"Quanto maior o conjunto de peças sem identificação confiável, maior pode ser o custo para a MAHLE.","nota":"A severidade 1 se refere ao efeito funcional no sistema."}};const STOP_COUNT=CONFIG.paradas.length,LAST_STOP=STOP_COUNT-1,FINAL_SLIDE=STOP_COUNT,STOP_PARAMS=CONFIG.paradas.map(p=>p.u);
 const $=id=>document.getElementById(id);
 const V=(x=0,y=0,z=0)=>new T.Vector3(x,y,z);
 const clamp=T.MathUtils.clamp;
@@ -54795,9 +54805,47 @@ function criarColetorK24(T,{espessura=.055}={}){
  for(const [x,y]of [[-2.63,.69],[-2.63,1.61],[2.63,.69],[2.63,1.61],...xs.map(x=>[x,1.66])]){const hole=new T.Path();hole.absellipse(x,y,.065,.065,0,Math.PI*2,true);flange.holes.push(hole)}
  plate(flange,.14,-3.26,'Flange_de_fixacao_com_furos');
  for(let i=0;i<4;i++){const ring=mesh(new T.TorusGeometry(.353,.027,8,56),flangeMaterial,'Assento_duto_'+(i+1));ring.position.set(xs[i],1.12,-3.10)}
+ // Superfícies moldadas lisas: os campos estão fisicamente vazios, sem códigos fictícios.
+ const marking=new T.Group();marking.name='Superficies_de_marcacao_sem_gravacao';root.add(marking);
+ const highlight=new T.Group();highlight.name='Destaques_didaticos_das_marcacoes';root.add(highlight);
+ const padMaterial=new T.MeshStandardMaterial({color:'#455560',roughness:.65,metalness:.06});
+ for(const [i,name]of ['Data_de_injecao','Numero_do_componente','Numero_da_cavidade'].entries()){
+  const geometry=new T.BoxGeometry(.57,.19,.055),pad=mesh(geometry,padMaterial,name+'_ausente',marking);pad.position.set(-.93+i*.66,.31,1.80);pad.userData.gravacao=null;
+  const line=new T.LineSegments(new T.EdgesGeometry(geometry),new T.LineBasicMaterial({color:'#d48a20',transparent:true,opacity:.95}));line.position.copy(pad.position);line.name='Contorno_'+name;highlight.add(line);
+ }
  function corte(active=true){upper.visible=!active;cutOnly.forEach(o=>o.visible=active);fullOnly.forEach(o=>o.visible=!active);root.userData.corte=active}
  root.userData={tipo:'Reconstrução didática de coletor K24',referencia:'K24 Intake Manifold - EP6 YOUTUBE',espessuraRelativa:espessura,dutos:4};corte(true);
- return{root,upper,runners,corte,exportar(cut=false){const r=root.clone(true);r.position.set(0,0,0);r.quaternion.identity();r.getObjectByName('Metade_superior').visible=!cut;for(const o of cutOnly)r.getObjectByName(o.name).visible=cut;for(const o of fullOnly)r.getObjectByName(o.name).visible=!cut;r.userData.corte=cut;return r}};
+ return{root,upper,runners,corte,alvoMarcacoes:V(-.27,.31,1.84),exportar(cut=false){const r=root.clone(true);r.position.set(0,0,0);r.quaternion.identity();r.getObjectByName('Destaques_didaticos_das_marcacoes')?.removeFromParent();r.getObjectByName('Metade_superior').visible=!cut;for(const o of cutOnly)r.getObjectByName(o.name).visible=cut;for(const o of fullOnly)r.getObjectByName(o.name).visible=!cut;r.userData.corte=cut;return r}};
+}
+
+// Componente de inspeção 3D reutilizável: desenho sob demanda, giro, zoom e foco em detalhes.
+function criarVisorColetor(T,{visivel=()=>true}={}){
+ const $=id=>document.getElementById(id),V=(x=0,y=0,z=0)=>new T.Vector3(x,y,z),clamp=T.MathUtils.clamp;
+ const host=$('coletor-viewport'),studio=new T.Scene(),model=criarColetorK24(T),pivot=new T.Group();studio.add(pivot);pivot.add(model.root);
+ const box=new T.Box3().setFromObject(model.root),center=box.getCenter(V());model.root.position.sub(center);
+ studio.add(new T.HemisphereLight('#ffffff','#afbecb',2.4));const key=new T.DirectionalLight('#fff4e5',3.1);key.position.set(-4,8,7);key.castShadow=true;key.shadow.mapSize.set(1024,1024);Object.assign(key.shadow.camera,{left:-5,right:5,top:5,bottom:-5,far:30});key.shadow.normalBias=.014;studio.add(key);
+ const fill=new T.DirectionalLight('#bddbff',1.8);fill.position.set(5,3,-4);studio.add(fill);
+ const ground=new T.Mesh(new T.PlaneGeometry(18,18),new T.ShadowMaterial({opacity:.10}));ground.rotation.x=-Math.PI/2;ground.position.y=-center.y-.03;ground.receiveShadow=true;studio.add(ground);
+ const r=new T.WebGLRenderer({antialias:true,alpha:true});r.setClearColor(0xffffff,0);r.setPixelRatio(Math.min(devicePixelRatio,1.5));r.shadowMap.enabled=true;r.shadowMap.type=T.PCFSoftShadowMap;r.shadowMap.autoUpdate=false;r.toneMapping=T.ACESFilmicToneMapping;r.outputColorSpace=T.SRGBColorSpace;host.prepend(r.domElement);
+ r.domElement.setAttribute('aria-label','Coletor 3D: arraste para girar e use a roda do mouse para aproximar');
+ const c=new T.PerspectiveCamera(34,1,.1,60);let width=0,height=0,cut=true,drag=null,rendered=0,zoom=1.4,focus=false,baseDistance=8,target=V(),direction=V(-.66,.85,1.1).normalize();
+ function position(){c.position.copy(target).addScaledVector(direction,baseDistance/zoom);c.lookAt(target);c.updateMatrixWorld();$('coletor-zoom').textContent=Math.round(zoom*100)+'%'}
+ function fit(){const b=new T.Box3().setFromObject(model.root);target.copy(b.getCenter(V()));direction.copy(V(-.66,.85,1.1).normalize());let distance=6;
+  for(let n=0;n<80;n++){c.position.copy(target).addScaledVector(direction,distance);c.lookAt(target);c.updateMatrixWorld();let ok=true;for(const x of [b.min.x,b.max.x])for(const y of [b.min.y,b.max.y])for(const z of [b.min.z,b.max.z]){const p=V(x,y,z).project(c);if(Math.abs(p.x)>.90||Math.abs(p.y)>.85)ok=false}if(ok)break;distance*=1.045}baseDistance=distance;position();
+ }
+ function updatePin(){model.root.updateWorldMatrix(true,true);const p=model.root.localToWorld(model.alvoMarcacoes.clone()),normal=V(0,0,1).transformDirection(model.root.matrixWorld),front=normal.dot(c.position.clone().sub(p))>0,v=p.project(c),pin=$('marcacao-alvo');pin.classList.toggle('hidden',!front||Math.abs(v.x)>.94||Math.abs(v.y)>.92||v.z<0||v.z>1);pin.style.left=((v.x*.5+.5)*width-10)+'px';pin.style.top=((-v.y*.5+.5)*height-26)+'px'}
+ function render(){if(!visivel()||host.clientWidth<1)return;r.shadowMap.needsUpdate=true;r.render(studio,c);rendered++;updatePin()}
+ function resize(){const w=host.clientWidth,h=host.clientHeight;if(w<1||h<1)return;if(w!==width||h!==height){width=w;height=h;r.setSize(w,h);c.aspect=w/h;c.updateProjectionMatrix();if(focus)focusMarkings();else{fit();render()}}}
+ function reset(){pivot.rotation.set(0,0,0);zoom=1.4;focus=false;fit();render()}
+ function zoomBy(factor){zoom=clamp(zoom*factor,.65,4.5);position();render()}
+ function focusMarkings(){pivot.rotation.set(0,0,0);model.root.updateWorldMatrix(true,true);target.copy(model.root.localToWorld(model.alvoMarcacoes.clone()));direction.copy(V(-.03,.14,1).normalize());baseDistance=Math.max(2.8,2.6/(2*Math.tan(T.MathUtils.degToRad(17))*c.aspect));zoom=1;focus=true;position();render()}
+ r.domElement.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY};r.domElement.setPointerCapture(e.pointerId);e.stopPropagation()});
+ r.domElement.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;pivot.rotation.y+=dx*.009;pivot.rotation.x=clamp(pivot.rotation.x+dy*.007,-.60,.60);drag={x:e.clientX,y:e.clientY};render()});
+ r.domElement.addEventListener('pointerup',()=>{drag=null});r.domElement.addEventListener('pointercancel',()=>{drag=null});r.domElement.addEventListener('wheel',e=>{e.preventDefault();zoomBy(Math.exp(-e.deltaY*.0012))},{passive:false});
+ $('coletor-menos').addEventListener('click',()=>zoomBy(1/1.2));$('coletor-mais').addEventListener('click',()=>zoomBy(1.2));$('coletor-marcas').addEventListener('click',focusMarkings);
+ $('coletor-corte').addEventListener('click',()=>{cut=!cut;model.corte(cut);$('coletor-corte').setAttribute('aria-pressed',String(!cut));$('coletor-corte').textContent=cut?'Vista completa':'Vista em corte';if(!focus)fit();render()});
+ $('coletor-restaurar').addEventListener('click',reset);new ResizeObserver(resize).observe(host);
+ return{resize,reset,exportar:cut=>model.exportar(cut),estado:()=>({cut,rendered,width,height,zoom,focus,marcacoesAusentes:3,dutos:model.runners.length,rotation:pivot.rotation.toArray().slice(0,3)})};
 }
 
 try {
@@ -54834,7 +54882,7 @@ const groundRoute=[...Array.from({length:321},(_,i)=>at(i/320)),...Array.from({l
 const groundCells=new Map(),cellSize=18;
 for(let i=1;i<groundRoute.length;i++){const a=groundRoute[i-1],b=groundRoute[i];for(let x=Math.floor((Math.min(a.x,b.x)-26)/cellSize);x<=Math.floor((Math.max(a.x,b.x)+26)/cellSize);x++)for(let z=Math.floor((Math.min(a.z,b.z)-26)/cellSize);z<=Math.floor((Math.max(a.z,b.z)+26)/cellSize);z++){const key=x+','+z;if(!groundCells.has(key))groundCells.set(key,[]);groundCells.get(key).push(i)}}
 function groundInfo(x,z){let best=1e10,h=0;for(const i of groundCells.get(Math.floor(x/cellSize)+','+Math.floor(z/cellSize))||[]){const a=groundRoute[i-1],b=groundRoute[i],dx=b.x-a.x,dz=b.z-a.z,t=clamp(((x-a.x)*dx+(z-a.z)*dz)/(dx*dx+dz*dz),0,1),d=(x-a.x-dx*t)**2+(z-a.z-dz*t)**2;if(d<best){best=d;h=lerp(a.y,b.y,t)}}return{distance:Math.sqrt(best),road:h}}
-const markerCenters=[.055,.265,.485,.715,.955].map(u=>at(u).addScaledVector(side(u),7.5));
+const markerCenters=STOP_PARAMS.map(u=>at(u).addScaledVector(side(u),7.5));
 function baseGroundHeight(x,z){const n=groundInfo(x,z),field=.25+Math.sin(x*.035)*.5+Math.cos(z*.042)*.4;return lerp(n.road-.16,field,smooth((n.distance-3.6)/19))}
 function groundHeight(x,z){let h=baseGroundHeight(x,z);for(const p of markerCenters){const r=Math.hypot(x-p.x,z-p.z);if(r<4)h=lerp(baseGroundHeight(p.x,p.z),h,smooth(r-3))}return h}
 const landGeometry=new T.PlaneGeometry(700,700,350,350);landGeometry.rotateX(-Math.PI/2);
@@ -54860,8 +54908,8 @@ float grain=sin(roadUv.y*11.0+roadUv.x*21.0)*0.015;
 diffuseColor.rgb*=1.0+grain;diffuseColor.rgb=mix(diffuseColor.rgb,roadYellow,center*dash);diffuseColor.rgb=mix(diffuseColor.rgb,roadEdge,edge);`)};
 ribbon(3.48,-.055,gray);const asphalt=ribbon(3.06,0,pale);asphalt.name='Asfalto_continuo_sinalizacao_integrada';
 // Paisagem discreta: volumes claros preservam o fundo branco e a leitura da estrada.
-const stops=[.055,.265,.485,.715,.955];
-const crashOrigin=at(stops[4]),exitSide=side(stops[4]),exitTangent=tangent(stops[4]);
+const stops=STOP_PARAMS;
+const crashOrigin=at(stops[LAST_STOP]),exitSide=side(stops[LAST_STOP]),exitTangent=tangent(stops[LAST_STOP]);
 const treePosition=crashOrigin.clone().addScaledVector(exitTangent,14).addScaledVector(exitSide,9);
 treePosition.y=groundHeight(treePosition.x,treePosition.z);
 const crashDirection=treePosition.clone().sub(crashOrigin).setY(0).normalize();
@@ -54989,11 +55037,11 @@ function orient(u){const x=tangent(u),z=new T.Vector3().crossVectors(x,V(0,1,0))
 let carU=stops[0],index=0,motion=null,lastTime=null,cameraTween=null,fade=null,crash=null,crashed=false,fireTime=0,impacts=0,crashPose=null;
 let mapDirty=true,mapClock=0,lastMapDraw=-10,shadowAge=10,shadowAnchor=V(1e6,0,1e6),shadowAerial=null,shadowRenders=0,sceneRenders=0;
 let look=V(),boom=V(),carTurn=orient(carU),wheelAngle=0;
-const contentSides=['left','right','left','right','left','left'];
+const contentSides=CONFIG.paradas.map(p=>p.lado).concat('left');
 const probeCamera=new T.PerspectiveCamera(42,camera.aspect,.1,500);
 const roadProbes=[];for(let j=0;j<=550;j++){const u=j/550;for(const s of [-3.4,-1.7,0,1.7,3.4])roadProbes.push(at(u).addScaledVector(side(u),s))}
 let poses=[],layoutAudit=[];
-function contentRect(i){return contentSides[i]==='left'?{x0:-.90,x1:-.04,y0:-.48,y1:.56}:{x0:.04,x1:.90,y0:-.48,y1:.56}}
+function contentRect(i){const p=CONFIG.painel,x=contentSides[i]==='left'?p.margemLateral:1-p.margemLateral-p.largura;return{x0:x*2-1,x1:(x+p.largura)*2-1,y0:1-2*(p.topo+p.altura),y1:1-2*p.topo}}
 function roadIntrusions(pose,i,margin=.015){
  probeCamera.position.copy(pose.look).add(pose.boom);probeCamera.lookAt(pose.look);probeCamera.updateMatrixWorld();
  const rect=contentRect(i);let n=0;const v=V();
@@ -55004,6 +55052,12 @@ function compose(p,offset,screenX){
  const shift=screenX*offset.length()*Math.tan(T.MathUtils.degToRad(21))*camera.aspect;
  return{look:p.clone().addScaledVector(right,-shift),boom:offset};
 }
+function screenAt(point,pose){probeCamera.position.copy(pose.look).add(pose.boom);probeCamera.lookAt(pose.look);probeCamera.updateMatrixWorld();return point.clone().project(probeCamera)}
+function framePoint(point,screenX,screenY){
+ const axis=boom.clone().normalize(),right=V(boom.z,0,-boom.x).normalize(),up=V().crossVectors(axis,right),relative=point.clone().sub(look);
+ const halfHeight=(boom.length()-relative.dot(axis))*Math.tan(T.MathUtils.degToRad(21));
+ look.addScaledVector(right,relative.dot(right)-screenX*halfHeight*camera.aspect).addScaledVector(up,relative.dot(up)-screenY*halfHeight);
+}
 function fitPose(p,i,includeTree=false){
  const sign=contentSides[i]==='left'?1:-1;let best=null,bestCost=Infinity;
  const nearby=forestPoints.filter(t=>Math.hypot(t.p.x-p.x,t.p.z-p.z)<38);
@@ -55012,7 +55066,7 @@ function fitPose(p,i,includeTree=false){
   const pose=compose(p,offset,sign*.60),hits=roadIntrusions(pose,i);
   const preference=Math.abs(Math.atan2(Math.sin(yaw-i*.9),Math.cos(yaw-i*.9)));
   let treePenalty=0;
-  if(includeTree){for(const x of [-2.4,2.4])for(const y of [0,7])for(const z of [-2.4,2.4]){const v=treePosition.clone().add(V(x,y,z)).project(probeCamera);if(v.x<.03||v.x>.94||v.y<-.66||v.y>.78)treePenalty+=10000}}
+  if(includeTree){for(const x of [-2.4,2.4])for(const y of [0,7])for(const z of [-2.4,2.4]){const v=treePosition.clone().add(V(x,y,z)).project(probeCamera);if(v.x*sign<.17||v.x*sign>.94||v.y<-.66||v.y>.78)treePenalty+=10000}}
   const eye=pose.look.clone().add(pose.boom),target=p.clone().add(V(0,.8,0)),ray=target.clone().sub(eye),rayLength=ray.lengthSq();let blocked=0;
   for(const t of nearby){const v=vegetation.variants[t.variant];if(v.type==='seca')continue;const center=t.p.clone().add(V(0,v.height*t.scale*(v.type==='conifera'?.60:.82),0)),along=clamp(center.clone().sub(eye).dot(ray)/rayLength,0,1),closest=eye.clone().addScaledVector(ray,along);if(along>.05&&along<.97&&closest.distanceTo(center)<(v.type==='conifera'?1.8:2.65)*t.scale)blocked++}
   const cost=hits*100000+blocked*2000+(h-23)*.015+(distance-26)*.01+preference*.01+treePenalty;
@@ -55029,7 +55083,7 @@ function makePoses(){
   labels[i].label.rotation.z=best.yaw;
   return best;
  });
- crashPose=fitPose(wreckPosition.clone().add(V(0,.06,0)),4,true);
+ crashPose=fitPose(wreckPosition.clone().add(V(0,.06,0)),LAST_STOP,true);
  const aerialPoints=roadProbes.concat(stops.flatMap(u=>[-11,11].map(s=>at(u).addScaledVector(side(u),s))),[treePosition,treePosition.clone().add(V(0,7,0))]);
  let aerial=null,aerialCost=Infinity;
  for(let scale=.95;scale<=2;scale+=.05)for(let screenX=.40;screenX<=.60;screenX+=.025){
@@ -55038,30 +55092,30 @@ function makePoses(){
   let x0=Infinity,x1=-Infinity,y0=Infinity,y1=-Infinity;const v=V();
   for(const point of aerialPoints){v.copy(point).project(probeCamera);x0=Math.min(x0,v.x);x1=Math.max(x1,v.x);y0=Math.min(y0,v.y);y1=Math.max(y1,v.y)}
   const cost=scale+Math.abs((x0+x1)/2-.49)*.1;
-  if(x0>.07&&x1<.91&&y0>-.60&&y1<.70&&cost<aerialCost){aerial=p;aerialCost=cost}
+  if(x0>.17&&x1<.91&&y0>-.60&&y1<.70&&cost<aerialCost){aerial=p;aerialCost=cost}
  }
  poses.push(aerial||compose(V(18,0,6),V(-9,356,280),.48));
  layoutAudit=poses.map((p,i)=>({side:contentSides[i],roadIntrusions:roadIntrusions(p,i,0),yaw:p.yaw}));
 }
 makePoses();
 function stopPose(i){return poses[i]}
-function presentationPose(i){return i===4&&crashed?crashPose:stopPose(i)}
+function presentationPose(i){return i===LAST_STOP&&crashed?crashPose:stopPose(i)}
 function place(u){car.position.copy(at(u)).add(V(0,-.06,0));car.quaternion.copy(carTurn)}
 function directionQuaternion(d){const x=d.clone().normalize(),z=V().crossVectors(x,V(0,1,0)).normalize(),y=V().crossVectors(z,x).normalize();return new T.Quaternion().setFromRotationMatrix(new T.Matrix4().makeBasis(x,y,z))}
 function syncDamaged(){damaged.root.position.copy(car.position);damaged.root.quaternion.copy(car.quaternion)}
 function resetCrash(){crash=null;crashed=false;fireTime=0;impacts=0;skidSamples=0;skidTracks.forEach(t=>t.g.setDrawRange(0,0));damaged.aplicar(0);damaged.root.visible=false;car.visible=true;fire.visible=false;skid.visible=false}
 function finishWreck(){car.position.copy(wreckPosition);car.quaternion.copy(directionQuaternion(crashDirection));syncDamaged();damaged.aplicar(1);damaged.root.visible=true;car.visible=false;fire.visible=true;skid.visible=true;crashed=true;fireTime=Math.max(fireTime,1)}
-function beginCrash(rolling=false){const speed=rolling?(stops[4]-stops[3])*total/3:escapeLength/.85;crash={time:0,impacted:false,rolling,speed,contactTime:escapeLength/speed+(rolling?0:.08),travelled:0,initialLook:look.clone(),initialBoom:boom.clone()};appendSkids();ui()}
+function beginCrash(rolling=false){const speed=rolling?(stops[LAST_STOP]-stops[LAST_STOP-1])*total/3:escapeLength/.85;crash={time:0,impacted:false,rolling,speed,contactTime:escapeLength/speed+(rolling?0:.08),travelled:0,initialLook:look.clone(),initialBoom:boom.clone()};appendSkids();ui()}
 function setContent(){
- const end=index===5,busy=!!motion||!!cameraTween||!!crash;
- $('conteudo').className='content'+(contentSides[index]==='right'?' right':'')+(end?' conclusion':'')+(busy?' absent':'');
- $('titulo-parada').textContent=end?'CONCLUSÃO · SLIDE 06':`PARADA ${String(index+1).padStart(2,'0')}`;
- $('titulo').innerHTML=end?'Uma visão do<br>caminho completo.':index===4&&crashed?'Perda de controle.<br>Impacto frontal.':'Espaço para<br>a apresentação.';
- $('descricao').textContent=end?'Aqui entra a conclusão da apresentação, com a jornada inteira ao lado.':index===4&&crashed?'Demonstração visual da batida. Selecione 05 novamente para repetir a sequência.':'Este retângulo está reservado para os textos, imagens e explicações de cada slide.';
- $('legenda-area').textContent=end?'ENCERRAMENTO DA JORNADA':'ÁREA DE CONTEÚDO · SEM ESTRADA';
- const first=index===0;
- $('conteudo').classList.toggle('model-slide',first);$('coletor-viewport').classList.toggle('hidden',!first);
- if(first){$('titulo').textContent='Coletor de admissão';$('descricao').textContent='';$('legenda-area').textContent='REFERÊNCIA K24 · ARRASTE PARA GIRAR';requestAnimationFrame(()=>manifoldView.resize())}
+ const end=index===FINAL_SLIDE,first=index===0,busy=!!motion||!!cameraTween||!!crash,s=CONFIG.primeiroSlide;
+ $('conteudo').className='content'+(contentSides[index]==='right'?' right':'')+(end?' conclusion':'')+(busy?' absent':'')+(first?' model-slide':'');
+ $('titulo-parada').textContent=end?'CONCLUSÃO':`SEVERIDADE ${index+1} · EFEITO NO SISTEMA`;
+ $('titulo').textContent=first?s.titulo:end?'Uma visão do caminho completo.':index===LAST_STOP&&crashed?'Perda de controle. Impacto frontal.':`Severidade ${index+1}`;
+ $('descricao').textContent=first?s.funcao:end?'Aqui entra a conclusão da apresentação, com a jornada inteira ao lado.':index===LAST_STOP&&crashed?'Demonstração visual da batida. Selecione 10 novamente para repetir a sequência.':'Espaço reservado para o conteúdo desta severidade.';
+ $('sistema-titulo').textContent=s.sistemaTitulo;$('sistema-texto').textContent=s.sistemaTexto;
+ $('mahle-titulo').textContent=s.mahleTitulo;$('mahle-texto').textContent=s.mahleTexto;$('mahle-destaque').textContent=s.mahleDestaque;
+ $('primeiro-conteudo').classList.toggle('hidden',!first);$('ferramentas-modelo').classList.toggle('hidden',!first);
+ if(first)requestAnimationFrame(()=>manifoldView.resize());
 }
 function ensureSelectedVisible(){
  const list=$('numeros'),item=$('etapa-'+index),left=item.offsetLeft-list.offsetLeft;
@@ -55071,30 +55125,30 @@ function ensureSelectedVisible(){
 function ui(){
  mapDirty=true;
  const busy=!!motion||!!cameraTween||!!fade||!!crash;
- $('anterior').disabled=busy||index===0;$('proximo').disabled=busy||index===5;
- $('proximo').textContent=index===4?'Conclusão →':'Avançar →';
- $('estado').innerHTML=fade?'Trocando slide <span>Transição suave</span>':crash?`Slide 05 <span>${crash.impacted?'Impacto frontal':'Perda de controle'}</span>`:cameraTween?'Novo enquadramento <span>Câmera em movimento</span>':motion?`Percurso ${String(index+1).padStart(2,'0')} → ${String(motion.to+1).padStart(2,'0')} <span>Em movimento</span>`:index===5?'Slide 06 <span>Conclusão</span>':`Slide ${String(index+1).padStart(2,'0')} <span>${crashed?'Após o impacto':'Aguardando avanço'}</span>`;
- for(let i=0;i<6;i++){$('etapa-'+i).className='step'+(i===index?' current':i<index?' done':'');$('etapa-'+i).setAttribute('aria-current',i===index?'step':'false')}
+ $('anterior').disabled=busy||index===0;$('proximo').disabled=busy||index===FINAL_SLIDE;
+ $('proximo').textContent=index===LAST_STOP?'Conclusão →':'Avançar →';
+ $('estado').innerHTML=fade?'Trocando slide <span>Transição suave</span>':crash?`Severidade 10 <span>${crash.impacted?'Impacto frontal':'Perda de controle'}</span>`:cameraTween?'Novo enquadramento <span>Câmera em movimento</span>':motion?`Percurso ${String(index+1).padStart(2,'0')} → ${String(motion.to+1).padStart(2,'0')} <span>Em movimento</span>`:index===FINAL_SLIDE?'Conclusão <span>Jornada completa</span>':`Severidade ${index+1} <span>${crashed?'Após o impacto':'Aguardando avanço'}</span>`;
+ for(let i=0;i<=FINAL_SLIDE;i++){$('etapa-'+i).className='step'+(i===index?' current':i<index?' done':'');$('etapa-'+i).setAttribute('aria-current',i===index?'step':'false')}
  labels.forEach((label,i)=>label.ring.material=i===index?blue:gray);
  setContent();ensureSelectedVisible();
 }
 function setInstant(to){
  resetCrash();
- index=to;carU=stops[Math.min(to,4)];carTurn.copy(orient(carU));place(carU);steers.forEach(s=>s.rotation.y=0);
- if(to===5)finishWreck();
+ index=to;carU=stops[Math.min(to,LAST_STOP)];carTurn.copy(orient(carU));place(carU);steers.forEach(s=>s.rotation.y=0);
+ if(to===FINAL_SLIDE)finishWreck();
  const pose=presentationPose(to);look.copy(pose.look);boom.copy(pose.boom);
 }
 function selectSlide(to){
- if(fade||to<0||to>5||(index===to&&to!==4&&!motion&&!cameraTween&&!crash))return;
+ if(fade||to<0||to>FINAL_SLIDE||(index===to&&to!==LAST_STOP&&!motion&&!cameraTween&&!crash))return;
  // Um salto cancela o percurso atual; a troca de mundo acontece apenas no branco total.
  motion=null;cameraTween=null;crash=null;fade={to,time:0,switched:false};ui();
 }
 function advance(direction){
  if(motion||cameraTween||fade||crash)return;
- const to=index+direction;if(to<0||to>5)return;
- if(index===4&&crashed&&direction<0){selectSlide(to);return}
- if(to===5||index===5){
-  const pose=presentationPose(to);cameraTween={to,fromLook:look.clone(),fromBoom:boom.clone(),toLook:pose.look,toBoom:pose.boom,time:0,duration:3};ui();return;
+ const to=index+direction;if(to<0||to>FINAL_SLIDE)return;
+ if(index===LAST_STOP&&crashed&&direction<0){selectSlide(to);return}
+ if(to===FINAL_SLIDE||index===FINAL_SLIDE){
+  const pose=presentationPose(to);cameraTween={to,fromLook:look.clone(),fromBoom:boom.clone(),toLook:pose.look,toBoom:pose.boom,fromScreen:car.position.clone().project(camera),toScreen:screenAt(car.position,pose),time:0,duration:3};ui();return;
  }
  const from=carU,end=stops[to];
  // Um único relógio sincroniza carro, órbita e composição: todos chegam juntos.
@@ -55102,7 +55156,7 @@ function advance(direction){
 }
 function fullscreen(){if(document.fullscreenElement)document.exitFullscreen?.();else document.documentElement.requestFullscreen?.().catch(()=>{})}
 $('proximo').addEventListener('click',()=>advance(1));$('anterior').addEventListener('click',()=>advance(-1));
-for(let i=0;i<6;i++)$('etapa-'+i).addEventListener('click',()=>selectSlide(i));
+for(let i=0;i<=FINAL_SLIDE;i++)$('etapa-'+i).addEventListener('click',()=>selectSlide(i));
 function scrollList(direction){$('numeros').scrollBy({left:direction*($('etapa-0').offsetWidth+8),behavior:'smooth'})}
 $('rolar-anterior').addEventListener('click',()=>scrollList(-1));$('rolar-proximo').addEventListener('click',()=>scrollList(1));
 $('numeros').addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.preventDefault();$('numeros').scrollLeft+=e.deltaY}},{passive:false});
@@ -55111,36 +55165,14 @@ addEventListener('keydown',e=>{
  if(e.target.closest?.('.model-tools')&&[' ','Enter'].includes(e.key))return;
  // Espaço e Enter conservam a semântica dos botões quando a lista tem foco.
  if(e.target.closest?.('.slide-nav')&&[' ','Enter','ArrowLeft','ArrowRight'].includes(e.key)){
-  if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();const next=clamp(Number(e.target.id.replace('etapa-',''))+(e.key==='ArrowRight'?1:-1),0,5);$('etapa-'+next)?.focus()}return;
+  if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();const next=clamp(Number(e.target.id.replace('etapa-',''))+(e.key==='ArrowRight'?1:-1),0,FINAL_SLIDE);$('etapa-'+next)?.focus()}return;
  }
  const key=e.key.toLowerCase();if([' ','arrowright','pagedown','arrowleft','pageup','f'].includes(key)){e.preventDefault();if([' ','arrowright','pagedown'].includes(key))advance(1);else if(['arrowleft','pageup'].includes(key))advance(-1);else fullscreen()}
 });
 let resizeTimer;
 addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{makePoses();if(!motion&&!cameraTween&&!fade&&!crash){const p=presentationPose(index);look.copy(p.look);boom.copy(p.boom)}else if(motion)motion.endPose=stopPose(motion.to);else if(cameraTween){const p=presentationPose(cameraTween.to);cameraTween.toLook=p.look;cameraTween.toBoom=p.boom}},150)});
 const first=stopPose(0);look.copy(first.look);boom.copy(first.boom);place(carU);
-function criarVisorColetor(){
- const host=$('coletor-viewport'),studio=new T.Scene();studio.background=new T.Color('#ffffff');
- const model=criarColetorK24(T),pivot=new T.Group();studio.add(pivot);pivot.add(model.root);
- const box=new T.Box3().setFromObject(model.root),center=box.getCenter(V());model.root.position.sub(center);
- studio.add(new T.HemisphereLight('#ffffff','#afbecb',2.4));const key=new T.DirectionalLight('#fff4e5',3.1);key.position.set(-4,8,7);key.castShadow=true;key.shadow.mapSize.set(1024,1024);Object.assign(key.shadow.camera,{left:-5,right:5,top:5,bottom:-5,far:30});key.shadow.normalBias=.014;studio.add(key);
- const fill=new T.DirectionalLight('#bddbff',1.8);fill.position.set(5,3,-4);studio.add(fill);
- const ground=new T.Mesh(new T.PlaneGeometry(18,18),new T.ShadowMaterial({opacity:.12}));ground.rotation.x=-Math.PI/2;ground.position.y=-center.y-.03;ground.receiveShadow=true;studio.add(ground);
- const r=new T.WebGLRenderer({antialias:true,alpha:false});r.setPixelRatio(Math.min(devicePixelRatio,1.5));r.shadowMap.enabled=true;r.shadowMap.type=T.PCFSoftShadowMap;r.shadowMap.autoUpdate=false;r.toneMapping=T.ACESFilmicToneMapping;r.outputColorSpace=T.SRGBColorSpace;host.prepend(r.domElement);
- const c=new T.PerspectiveCamera(34,1,.1,60);let width=0,height=0,cut=true,drag=null,rendered=0;
- function fit(){const b=new T.Box3().setFromObject(model.root),target=b.getCenter(V()),direction=V(-.66,.85,1.1).normalize();let distance=6;
-  for(let n=0;n<80;n++){c.position.copy(target).addScaledVector(direction,distance);c.lookAt(target);c.updateMatrixWorld();let ok=true;for(const x of [b.min.x,b.max.x])for(const y of [b.min.y,b.max.y])for(const z of [b.min.z,b.max.z]){const p=V(x,y,z).project(c);if(Math.abs(p.x)>.90||Math.abs(p.y)>.85)ok=false}if(ok)break;distance*=1.045}
- }
- function render(){if(index!==0||host.clientWidth<1)return;r.shadowMap.needsUpdate=true;r.render(studio,c);rendered++}
- function resize(){const w=host.clientWidth,h=host.clientHeight;if(w<1||h<1)return;if(w!==width||h!==height){width=w;height=h;r.setSize(w,h);c.aspect=w/h;c.updateProjectionMatrix();fit();render()}}
- function reset(){pivot.rotation.set(0,0,0);fit();render()}
- r.domElement.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY};r.domElement.setPointerCapture(e.pointerId);e.stopPropagation()});
- r.domElement.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;pivot.rotation.y+=dx*.009;pivot.rotation.x=clamp(pivot.rotation.x+dy*.007,-.60,.60);drag={x:e.clientX,y:e.clientY};render()});
- r.domElement.addEventListener('pointerup',()=>{drag=null});r.domElement.addEventListener('pointercancel',()=>{drag=null});
- $('coletor-corte').addEventListener('click',()=>{cut=!cut;model.corte(cut);$('coletor-corte').setAttribute('aria-pressed',String(cut));$('coletor-corte').textContent=cut?'Vista em corte':'Vista completa';fit();render()});
- $('coletor-restaurar').addEventListener('click',reset);new ResizeObserver(resize).observe(host);
- return{resize,reset,exportar:cut=>model.exportar(cut),estado:()=>({cut,rendered,width,height,dutos:model.runners.length,rotation:pivot.rotation.toArray().slice(0,3)})};
-}
-const manifoldView=criarVisorColetor();
+const manifoldView=criarVisorColetor(T,{visivel:()=>index===0});
 function update(dt){
  mapClock+=dt;shadowAge+=dt;
  vegetation.wind.value+=dt;
@@ -55148,11 +55180,11 @@ function update(dt){
   fade.time+=dt;const out=.27,hold=.08,into=.34;
   $('fade').style.opacity=fade.time<out?smooth(fade.time/out):fade.time<out+hold?1:1-smooth((fade.time-out-hold)/into);
   if(!fade.switched&&fade.time>=out){fade.switched=true;setInstant(fade.to);ui()}
-  if(fade.time>=out+hold+into){fade=null;$('fade').style.opacity=0;if(index===4)beginCrash();else ui()}
+  if(fade.time>=out+hold+into){fade=null;$('fade').style.opacity=0;if(index===LAST_STOP)beginCrash();else ui()}
  }
- if(cameraTween){const t=cameraTween;t.time+=dt;const u=ease(clamp(t.time/t.duration,0,1));look.lerpVectors(t.fromLook,t.toLook,u);boom.lerpVectors(t.fromBoom,t.toBoom,u);if(u===1){index=t.to;cameraTween=null;ui()}}
+ if(cameraTween){const t=cameraTween;t.time+=dt;const u=ease(clamp(t.time/t.duration,0,1));look.lerpVectors(t.fromLook,t.toLook,u);boom.lerpVectors(t.fromBoom,t.toBoom,u);framePoint(car.position,lerp(t.fromScreen.x,t.toScreen.x,u),lerp(t.fromScreen.y,t.toScreen.y,u));if(u===1){look.copy(t.toLook);boom.copy(t.toBoom);index=t.to;cameraTween=null;ui()}}
  if(motion){
-  const m=motion;m.time+=dt;const q=clamp(m.time/m.duration,0,1),u=m.to===4&&m.direction>0?q*q*(2-q):ease(q),v=ease(q),previousU=carU;
+  const m=motion;m.time+=dt;const q=clamp(m.time/m.duration,0,1),u=m.to===LAST_STOP&&m.direction>0?q*q*(2-q):ease(q),v=ease(q),previousU=carU;
   carU=lerp(m.from,m.end,u);
   // Voltar refaz o mesmo caminho de ré, mantendo a frente do carro orientada à estrada.
   carTurn.copy(orient(carU));
@@ -55175,7 +55207,7 @@ function update(dt){
   const framing=lerp(initialScreenX,endScreenX,v)*(1-Math.sin(v*Math.PI)**2*.75);
   look.copy(compose(at(carU),boom,framing).look);
   if(q===1){
-   look.copy(m.endPose.look);boom.copy(m.endPose.boom);steers.forEach(s=>s.rotation.y=0);index=m.to;motion=null;if(index===4&&m.direction>0)beginCrash(true);else ui();
+   look.copy(m.endPose.look);boom.copy(m.endPose.boom);steers.forEach(s=>s.rotation.y=0);index=m.to;motion=null;if(index===LAST_STOP&&m.direction>0)beginCrash(true);else ui();
   }
  }
  if(crash){
@@ -55201,7 +55233,7 @@ function update(dt){
   const yaw=yaw0+Math.atan2(Math.sin(yaw1-yaw0),Math.cos(yaw1-yaw0))*u;
   const radius=lerp(Math.hypot(c.initialBoom.x,c.initialBoom.z),Math.hypot(crashPose.boom.x,crashPose.boom.z),u);
   boom.set(Math.sin(yaw)*radius,lerp(c.initialBoom.y,crashPose.boom.y,u)+Math.sin(u*Math.PI)**2*1.5,Math.cos(yaw)*radius);
-  look.copy(compose(car.position.clone().add(V(0,.06,0)),boom,.60).look);
+  look.copy(compose(car.position.clone().add(V(0,.06,0)),boom,contentSides[LAST_STOP]==='left'?.60:-.60).look);
   if(c.time>=duration){finishWreck();look.copy(crashPose.look);boom.copy(crashPose.boom);crash=null;ui()}
  }
  if(fire.visible){
@@ -55231,10 +55263,10 @@ function verificarGeometria(){
  let minClearance=Infinity,negative=0;
  function meshHeight(x,z){const fx=clamp((x+350)/2,0,349.999),fz=clamp((z+350)/2,0,349.999),i=Math.floor(fx),j=Math.floor(fz),u=fx-i,v=fz-j,a=landPositions.getY(j*351+i),b=landPositions.getY((j+1)*351+i),c=landPositions.getY((j+1)*351+i+1),d=landPositions.getY(j*351+i+1);return u+v<=1?a*(1-u-v)+b*v+d*u:b*(1-u)+d*(1-v)+c*(u+v-1)}
  for(let i=1;i<roadPoints.length-1;i++){const p=roadPoints[i],d=roadPoints[i+1].clone().sub(roadPoints[i-1]),s=V(-d.z,0,d.x).normalize();for(const offset of [-3.05,0,3.05]){const q=p.clone().addScaledVector(s,offset),clearance=p.y-meshHeight(q.x,q.z);minClearance=Math.min(minClearance,clearance);if(clearance<=0)negative++}}
- return{minClearance,negative,closureGap:roadPoints[0].distanceTo(roadPoints.at(-1)),roadLength:roadDistances.at(-1),forestCount:forestPoints.length,variantStats:vegetation.variants.map(v=>({tipo:v.type,triangles:(v.wood.getAttribute('position').count+(v.leaves?.getAttribute('position').count||0))/3,altura:v.height})),contactTimeRolling:escapeLength/((stops[4]-stops[3])*total/3)};
+ return{minClearance,negative,closureGap:roadPoints[0].distanceTo(roadPoints.at(-1)),roadLength:roadDistances.at(-1),forestCount:forestPoints.length,variantStats:vegetation.variants.map(v=>({tipo:v.type,triangles:(v.wood.getAttribute('position').count+(v.leaves?.getAttribute('position').count||0))/3,altura:v.height})),contactTimeRolling:escapeLength/((stops[LAST_STOP]-stops[LAST_STOP-1])*total/3)};
 }
 // Diagnóstico local para validação: sem telemetria, sem persistência e sem rede.
-window.prototipo={estado:()=>({index,carU,sceneRenders,shadowRenders,coletor:manifoldView.estado(),skidSamples,skidDrawCounts:skidTracks.map(t=>t.g.drawRange.count),moving:!!motion||!!cameraTween||!!crash,fading:!!fade,tracking:!!motion,crashTime:crash?.time??null,contactTime:crash?.contactTime??null,crashTravelled:crash?.travelled??null,forestCount:forestPoints.length,visibleTrees,treeVariants:vegetation.variants.length,roadClosed:roadPoints[0].distanceTo(roadPoints.at(-1))<.001,triangles:renderer.info.render.triangles,crashed,fire:fire.visible,impacts,damagedVisible:damaged.root.visible,tree:treePosition.toArray(),frontDirection:V(1,0,0).applyQuaternion(car.quaternion).toArray(),wreckPosition:wreckPosition.toArray(),crashLayout:roadIntrusions(crashPose,4,0),progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===5,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide,verificarGeometria,exportarColetor:cut=>manifoldView.exportar(cut),exportarArvore:i=>vegetation.tree(i),exportarIntegro:()=>{const c=car.clone(true);c.position.set(0,0,0);c.quaternion.identity();c.visible=true;return c},exportarAmassado:()=>damaged.exportar()};
+window.prototipo={estado:()=>({index,paradas:STOP_COUNT,slides:FINAL_SLIDE+1,carU,sceneRenders,shadowRenders,coletor:manifoldView.estado(),skidSamples,skidDrawCounts:skidTracks.map(t=>t.g.drawRange.count),moving:!!motion||!!cameraTween||!!crash,fading:!!fade,tracking:!!motion,crashTime:crash?.time??null,contactTime:crash?.contactTime??null,crashTravelled:crash?.travelled??null,forestCount:forestPoints.length,visibleTrees,treeVariants:vegetation.variants.length,roadClosed:roadPoints[0].distanceTo(roadPoints.at(-1))<.001,triangles:renderer.info.render.triangles,crashed,fire:fire.visible,impacts,damagedVisible:damaged.root.visible,tree:treePosition.toArray(),frontDirection:V(1,0,0).applyQuaternion(car.quaternion).toArray(),wreckPosition:wreckPosition.toArray(),crashLayout:roadIntrusions(crashPose,LAST_STOP,0),progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===FINAL_SLIDE,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide,verificarGeometria,exportarColetor:cut=>manifoldView.exportar(cut),exportarArvore:i=>vegetation.tree(i),exportarIntegro:()=>{const c=car.clone(true);c.position.set(0,0,0);c.quaternion.identity();c.visible=true;return c},exportarAmassado:()=>damaged.exportar()};
 ui();requestAnimationFrame(tick);
 } catch(error){console.error(error);$('erro').classList.remove('hidden');$('erro').textContent='Não foi possível iniciar a cena 3D. Abra este arquivo no Microsoft Edge ou Google Chrome com suporte a WebGL. Detalhe: '+error.message;$('estado').textContent='Cena indisponível';}
 })();

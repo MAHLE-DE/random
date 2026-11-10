@@ -7,7 +7,7 @@ Abra **[iniciar.html](iniciar.html)** no Microsoft Edge ou Google Chrome. O arqu
 - **Espaço, seta direita ou Page Down:** próximo slide, seguindo o percurso.
 - **Seta esquerda ou Page Up:** voltar pelo percurso.
 - **F:** entrar ou sair da tela cheia. Escape também sai da tela cheia.
-- **Primeiro slide:** arraste o coletor para girar. Use **Vista em corte / Vista completa** para alternar e **Reenquadrar** para voltar à posição inicial.
+- **Primeiro slide:** arraste o coletor para girar; a roda do mouse e **− / +** controlam o zoom. **Focar marcações** aproxima os três campos sem gravação. Use **Vista em corte / Vista completa** para alternar e **Reenquadrar** para voltar à vista inicial ampliada de 140%.
 - **Números no canto inferior esquerdo:** selecionar diretamente um slide com fade de saída e entrada. Um salto interrompe um percurso em andamento.
 - **Setas pequenas da lista, rolagem horizontal ou roda do mouse sobre a lista:** navegar pelos números. São cinco números completos visíveis por vez.
 
@@ -15,29 +15,29 @@ Quando um botão numérico tem foco, Enter ou espaço selecionam o slide e as se
 
 ## Comportamento atual
 
-São cinco paradas e um sexto slide de conclusão. O carro percorre uma estrada 3D única, com curvas, diagonais e desníveis. A distância entre as paradas é a mesma do primeiro protótipo. Cada transição normal dura três segundos, incluindo os movimentos de câmera para entrar e sair da conclusão.
+São dez paradas para as severidades de 1 a 10, mais a conclusão, identificada como **Fim** na barra. O carro percorre uma estrada 3D única, com curvas, diagonais e desníveis. As dez paradas foram distribuídas ao longo do percurso existente, preservando sua extensão total. Cada transição normal dura três segundos, incluindo os movimentos de câmera para entrar e sair da conclusão.
 
-Nas paradas, a câmera reserva um retângulo de 43% da largura e 52% da altura da janela para a apresentação, alternando os lados. A posição, altura e azimute são escolhidos por projeção da estrada completa, evitando a área reservada. Um fundo branco no retângulo mantém elementos decorativos afastados da leitura. Durante a viagem, o conteúdo some e a estrada pode atravessar o centro.
+Nas paradas, a câmera reserva um retângulo de 51,6% da largura e 62,4% da altura da janela, 20% maior em cada dimensão, alternando os lados com margem lateral de 5%. A posição, altura e azimute são escolhidos por projeção da estrada completa, evitando a área reservada. O fundo branco tem 85% de opacidade; texto, modelo e logo permanecem opacos. A marca fica dentro do canto superior direito do slide. Durante a viagem, o conteúdo some e a estrada pode atravessar o centro.
 
-A câmera e o carro começam a se mover juntos, no primeiro quadro da transição. Um único relógio controla percurso, órbita, altura e composição, com partida e chegada suaves nas paradas normais. A exceção é a quinta cena: o carro mantém o embalo para entrar diretamente na derrapagem. O carro permanece dentro da tela. Não há direção manual.
+A câmera e o carro começam a se mover juntos, no primeiro quadro da transição. Um único relógio controla percurso, órbita, altura e composição, com partida e chegada suaves nas paradas normais. A exceção é a décima cena: o carro mantém o embalo para entrar diretamente na derrapagem. O carro permanece dentro da tela. Não há direção manual.
 
-Depois da quinta parada, Avançar abre a conclusão: o carro permanece na última posição e a câmera se afasta para apresentar o mapa inteiro. Voltar retorna ao enquadramento da quinta parada. A visão geral não tem botão separado.
+Depois da décima parada, Avançar abre a conclusão: o carro permanece na última posição e a câmera se afasta para apresentar o mapa inteiro. Voltar retorna ao enquadramento da décima parada. A visão geral não tem botão separado.
 
-Na quinta parada, o carro executa uma sequência adicional de três segundos: perde o controle, deixa marcas de derrapagem, sai da estrada e bate de frente em uma árvore. Há um único impacto, seguido pelo amassamento da dianteira e, após um pequeno intervalo, fogo e fumaça em 3D. A cabine e a marca continuam reconhecíveis. O carro fica imóvel após o impacto; o fogo permanece animado. Essa ação acontece depois da viagem normal de três segundos entre as paradas.
+Na décima parada, o carro executa uma sequência adicional de três segundos: perde o controle, deixa marcas de derrapagem, sai da estrada e bate de frente em uma árvore. Há um único impacto, seguido pelo amassamento da dianteira e, após um pequeno intervalo, fogo e fumaça em 3D. A cabine e a marca continuam reconhecíveis. O carro fica imóvel após o impacto; o fogo permanece animado. Essa ação acontece depois da viagem normal de três segundos entre as paradas.
 
-Para testar diretamente, selecione **05** na barra. Selecionar **05 novamente** repete a sequência com fade de reinício. Retornar da conclusão à quinta parada conserva o estado amassado sem repetir a batida. Voltar da quinta para a quarta usa fade e restaura o carro intacto; selecionar outro slide também cancela a sequência e seus efeitos.
+Para testar diretamente, selecione **10** na barra. Selecionar **10 novamente** repete a sequência com fade de reinício. Retornar da conclusão à décima parada conserva o estado amassado sem repetir a batida. Voltar da décima para a nona usa fade e restaura o carro intacto; selecionar outro slide também cancela a sequência e seus efeitos.
 
 O [modelo amassado separado](../modelos/carro-amassado.glb) tem geometria deformada já aplicada, sem depender da animação ou de vídeo. A [prévia](../modelos/previa-carro-amassado.png) permite conferir o resultado. A deformação é ilustrativa e não corresponde a uma simulação física ou a um veículo real.
 
-O primeiro slide contém o novo coletor 3D, centralizado na área de apresentação. Os demais retângulos continuam reservados para desenvolver o conteúdo slide a slide.
+O primeiro slide trata da função de marcar data de injeção, número do componente e cavidade. O texto separa o efeito funcional no sistema, de severidade 1, da ressalva comercial: sem rastreabilidade confiável, um problema no cliente pode exigir ação sobre um conjunto maior de peças e ampliar o custo para a MAHLE. Não atribui outra nota numérica a esse custo. O modelo fica ao lado do texto, sem sobreposição; três superfícies vazias destacam as marcações ausentes. Os demais retângulos continuam reservados para desenvolver o conteúdo slide a slide.
 
-O cenário contém 5.638 árvores distribuídas em grupos e clareiras, com 20 variantes: 12 coníferas, seis árvores de copa larga e duas árvores secas. Os modelos próximos têm entre 856 e 1.496 triângulos, com troncos curvos, galhos e copas assimétricas, sem as raízes externas da versão anterior. A floresta foi estendida para preencher também o canto superior esquerdo da vista geral. Há grama agrupada, pedras, variação de cor no terreno, luz solar quente, preenchimento frio, sombras de 4096 × 4096 e movimento leve das copas.
+O cenário contém cerca de 5,6 mil árvores distribuídas em grupos e clareiras, com 20 variantes: 12 coníferas, seis árvores de copa larga e duas árvores secas. Os modelos próximos têm entre 856 e 1.496 triângulos, com troncos curvos, galhos e copas assimétricas, sem as raízes externas da versão anterior. A floresta foi estendida para preencher também o canto superior esquerdo da vista geral. Há grama agrupada, pedras, variação de cor no terreno, luz solar quente, preenchimento frio, sombras de 4096 × 4096 e movimento leve das copas.
 
 A árvore do impacto é da mesma família das árvores de copa larga da floresta, com tronco livre na altura do carro. Os marcadores têm clareiras próprias, sem árvores ou grama sobre os discos. As malhas são compartilhadas por instâncias; o nível de detalhe acompanha a proximidade do carro e a visão aérea.
 
-A estrada ganhou uma continuação externa curva, fechada, que preserva o trecho original das cinco paradas e elimina pontas visíveis. O terreno acompanha toda a estrada. As faixas centrais e laterais são desenhadas no próprio material do asfalto, com suavização de bordas, para evitar camadas sobrepostas e cintilação na vista distante. A logo vetorial MAHLE no capô continua orientada para leitura pela frente.
+A estrada tem uma continuação externa curva, fechada, que preserva o trajeto original e elimina pontas visíveis. O terreno acompanha toda a estrada. As faixas centrais e laterais são desenhadas no próprio material do asfalto, com suavização de bordas, para evitar camadas sobrepostas e cintilação na vista distante. A logo vetorial MAHLE no capô continua orientada para leitura pela frente.
 
-Na vista geral, a continuação agora entra pelo lado esquerdo e segue para a direita, em vez de aparecer vindo da borda inferior. As cinco paradas originais foram mantidas.
+Na vista geral, a continuação entra pelo lado esquerdo e segue para a direita, em vez de aparecer vindo da borda inferior.
 
 ## Coletor do primeiro slide
 
@@ -49,9 +49,9 @@ Os [modelos GLB e as referências](../modelos/coletor-k24/REFERENCIAS.md) ficam 
 
 O campo de visão filtra as instâncias de árvores enviadas à GPU, com margem para os movimentos da câmera e sombras. As árvores próximas continuam detalhadas; as distantes usam versões simplificadas. As sombras estáveis da floresta são reutilizadas e atualizadas ao mudar a região visível; o contato do carro com o solo é desenhado separadamente. Quando o mapa está parado, o desenho do ambiente é limitado a oito atualizações por segundo, mantendo o vento leve sem renderizar a floresta inteira continuamente.
 
-Em comparação local no Edge sem interface, em 1600 × 900, os mesmos três deslocamentos passaram de aproximadamente 74,2 ms por quadro para 33,3 ms: cerca de 13,5 para 30 FPS médios. Isso mede esta máquina e este percurso, não garante uma taxa específica em todo computador. Método e resultados estão em `desempenho.json`.
+Em comparação local da versão anterior, ainda com cinco paradas, no Edge sem interface, em 1600 × 900, os mesmos três deslocamentos passaram de aproximadamente 74,2 ms por quadro para 33,3 ms: cerca de 13,5 para 30 FPS médios. Isso mede esta máquina e aquele percurso, não garante uma taxa específica em todo computador. Método e resultados históricos estão em `desempenho.json`.
 
-Na aproximação da quinta parada, o movimento continua diretamente para a derrapagem. A velocidade é controlada pela distância efetivamente percorrida na curva, mantendo o embalo até o impacto, quando ocorre a parada brusca e a deformação. As marcas são geradas quadro a quadro a partir dos pneus traseiros. A seleção direta de 05 reinicia a sequência com fade e uma aceleração inicial curta.
+Na aproximação da décima parada, o movimento continua diretamente para a derrapagem. A velocidade é controlada pela distância efetivamente percorrida na curva, mantendo o embalo até o impacto, quando ocorre a parada brusca e a deformação. As marcas são geradas quadro a quadro a partir dos pneus traseiros. A seleção direta de 10 reinicia a sequência com fade e uma aceleração inicial curta.
 
 Veja a [galeria de variantes](../modelos/arvores/galeria.png) e os modelos GLB de [conífera](../modelos/arvores/conifera.glb), [copa larga](../modelos/arvores/frondosa.glb) e [árvore seca](../modelos/arvores/seca.glb).
 
@@ -60,6 +60,8 @@ Veja a [galeria de variantes](../modelos/arvores/galeria.png) e os modelos GLB d
 - `movimento.js`: mapa, carro, enquadramentos, animação e navegação.
 - `dano.js`: geração da variante amassada e deformação progressiva do impacto.
 - `coletor.js`: geometria editável do coletor K24 didático e suas versões completa/em corte.
+- `visor-coletor.js`: visor com giro, zoom, foco nas marcações e desenho sob demanda.
+- `configuracao.json`: dez paradas, medidas do painel e textos do primeiro slide.
 - `exportar-coletor.mjs`: modelos GLB e prévias do coletor.
 - `medir-desempenho.mjs`: comparação repetível dos três primeiros deslocamentos.
 - `vegetacao.js`: modelos das 20 variantes, materiais e oscilação das copas.
@@ -78,4 +80,4 @@ Para reconstruir também o modelo amassado, execute `node prototipo-mapa/exporta
 
 O arquivo bloqueia conexões de rede e mídias por sua política de conteúdo. Usa WebGL e depende de suporte gráfico no navegador. Os enquadramentos foram verificados em 16:9 e 4:3. Uma projeção real e o passador físico ainda devem ser conferidos no equipamento da apresentação.
 
-Para repetir os testes em um ambiente de produção com Playwright instalado: `node prototipo-mapa/verificar-prototipo.mjs`. Os relatórios e capturas ficam em `.producao/qa-floresta/`; o diretório pode ser alterado pela variável `QA_OUTPUT`.
+Para repetir os testes em um ambiente de produção com Playwright instalado: `node prototipo-mapa/verificar-prototipo.mjs`. Os relatórios e capturas ficam em `.producao/qa-slide1/`; o diretório pode ser alterado pela variável `QA_OUTPUT`.

@@ -12,3 +12,5 @@ Esta é uma reconstrução didática com proporções aproximadas, não uma impo
 - Fonte editável: `prototipo-mapa/coletor.js`, na raiz do repositório.
 
 Os componentes têm nomes em português. Os quatro dutos, as paredes do plenum, a tampa, a entrada lateral e a flange estão separados para que os próximos slides possam destacar regiões e representar efeitos. A espessura é um parâmetro relativo do modelo, sem valor de especificação industrial.
+
+Para o primeiro slide foram acrescentadas três superfícies lisas, sem inscrições, para representar ausência de data de injeção, número do componente e número de cavidade. A posição e a forma dessas superfícies são didáticas; não foram medidas no CAD de referência. Os contornos âmbar são destaques da apresentação e não fazem parte dos arquivos GLB exportados. Nenhuma identificação fictícia foi gravada no modelo.
