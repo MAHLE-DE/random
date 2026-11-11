@@ -28,13 +28,14 @@ function criarVisorColetor(T,{visivel=()=>true}={}){
  function position(){
   if(width<1||height<1)return;
   const points=modelPoints(),right=V(direction.z,0,-direction.x).normalize(),up=V().crossVectors(direction,right).normalize();
-  const padding=Math.min(26,width*.06,height*.06),limitX=1-padding*2/width,limitY=1-padding*2/height,tan=Math.tan(T.MathUtils.degToRad(c.fov/2)),kx=tan*c.aspect*limitX,ky=tan*limitY;
+  const padding=Math.min(26,width*.06,height*.06),insets=demo.margensVisor(),reserve=insets?.bottom||0,reserveRight=insets?.right||0,limitX=1-(padding*2+reserveRight)/width,limitY=1-(padding*2+reserve)/height,tan=Math.tan(T.MathUtils.degToRad(c.fov/2)),kx=tan*c.aspect*limitX,ky=tan*limitY;
+  if(reserve||reserveRight)c.setViewOffset(width,height,reserveRight/2,reserve/2,width,height);else if(c.view?.enabled)c.clearViewOffset();
   function fit(cloud){let rightPlus=-Infinity,rightMinus=Infinity,upPlus=-Infinity,upMinus=Infinity,minZ=Infinity,maxZ=-Infinity,minGround=Infinity;
    for(const p of cloud){const x=p.dot(right),y=p.dot(up),z=p.dot(direction);rightPlus=Math.max(rightPlus,x+kx*z);rightMinus=Math.min(rightMinus,x-kx*z);upPlus=Math.max(upPlus,y+ky*z);upMinus=Math.min(upMinus,y-ky*z);minZ=Math.min(minZ,z);maxZ=Math.max(maxZ,z);minGround=Math.min(minGround,p.y)}
    const centerZ=(minZ+maxZ)/2,safeZ=Math.max(maxZ+.2,(rightPlus-rightMinus)/(2*kx),(upPlus-upMinus)/(2*ky));return{target:right.clone().multiplyScalar((rightPlus+rightMinus)/2).addScaledVector(up,(upPlus+upMinus)/2).addScaledVector(direction,centerZ),distance:(safeZ-centerZ+.02)/(.8*zoom),minGround};
   }
   const full=fit(points),detail=demo.detalheEnquadramento(selected),amount=detail?clamp(detailOverride??detail.amount,0,1):0,near=amount?fit(detail.points):full;
-  ground.position.y=full.minGround-.03;ground.visible=amount<.2;target.lerpVectors(full.target,near.target,amount);
+  ground.position.y=full.minGround-.03;ground.visible=amount<.2&&current?.id!=='distribuicao';target.lerpVectors(full.target,near.target,amount);
   const distance=T.MathUtils.lerp(full.distance,near.distance,amount);c.position.copy(target).addScaledVector(direction,distance);c.lookAt(target);c.updateMatrixWorld();
   const cloud=amount===1?detail.points:points;
   framing={x0:Infinity,x1:-Infinity,y0:Infinity,y1:-Infinity,z0:Infinity,z1:-Infinity,margemPx:padding,pontos:cloud.length,detalhe:amount};
@@ -69,7 +70,7 @@ function criarVisorColetor(T,{visivel=()=>true}={}){
   if(index===slide&&stage===n)return;
   const preserve=index===slide&&['logistica','servico','quimica'].includes(current?.id)&&stage===0&&n===1,from={direction:direction.clone(),rotation:pivot.rotation.clone(),zoom};
   slide=index;stage=n;current=CONFIG.slides[index];clock=0;viewTween=null;effects.set(current.id,n);demo.set(current,n);pointCache.clear();cut=false;model.corte(false);
-  setTransparency(['limpeza','distribuicao','agua','backfire'].includes(current.id));$('coletor-transparencia').classList.toggle('hidden',!permiteTransparencia());$('coletor-transparencia').disabled=!permiteTransparencia();
+  setTransparency(['distribuicao','agua','backfire'].includes(current.id));const showTransparency=current.id==='distribuicao';$('coletor-transparencia').classList.toggle('hidden',!showTransparency);$('coletor-transparencia').disabled=!showTransparency;
   key.position.set(current.id==='aparencia'?-5:-4,current.id==='aparencia'?4:8,7);$('coletor-corte').setAttribute('aria-pressed','false');$('coletor-corte').textContent='Vista em corte';$('diagrama').innerHTML=diagramaDemonstracao(current,n);
   const presentation=demo.apresentacao();if(presentation?.duration){
    const dest=V(...presentation.direction).normalize();if(!preserve){from.direction=V(...(presentation.fromDirection||(current.id==='servico'?[-.42,.66,1.35]:[-.75,.8,1.4]))).normalize();from.rotation=new T.Euler();from.zoom=1.1}

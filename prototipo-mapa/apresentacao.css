@@ -16,6 +16,11 @@
 .exposure-time>div:first-child{display:flex;justify-content:space-between;gap:12px;align-items:center}.exposure-time strong{font-size:12px;letter-spacing:.035em}.exposure-time span{font-size:9px;color:#536e82;white-space:nowrap}
 .exposure-track{height:5px;border-radius:8px;background:#d6e3ed;overflow:hidden;margin:6px 0}.exposure-track i{display:block;width:100%;height:100%;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,#8bb5cc,#b05a28,#80391e)}
 .exposure-time small{font-size:11px}.exposure-time.aged{border-color:#c49a77;background:#fff8efed;color:#884219}
+.air-charts{position:absolute;z-index:3;top:50%;right:12px;display:flex;flex-direction:column;gap:10px;justify-content:center;pointer-events:none;transform:translateY(-50%)}
+.air-charts section{height:var(--air-chart-height,106px);padding:8px 11px;background:#fafdfff5;border:1px solid #bed0df;border-radius:10px;display:flex;flex-direction:column;justify-content:space-between;min-width:0;color:#244d69;box-shadow:0 3px 12px #25486310}
+.air-charts.bottom-layout{top:auto;bottom:10px;left:12px;right:12px;flex-direction:row}.air-charts.bottom-layout section{width:min(210px,48%)}
+.air-charts strong{font-size:10px;letter-spacing:.04em}.air-charts small{font-size:10px;line-height:1.15}.air-charts svg{height:45px;width:100%;min-height:0}.air-charts small:has(span){display:flex;justify-content:space-between}.air-charts small b{color:#b33e2f}
+.air-bars{display:flex;gap:13px;justify-content:center;height:55px;padding-top:3px}.air-bars>div{width:26px;display:flex;flex-direction:column;align-items:center;justify-content:end;gap:3px}.air-bars i{display:block;width:21px;height:34px;border-radius:4px 4px 0 0;background:linear-gradient(#5fbde8,#1373b5);transform-origin:bottom}.air-bars b{font-size:10px}.air-bars .deficient{color:#b33e2f}.air-bars .deficient i{background:linear-gradient(#ed9d72,#c54732)}
 .meaning p{font-size:clamp(17px,1.35vw,25px);line-height:1.38}
 .meaning .emphasis{font-size:clamp(15px,1.09vw,20px);line-height:1.35;margin-top:10px}
 .section-kicker{font-size:clamp(11px,.85vw,16px);margin-bottom:6px}

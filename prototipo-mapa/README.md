@@ -9,7 +9,7 @@ Abra `iniciar.html` no Edge ou Chrome. Esse arquivo é autossuficiente e funcion
 - **Barra inferior:** saltar para um slide e reiniciar sua demonstração. Os números repetidos indicam funções diferentes da mesma severidade.
 - **Arraste / roda / − / +:** girar e ampliar o coletor. A câmera mantém a geometria inteira enquadrada.
 - **Legendas 1, 2 e 3:** orientar a vista para o alvo e selecionar o indicador correspondente. A partir de S3, regiões ocultas podem ativar transparência para permitir a localização. S1 e S2 orientam a vista sem transparência.
-- **Vista em corte, Transparência e Reenquadrar:** inspecionar o interior, alternar opacidade e restaurar a orientação e zoom iniciais.
+- **Vista em corte e Reenquadrar:** inspecionar o interior e restaurar a orientação e zoom iniciais. O botão **Transparência** existe somente em S7.2, onde começa ativado.
 
 As animações não avançam o roteiro automaticamente. Transporte, partículas ou ondas podem se movimentar na etapa atual; só outro comando libera a próxima consequência. Não há uma etapa adicional de inspeção: giro, corte, zoom e reenquadramento funcionam durante toda a demonstração. A última etapa mantém o seu cenário e seus efeitos. O mapeador de demonstração guiada foi retirado; a coluna esquerda contém somente o texto explicativo.
 
@@ -25,15 +25,14 @@ As animações não avançam o roteiro automaticamente. Transporte, partículas 
 | S6 · 1 | Rastreabilidade | QR e identificadores na peça; campos ausentes com interrogações no 3D; lote ampliado com seis réplicas sem vínculo |
 | S6 · 2 | Manutenção e serviço | Duas etapas: parafuso solto; montagem gradual do motor e entorno, com chave em L bloqueada pela travessa e X vermelho em loop |
 | S7 · 1 | Resistência química | Duas etapas: insertos e limitadores novos e brilhantes; aproximação das peças com ferrugem progressiva e indicador de tempo |
-| S7 · 2 | Limpeza interna | Carcaça translúcida, partículas e congelamento antes da válvula |
-| S7 · 3 | Quantidade e distribuição de ar | Fluxo equilibrado, restrição em um ramo, pulsos e torque qualitativo |
+| S7 · 2 | Quantidade e distribuição de ar | Duas etapas: coletor transparente e streamlines equilibradas; menos ar no R4, seção vermelha pulsante e gráficos ilustrativos no visor |
 | S8 | Água e condensado | Gotas, bolsa de água, aspiração e interrupção da admissão |
 | S9 · 1 | Retorno de chama | Pressão inversa, solicitação, fissura e fragmentos contidos |
 | S9 · 2 | Estanqueidade | Verificação de fuga, partículas, divergência de medição e diagnóstico |
 | S10 | Vácuo para o servofreio | Circuito íntegro, interrupção, esforço no pedal e parada sem colisão |
 | Fim | Conclusão | Efeito no sistema, funções primárias e secundárias e intensidade percebida |
 
-Fonte técnica: `../apresentacao_qualidade_completa.xlsx`, `Sheet1!B3:F17`, com a linha 10 retirada da apresentação. A nota acompanha o cenário da planilha. As cenas são ilustrações didáticas; não são simulações CFD, análises estruturais ou ensaios de frenagem. A geometria K24 é uma reconstrução própria de referência, sem dimensões de fabricação.
+Fonte técnica: `../apresentacao_qualidade_completa.xlsx`, `Sheet1!B3:F17`, com as linhas 10 e 12 retiradas da apresentação. A nota acompanha o cenário da planilha. As cenas são ilustrações didáticas; não são simulações CFD, análises estruturais ou ensaios de frenagem. A geometria K24 é uma reconstrução própria de referência, sem dimensões de fabricação.
 
 ## Edição e reprodução
 
@@ -47,7 +46,9 @@ S6.2 mostra primeiro o fixador solto, com folga e rosca exposta. Na segunda etap
 
 S7.1 monta dois insertos roscados e seis limitadores nos furos existentes da flange. Reflexos de estúdio gerados localmente deixam o metal novo brilhante. Na segunda etapa, a câmera aproxima duas peças durante 2,9 segundos; a corrosão avança em 4,4 segundos, com manchas orgânicas, perda de reflexão e microtextura. Um indicador acima do visor acompanha a passagem de tempo, sem atribuir uma escala real. A carcaça mantém seu acabamento original. As legendas fazem aproximações individuais; Reenquadrar restaura o coletor inteiro sem alterar o estado dos metais. Giro ou zoom manual interrompem a vista automática, enquanto a corrosão termina. Execute `node prototipo-mapa/verificar-corrosao.mjs`; capturas e relatório ficam em `.producao/qa-corrosao/`.
 
-Edite o roteiro em `slides.json`; cada função tem `severidade`, `linha` de origem, textos, três alvos 3D e `etapas`. A severidade determina a parada. São 34 etapas reais. S1 e S2 não têm animação de ar ou função de transparência. S2 já inicia com os três efeitos visuais ativos. S3 e S4 também iniciam diretamente em sua única etapa. S3 não tem animação de ar; os balões 2 e 3 acompanham a linha em relevo no topo e o canto superior da flange, respectivamente. Selecionar a linha com a tampa em corte restaura a vista completa. Na S4, um volume conservador da onda define o enquadramento e a animação não recalcula a distância da câmera; somente uma rotação de até 0,0015 rad (cerca de 0,086°) para cada lado faz o coletor vibrar. Os controles manuais continuam funcionando. `configuracao.json` mantém somente as configurações do painel e do mapa. Execute `node prototipo-mapa/gerar.mjs` na raiz do repositório para atualizar `iniciar.html`.
+S7.2 usa 24 trajetórias curvas no interior do coletor, com segmentos curtos que avançam pelo pleno e pelos runners. A segunda etapa muda gradualmente o R4 durante 1,8 segundo: dois caminhos permanecem visíveis, com avanço mais lento e menor intensidade, enquanto R1–R3 mantêm seis caminhos. Uma seção transversal perpendicular à tangente do runner 4 pulsa em vermelho; não representa uma obstrução física. Os gráficos não têm escala de vazão ou desempenho e aparecem dentro do visor, à direita em janelas largas e na parte inferior em janelas altas. O enquadramento conserva espaço para os gráficos, sem cobrir o modelo ou a navegação. O material transparente pode ser alternado pelo botão exclusivo desse slide. Execute `node prototipo-mapa/verificar-distribuicao.mjs`; a saída fica em `.producao/qa-distribuicao/`.
+
+Edite o roteiro em `slides.json`; cada função tem `severidade`, `linha` de origem, textos, três alvos 3D e `etapas`. A severidade determina a parada. São 30 etapas reais. S1 e S2 não têm animação de ar ou função de transparência. S2 já inicia com os três efeitos visuais ativos. S3 e S4 também iniciam diretamente em sua única etapa. S3 não tem animação de ar; os balões 2 e 3 acompanham a linha em relevo no topo e o canto superior da flange, respectivamente. Selecionar a linha com a tampa em corte restaura a vista completa. Na S4, um volume conservador da onda define o enquadramento e a animação não recalcula a distância da câmera; somente uma rotação de até 0,0015 rad (cerca de 0,086°) para cada lado faz o coletor vibrar. Os controles manuais continuam funcionando. `configuracao.json` mantém somente as configurações do painel e do mapa. Execute `node prototipo-mapa/gerar.mjs` na raiz do repositório para atualizar `iniciar.html`.
 
 O painel tem 90% da largura e da altura, começando em 5% na horizontal e 2% na vertical para reservar a navegação inferior. O visor ocupa a coluna direita; diagramas, legendas e ferramentas têm linhas próprias, sem sobrepor o modelo. Nas trocas entre funções da mesma parada, o fade é aplicado a `#slide-content`, sem apagar o painel branco ou aplicar o véu global sobre o mapa. Conteúdo e controles são verificados em 1600×900, 1280×720 e 1280×960.
 

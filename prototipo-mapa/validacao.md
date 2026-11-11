@@ -1,5 +1,19 @@
 # Validação do protótipo
 
+## Distribuição de ar em S7.2 — 11/11/2026
+
+- Limpeza interna foi removida do roteiro, das cenas e da navegação. A distribuição de ar passou a S7.2, imediatamente após resistência química. A apresentação tem 13 funções, 14 telas e 30 etapas em dez paradas; as linhas 10 e 12 da planilha de referência não são apresentadas.
+- Duas etapas: coletor transparente com alimentação semelhante entre runners; depois, desbalanceamento do runner 4, mais distante da entrada. O avanço depende de clique ou seta; a animação não troca a etapa automaticamente.
+- O fluxo usa 24 curvas tridimensionais com trechos curtos animados. Na segunda etapa, R1–R3 mantêm seis trajetórias, enquanto R4 mantém duas, com menor velocidade e intensidade. A mudança ocorre gradualmente durante 1,8 segundo.
+- Uma seção transversal perpendicular à tangente do quarto runner pulsa em vermelho. Ela representa falta de ar, não uma barreira física. O percurso dos trechos e a pulsação usam limites fixos e não provocam aproximação/afastamento no loop.
+- Dois gráficos simples ficam dentro do visor 3D: barras dos quatro runners e curva de desempenho abaixo da referência. Não são exibidos valores de vazão, potência ou torque. Identificadores R1–R4 relacionam os dutos às barras.
+- Em janelas largas os gráficos ficam à direita; em janelas altas ficam abaixo. O enquadramento considera os trajetos e a geometria visível e mantém espaço para os gráficos, sem sobrepor modelo, legendas ou navegação. Capturas inspecionadas em 1600×900, 1280×720 e 1280×960.
+- O botão de transparência aparece apenas na distribuição de ar, iniciado ativo. Os demais roteiros preservam seus efeitos internos de transparência sem esse controle. Botão, corte, giro, foco, retorno ao equilíbrio e remoção dos gráficos na saída foram testados.
+- Regressão geral aprovada nas três resoluções: 90 estados, 117 focos de legenda, navegação das 13 funções e cinco transições na mesma parada. O teste específico de corrosão também passou novamente, incluindo a passagem direta para a nova S7.2.
+- Sem erros JavaScript/WebGL ou solicitações HTTP/HTTPS reportados. Relatórios e capturas em `.producao/qa-distribuicao/`, `.producao/qa-corrosao/` e `.producao/qa-completa/`. Nenhuma dependência externa nova; hash LF e resumos em `validacao-completa.json`.
+
+As seções abaixo registram versões anteriores.
+
 ## Corrosão metálica e remoção de S6.3 — 11/11/2026
 
 - S6.3 foi removido do roteiro, da navegação e das cenas. A conclusão e a documentação foram atualizadas para 14 funções, 15 telas e 34 etapas, mantendo dez paradas. S6.2 segue diretamente para S7.1; a linha 10 da planilha de referência não é apresentada.

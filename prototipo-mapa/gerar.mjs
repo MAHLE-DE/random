@@ -23,6 +23,7 @@ const demos=await fs.readFile(path.join(base,'demonstracoes.js'),'utf8');
 const productScenes=await fs.readFile(path.join(base,'cenas-produto.js'),'utf8');
 const serviceScene=await fs.readFile(path.join(base,'cena-servico.js'),'utf8');
 const corrosionScene=await fs.readFile(path.join(base,'cena-corrosao.js'),'utf8');
+const airScene=await fs.readFile(path.join(base,'cena-distribuicao.js'),'utf8');
 const css=await fs.readFile(path.join(base,'apresentacao.css'),'utf8');
 const config=JSON.parse(await fs.readFile(path.join(base,'configuracao.json'),'utf8'));
 config.slides=JSON.parse(await fs.readFile(path.join(base,'slides.json'),'utf8'));
@@ -30,6 +31,7 @@ config.codigoRastreabilidade=JSON.parse(await fs.readFile(path.join(base,'codigo
 let app=(await fs.readFile(path.join(base,'movimento.js'),'utf8')).replace('__CARRO_BASE64__',car).replace('__DANO_SOURCE__',()=>damage).replace('__VEGETACAO_SOURCE__',()=>vegetation).replace('__COLETOR_SOURCE__',()=>manifold).replace('__VISOR_SOURCE__',()=>viewer).replace('__DEMOS_SOURCE__',()=>demos).replace('__CENAS_PRODUTO_SOURCE__',()=>productScenes).replace('__CENA_SERVICO_SOURCE__',()=>serviceScene).replace('__VISIBILITY_SOURCE__',()=>visibility).replace('__EFFECTS_SOURCE__',()=>effects).replace('__CONFIG_SOURCE__',()=>`const CONFIG=${JSON.stringify(config)};const STOP_COUNT=CONFIG.paradas.length,LAST_STOP=STOP_COUNT-1,FINAL_SLIDE=STOP_COUNT,STOP_PARAMS=CONFIG.paradas.map(p=>p.u);`);
 const labels=config.slides.map((s,i)=>{const same=config.slides.filter(p=>p.severidade===s.severidade);return same.length>1?s.severidade+'·'+(same.indexOf(s)+1):String(s.severidade).padStart(2,'0')}).concat('Fim');
 app=app.replace('__CENA_CORROSAO_SOURCE__',()=>corrosionScene);
+app=app.replace('__CENA_DISTRIBUICAO_SOURCE__',()=>airScene);
 const steps=labels.map((label,i)=>`<button class="step" id="etapa-${i}" aria-label="${i===config.slides.length?'Selecionar conclusão':'Selecionar severidade '+config.slides[i].severidade+': '+config.slides[i].titulo}" type="button">${label}</button>`).join('');
 let html=await fs.readFile(path.join(base,'interface.html'),'utf8');
 const p=config.painel,panelCSS=`--painel-x:${p.margemLateral*100}%;--painel-y:${p.topo*100}%;--painel-largura:${p.largura*100}%;--painel-altura:${p.altura*100}%;--painel-opacidade:${p.opacidade};`;

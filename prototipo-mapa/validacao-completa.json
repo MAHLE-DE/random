@@ -1,8 +1,8 @@
 {
   "data": "2026-11-11",
-  "revisao": "Remoção da função S6.3 e corrosão dos componentes metálicos em S7.1",
+  "revisao": "Remoção de limpeza interna e reconstrução da distribuição de ar em S7.2",
   "arquivo": "iniciar.html",
-  "sha256": "c775c45e63a1c1c194e065e507dae072a891037b5208b234001708074b27358b",
+  "sha256": "83e7b3f5914e7311b5330a75fb2ecc4127b03825986b002880acc3d9717bf422",
   "normalizacaoHash": "LF, conforme .gitattributes",
   "fonte": {
     "arquivo": "apresentacao_qualidade_completa.xlsx",
@@ -18,7 +18,6 @@
       8,
       9,
       11,
-      12,
       13,
       14,
       15,
@@ -26,48 +25,49 @@
       17
     ],
     "linhasExcluidas": [
-      10
+      10,
+      12
     ]
   },
-  "funcoes": 14,
-  "slides": 15,
+  "funcoes": 13,
+  "slides": 14,
   "paradas": 10,
-  "etapas": 34,
+  "etapas": 30,
   "resolucoes": [
     {
       "width": 1600,
       "height": 900,
-      "funcoes": 14,
-      "estados": 34,
-      "legendas": 42,
+      "funcoes": 13,
+      "estados": 30,
+      "legendas": 39,
       "ruido": {
         "amostras": 59,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.0029983565955486297
+        "amplitudeRotacao": 0.0029986478681270226
       }
     },
     {
       "width": 1280,
       "height": 720,
-      "funcoes": 14,
-      "estados": 34,
-      "legendas": 42,
+      "funcoes": 13,
+      "estados": 30,
+      "legendas": 39,
       "ruido": {
-        "amostras": 60,
+        "amostras": 59,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.0029931293832963285
+        "amplitudeRotacao": 0.0029953333400833033
       }
     },
     {
       "width": 1280,
       "height": 960,
-      "funcoes": 14,
-      "estados": 34,
-      "legendas": 42,
+      "funcoes": 13,
+      "estados": 30,
+      "legendas": 39,
       "ruido": {
         "amostras": 59,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.00299636451941625
+        "amplitudeRotacao": 0.0029958715254416414
       }
     }
   ],
@@ -125,36 +125,30 @@
     {
       "from": 8,
       "to": 9,
-      "stop": 6,
-      "carStayed": true
+      "stop": 7,
+      "carStayed": false
     },
     {
       "from": 9,
       "to": 10,
-      "stop": 7,
+      "stop": 8,
       "carStayed": false
     },
     {
       "from": 10,
       "to": 11,
       "stop": 8,
-      "carStayed": false
+      "carStayed": true
     },
     {
       "from": 11,
       "to": 12,
-      "stop": 8,
-      "carStayed": true
-    },
-    {
-      "from": 12,
-      "to": 13,
       "stop": 9,
       "carStayed": false
     },
     {
-      "from": 13,
-      "to": 14,
+      "from": 12,
+      "to": 13,
       "stop": 10,
       "carStayed": true
     }
@@ -164,23 +158,15 @@
       "de": "rastreabilidade",
       "para": "servico",
       "tipo": "next",
-      "quadros": 33,
+      "quadros": 32,
       "opacidadeMinimaConteudo": 0,
       "painelPermanente": true
     },
     {
       "de": "quimica",
-      "para": "limpeza",
-      "tipo": "next",
-      "quadros": 36,
-      "opacidadeMinimaConteudo": 0,
-      "painelPermanente": true
-    },
-    {
-      "de": "limpeza",
       "para": "distribuicao",
       "tipo": "next",
-      "quadros": 40,
+      "quadros": 35,
       "opacidadeMinimaConteudo": 0,
       "painelPermanente": true
     },
@@ -204,16 +190,315 @@
       "de": "quimica",
       "para": "distribuicao",
       "tipo": "select",
-      "quadros": 39,
+      "quadros": 38,
       "opacidadeMinimaConteudo": 0,
       "painelPermanente": true
+    }
+  ],
+  "distribuicao": [
+    {
+      "width": 1600,
+      "height": 900,
+      "amostras": 192,
+      "linhasEquilibradas": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "linhasDesbalanceadas": [
+        6,
+        6,
+        6,
+        2
+      ],
+      "secao": {
+        "runner": 4,
+        "posicao": [
+          1.8,
+          0.9150080940996086,
+          -1.9606042412645674
+        ],
+        "normal": [
+          0,
+          0.2582917123003736,
+          -0.9660669704305913
+        ],
+        "visivel": true,
+        "opacidade": 0.12160154988975906,
+        "escala": 1.0004636065470356
+      },
+      "variacaoCamera": 0,
+      "variacaoOpacidade": 0.18999703777381816,
+      "layout": {
+        "viewport": {
+          "x": 694.390625,
+          "y": 223.859375,
+          "width": 790.59375,
+          "height": 478.140625,
+          "top": 223.859375,
+          "right": 1484.984375,
+          "bottom": 702,
+          "left": 694.390625
+        },
+        "charts": {
+          "x": 1285.984375,
+          "y": 351.921875,
+          "width": 186,
+          "height": 222,
+          "top": 351.921875,
+          "right": 1471.984375,
+          "bottom": 573.921875,
+          "left": 1285.984375
+        },
+        "legend": {
+          "x": 694.390625,
+          "y": 711,
+          "width": 790.59375,
+          "height": 50,
+          "top": 711,
+          "right": 1484.984375,
+          "bottom": 761,
+          "left": 694.390625
+        },
+        "cards": [
+          {
+            "x": 1285.984375,
+            "y": 351.921875,
+            "width": 186,
+            "height": 106,
+            "top": 351.921875,
+            "right": 1471.984375,
+            "bottom": 457.921875,
+            "left": 1285.984375
+          },
+          {
+            "x": 1285.984375,
+            "y": 467.921875,
+            "width": 186,
+            "height": 106,
+            "top": 467.921875,
+            "right": 1471.984375,
+            "bottom": 573.921875,
+            "left": 1285.984375
+          }
+        ],
+        "bars": [
+          34,
+          34,
+          34,
+          10.8800048828125
+        ],
+        "modelRight": 531.3323000488103,
+        "modelBottom": 421.849162464201,
+        "orientation": "lateral",
+        "progress": "1"
+      }
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "amostras": 190,
+      "linhasEquilibradas": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "linhasDesbalanceadas": [
+        6,
+        6,
+        6,
+        2
+      ],
+      "secao": {
+        "runner": 4,
+        "posicao": [
+          1.8,
+          0.9150080940996086,
+          -1.9606042412645674
+        ],
+        "normal": [
+          0,
+          0.2582917123003736,
+          -0.9660669704305913
+        ],
+        "visivel": true,
+        "opacidade": 0.1212765673235998,
+        "escala": 1.0003695326463051
+      },
+      "variacaoCamera": 0,
+      "variacaoOpacidade": 0.1899698453748937,
+      "layout": {
+        "viewport": {
+          "x": 553.96875,
+          "y": 163.15625,
+          "width": 636.015625,
+          "height": 397.234375,
+          "top": 163.15625,
+          "right": 1189.984375,
+          "bottom": 560.390625,
+          "left": 553.96875
+        },
+        "charts": {
+          "x": 999.46875,
+          "y": 254.078125,
+          "width": 177.515625,
+          "height": 215.375,
+          "top": 254.078125,
+          "right": 1176.984375,
+          "bottom": 469.453125,
+          "left": 999.46875
+        },
+        "legend": {
+          "x": 553.96875,
+          "y": 566.390625,
+          "width": 636.015625,
+          "height": 43,
+          "top": 566.390625,
+          "right": 1189.984375,
+          "bottom": 609.390625,
+          "left": 553.96875
+        },
+        "cards": [
+          {
+            "x": 999.46875,
+            "y": 254.078125,
+            "width": 177.515625,
+            "height": 102.6875,
+            "top": 254.078125,
+            "right": 1176.984375,
+            "bottom": 356.765625,
+            "left": 999.46875
+          },
+          {
+            "x": 999.46875,
+            "y": 366.765625,
+            "width": 177.515625,
+            "height": 102.6875,
+            "top": 366.765625,
+            "right": 1176.984375,
+            "bottom": 469.453125,
+            "left": 999.46875
+          }
+        ],
+        "bars": [
+          34,
+          34,
+          34,
+          10.8800048828125
+        ],
+        "modelRight": 393.2075444447736,
+        "modelBottom": 329.85788866494613,
+        "orientation": "lateral",
+        "progress": "1"
+      }
+    },
+    {
+      "width": 1280,
+      "height": 960,
+      "amostras": 191,
+      "linhasEquilibradas": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "linhasDesbalanceadas": [
+        6,
+        6,
+        6,
+        2
+      ],
+      "secao": {
+        "runner": 4,
+        "posicao": [
+          1.8,
+          0.9150080940996086,
+          -1.9606042412645674
+        ],
+        "normal": [
+          0,
+          0.2582917123003736,
+          -0.9660669704305913
+        ],
+        "visivel": true,
+        "opacidade": 0.12176822538566633,
+        "escala": 1.0005118547169034
+      },
+      "variacaoCamera": 0,
+      "variacaoOpacidade": 0.1899127458899406,
+      "layout": {
+        "viewport": {
+          "x": 560.3125,
+          "y": 200.484375,
+          "width": 620.6875,
+          "height": 538.328125,
+          "top": 200.484375,
+          "right": 1181,
+          "bottom": 738.8125,
+          "left": 560.3125
+        },
+        "charts": {
+          "x": 573.3125,
+          "y": 621.8125,
+          "width": 594.6875,
+          "height": 106,
+          "top": 621.8125,
+          "right": 1168,
+          "bottom": 727.8125,
+          "left": 573.3125
+        },
+        "legend": {
+          "x": 560.3125,
+          "y": 747.8125,
+          "width": 620.6875,
+          "height": 68.375,
+          "top": 747.8125,
+          "right": 1181,
+          "bottom": 816.1875,
+          "left": 560.3125
+        },
+        "cards": [
+          {
+            "x": 655.65625,
+            "y": 621.8125,
+            "width": 210,
+            "height": 106,
+            "top": 621.8125,
+            "right": 865.65625,
+            "bottom": 727.8125,
+            "left": 655.65625
+          },
+          {
+            "x": 875.65625,
+            "y": 621.8125,
+            "width": 210,
+            "height": 106,
+            "top": 621.8125,
+            "right": 1085.65625,
+            "bottom": 727.8125,
+            "left": 875.65625
+          }
+        ],
+        "bars": [
+          34,
+          34,
+          34,
+          10.8800048828125
+        ],
+        "modelRight": 516.6748371504538,
+        "modelBottom": 366.9785478488397,
+        "orientation": "inferior",
+        "progress": "1"
+      }
     }
   ],
   "corrosao": [
     {
       "width": 1600,
       "height": 900,
-      "amostras": 271,
+      "amostras": 269,
       "distanciaInicial": 8.098579578050199,
       "distanciaDetalhe": 3.0143169595455546,
       "progressoInicial": 0,
@@ -289,7 +574,7 @@
     {
       "width": 1280,
       "height": 720,
-      "amostras": 276,
+      "amostras": 274,
       "distanciaInicial": 8.101909133849846,
       "distanciaDetalhe": 3.0143169595455546,
       "progressoInicial": 0,
@@ -365,7 +650,7 @@
     {
       "width": 1280,
       "height": 960,
-      "amostras": 271,
+      "amostras": 275,
       "distanciaInicial": 10.795135043275145,
       "distanciaDetalhe": 2.9943085909241094,
       "progressoInicial": 0,
@@ -439,703 +724,19 @@
       "interrupcaoManual": true
     }
   ],
-  "servico": [
-    {
-      "width": 1600,
-      "height": 900,
-      "fades": [
-        {
-          "nome": "01_Bloco_e_cabecote",
-          "inicioObservado": 0.10710000000000036,
-          "fimObservado": 0.9523000000000001
-        },
-        {
-          "nome": "02_Acessorios_e_mangueiras",
-          "inicioObservado": 0.9523000000000001,
-          "fimObservado": 1.7138999999999995
-        },
-        {
-          "nome": "03_Travessa_obstrutora",
-          "inicioObservado": 1.8020999999999994,
-          "fimObservado": 2.657699999999999
-        },
-        {
-          "nome": "04_Limites_do_compartimento",
-          "inicioObservado": 2.7106999999999988,
-          "fimObservado": 3.5521
-        },
-        {
-          "nome": "05_Chave_em_L_bloqueada",
-          "inicioObservado": 3.6031999999999993,
-          "fimObservado": 4.1591999999999985
-        },
-        {
-          "nome": "06_Indicadores_de_bloqueio",
-          "inicioObservado": 4.1591999999999985,
-          "fimObservado": 4.610599999999999
-        }
-      ],
-      "amostras": 485,
-      "loop": {
-        "minOffset": 1.603,
-        "maxOffset": 2.543,
-        "variacaoCamera": 0,
-        "contatos": 28,
-        "ciclos": 1
-      }
-    },
-    {
-      "width": 1280,
-      "height": 720,
-      "fades": [
-        {
-          "nome": "01_Bloco_e_cabecote",
-          "inicioObservado": 0.10700000000000001,
-          "fimObservado": 0.9627999999999998
-        },
-        {
-          "nome": "02_Acessorios_e_mangueiras",
-          "inicioObservado": 0.9627999999999998,
-          "fimObservado": 1.7104999999999995
-        },
-        {
-          "nome": "03_Travessa_obstrutora",
-          "inicioObservado": 1.8134000000000008,
-          "fimObservado": 2.661799999999995
-        },
-        {
-          "nome": "04_Limites_do_compartimento",
-          "inicioObservado": 2.712899999999997,
-          "fimObservado": 3.5645999999999947
-        },
-        {
-          "nome": "05_Chave_em_L_bloqueada",
-          "inicioObservado": 3.6162999999999914,
-          "fimObservado": 4.155399999999992
-        },
-        {
-          "nome": "06_Indicadores_de_bloqueio",
-          "inicioObservado": 4.155399999999992,
-          "fimObservado": 4.604899999999993
-        }
-      ],
-      "amostras": 484,
-      "loop": {
-        "minOffset": 1.603,
-        "maxOffset": 2.543,
-        "variacaoCamera": 0,
-        "contatos": 30,
-        "ciclos": 1
-      }
-    },
-    {
-      "width": 1280,
-      "height": 960,
-      "fades": [
-        {
-          "nome": "01_Bloco_e_cabecote",
-          "inicioObservado": 0.1065,
-          "fimObservado": 0.9565000000000001
-        },
-        {
-          "nome": "02_Acessorios_e_mangueiras",
-          "inicioObservado": 0.9565000000000001,
-          "fimObservado": 1.7047999999999954
-        },
-        {
-          "nome": "03_Travessa_obstrutora",
-          "inicioObservado": 1.8088999999999937,
-          "fimObservado": 2.663099999999993
-        },
-        {
-          "nome": "04_Limites_do_compartimento",
-          "inicioObservado": 2.714899999999988,
-          "fimObservado": 3.5669999999999895
-        },
-        {
-          "nome": "05_Chave_em_L_bloqueada",
-          "inicioObservado": 3.6016999999999864,
-          "fimObservado": 4.1601999999999855
-        },
-        {
-          "nome": "06_Indicadores_de_bloqueio",
-          "inicioObservado": 4.1601999999999855,
-          "fimObservado": 4.613299999999985
-        }
-      ],
-      "amostras": 485,
-      "loop": {
-        "minOffset": 1.603,
-        "maxOffset": 2.543,
-        "variacaoCamera": 0,
-        "contatos": 29,
-        "ciclos": 1
-      }
-    }
-  ],
-  "produto": [
-    {
-      "width": 1600,
-      "height": 900,
-      "titulos": [
-        {
-          "text": "Sensação percebida ligeiramente desagradável",
-          "width": 528,
-          "scroll": 528,
-          "height": 29.15625,
-          "font": 24.3036,
-          "line": 29.1644
-        },
-        {
-          "text": "Sensação percebida moderadamente desagradável",
-          "width": 528,
-          "scroll": 528,
-          "height": 26.9375,
-          "font": 22.4512,
-          "line": 26.9415
-        },
-        {
-          "text": "Sensação percebida muito desagradável",
-          "width": 528,
-          "scroll": 528,
-          "height": 33.59375,
-          "font": 28,
-          "line": 33.6
-        }
-      ],
-      "embalagem": {
-        "id": "logistica",
-        "stage": 1,
-        "didatico": true,
-        "juntas": 4,
-        "juntaDeslocada": 2,
-        "limitadoresMontados": 6,
-        "limitadoresSoltos": 2,
-        "furosSemLimitador": [
-          0,
-          6
-        ],
-        "abertura": 1,
-        "etiquetaExterna": "Etiqueta_da_caixa",
-        "detalhes": {
-          "abas": [
-            3.02,
-            -3.02
-          ],
-          "juntas": [
-            {
-              "posicao": [
-                -1.8,
-                1.12,
-                -3.315
-              ],
-              "rotacao": [
-                0,
-                0,
-                0
-              ]
-            },
-            {
-              "posicao": [
-                -0.6,
-                1.12,
-                -3.315
-              ],
-              "rotacao": [
-                0,
-                0,
-                0
-              ]
-            },
-            {
-              "posicao": [
-                0.6,
-                1.165,
-                -3.3649999999999998
-              ],
-              "rotacao": [
-                0.26,
-                -0.18,
-                0
-              ]
-            },
-            {
-              "posicao": [
-                1.8,
-                1.12,
-                -3.315
-              ],
-              "rotacao": [
-                0,
-                0,
-                0
-              ]
-            }
-          ],
-          "montados": [
-            [
-              -2.63,
-              1.61,
-              -3.285
-            ],
-            [
-              2.63,
-              0.69,
-              -3.285
-            ],
-            [
-              2.63,
-              1.61,
-              -3.285
-            ],
-            [
-              -1.8,
-              1.66,
-              -3.285
-            ],
-            [
-              -0.6,
-              1.66,
-              -3.285
-            ],
-            [
-              1.8,
-              1.66,
-              -3.285
-            ]
-          ],
-          "caidos": [
-            [
-              3.18,
-              -0.085,
-              -1.12
-            ],
-            [
-              3.05,
-              -0.085,
-              -1.76
-            ]
-          ]
-        }
-      },
-      "rastreio": [
-        {
-          "id": "rastreabilidade",
-          "stage": 0,
-          "didatico": true,
-          "qrPayload": "DEMO|PN:K24-DEMO-001|LOT:L26-041|CAV:04|SN:DEMO-0001",
-          "registroAdequado": true,
-          "partNumber": "K24-DEMO-001",
-          "lote": "L26-041",
-          "pecasLote": 1,
-          "interrogacoes": 0,
-          "detalhes": {}
-        },
-        {
-          "id": "rastreabilidade",
-          "stage": 1,
-          "didatico": true,
-          "qrPayload": "DEMO|PN:K24-DEMO-001|LOT:L26-041|CAV:04|SN:DEMO-0001",
-          "registroAdequado": false,
-          "partNumber": "???",
-          "lote": "?????",
-          "pecasLote": 1,
-          "interrogacoes": 2,
-          "detalhes": {}
-        },
-        {
-          "id": "rastreabilidade",
-          "stage": 2,
-          "didatico": true,
-          "qrPayload": "DEMO|PN:K24-DEMO-001|LOT:L26-041|CAV:04|SN:DEMO-0001",
-          "registroAdequado": false,
-          "partNumber": "???",
-          "lote": "?????",
-          "pecasLote": 6,
-          "interrogacoes": 6,
-          "detalhes": {}
-        }
-      ]
-    },
-    {
-      "width": 1280,
-      "height": 720,
-      "titulos": [
-        {
-          "text": "Sensação percebida ligeiramente desagradável",
-          "width": 426,
-          "scroll": 426,
-          "height": 23.53125,
-          "font": 19.6123,
-          "line": 23.5348
-        },
-        {
-          "text": "Sensação percebida moderadamente desagradável",
-          "width": 426,
-          "scroll": 426,
-          "height": 21.703125,
-          "font": 18.0976,
-          "line": 21.7171
-        },
-        {
-          "text": "Sensação percebida muito desagradável",
-          "width": 426,
-          "scroll": 426,
-          "height": 25.1875,
-          "font": 21,
-          "line": 25.2
-        }
-      ],
-      "embalagem": {
-        "id": "logistica",
-        "stage": 1,
-        "didatico": true,
-        "juntas": 4,
-        "juntaDeslocada": 2,
-        "limitadoresMontados": 6,
-        "limitadoresSoltos": 2,
-        "furosSemLimitador": [
-          0,
-          6
-        ],
-        "abertura": 1,
-        "etiquetaExterna": "Etiqueta_da_caixa",
-        "detalhes": {
-          "abas": [
-            3.02,
-            -3.02
-          ],
-          "juntas": [
-            {
-              "posicao": [
-                -1.8,
-                1.12,
-                -3.315
-              ],
-              "rotacao": [
-                0,
-                0,
-                0
-              ]
-            },
-            {
-              "posicao": [
-                -0.6,
-                1.12,
-                -3.315
-              ],
-              "rotacao": [
-                0,
-                0,
-                0
-              ]
-            },
-            {
-              "posicao": [
-                0.6,
-                1.165,
-                -3.3649999999999998
-              ],
-              "rotacao": [
-                0.26,
-                -0.18,
-                0
-              ]
-            },
-            {
-              "posicao": [
-                1.8,
-                1.12,
-                -3.315
-              ],
-              "rotacao": [
-                0,
-                0,
-                0
-              ]
-            }
-          ],
-          "montados": [
-            [
-              -2.63,
-              1.61,
-              -3.285
-            ],
-            [
-              2.63,
-              0.69,
-              -3.285
-            ],
-            [
-              2.63,
-              1.61,
-              -3.285
-            ],
-            [
-              -1.8,
-              1.66,
-              -3.285
-            ],
-            [
-              -0.6,
-              1.66,
-              -3.285
-            ],
-            [
-              1.8,
-              1.66,
-              -3.285
-            ]
-          ],
-          "caidos": [
-            [
-              3.18,
-              -0.085,
-              -1.12
-            ],
-            [
-              3.05,
-              -0.085,
-              -1.76
-            ]
-          ]
-        }
-      },
-      "rastreio": [
-        {
-          "id": "rastreabilidade",
-          "stage": 0,
-          "didatico": true,
-          "qrPayload": "DEMO|PN:K24-DEMO-001|LOT:L26-041|CAV:04|SN:DEMO-0001",
-          "registroAdequado": true,
-          "partNumber": "K24-DEMO-001",
-          "lote": "L26-041",
-          "pecasLote": 1,
-          "interrogacoes": 0,
-          "detalhes": {}
-        },
-        {
-          "id": "rastreabilidade",
-          "stage": 1,
-          "didatico": true,
-          "qrPayload": "DEMO|PN:K24-DEMO-001|LOT:L26-041|CAV:04|SN:DEMO-0001",
-          "registroAdequado": false,
-          "partNumber": "???",
-          "lote": "?????",
-          "pecasLote": 1,
-          "interrogacoes": 2,
-          "detalhes": {}
-        },
-        {
-          "id": "rastreabilidade",
-          "stage": 2,
-          "didatico": true,
-          "qrPayload": "DEMO|PN:K24-DEMO-001|LOT:L26-041|CAV:04|SN:DEMO-0001",
-          "registroAdequado": false,
-          "partNumber": "???",
-          "lote": "?????",
-          "pecasLote": 6,
-          "interrogacoes": 6,
-          "detalhes": {}
-        }
-      ]
-    },
-    {
-      "width": 1280,
-      "height": 960,
-      "titulos": [
-        {
-          "text": "Sensação percebida ligeiramente desagradável",
-          "width": 410,
-          "scroll": 410,
-          "height": 22.609375,
-          "font": 18.8437,
-          "line": 22.6125
-        },
-        {
-          "text": "Sensação percebida moderadamente desagradável",
-          "width": 410,
-          "scroll": 410,
-          "height": 20.875,
-          "font": 17.408,
-          "line": 20.8896
-        },
-        {
-          "text": "Sensação percebida muito desagradável",
-          "width": 410,
-          "scroll": 410,
-          "height": 26.296875,
-          "font": 21.9165,
-          "line": 26.2999
-        }
-      ],
-      "embalagem": {
-        "id": "logistica",
-        "stage": 1,
-        "didatico": true,
-        "juntas": 4,
-        "juntaDeslocada": 2,
-        "limitadoresMontados": 6,
-        "limitadoresSoltos": 2,
-        "furosSemLimitador": [
-          0,
-          6
-        ],
-        "abertura": 1,
-        "etiquetaExterna": "Etiqueta_da_caixa",
-        "detalhes": {
-          "abas": [
-            3.02,
-            -3.02
-          ],
-          "juntas": [
-            {
-              "posicao": [
-                -1.8,
-                1.12,
-                -3.315
-              ],
-              "rotacao": [
-                0,
-                0,
-                0
-              ]
-            },
-            {
-              "posicao": [
-                -0.6,
-                1.12,
-                -3.315
-              ],
-              "rotacao": [
-                0,
-                0,
-                0
-              ]
-            },
-            {
-              "posicao": [
-                0.6,
-                1.165,
-                -3.3649999999999998
-              ],
-              "rotacao": [
-                0.26,
-                -0.18,
-                0
-              ]
-            },
-            {
-              "posicao": [
-                1.8,
-                1.12,
-                -3.315
-              ],
-              "rotacao": [
-                0,
-                0,
-                0
-              ]
-            }
-          ],
-          "montados": [
-            [
-              -2.63,
-              1.61,
-              -3.285
-            ],
-            [
-              2.63,
-              0.69,
-              -3.285
-            ],
-            [
-              2.63,
-              1.61,
-              -3.285
-            ],
-            [
-              -1.8,
-              1.66,
-              -3.285
-            ],
-            [
-              -0.6,
-              1.66,
-              -3.285
-            ],
-            [
-              1.8,
-              1.66,
-              -3.285
-            ]
-          ],
-          "caidos": [
-            [
-              3.18,
-              -0.085,
-              -1.12
-            ],
-            [
-              3.05,
-              -0.085,
-              -1.76
-            ]
-          ]
-        }
-      },
-      "rastreio": [
-        {
-          "id": "rastreabilidade",
-          "stage": 0,
-          "didatico": true,
-          "qrPayload": "DEMO|PN:K24-DEMO-001|LOT:L26-041|CAV:04|SN:DEMO-0001",
-          "registroAdequado": true,
-          "partNumber": "K24-DEMO-001",
-          "lote": "L26-041",
-          "pecasLote": 1,
-          "interrogacoes": 0,
-          "detalhes": {}
-        },
-        {
-          "id": "rastreabilidade",
-          "stage": 1,
-          "didatico": true,
-          "qrPayload": "DEMO|PN:K24-DEMO-001|LOT:L26-041|CAV:04|SN:DEMO-0001",
-          "registroAdequado": false,
-          "partNumber": "???",
-          "lote": "?????",
-          "pecasLote": 1,
-          "interrogacoes": 2,
-          "detalhes": {}
-        },
-        {
-          "id": "rastreabilidade",
-          "stage": 2,
-          "didatico": true,
-          "qrPayload": "DEMO|PN:K24-DEMO-001|LOT:L26-041|CAV:04|SN:DEMO-0001",
-          "registroAdequado": false,
-          "partNumber": "???",
-          "lote": "?????",
-          "pecasLote": 6,
-          "interrogacoes": 6,
-          "detalhes": {}
-        }
-      ]
-    }
-  ],
   "checks": [
-    "S6.3 removido do roteiro, da navegação, das cenas e da conclusão; S6.2 segue para S7.1",
-    "14 funções, 15 telas e 34 etapas em dez paradas, com a linha 10 da planilha omitida",
-    "S7.1 tem duas etapas: dois insertos e seis limitadores íntegros; exposição com corrosão progressiva",
-    "Componentes montados nos furos da flange, com superfícies reflexivas, rosca interna e corpos ocos",
-    "Zoom dinâmico de 2,9 segundos enquadra inserto e limitador enquanto a ferrugem avança em 4,4 segundos",
-    "Indicador de tempo monotônico até o estado final, com escala explicitamente ilustrativa",
-    "O material do coletor permanece original; a mudança de acabamento ocorre nos metais",
-    "Legendas aproximam cada componente, Reenquadrar restaura a vista completa sem limpar a corrosão",
-    "Giro ou zoom manual interrompem o movimento automático da vista; a evolução do metal termina normalmente",
-    "102 estados/resoluções, 126 focos de legenda e seis cenários de fade restrito ao conteúdo",
-    "Embalagem, rastreabilidade e manutenção passaram novamente nas três resoluções",
-    "Zero erros JavaScript/WebGL reportados e zero solicitações HTTP/HTTPS"
+    "Limpeza interna removida do roteiro, cenas, navegação e documentação; distribuição de ar renumerada para S7.2",
+    "13 funções, 14 telas, 30 etapas e dez paradas; linhas 10 e 12 da planilha omitidas",
+    "Duas etapas interativas de fluxo: equilíbrio e desbalanceamento do runner 4",
+    "24 trajetórias curvas com fragmentos curtos animados no interior do coletor transparente",
+    "Na segunda etapa, R1–R3 preservam seis trajetórias; R4 mantém duas com menor avanço e intensidade",
+    "Seção transversal perpendicular ao runner 4 pulsa em vermelho, sem mover a câmera durante o loop",
+    "Gráficos de alimentação e desempenho dentro do visor, sem valores de vazão ou potência",
+    "Gráficos responsivos, à direita em telas largas e abaixo em telas altas, sem sobreposição com o modelo",
+    "Botão de transparência visível e habilitado somente na distribuição de ar, iniciado ativo",
+    "Retorno restaura equilíbrio, giro/corte/foco continuam disponíveis e saída remove os gráficos",
+    "90 estados/resoluções, 117 focos de legenda e cinco transições na mesma parada aprovados",
+    "Teste específico de corrosão repetido nas três resoluções, incluindo passagem direta para a distribuição de ar",
+    "Zero erros JavaScript/WebGL reportados e zero conexões HTTP/HTTPS"
   ]
 }
