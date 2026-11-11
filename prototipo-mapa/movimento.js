@@ -18,6 +18,7 @@ __EFFECTS_SOURCE__
 __DEMOS_SOURCE__
 __CENAS_PRODUTO_SOURCE__
 __CENA_SERVICO_SOURCE__
+__CENA_CORROSAO_SOURCE__
 __VISOR_SOURCE__
 try {
 const scene=new T.Scene();scene.background=new T.Color('#b4c99b');
@@ -301,7 +302,7 @@ function finishWreck(){car.position.copy(wreckPosition);car.quaternion.copy(dire
 function beginCrash(rolling=false){const speed=rolling?(stops[LAST_STOP]-stops[LAST_STOP-1])*total/TRAVEL_DURATION:escapeLength/.85;crash={time:0,impacted:false,rolling,speed,contactTime:escapeLength/speed+(rolling?0:.08),travelled:0,initialLook:look.clone(),initialBoom:boom.clone()};appendSkids();ui()}
 function setContent(){
  const end=pageIndex===PAGE_END,busy=!!motion||!!cameraTween||!!fade&&!fade.contentOnly,s=CONFIG.slides[pageIndex];
- $('conteudo').className='content'+(end?' conclusion':' model-slide')+(busy?' absent':'')+(!end&&['logistica','rastreabilidade','servico'].includes(s.id)?' large-scene':'');
+ $('conteudo').className='content'+(end?' conclusion':' model-slide')+(busy?' absent':'')+(!end&&['logistica','rastreabilidade','servico','quimica'].includes(s.id)?' large-scene':'')+(!end&&s.id==='quimica'?' corrosion-scene':'');
  $('titulo-parada').textContent=end?'CONCLUSÃO · JORNADA DA QUALIDADE':`SEVERIDADE ${s.severidade} · EFEITO NO SISTEMA`;
  $('titulo').textContent=end?'Uma peça. Muitos efeitos.':s.titulo;
  $('descricao').textContent=end?'Da identificação ao fornecimento de vácuo: a consequência no sistema orienta a avaliação.':s.funcao;

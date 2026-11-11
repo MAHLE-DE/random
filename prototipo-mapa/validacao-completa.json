@@ -1,54 +1,73 @@
 {
   "data": "2026-11-11",
-  "revisao": "Acesso de manutenção em duas etapas, motor e ferramenta bloqueada",
+  "revisao": "Remoção da função S6.3 e corrosão dos componentes metálicos em S7.1",
   "arquivo": "iniciar.html",
-  "sha256": "987c0136a6c954435bfdcf4ad3d68b560cfbe9ab0650aa9299b4ca59ae690dc6",
+  "sha256": "c775c45e63a1c1c194e065e507dae072a891037b5208b234001708074b27358b",
   "normalizacaoHash": "LF, conforme .gitattributes",
   "fonte": {
     "arquivo": "apresentacao_qualidade_completa.xlsx",
     "aba": "Sheet1",
     "linhas": "B3:F17",
-    "sha256": "0372e1b4d30dcfcbcef71ec2efeed02649c8dbba2dd7ffc5d563ec930d93080f"
+    "sha256": "0372e1b4d30dcfcbcef71ec2efeed02649c8dbba2dd7ffc5d563ec930d93080f",
+    "linhasApresentadas": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+    ],
+    "linhasExcluidas": [
+      10
+    ]
   },
-  "funcoes": 15,
-  "slides": 16,
+  "funcoes": 14,
+  "slides": 15,
   "paradas": 10,
-  "etapas": 38,
+  "etapas": 34,
   "resolucoes": [
     {
       "width": 1600,
       "height": 900,
-      "funcoes": 15,
-      "estados": 38,
-      "legendas": 45,
+      "funcoes": 14,
+      "estados": 34,
+      "legendas": 42,
       "ruido": {
-        "amostras": 58,
+        "amostras": 59,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.002999849097343983
+        "amplitudeRotacao": 0.0029983565955486297
       }
     },
     {
       "width": 1280,
       "height": 720,
-      "funcoes": 15,
-      "estados": 38,
-      "legendas": 45,
+      "funcoes": 14,
+      "estados": 34,
+      "legendas": 42,
       "ruido": {
         "amostras": 60,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.002997406001357356
+        "amplitudeRotacao": 0.0029931293832963285
       }
     },
     {
       "width": 1280,
       "height": 960,
-      "funcoes": 15,
-      "estados": 38,
-      "legendas": 45,
+      "funcoes": 14,
+      "estados": 34,
+      "legendas": 42,
       "ruido": {
         "amostras": 59,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.002997996984546103
+        "amplitudeRotacao": 0.00299636451941625
       }
     }
   ],
@@ -94,14 +113,14 @@
     {
       "from": 6,
       "to": 7,
-      "stop": 5,
-      "carStayed": true
+      "stop": 6,
+      "carStayed": false
     },
     {
       "from": 7,
       "to": 8,
       "stop": 6,
-      "carStayed": false
+      "carStayed": true
     },
     {
       "from": 8,
@@ -112,36 +131,30 @@
     {
       "from": 9,
       "to": 10,
-      "stop": 6,
-      "carStayed": true
+      "stop": 7,
+      "carStayed": false
     },
     {
       "from": 10,
       "to": 11,
-      "stop": 7,
+      "stop": 8,
       "carStayed": false
     },
     {
       "from": 11,
       "to": 12,
       "stop": 8,
-      "carStayed": false
+      "carStayed": true
     },
     {
       "from": 12,
       "to": 13,
-      "stop": 8,
-      "carStayed": true
-    },
-    {
-      "from": 13,
-      "to": 14,
       "stop": 9,
       "carStayed": false
     },
     {
-      "from": 14,
-      "to": 15,
+      "from": 13,
+      "to": 14,
       "stop": 10,
       "carStayed": true
     }
@@ -156,18 +169,10 @@
       "painelPermanente": true
     },
     {
-      "de": "servico",
-      "para": "producao",
-      "tipo": "next",
-      "quadros": 38,
-      "opacidadeMinimaConteudo": 0,
-      "painelPermanente": true
-    },
-    {
       "de": "quimica",
       "para": "limpeza",
       "tipo": "next",
-      "quadros": 40,
+      "quadros": 36,
       "opacidadeMinimaConteudo": 0,
       "painelPermanente": true
     },
@@ -175,7 +180,7 @@
       "de": "limpeza",
       "para": "distribuicao",
       "tipo": "next",
-      "quadros": 39,
+      "quadros": 40,
       "opacidadeMinimaConteudo": 0,
       "painelPermanente": true
     },
@@ -188,20 +193,250 @@
       "painelPermanente": true
     },
     {
-      "de": "producao",
-      "para": "servico",
+      "de": "servico",
+      "para": "rastreabilidade",
       "tipo": "back",
-      "quadros": 38,
+      "quadros": 34,
       "opacidadeMinimaConteudo": 0,
       "painelPermanente": true
     },
     {
-      "de": "rastreabilidade",
-      "para": "producao",
+      "de": "quimica",
+      "para": "distribuicao",
       "tipo": "select",
       "quadros": 39,
       "opacidadeMinimaConteudo": 0,
       "painelPermanente": true
+    }
+  ],
+  "corrosao": [
+    {
+      "width": 1600,
+      "height": 900,
+      "amostras": 271,
+      "distanciaInicial": 8.098579578050199,
+      "distanciaDetalhe": 3.0143169595455546,
+      "progressoInicial": 0,
+      "progressoFinal": 100,
+      "componentes": {
+        "insertos": 2,
+        "limitadores": 6
+      },
+      "layout": {
+        "timer": {
+          "x": 694.390625,
+          "y": 223.859375,
+          "width": 790.59375,
+          "height": 69,
+          "top": 223.859375,
+          "right": 1484.984375,
+          "bottom": 292.859375,
+          "left": 694.390625
+        },
+        "model": {
+          "x": 694.390625,
+          "y": 301.859375,
+          "width": 790.59375,
+          "height": 400.140625,
+          "top": 301.859375,
+          "right": 1484.984375,
+          "bottom": 702,
+          "left": 694.390625
+        },
+        "legend": {
+          "x": 694.390625,
+          "y": 711,
+          "width": 790.59375,
+          "height": 50,
+          "top": 711,
+          "right": 1484.984375,
+          "bottom": 761,
+          "left": 694.390625
+        },
+        "tools": {
+          "x": 694.390625,
+          "y": 770,
+          "width": 790.59375,
+          "height": 33,
+          "top": 770,
+          "right": 1484.984375,
+          "bottom": 803,
+          "left": 694.390625
+        },
+        "panel": {
+          "x": 80,
+          "y": 18,
+          "width": 1440,
+          "height": 810,
+          "top": 18,
+          "right": 1520,
+          "bottom": 828,
+          "left": 80
+        },
+        "footer": {
+          "x": 80,
+          "y": 851,
+          "width": 1440,
+          "height": 42,
+          "top": 851,
+          "right": 1520,
+          "bottom": 893,
+          "left": 80
+        }
+      },
+      "interrupcaoManual": true
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "amostras": 276,
+      "distanciaInicial": 8.101909133849846,
+      "distanciaDetalhe": 3.0143169595455546,
+      "progressoInicial": 0,
+      "progressoFinal": 100,
+      "componentes": {
+        "insertos": 2,
+        "limitadores": 6
+      },
+      "layout": {
+        "timer": {
+          "x": 553.96875,
+          "y": 163.15625,
+          "width": 636.015625,
+          "height": 69,
+          "top": 163.15625,
+          "right": 1189.984375,
+          "bottom": 232.15625,
+          "left": 553.96875
+        },
+        "model": {
+          "x": 553.96875,
+          "y": 238.15625,
+          "width": 636.015625,
+          "height": 322.234375,
+          "top": 238.15625,
+          "right": 1189.984375,
+          "bottom": 560.390625,
+          "left": 553.96875
+        },
+        "legend": {
+          "x": 553.96875,
+          "y": 566.390625,
+          "width": 636.015625,
+          "height": 43,
+          "top": 566.390625,
+          "right": 1189.984375,
+          "bottom": 609.390625,
+          "left": 553.96875
+        },
+        "tools": {
+          "x": 553.96875,
+          "y": 615.390625,
+          "width": 636.015625,
+          "height": 30,
+          "top": 615.390625,
+          "right": 1189.984375,
+          "bottom": 645.390625,
+          "left": 553.96875
+        },
+        "panel": {
+          "x": 64,
+          "y": 14.390625,
+          "width": 1152,
+          "height": 648,
+          "top": 14.390625,
+          "right": 1216,
+          "bottom": 662.390625,
+          "left": 64
+        },
+        "footer": {
+          "x": 64,
+          "y": 674,
+          "width": 1152,
+          "height": 40,
+          "top": 674,
+          "right": 1216,
+          "bottom": 714,
+          "left": 64
+        }
+      },
+      "interrupcaoManual": true
+    },
+    {
+      "width": 1280,
+      "height": 960,
+      "amostras": 271,
+      "distanciaInicial": 10.795135043275145,
+      "distanciaDetalhe": 2.9943085909241094,
+      "progressoInicial": 0,
+      "progressoFinal": 100,
+      "componentes": {
+        "insertos": 2,
+        "limitadores": 6
+      },
+      "layout": {
+        "timer": {
+          "x": 560.3125,
+          "y": 200.484375,
+          "width": 620.6875,
+          "height": 69,
+          "top": 200.484375,
+          "right": 1181,
+          "bottom": 269.484375,
+          "left": 560.3125
+        },
+        "model": {
+          "x": 560.3125,
+          "y": 278.484375,
+          "width": 620.6875,
+          "height": 460.328125,
+          "top": 278.484375,
+          "right": 1181,
+          "bottom": 738.8125,
+          "left": 560.3125
+        },
+        "legend": {
+          "x": 560.3125,
+          "y": 747.8125,
+          "width": 620.6875,
+          "height": 68.375,
+          "top": 747.8125,
+          "right": 1181,
+          "bottom": 816.1875,
+          "left": 560.3125
+        },
+        "tools": {
+          "x": 560.3125,
+          "y": 825.1875,
+          "width": 620.6875,
+          "height": 33,
+          "top": 825.1875,
+          "right": 1181,
+          "bottom": 858.1875,
+          "left": 560.3125
+        },
+        "panel": {
+          "x": 64,
+          "y": 19.1875,
+          "width": 1152,
+          "height": 864,
+          "top": 19.1875,
+          "right": 1216,
+          "bottom": 883.1875,
+          "left": 64
+        },
+        "footer": {
+          "x": 64,
+          "y": 911,
+          "width": 1152,
+          "height": 42,
+          "top": 911,
+          "right": 1216,
+          "bottom": 953,
+          "left": 64
+        }
+      },
+      "interrupcaoManual": true
     }
   ],
   "servico": [
@@ -211,36 +446,36 @@
       "fades": [
         {
           "nome": "01_Bloco_e_cabecote",
-          "inicioObservado": 0.10609999999999992,
-          "fimObservado": 0.9517999999999999
+          "inicioObservado": 0.10710000000000036,
+          "fimObservado": 0.9523000000000001
         },
         {
           "nome": "02_Acessorios_e_mangueiras",
-          "inicioObservado": 0.9517999999999999,
-          "fimObservado": 1.711499999999999
+          "inicioObservado": 0.9523000000000001,
+          "fimObservado": 1.7138999999999995
         },
         {
           "nome": "03_Travessa_obstrutora",
-          "inicioObservado": 1.8015999999999994,
-          "fimObservado": 2.6611999999999996
+          "inicioObservado": 1.8020999999999994,
+          "fimObservado": 2.657699999999999
         },
         {
           "nome": "04_Limites_do_compartimento",
-          "inicioObservado": 2.713099999999999,
-          "fimObservado": 3.554199999999998
+          "inicioObservado": 2.7106999999999988,
+          "fimObservado": 3.5521
         },
         {
           "nome": "05_Chave_em_L_bloqueada",
-          "inicioObservado": 3.608099999999997,
-          "fimObservado": 4.1592999999999964
+          "inicioObservado": 3.6031999999999993,
+          "fimObservado": 4.1591999999999985
         },
         {
           "nome": "06_Indicadores_de_bloqueio",
-          "inicioObservado": 4.1592999999999964,
-          "fimObservado": 4.600499999999994
+          "inicioObservado": 4.1591999999999985,
+          "fimObservado": 4.610599999999999
         }
       ],
-      "amostras": 483,
+      "amostras": 485,
       "loop": {
         "minOffset": 1.603,
         "maxOffset": 2.543,
@@ -255,33 +490,33 @@
       "fades": [
         {
           "nome": "01_Bloco_e_cabecote",
-          "inicioObservado": 0.10639999999999782,
-          "fimObservado": 0.960599999999999
+          "inicioObservado": 0.10700000000000001,
+          "fimObservado": 0.9627999999999998
         },
         {
           "nome": "02_Acessorios_e_mangueiras",
-          "inicioObservado": 0.960599999999999,
-          "fimObservado": 1.7008999999999972
+          "inicioObservado": 0.9627999999999998,
+          "fimObservado": 1.7104999999999995
         },
         {
           "nome": "03_Travessa_obstrutora",
-          "inicioObservado": 1.8046999999999962,
-          "fimObservado": 2.658399999999993
+          "inicioObservado": 1.8134000000000008,
+          "fimObservado": 2.661799999999995
         },
         {
           "nome": "04_Limites_do_compartimento",
-          "inicioObservado": 2.7113999999999927,
-          "fimObservado": 3.549999999999993
+          "inicioObservado": 2.712899999999997,
+          "fimObservado": 3.5645999999999947
         },
         {
           "nome": "05_Chave_em_L_bloqueada",
-          "inicioObservado": 3.602099999999991,
-          "fimObservado": 4.162399999999987
+          "inicioObservado": 3.6162999999999914,
+          "fimObservado": 4.155399999999992
         },
         {
           "nome": "06_Indicadores_de_bloqueio",
-          "inicioObservado": 4.162399999999987,
-          "fimObservado": 4.612999999999989
+          "inicioObservado": 4.155399999999992,
+          "fimObservado": 4.604899999999993
         }
       ],
       "amostras": 484,
@@ -289,7 +524,7 @@
         "minOffset": 1.603,
         "maxOffset": 2.543,
         "variacaoCamera": 0,
-        "contatos": 29,
+        "contatos": 30,
         "ciclos": 1
       }
     },
@@ -299,36 +534,36 @@
       "fades": [
         {
           "nome": "01_Bloco_e_cabecote",
-          "inicioObservado": 0.10609999999999854,
-          "fimObservado": 0.9592999999999958
+          "inicioObservado": 0.1065,
+          "fimObservado": 0.9565000000000001
         },
         {
           "nome": "02_Acessorios_e_mangueiras",
-          "inicioObservado": 0.9592999999999958,
-          "fimObservado": 1.7119999999999993
+          "inicioObservado": 0.9565000000000001,
+          "fimObservado": 1.7047999999999954
         },
         {
           "nome": "03_Travessa_obstrutora",
-          "inicioObservado": 1.8173999999999935,
-          "fimObservado": 2.6552999999999916
+          "inicioObservado": 1.8088999999999937,
+          "fimObservado": 2.663099999999993
         },
         {
           "nome": "04_Limites_do_compartimento",
-          "inicioObservado": 2.708699999999993,
-          "fimObservado": 3.5560999999999914
+          "inicioObservado": 2.714899999999988,
+          "fimObservado": 3.5669999999999895
         },
         {
           "nome": "05_Chave_em_L_bloqueada",
-          "inicioObservado": 3.609499999999993,
-          "fimObservado": 4.154599999999988
+          "inicioObservado": 3.6016999999999864,
+          "fimObservado": 4.1601999999999855
         },
         {
           "nome": "06_Indicadores_de_bloqueio",
-          "inicioObservado": 4.154599999999988,
-          "fimObservado": 4.606599999999989
+          "inicioObservado": 4.1601999999999855,
+          "fimObservado": 4.613299999999985
         }
       ],
-      "amostras": 484,
+      "amostras": 485,
       "loop": {
         "minOffset": 1.603,
         "maxOffset": 2.543,
@@ -890,15 +1125,17 @@
     }
   ],
   "checks": [
-    "S6.2 tem exatamente duas etapas: fixador parcialmente solto; conjunto com acesso bloqueado",
-    "Bloco, cabeçote, acessórios, travessa, compartimento translúcido, chave e sinais de bloqueio em seis fades sequenciais",
-    "Vista parte da orientação escolhida e se ajusta suavemente durante a montagem",
-    "Soquete em L e parafuso com eixos coincidentes; face de admissão alinhada à flange",
-    "Curso de 0,94 unidade, contato sem penetração da travessa e recuo em loop de 2,4 segundos",
-    "Enquadramento do loop constante nas três resoluções; giro, legendas, retorno e reentrada aprovados",
-    "Somente o conteúdo de serviço foi alterado no roteiro; embalagem, rastreabilidade e títulos sensoriais passaram novamente",
-    "38 etapas, 114 estados/resoluções, 135 focos de legenda e sete cenários de fade sem regressões",
-    "Sem avanço automático de etapa nem movimento do carro durante a demonstração",
-    "Zero erros JS/WebGL reportados e zero solicitações HTTP/HTTPS"
+    "S6.3 removido do roteiro, da navegação, das cenas e da conclusão; S6.2 segue para S7.1",
+    "14 funções, 15 telas e 34 etapas em dez paradas, com a linha 10 da planilha omitida",
+    "S7.1 tem duas etapas: dois insertos e seis limitadores íntegros; exposição com corrosão progressiva",
+    "Componentes montados nos furos da flange, com superfícies reflexivas, rosca interna e corpos ocos",
+    "Zoom dinâmico de 2,9 segundos enquadra inserto e limitador enquanto a ferrugem avança em 4,4 segundos",
+    "Indicador de tempo monotônico até o estado final, com escala explicitamente ilustrativa",
+    "O material do coletor permanece original; a mudança de acabamento ocorre nos metais",
+    "Legendas aproximam cada componente, Reenquadrar restaura a vista completa sem limpar a corrosão",
+    "Giro ou zoom manual interrompem o movimento automático da vista; a evolução do metal termina normalmente",
+    "102 estados/resoluções, 126 focos de legenda e seis cenários de fade restrito ao conteúdo",
+    "Embalagem, rastreabilidade e manutenção passaram novamente nas três resoluções",
+    "Zero erros JavaScript/WebGL reportados e zero solicitações HTTP/HTTPS"
   ]
 }

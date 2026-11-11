@@ -1,5 +1,18 @@
 # Validação do protótipo
 
+## Corrosão metálica e remoção de S6.3 — 11/11/2026
+
+- S6.3 foi removido do roteiro, da navegação e das cenas. A conclusão e a documentação foram atualizadas para 14 funções, 15 telas e 34 etapas, mantendo dez paradas. S6.2 segue diretamente para S7.1; a linha 10 da planilha de referência não é apresentada.
+- S7.1 tem duas etapas e oito componentes metálicos montados nos furos reais da flange: dois insertos roscados e seis limitadores. A primeira usa metal claro, reflexivo e sem corrosão, com corpos ocos, roscas e detalhes das bordas.
+- Ao avançar, a vista aproxima um inserto e um limitador em 2,9 segundos. Pontos de ferrugem crescem, o brilho diminui e a microtextura aumenta ao longo de 4,4 segundos. O material da carcaça permanece original.
+- Um indicador acima do visor acompanha a passagem de tempo até “Após exposição em serviço”, sem atribuir escala de horas ou anos. A progressão é monotônica e não avança o slide automaticamente.
+- As legendas permitem aproximações individuais. Reenquadrar retorna ao coletor inteiro mantendo a corrosão; voltar à primeira etapa restaura o metal novo. Giro ou zoom manual interrompem a vista automática, enquanto a evolução do metal continua até o fim.
+- Teste específico de corrosão aprovado em 1600×900, 1280×720 e 1280×960: navegação sem S6.3, câmera inicial sem salto, zoom, tempo, retorno, foco, corte, rotação e interrupção manual. Capturas inspecionadas no estado novo e corroído.
+- Regressão geral aprovada: 102 estados nas três resoluções, 126 focos de legenda, navegação das 14 funções e seis transições na mesma parada. As suítes de embalagem/rastreio e manutenção também passaram novamente.
+- Sem erros JavaScript/WebGL ou conexões HTTP/HTTPS reportados. Relatórios e capturas em `.producao/qa-corrosao/`, `.producao/qa-completa/`, `.producao/qa-embalagem-rastreio/` e `.producao/qa-servico/`. Nenhuma dependência nova; texturas e reflexos são gerados localmente. Hash LF e resumos em `validacao-completa.json`.
+
+As seções abaixo registram versões anteriores.
+
 ## Acesso de manutenção em duas etapas — 11/11/2026
 
 - Primeira etapa com parafuso parcialmente solto na flange, rosca exposta, folga e destaque pulsante. As legendas distinguem o fixador, a flange e os parafusos apertados.

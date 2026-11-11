@@ -7,7 +7,6 @@ function criarDemonstracoes(T,model){
  const box=(p,s,c=blue,o=1)=>mesh(new T.BoxGeometry(1,1,1),c,p,s,o);
  function line(points,c=blue,r=.035,o=1){return mesh(new T.TubeGeometry(new T.CatmullRomCurve3(points),40,r,7,false),c,null,null,o)}
  function ring(p,r,c){const o=mesh(new T.TorusGeometry(r,.035,8,48),c,p);return o}
- function proxy(x,z,gray=false){const g=new T.Group();group.add(g);const m=mat(gray?'#96a4ad':'#526571',.48),add=(geo,p)=>{const o=new T.Mesh(geo,m);o.position.copy(p);g.add(o);return o};add(new T.BoxGeometry(4.8,1,1.8),V(0,.6,.8));for(const dx of [-1.8,-.6,.6,1.8])add(new T.CylinderGeometry(.28,.28,2.5,8),V(dx,.8,-1.4)).rotation.x=Math.PI/2;g.position.set(x,0,z);return g}
  function flow(mode='normal',water=false){
   const reverse=mode==='reverse',xs=[-1.8,-.6,.6,1.8];
   for(let i=0;i<4;i++){
@@ -24,17 +23,13 @@ function criarDemonstracoes(T,model){
  function clear(){special?.dispose();special=null;for(const o of [...group.children]){o.traverse(n=>{if(!n.userData.sharedGeometry)n.geometry?.dispose();if(n.material&&!n.userData.sharedMaterial){for(const m of Array.isArray(n.material)?n.material:[n.material])m.dispose()}});group.remove(o)}actors=[]}
  function set(s,n){
   current=s;step=n;elapsed=0;clear();noiseBounds=null;const id=s.id,active=n>0;animated=true;group.visible=true;
-  special=criarCenaServico(T,model,group,id,n)||criarCenaProduto(T,model,group,id,n);if(special){animated=special.animated;return}
+  special=criarCenaCorrosao(T,model,group,id,n)||criarCenaServico(T,model,group,id,n)||criarCenaProduto(T,model,group,id,n);if(special){animated=special.animated;return}
   if(id==='ruido'){
    flow();
    const o=ring(V(0,1.5,.7),1.3,amber);o.scale.setScalar(1.3);actors.push(t=>{o.scale.setScalar(.8+(t%1)*.5);o.material.opacity=1-t%1;o.material.transparent=true});
    // O enquadramento usa o maior volume da onda, sem seguir sua pulsação.
    group.updateWorldMatrix(true,true);const inverse=group.matrixWorld.clone().invert();noiseBounds=new T.Box3();
    group.traverse(m=>{if(!m.geometry)return;m.geometry.computeBoundingBox();noiseBounds.union(m.geometry.boundingBox.clone().applyMatrix4(new T.Matrix4().multiplyMatrices(inverse,m.matrixWorld)))});noiseBounds.expandByScalar(.06);
-  }
-  if(id==='producao'){for(const x of [-3.6,3.6])box(V(x,.7,.4),V(.9,2.4,3.6),n===2?green:'#8a99aa',.25);if(n===1){box(V(0,1.7,.8),V(6,.2,2.7),red,.3);line([V(3.6,2.8,-1),V(1,1.6,-1)],red,.12)}if(n===2){line([V(-2,1.3,.9),V(-3,2.9,.9)],green,.08);line([V(2,1.3,.9),V(3,2.9,.9)],green,.08)}}
-  if(id==='quimica'){
-   flow(n>=2?'degraded':'normal');if(active){crack();ring(V(2.63,1.61,-3.18),.2,'#af6e36');for(let i=0;i<14;i++){const b=mesh(new T.SphereGeometry(.06,8,6),'#b56cba',V(-2.5+i*.38,.7,2.1));actors.push(t=>{b.position.y=.6+.22*Math.sin(t*2+i);b.position.z=1.84+.4*(1-(t*.4+i/14)%1)})}}{const ref=proxy(-.1,-5,true);ref.scale.setScalar(.8)}
   }
   if(id==='limpeza'){
    flow();if(active){for(let i=0;i<9;i++){const curve=new T.CatmullRomCurve3([V(-2.9,.67,.65),V(.6,.7,0),V(.6,.95,-2.5),V(.6,1.12,-3)]),p=mesh(new T.IcosahedronGeometry(.09,0),i%2?amber:red,curve.getPoint(i/12));p.material.depthTest=false;p.renderOrder=9;const update=t=>p.position.copy(curve.getPoint(n===2?.94:((i/12+t*.13)%1)));update(0);actors.push(update)}ring(V(.6,1.12,-3),.32,red)}
@@ -55,7 +50,7 @@ function criarDemonstracoes(T,model){
  }
  function tick(dt){if(!animated)return false;elapsed+=dt;if(special)animated=special.update(elapsed);else actors.forEach(f=>f(elapsed));return true}
  function limitesEnquadramento(focused=false){group.updateWorldMatrix(true,true);return special?.bounds(focused)||(noiseBounds?noiseBounds.clone().applyMatrix4(group.matrixWorld):new T.Box3().setFromObject(group))}
- return{set,tick,group,limitesEnquadramento,pontosEnquadramento:()=>special?.framingPoints?.(),alvos:()=>special?.targets(),corte:on=>special?.corte?.(on),apresentacao:()=>special?.presentation,estado:()=>({id:current?.id,step,animated,elapsed,objetos:group.children.length,cena:special?.info()})};
+ return{set,tick,group,limitesEnquadramento,pontosEnquadramento:()=>special?.framingPoints?.(),detalheEnquadramento:i=>special?.closeup?.(i),alvos:()=>special?.targets(),corte:on=>special?.corte?.(on),apresentacao:()=>special?.presentation,estado:()=>({id:current?.id,step,animated,elapsed,objetos:group.children.length,cena:special?.info()})};
 }
 
 // Diagramas vetoriais complementam o 3D com relações que uma cor isolada não explica.
@@ -72,8 +67,7 @@ function diagramaDemonstracao(s,n){
  else if(id==='rastreabilidade'){const nodes=['Código 2D','Lote','Cavidade','Parâmetros'];nodes.forEach((v,i)=>{body+=rect(8+i*149,15,133,39,active?'#f9e9e5':'#e6f3ee')+text(17+i*149,40,v,active?red:green);if(i<3)body+=path(`M${141+i*149} 34h16`,active?red:green,3,active?'3 4':'')});body+=text(8,88,active?'Registros sem vínculo recuperável':'Peça, processo e matéria-prima conectados',active?red:green,18)}
  else if(id==='logistica'){body=['Peças soltas','Contato no transporte','Berços e separadores'].map((v,i)=>rect(8+i*198,22,184,49,n===i?i===1?'#f9e9e5':'#e4f3ed':'#edf1f5')+text(17+i*198,52,v,n===i?i===1?red:green:muted,14)).join('');body+=text(8,101,'Proteção das interfaces auxiliares · sequência ilustrativa',muted,13)}
  else if(id==='servico'){body=text(8,20,n===0?'Fixador com aperto pendente':'Ferramenta bloqueada pela travessa',n===0?blue:red,18)+text(8,65,n===0?'O problema é simples; o acesso precisa permitir o reparo.':'O conjunto montado impede a inserção da chave.',muted,17)+text(8,101,'Representação didática do espaço de manutenção.',muted,14)}
- else if(id==='producao'){['Moldagem','União','Inspeção'].forEach((v,i)=>{body+=rect(8+i*198,20,180,42,n===1?'#fae8e3':n===2?'#e4f3ec':'#e5edf6')+text(22+i*198,47,v,n===1?red:n===2?green:blue,18);if(i<2)body+=path(`M${188+i*198} 41h16`,n===1?red:green)});body+=text(8,96,n===1?'LINHA INTERROMPIDA':n===2?'Envelopes e abertura corrigidos':'Viabilidade avaliada antes da liberação',n===1?red:green,17)}
- else if(id==='quimica'){body=text(8,20,'TEMPO ZERO',green)+text(318,20,'VIDA EM SERVIÇO',active?red:blue)+path('M300 7v90','#c3d1dc',1);for(let i=0;i<4;i++){body+=rect(10+i*64,38,48,36,blue)+rect(320+i*64,38,48,active?18:36,active?'#ad793c':blue)}body+=text(8,105,'Comparação qualitativa: ataque químico → material degradado → fluxo reduzido',muted,13)}
+ else if(id==='quimica'){body=text(8,20,active?'APÓS EXPOSIÇÃO EM SERVIÇO':'TEMPO ZERO',active?red:green,18)+text(8,65,active?'Corrosão nos insertos e limitadores de compressão':'Componentes metálicos íntegros e brilhantes',muted,17)+text(8,101,'Passagem de tempo ilustrativa, sem escala de vida útil.',muted,14)}
  else if(id==='limpeza'){body=path('M12 52 H540',blue,9)+text(8,20,'Vista interna esquemática · caminho até a válvula');for(let i=0;i<6;i++)body+=`<circle class="${n===1?'travelling-dot':''}" cx="${40+i*74}" cy="52" r="${active?7:3}" fill="${active?red:'#b5e3ff'}"/>`;body+=path('M548 29v46 M532 76l33-48',muted,5)+text(8,102,n===2?'CONGELADO · partícula antes do contato':'Partículas ampliadas para permitir a visualização',n===2?red:muted,14);if(n===2)body+=`<circle cx="510" cy="52" r="13" fill="none" stroke="${red}" stroke-width="3"/>`}
  else if(id==='distribuicao'){for(let i=0;i<4;i++){const h=active&&i===2?20:59;body+=rect(12+i*77,82-h,48,h,active&&i===2?red:blue)+text(12+i*77,104,'C'+(i+1),muted,13)}body+=path('M347 86V14 M347 86h235','#a1b5c6',1)+path('M353 77 Q420 2 576 26',blue,3,'6 4')+path(active?'M353 83 Q420 40 576 59':'M353 77 Q420 2 576 26',active?red:blue,3)+text(367,105,'Torque · comparação qualitativa',muted,12)}
  else if(id==='agua'){body=text(8,20,n===0?'Gotas → condensado':n===1?'Condensado → bolsa de água':'Água aspirada → admissão interrompida',n>=2?red:blue,18);for(let i=0;i<4;i++){body+=rect(20+i*139,34,115,44,n>=2?'#687a89':blue)+text(38+i*139,62,n>=2?'APAGADO':'CILINDRO '+(i+1),'white',13)}body+=text(8,105,'Perda de função primária · risco de falha grave do motor',red,14)}
