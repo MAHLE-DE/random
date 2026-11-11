@@ -6,9 +6,11 @@ A apresentação completa tem **15 funções e uma conclusão**, organizadas em 
 
 O carro percorre dez paradas. S6 e S7 têm três funções cada; S9 tem duas. Entre funções da mesma severidade, apenas o slide muda: o carro permanece na mesma parada. A barra inferior identifica esses slides como `6·1`, `6·2`, `6·3`, por exemplo.
 
-Cada demonstração tem etapas manuais. **Clique em Próxima etapa ou pressione → / Espaço** para continuar. A animação da etapa atual pode se movimentar ou repetir um efeito, mas nunca decide quando avançar para a próxima. O último passo é sempre a inspeção 3D livre. **←** retorna uma etapa; após a primeira etapa, retorna ao slide anterior. Os números permitem saltar diretamente, reiniciando a demonstração escolhida.
+São **42 etapas reais**, sem uma fase adicional de inspeção. **Clique em Próxima etapa ou pressione → / Espaço** para continuar; ao final da sequência, o controle abre o próximo slide. **←** retorna uma etapa; na primeira, retorna à última etapa real do slide anterior. O coletor pode ser girado em qualquer etapa. A coluna esquerda fica reservada ao texto explicativo, sem mapeador de demonstração guiada ou botão de inspeção.
 
-O coletor entra **completo** em todos os slides. Algumas etapas internas usam transparência; a inspeção final restaura a vista completa e opaca. Arraste para girar, use a roda ou − / + para zoom, e selecione as legendas numeradas para orientar e destacar cada região. Quando uma região interna permanece oculta, o foco ativa a transparência. Os botões de corte e transparência também ficam disponíveis manualmente.
+O coletor entra **completo** em todos os slides. Arraste para girar, use a roda ou − / + para zoom e selecione as legendas numeradas para localizar cada região. Corte e reenquadramento permanecem disponíveis. Transparência é um recurso dos slides a partir de S3; S1 e S2 não têm esse botão nem ativação automática de transparência pelas legendas.
+
+S1 e S2 não exibem animação de ar. S2 tem uma única etapa: manchas localizadas na lateral esquerda, marcas curvas de fluxo do polímero no topo central e uma mudança ampla de tonalidade no lado direito do topo, sem textura de manchas. O enquadramento permite comparar as três regiões. Entre funções da mesma parada, apenas o conteúdo desaparece e reaparece; o painel branco, o carro e a câmera do mapa permanecem estáveis.
 
 O painel ocupa 90% da largura e da altura, com uma faixa inferior exclusiva para navegação. Os gráficos, efeitos, fragmentos, tempos, distâncias e fluxos são ilustrativos, sem valores de ensaio ou simulação. S10 representa perda de assistência do servofreio e uma comparação qualitativa da distância de parada, **sem colisão**.
 

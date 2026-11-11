@@ -7,22 +7,30 @@ function criarEfeitosColetor(T,model){
  for(let i=0;i<256*256;i++){seed=(seed*1664525+1013904223)>>>0;const x=(i%256)>>3,y=Math.floor(i/256)>>3,coarse=((Math.imul(x+83,374761393)^Math.imul(y+19,668265263))>>>16)&255,tone=40+coarse*.64+(seed>>>24)*.13;data.data.set([tone,tone,tone,255],i*4)}ctx.putImageData(data,0,0);
  const grain=new T.CanvasTexture(canvas);grain.wrapS=grain.wrapT=T.RepeatWrapping;skin.bumpMap=grain;skin.bumpScale=0;
  for(const o of meshes){o.material=skin;const position=o.geometry.getAttribute('position'),matrix=new T.Matrix4().multiplyMatrices(inverse,o.matrixWorld),coords=[],uv=[];for(let i=0;i<position.count;i++){const p=new T.Vector3().fromBufferAttribute(position,i).applyMatrix4(matrix);coords.push(p.x,p.y,p.z);uv.push(p.x*.8+p.z*.23,p.y*1.8+p.z*.9)}o.geometry.setAttribute('surfaceLocal',new T.Float32BufferAttribute(coords,3));o.geometry.setAttribute('uv',new T.Float32BufferAttribute(uv,2))}
- skin.onBeforeCompile=shader=>{shader.uniforms.effectKind=mode;shader.vertexShader='attribute vec3 surfaceLocal; varying vec3 effectPosition;\n'+shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\neffectPosition=surfaceLocal;');shader.fragmentShader='uniform float effectKind; varying vec3 effectPosition;\n'+shader.fragmentShader.replace('#include <color_fragment>',`#include <color_fragment>
+ skin.onBeforeCompile=shader=>{shader.uniforms.effectKind=mode;shader.vertexShader='attribute vec3 surfaceLocal; varying vec3 effectPosition;\n'+shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\neffectPosition=surfaceLocal;');shader.fragmentShader=`uniform float effectKind; varying vec3 effectPosition;
+ float appearanceHash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+ float appearanceNoise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.0-2.0*f);return mix(mix(appearanceHash(i),appearanceHash(i+vec2(1,0)),f.x),mix(appearanceHash(i+vec2(0,1)),appearanceHash(i+vec2(1,1)),f.x),f.y);}
+ `+shader.fragmentShader.replace('#include <color_fragment>',`#include <color_fragment>
  if(effectKind>0.5&&effectKind<1.5){
-  vec3 p=effectPosition;float front=smoothstep(1.30,1.60,p.z);
-  float stain=1.0-smoothstep(0.30,0.68,length((p.xy-vec2(-1.1,0.54))*vec2(1.35,2.9))+0.06*sin(p.x*37.0+p.y*23.0));
-  float mark=(1.0-smoothstep(0.018,0.035,abs(p.y-0.58-0.048*sin(p.x*8.0))))*smoothstep(0.2,0.4,p.x)*(1.0-smoothstep(1.8,2.2,p.x));
-  float variation=(1.0-smoothstep(0.25,0.60,length((p.xy-vec2(0.35,0.36))*vec2(1.7,4.3))));
-  diffuseColor.rgb=mix(diffuseColor.rgb,vec3(0.28,0.21,0.13),front*stain*0.8);
-  diffuseColor.rgb=mix(diffuseColor.rgb,vec3(0.48,0.53,0.56),front*mark*0.65);
-  diffuseColor.rgb=mix(diffuseColor.rgb,vec3(0.12,0.19,0.24),front*variation*0.6);
-  float mottles=0.5+0.5*sin(p.x*13.0+sin(p.y*17.0)*1.5)*sin(p.y*23.0+p.z*8.0);
-  float clusters=(1.0-smoothstep(0.3,0.9,length((p.xy-vec2(-1.35,0.65))*vec2(1.0,1.8))))+(1.0-smoothstep(0.35,0.8,length((p.xy-vec2(1.75,0.82))*vec2(1.0,2.0))));
-  float flowBands=pow(0.5+0.5*sin(p.x*25.0+p.y*16.0+sin(p.x*3.0)*2.5),9.0);
-  diffuseColor.rgb=mix(diffuseColor.rgb,vec3(0.47,0.39,0.29),front*clamp(clusters,0.0,1.0)*mottles*0.55);
-  diffuseColor.rgb=mix(diffuseColor.rgb,vec3(0.38,0.46,0.50),front*flowBands*0.22);
-  float seam=1.0-smoothstep(0.003,0.013,abs(p.y-0.67));
-  diffuseColor.rgb=mix(diffuseColor.rgb,vec3(0.55,0.54,0.48),front*seam*0.55);
+  vec3 p=effectPosition;
+  // 1. Nuvens orgânicas de pigmentação, restritas à lateral esquerda.
+  float front=smoothstep(1.60,1.76,p.z)*(1.0-smoothstep(1.08,1.14,p.y));
+  vec2 stainUV=(p.xy-vec2(-1.50,0.56))*vec2(1.25,3.5);
+  float noise=appearanceNoise(p.xy*11.0),edgeNoise=appearanceNoise(p.xy*7.0)*0.19;
+  float stain=(1.0-smoothstep(0.46,0.86,length(stainUV)+edgeNoise))*front;
+  float islands=(1.0-smoothstep(0.14,0.29,length((p.xy-vec2(-0.76,0.40))*vec2(1.2,3.5))))*front;
+  vec3 stainColor=mix(vec3(0.10,0.085,0.07),vec3(0.22,0.18,0.14),noise);
+  diffuseColor.rgb=mix(diffuseColor.rgb,stainColor,stain*(0.62+0.18*noise)+islands*0.30);
+  // 2. Quatro frentes curvas de escoamento do polímero, somente no topo central.
+  float top=smoothstep(1.15,1.18,p.y);
+  float extent=smoothstep(-1.35,-1.04,p.x)*(1.0-smoothstep(0.30,0.55,p.x));
+  float wave=p.z-0.14*sin((p.x+0.4)*2.4)-0.025*sin(p.x*6.0);
+  float bands=exp(-pow((wave-0.22)/0.016,2.0))+0.85*exp(-pow((wave-0.43)/0.020,2.0))+0.70*exp(-pow((wave-0.65)/0.024,2.0))+0.55*exp(-pow((wave-0.87)/0.027,2.0));
+  diffuseColor.rgb=mix(diffuseColor.rgb,vec3(0.12,0.15,0.17),top*extent*min(bands,1.0)*0.56);
+  // 3. Uma faixa ampla de tonalidade uniforme, sem textura de mancha.
+  float toneArea=smoothstep(0.68,1.30,p.x)*smoothstep(-0.34,-0.28,p.z)*top;
+  vec3 tone=mix(vec3(0.048,0.064,0.079),vec3(0.084,0.107,0.128),smoothstep(0.9,2.4,p.x));
+  diffuseColor.rgb=mix(diffuseColor.rgb,tone,toneArea*0.88);
  }
 `)};
  const rim=root.getObjectByName('Plenum_borda_inferior'),edges=new T.LineSegments(new T.EdgesGeometry(rim.geometry,30),new T.LineBasicMaterial({color:'#b77d24'}));edges.name='Cantos_destacados_para_o_toque';root.add(edges);
@@ -37,6 +45,6 @@ function criarEfeitosColetor(T,model){
  const marking=root.getObjectByName('Superficies_de_marcacao_sem_gravacao'),highlight=root.getObjectByName('Destaques_didaticos_das_marcacoes');
  const labels=[];
  for(const [i,label]of ['DATA','PEÇA','CAV.'].entries()){const canvas=document.createElement('canvas');canvas.width=128;canvas.height=40;const ctx=canvas.getContext('2d');ctx.fillStyle='#c8d3da';ctx.font='bold 25px Arial';ctx.textAlign='center';ctx.fillText(label,64,29);const o=new T.Mesh(new T.PlaneGeometry(.52,.16),new T.MeshBasicMaterial({map:new T.CanvasTexture(canvas),transparent:true,side:T.DoubleSide}));o.position.set(-.93+i*.66,.31,1.834);root.add(o);labels.push(o)}
- function set(id,stage=0){const enabled=stage>0,index=enabled?['identificacao','aparencia','tatil','ruido'].indexOf(id):0;mode.value=index;marking.visible=highlight.visible=id==='identificacao'||id==='rastreabilidade';labels.forEach(o=>o.visible=id==='identificacao'&&stage===0);edges.visible=patch.visible=patchUpper.visible=id==='tatil'&&enabled;skin.color.copy(id==='tatil'&&enabled?new T.Color('#6b7477'):id==='quimica'&&enabled?new T.Color('#666c52'):baseColor);skin.roughness=id==='tatil'&&enabled?.96:.36;skin.bumpScale=id==='tatil'&&enabled?.105:0;skin.clearcoat=id==='tatil'&&enabled?0:.20;skin.emissive.set(id==='ruido'&&enabled?'#123d6e':'#000000');skin.emissiveIntensity=id==='ruido'&&enabled?.22:0}
+ function set(id,stage=0){const enabled=stage>0||id==='aparencia',index=enabled?['identificacao','aparencia','tatil','ruido'].indexOf(id):0;mode.value=index;marking.visible=highlight.visible=id==='identificacao'||id==='rastreabilidade';labels.forEach(o=>o.visible=id==='identificacao'&&stage===0);edges.visible=patch.visible=patchUpper.visible=id==='tatil'&&enabled;skin.color.copy(id==='tatil'&&enabled?new T.Color('#6b7477'):id==='quimica'&&enabled?new T.Color('#666c52'):baseColor);skin.roughness=id==='tatil'&&enabled?.96:id==='aparencia'?.50:.36;skin.bumpScale=id==='tatil'&&enabled?.105:0;skin.clearcoat=id==='tatil'&&enabled?0:.20;skin.emissive.set(id==='ruido'&&enabled?'#123d6e':'#000000');skin.emissiveIntensity=id==='ruido'&&enabled?.22:0}
  set('identificacao',0);return{set,nomes:['marcacoes','aparencia','tatil','ruido']};
 }

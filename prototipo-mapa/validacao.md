@@ -1,5 +1,19 @@
 # Validação do protótipo
 
+## Refino S1/S2 e transições — 11/11/2026
+
+- Fade entre funções da mesma parada limitado a `#slide-content`: painel branco, carro, câmera e mapa permanecem visíveis. O conteúdo é substituído na opacidade zero; o novo modelo já está desenhado antes de reaparecer.
+- Fase extra de inspeção removida de todas as funções. O roteiro passa de 58 para 42 etapas reais; S2 tem uma única etapa. Rotação, zoom, corte e reenquadramento continuam disponíveis durante as etapas.
+- Mapeador de demonstração guiada e botão de inspeção removidos. A coluna esquerda fica reservada ao texto explicativo.
+- S1 e S2 sem animação de ar e sem função de transparência, inclusive na seleção das legendas.
+- S2 já inicia com manchas orgânicas localizadas na lateral esquerda, quatro marcas curvas de fluxo do polímero no topo central e uma faixa ampla de tonalidade no topo direito. A faixa de tom é lisa e contínua, sem o aspecto de mancha ou adesivo retangular. Vista inicial e alvos das legendas ajustados para as três regiões.
+- Textos e etapas de S3 a S10 comparados ao commit anterior: preservados, exceto pela remoção da inspeção final solicitada. O último cenário de cada função mantém seus efeitos.
+- Regressão aprovada em 1600×900, 1280×720 e 1280×960: 126 estados, 135 focos de legenda, giro, zoom máximo, corte e navegação por todas as 15 funções. S1/S2 verificados sem redesenho contínuo quando não há interação.
+- Sete transições na mesma parada verificadas quadro a quadro, incluindo avanço, retorno e seleção direta: conteúdo chega a zero e volta a um, painel permanece em opacidade um, véu global fica em zero e carro/câmera não mudam.
+- Sem erros JavaScript/WebGL reportados e sem conexões HTTP/HTTPS. Relatório e capturas em `.producao/qa-completa/`. O hash de `validacao-completa.json` considera o HTML normalizado para LF, como no Git.
+
+As seções abaixo são registros históricos de versões anteriores.
+
 ## Apresentação completa — 11/11/2026
 
 - Roteiro das 15 funções da planilha integrado, com 58 etapas controladas pelo apresentador e uma conclusão. São 16 telas em dez paradas; S6, S7 e S9 reutilizam a parada entre suas funções.

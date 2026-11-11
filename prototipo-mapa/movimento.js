@@ -298,7 +298,7 @@ function resetCrash(){crash=null;crashed=false;fireTime=0;impacts=0;skidSamples=
 function finishWreck(){car.position.copy(wreckPosition);car.quaternion.copy(directionQuaternion(crashDirection));syncDamaged();damaged.aplicar(1);damaged.root.visible=true;car.visible=false;fire.visible=true;skid.visible=true;crashed=true;fireTime=Math.max(fireTime,1)}
 function beginCrash(rolling=false){const speed=rolling?(stops[LAST_STOP]-stops[LAST_STOP-1])*total/TRAVEL_DURATION:escapeLength/.85;crash={time:0,impacted:false,rolling,speed,contactTime:escapeLength/speed+(rolling?0:.08),travelled:0,initialLook:look.clone(),initialBoom:boom.clone()};appendSkids();ui()}
 function setContent(){
- const end=pageIndex===PAGE_END,busy=!!motion||!!cameraTween||!!fade,s=CONFIG.slides[pageIndex];
+ const end=pageIndex===PAGE_END,busy=!!motion||!!cameraTween||!!fade&&!fade.contentOnly,s=CONFIG.slides[pageIndex];
  $('conteudo').className='content'+(end?' conclusion':' model-slide')+(busy?' absent':'');
  $('titulo-parada').textContent=end?'CONCLUSÃO · JORNADA DA QUALIDADE':`SEVERIDADE ${s.severidade} · EFEITO NO SISTEMA`;
  $('titulo').textContent=end?'Uma peça. Muitos efeitos.':s.titulo;
@@ -310,12 +310,8 @@ function setContent(){
   $('exemplos-contexto').textContent=s.severidade===1?'RESSALVA PARA A MAHLE':'EXEMPLOS · CONSEQUÊNCIA OBSERVADA';
   $('sistema-titulo').textContent=s.sistemaTitulo;$('sistema-texto').textContent=s.sistemaTexto;
   $('mahle-titulo').textContent=s.exemplosTitulo;$('mahle-texto').textContent=s.exemplosTexto;$('mahle-destaque').textContent=s.destaque;
-  $('modelo-caption').textContent='MODELO DIDÁTICO · '+(demoStep===s.etapas.length-1?'Arraste para girar · legendas localizam as regiões':'Etapa controlada por clique ou → · sem avanço automático');
+  $('modelo-caption').textContent=s.id==='aparencia'?'MANCHAS NA LATERAL · MARCAS E VARIAÇÃO DE TOM NO TOPO':s.etapas[demoStep][0]+' · Arraste para girar';
   s.legendas.forEach((v,i)=>$('legenda-'+i).textContent=v);
-  $('passo-titulo').textContent=s.etapas[demoStep][0];$('passo-texto').textContent=s.etapas[demoStep][1];
-  $('passo-contador').textContent=`${demoStep+1} / ${s.etapas.length}`;
-  $('passo-progresso').innerHTML=s.etapas.map((_,i)=>`<span class="${i<=demoStep?'done':''}"></span>`).join('');
-  $('inspecionar-demo').disabled=demoStep===s.etapas.length-1;$('repetir-demo').disabled=demoStep===0;
   manifoldView.mostrarSlide(pageIndex,demoStep);requestAnimationFrame(()=>manifoldView.resize());
  }
 }
@@ -340,11 +336,14 @@ function setInstant(to){
 }
 function selectSlide(page){
  if(fade||page<0||page>PAGE_END)return;
- motion=null;cameraTween=null;crash=null;fade={to:pageStop(page),page,phase:0,time:0,switched:false};ui();
+ const to=pageStop(page),contentOnly=to===index&&!motion&&!cameraTween&&!crash;
+ motion=null;cameraTween=null;crash=null;fade={to,page,phase:0,time:0,switched:false,contentOnly};ui();
 }
 function gotoPage(page,phase=0){
- const to=pageStop(page);pageIndex=page;demoStep=phase;
- if(to===index){fade={to,page,phase,time:0,switched:false};ui();return}
+ const to=pageStop(page);
+ // Conserva o conteúdo antigo até o ponto de troca, já com opacidade zero.
+ if(to===index){fade={to,page,phase,time:0,switched:false,contentOnly:true};ui();return}
+ pageIndex=page;demoStep=phase;
  if(to===FINAL_SLIDE||index===FINAL_SLIDE){
   const pose=presentationPose(to);cameraTween={to,fromLook:look.clone(),fromBoom:boom.clone(),toLook:pose.look,toBoom:pose.boom,fromScreen:car.position.clone().project(camera),toScreen:screenAt(car.position,pose),time:0,duration:TRAVEL_DURATION};ui();return;
  }
@@ -358,7 +357,6 @@ function advance(direction){
  else {if(s&&demoStep>0){demoStep--;ui();return}if(pageIndex>0){const prev=pageIndex-1;gotoPage(prev,CONFIG.slides[prev].etapas.length-1)}}
 }
 function setDemoStep(n){if(motion||cameraTween||fade||pageIndex===PAGE_END)return;demoStep=clamp(n,0,CONFIG.slides[pageIndex].etapas.length-1);ui()}
-$('repetir-demo').addEventListener('click',()=>setDemoStep(0));$('inspecionar-demo').addEventListener('click',()=>setDemoStep(CONFIG.slides[pageIndex].etapas.length-1));
 function fullscreen(){if(document.fullscreenElement)document.exitFullscreen?.();else document.documentElement.requestFullscreen?.().catch(()=>{})}
 $('proximo').addEventListener('click',()=>advance(1));$('anterior').addEventListener('click',()=>advance(-1));
 for(let i=0;i<=PAGE_END;i++)$('etapa-'+i).addEventListener('click',()=>selectSlide(i));
@@ -367,7 +365,7 @@ $('rolar-anterior').addEventListener('click',()=>scrollList(-1));$('rolar-proxim
 $('numeros').addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.preventDefault();$('numeros').scrollLeft+=e.deltaY}},{passive:false});
 addEventListener('keydown',e=>{
  if(e.repeat||e.altKey||e.ctrlKey||e.metaKey)return;
- if(e.target.closest?.('.model-tools,.sequence-actions,.field-legend,.model-pin')&&[' ','Enter'].includes(e.key))return;
+ if(e.target.closest?.('.model-tools,.field-legend,.model-pin')&&[' ','Enter'].includes(e.key))return;
  // Espaço e Enter conservam a semântica dos botões quando a lista tem foco.
  if(e.target.closest?.('.slide-nav')&&[' ','Enter','ArrowLeft','ArrowRight'].includes(e.key)){
   if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();const next=clamp(Number(e.target.id.replace('etapa-',''))+(e.key==='ArrowRight'?1:-1),0,PAGE_END);$('etapa-'+next)?.focus()}return;
@@ -377,15 +375,17 @@ addEventListener('keydown',e=>{
 let resizeTimer;
 addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{makePoses();if(!motion&&!cameraTween&&!fade&&!crash){const p=presentationPose(index);look.copy(p.look);boom.copy(p.boom)}else if(motion)motion.endPose=stopPose(motion.to);else if(cameraTween){const p=presentationPose(cameraTween.to);cameraTween.toLook=p.look;cameraTween.toBoom=p.boom}},150)});
 const first=stopPose(0);look.copy(first.look);boom.copy(first.boom);place(carU);
-const manifoldView=criarVisorColetor(T,{visivel:()=>pageIndex<PAGE_END&&!motion&&!cameraTween&&!fade});
+const manifoldView=criarVisorColetor(T,{visivel:()=>pageIndex<PAGE_END&&!motion&&!cameraTween&&(!fade||fade.contentOnly&&fade.switched)});
 function update(dt){
  mapClock+=dt;shadowAge+=dt;manifoldView.update(dt);
  vegetation.wind.value+=dt;
  if(fade){
   fade.time+=dt;const out=.27,hold=.08,into=.34;
-  $('fade').style.opacity=fade.time<out?smooth(fade.time/out):fade.time<out+hold?1:1-smooth((fade.time-out-hold)/into);
+  const opacity=fade.time<out?smooth(fade.time/out):fade.time<out+hold?1:1-smooth((fade.time-out-hold)/into);
+  $('fade').style.opacity=fade.contentOnly?0:opacity;
+  $('slide-content').style.opacity=fade.contentOnly?1-opacity:1;
   if(!fade.switched&&fade.time>=out){fade.switched=true;pageIndex=fade.page;demoStep=fade.phase;setInstant(fade.to);ui()}
-  if(fade.time>=out+hold+into){fade=null;$('fade').style.opacity=0;ui()}
+  if(fade.time>=out+hold+into){fade=null;$('fade').style.opacity=0;$('slide-content').style.opacity=1;ui()}
  }
  if(cameraTween){const t=cameraTween;t.time+=dt;const u=ease(clamp(t.time/t.duration,0,1));look.lerpVectors(t.fromLook,t.toLook,u);boom.lerpVectors(t.fromBoom,t.toBoom,u);framePoint(car.position,lerp(t.fromScreen.x,t.toScreen.x,u),lerp(t.fromScreen.y,t.toScreen.y,u));if(u===1){look.copy(t.toLook);boom.copy(t.toBoom);index=t.to;cameraTween=null;ui()}}
  if(motion){
