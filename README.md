@@ -2,11 +2,15 @@
 
 Abra **[prototipo-mapa/iniciar.html](prototipo-mapa/iniciar.html)** no Edge ou Chrome. O HTML contém código, biblioteca, modelos e marca. Pode ser copiado sozinho para outro computador, sem internet, servidor ou instalação.
 
-A apresentação tem **13 funções e uma conclusão**, organizadas em dez severidades. O roteiro técnico vem de `apresentacao_qualidade_completa.xlsx`, aba `Sheet1`, linhas 3 a 17, com as linhas 10 e 12 retiradas da apresentação. Os textos mantêm a estrutura de função, efeito no sistema e exemplos da apresentação original.
+A apresentação tem **15 telas: uma capa, 13 funções e uma conclusão**. As funções estão organizadas em dez severidades. O roteiro técnico vem de `apresentacao_qualidade_completa.xlsx`, aba `Sheet1`, linhas 3 a 17, com as linhas 10 e 12 retiradas da apresentação. Os textos mantêm a estrutura de função, efeito no sistema e exemplos da apresentação original.
+
+Ao abrir o arquivo, aparece a capa **Jornada da qualidade**, antes de S1. Ela apresenta **Bruno Caetano, Cauã Ferrari · BU2 SA (TMD2)**; a mesma identificação, com ponto central antes da unidade, permanece no canto inferior esquerdo dos slides. A capa tem uma única etapa. **Iniciar jornada**, → ou Espaço dispara uma sequência automática de **13,8 segundos**, sem exigir novos cliques entre suas partes, e abre S1 ao terminar. O botão **Início** retorna à capa; Voltar na primeira etapa de S1 faz o mesmo.
+
+A figura da referência foi reconstruída com **11 elementos: dois cubos e nove faces geométricas**. Texto e fundo cinza desaparecem juntos em um fade de um segundo. Os cubos rolam, as faces se dividem em 27 blocos e as cores mudam suavemente durante a montagem; a geometria de 46 malhas do carro passa de blocos ao modelo original. A marca branca no retângulo azul voa em 3D até se encaixar no capô. A pintura termina em **#1B267D**; o carro apresentado, sua versão amassada e as exportações geradas pela apresentação usam somente a marca no capô, sem logos laterais. A abertura continua inteiramente offline e não adiciona dependências externas.
 
 O carro percorre dez paradas. S6, S7 e S9 têm duas funções cada. Entre funções da mesma severidade, apenas o slide muda: o carro permanece na mesma parada. Após `6·2`, a sequência segue diretamente para `7·1`. A distribuição de ar ocupa `7·2`, após resistência química.
 
-São **25 etapas reais**, sem uma fase adicional de inspeção. **Clique em Próxima etapa ou pressione → / Espaço** para continuar; ao final da sequência, o controle abre o próximo slide. **←** retorna uma etapa; na primeira, retorna à última etapa real do slide anterior. O coletor pode ser girado em qualquer etapa. A coluna esquerda fica reservada ao texto explicativo, sem mapeador de demonstração guiada ou botão de inspeção.
+São **uma etapa de abertura e 25 etapas técnicas, totalizando 26 etapas**, sem uma fase adicional de inspeção. **Clique em Próxima etapa ou pressione → / Espaço** para continuar; ao final da sequência, o controle abre o próximo slide. **←** retorna uma etapa; na primeira, retorna à última etapa real do slide anterior, ou à capa quando estiver em S1. O coletor pode ser girado em qualquer etapa técnica. A coluna esquerda fica reservada ao texto explicativo, sem mapeador de demonstração guiada ou botão de inspeção.
 
 O coletor entra **completo** em todos os slides. Arraste para girar, use a roda ou − / + para zoom e selecione as legendas numeradas para localizar cada região. Corte e reenquadramento permanecem disponíveis. O botão de transparência existe somente no slide de distribuição de ar, que começa com o recurso ativado. Os efeitos de transparência usados nas demais demonstrações seguem seu roteiro.
 
@@ -32,7 +36,7 @@ Ao sair de S9.2, a aproximação da curva e a saída pela tangente levam à bati
 
 A estrada atravessa o mapa com duas extremidades fora da tela, sem fechar circuito nem cruzar a si mesma. A conclusão faz o zoom geral e ocupa 40% da largura à esquerda, destacando a integração entre projeto, validação, processo, fornecedores, montagem, logística e serviço. “OBRIGADO!” aparece grande e branco à direita após a conclusão entrar.
 
-Os demais slides ocupam 90% da largura e da altura, com uma faixa inferior exclusiva para navegação. Os gráficos, efeitos, fragmentos, tempos, distâncias e fluxos são ilustrativos, sem valores de ensaio ou simulação.
+Os slides técnicos ocupam 90% da largura e da altura, com uma faixa inferior exclusiva para navegação. Os gráficos, efeitos, fragmentos, tempos, distâncias e fluxos são ilustrativos, sem valores de ensaio ou simulação.
 
 ## Desenvolvimento
 
@@ -40,6 +44,10 @@ Node.js é suficiente para gerar a apresentação: `node prototipo-mapa/gerar.mj
 
 Os testes usam Edge em modo headless, com navegação offline, capturas e verificações de interação, enquadramento, layout e sequência. `PRESENTATION_BROWSER` permite indicar outro executável Chromium; `QA_OUTPUT` altera a pasta do relatório. A saída padrão é `.producao/qa-completa/`, ignorada pelo Git. Não é necessário abrir uma janela de navegador para executar a validação.
 
+Para verificar a abertura, execute `node prototipo-mapa/verificar-abertura.mjs`. O teste cobre a capa, o fade de um segundo, rolamento, subdivisão, morph, voo e encaixe da marca, retorno à capa e redimensionamento da janela durante a sequência.
+
+- `prototipo-mapa/abertura.js`: capa geométrica e sequência de transformação dos blocos no carro, com entrega à câmera do mapa.
+- `prototipo-mapa/carro-aparencia.js`: pintura #1B267D, remoção das marcas laterais e placa vetorial branca no capô, reutilizada no amassado e nas exportações.
 - `prototipo-mapa/slides.json`: textos, alvos de legenda e etapas das 13 funções, na ordem da planilha.
 - `prototipo-mapa/configuracao.json`: dez paradas, escala, transições e painel.
 - `prototipo-mapa/demonstracoes.js`: cenas 3D e diagramas das demonstrações.

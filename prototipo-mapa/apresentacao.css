@@ -1,4 +1,21 @@
 /* Painel de 90% com faixa inferior exclusiva para navegação. */
+#capa{position:absolute;z-index:4;inset:0;background:#fff;overflow:hidden;pointer-events:none}
+#capa-composicao{position:absolute;left:50%;top:50%;width:1280px;height:720px;transform:translate(-50%,-50%) scale(var(--cover-scale,1));transform-origin:center}
+#capa-fundo{position:absolute;left:42px;top:38px;width:788px;height:644px;background:#f1f1f1;border-radius:2px}
+#capa-texto{position:absolute;inset:0;color:#343b6c}
+#capa-titulo{position:absolute;left:80px;top:178px;margin:0;white-space:nowrap;font-size:42px;line-height:1.2;letter-spacing:-.025em;font-weight:400}
+#capa-titulo strong{font-weight:800}
+#capa-autores{position:absolute;left:80px;top:568px;margin:0;color:#34465b;font-size:22px;line-height:1.45;white-space:nowrap}
+#capa-autores span{font-weight:500}
+#capa-geometria{position:absolute;inset:0}
+.intro-active .bottom{left:6.25%;justify-content:flex-start;z-index:6}
+.intro-active .bottom .panel,.intro-active #anterior,.intro-active .slide-counter{display:none}
+.intro-playing .bottom{opacity:0;pointer-events:none}
+.slide-authors{position:absolute;left:34px;bottom:9px;font-size:12px;line-height:16px;color:#33516b;white-space:nowrap;pointer-events:none}
+.slide-authors span{margin-left:5px}
+.content{padding-bottom:38px!important}
+.conclusion .slide-authors{left:28px;font-size:11px}
+@media(max-height:800px){.slide-authors{left:25px;bottom:7px;font-size:10px;line-height:13px}.content{padding-bottom:32px!important}.conclusion .slide-authors{left:22px;font-size:10px}}
 .content{padding:28px 34px 24px;overflow:hidden}
 .slide-content{display:flex;flex-direction:column;flex:1;min-height:0;will-change:opacity}
 .slide-brand{top:28px;right:32px;width:132px;height:34px}

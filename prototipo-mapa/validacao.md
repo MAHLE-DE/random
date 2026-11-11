@@ -1,5 +1,19 @@
 # Validação do protótipo
 
+## Capa geométrica e autoria — 11/11/2026
+
+- O arquivo abre na capa “Jornada da qualidade”, com Bruno Caetano, Cauã Ferrari · BU2 SA (TMD2). A identificação permanece no canto inferior esquerdo dos slides técnicos e da conclusão. O espaço de “SLIDE TEMPLATE” foi deixado vazio.
+- A figura da referência foi reconstruída em geometria nativa: dois cubos e nove faces. Não foi usada uma imagem da capa como textura. A abertura aguarda um único avanço; depois, executa a sequência de 13,8 segundos e entrega o carro a S1.
+- Texto e retângulo cinza fazem fade de um segundo. Os cubos rolam por pivôs, as faces giram, as cores mudam gradualmente e 27 subcubos se reorganizam. A própria malha do carro usa morph de posições em 46 peças para passar da forma em blocos ao veículo original.
+- A marca vetorial branca na placa azul sai do canto inferior direito, percorre uma trajetória tridimensional e se encaixa no capô. A pintura termina em #1B267D. As duas logos laterais são removidas antes da criação da réplica animada, do amassado e das exportações da apresentação. Pneus, vidros e metais preservam seus materiais.
+- O trecho final interpola escala/profundidade, orientação e iluminação para coincidir com o carro no mapa. O teste compara os cantos do modelo em projeção e a placa com o alvo. Os erros finais ficaram abaixo das tolerâncias de 1e-7 e 1e-8, respectivamente.
+- Abertura aprovada em 1600×900, 1280×720 e 1280×960, incluindo redimensionamento durante a animação, relógio contínuo, peças dentro da tela, redução monotônica de escala/profundidade, comandos repetidos, retorno e cancelamento por seleção direta.
+- Os rodapés foram verificados nas 14 telas de conteúdo em cada resolução, inclusive na conclusão de 40%, sem cortar nomes/unidade nem sobrepor a navegação. O botão Início e Voltar em S1 restauram a capa.
+- Regressão geral aprovada nas três resoluções: 13 funções, 25 etapas técnicas, 75 estados/resoluções, 117 focos de legenda e cinco fades na mesma parada. São agora 15 telas e 26 etapas ao contar a capa, mantendo dez paradas no mapa.
+- Zero erros JavaScript/WebGL e zero requisições HTTP/HTTPS. Sem dependências externas novas. Capturas e quadros em `.producao/qa-abertura/`; regressão em `.producao/qa-completa/`. Hash LF do HTML testado e resumos em `validacao-completa.json`.
+
+As seções abaixo registram versões anteriores.
+
 ## Acidente, servofreio e encerramento — 11/11/2026
 
 - A estrada passou a ter entrada e saída independentes, com extremidades fora da tela no zoom final. O traçado não se cruza no plano XZ, e a distância entre trechos não adjacentes supera a largura total dos acostamentos. O teste geométrico usa os mesmos controles, curvas e amostragem da malha da apresentação. O raio mínimo é maior que a meia largura da estrada com margem, evitando dobras nas bordas internas.

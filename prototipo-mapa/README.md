@@ -2,21 +2,24 @@
 
 Abra `iniciar.html` no Edge ou Chrome. Esse arquivo é autossuficiente e funciona offline, com WebGL. `F` alterna tela cheia.
 
+O arquivo abre na capa **Jornada da qualidade**, antes de S1. São **15 telas: uma capa, 13 funções e uma conclusão**, com uma etapa de abertura e 25 etapas técnicas, totalizando 26 etapas. **Bruno Caetano, Cauã Ferrari · BU2 SA (TMD2)** aparece na capa e no canto inferior esquerdo dos demais slides, com ponto central entre os nomes e a unidade.
+
 ## Apresentação
 
-- **→, Espaço, Page Down ou Próxima etapa:** avançar a demonstração. Ao terminar a última etapa real, o mesmo controle abre o próximo slide.
-- **←, Page Up ou Voltar:** voltar uma etapa. Na primeira etapa, retornar à última etapa real do slide anterior.
-- **Barra inferior:** saltar para um slide e reiniciar sua demonstração. Os números repetidos indicam funções diferentes da mesma severidade.
+- **→, Espaço, Page Down ou Próxima etapa:** avançar a demonstração. Na capa, **Iniciar jornada** dispara sua única sequência automática de 13,8 segundos e abre S1 ao terminar. Ao terminar a última etapa técnica, o mesmo controle abre o próximo slide.
+- **←, Page Up ou Voltar:** voltar uma etapa. Na primeira etapa, retornar à última etapa real do slide anterior; em S1, retornar à capa.
+- **Barra inferior:** saltar para um slide e reiniciar sua demonstração. **Início** retorna à capa. Os números repetidos indicam funções diferentes da mesma severidade.
 - **Arraste / roda / − / +:** girar e ampliar o coletor. A câmera mantém a geometria inteira enquadrada.
 - **Legendas 1, 2 e 3:** orientar a vista para o alvo e selecionar o indicador correspondente. A partir de S3, regiões ocultas podem ativar transparência para permitir a localização. S1 e S2 orientam a vista sem transparência.
 - **Vista em corte e Reenquadrar:** inspecionar o interior e restaurar a orientação e zoom iniciais. O botão **Transparência** existe somente em S7.2, onde começa ativado.
 
-As animações não avançam o roteiro automaticamente. Transporte, partículas ou ondas podem se movimentar na etapa atual; só outro comando libera a próxima consequência. Não há uma etapa adicional de inspeção: giro, corte, zoom e reenquadramento funcionam durante toda a demonstração. A última etapa mantém o seu cenário e seus efeitos. O mapeador de demonstração guiada foi retirado; a coluna esquerda contém somente o texto explicativo.
+Nos slides técnicos, as animações não avançam o roteiro automaticamente. Transporte, partículas ou ondas podem se movimentar na etapa atual; só outro comando libera a próxima consequência. A abertura começa apenas após um avanço e, depois dele, executa sua sequência inteira antes de mostrar S1. Não há uma etapa adicional de inspeção: giro, corte, zoom e reenquadramento funcionam durante toda a demonstração técnica. A última etapa mantém o seu cenário e seus efeitos. O mapeador de demonstração guiada foi retirado; a coluna esquerda contém somente o texto explicativo.
 
 ## Roteiro
 
 | Parada | Funções na sequência da planilha | Representação |
 |---|---|---|
+| Início | Jornada da qualidade | Uma etapa: capa com autores e unidade; transformação geométrica automática no carro após o primeiro avanço |
 | S1 | Identificação permanente | Campos identificados, apagamento e ampliação do conjunto sob investigação |
 | S2 | Aparência | Uma etapa: manchas na lateral, marcas curvas de fluxo no topo central e uma faixa ampla e lisa de tonalidade no topo direito |
 | S3 | Rugosidade e tato | Uma etapa: lateral rugosa e mãos, sem ar; linha de partição em relevo no topo e canto vivo destacado na flange |
@@ -36,6 +39,12 @@ Fonte técnica: `../apresentacao_qualidade_completa.xlsx`, `Sheet1!B3:F17`, com 
 
 ## Edição e reprodução
 
+A capa está em `abertura.js` e reconstrói a referência em geometria nativa, sem usar a imagem como textura: dois cubos e nove faces, totalizando 11 elementos. Ao avançar uma vez, o texto e o painel cinza desaparecem juntos durante um segundo. Os cubos rolam sobre arestas, revelam faces de cores diferentes e se reorganizam; as faces se subdividem em 27 blocos. Gradientes suaves acompanham as partes rápidas e a montagem passa à deformação real das 46 malhas do carro, preservando sua topologia original. A marca branca sobre um retângulo azul percorre uma trajetória 3D até o capô. A sequência inteira dura 13,8 segundos e termina no enquadramento de S1; não pede cliques intermediários.
+
+`carro-aparencia.js` aplica a pintura final `#1B267D` somente à carroceria, cabine e retrovisores, preservando vidros, pneus e metais. A marca do capô é vetorial e reaproveita a geometria existente. As logos laterais são removidas do carro apresentado, do amassado e das exportações geradas pela apresentação. A placa acompanha a deformação do capô na batida. Nenhuma dependência externa foi adicionada; a capa e a animação são incorporadas ao mesmo HTML offline.
+
+Execute `node prototipo-mapa/verificar-abertura.mjs` para conferir a composição da capa, seu único avanço, o fade de um segundo, os rolamentos, as 27 subdivisões, o morph, o voo e o encaixe da marca, os autores no rodapé e o retorno de S1 à capa. A verificação inclui redimensionar a janela durante a animação e conferir a entrega ao mapa no novo tamanho.
+
 S2–S4 apresentam a frase completa “Sensação percebida … desagradável”, com ajuste de fonte para uma linha. S5 abre a tampa em uma animação de 2,4 segundos, simultaneamente à mudança de vista; a orientação inicial é a deixada pelo apresentador. Uma interação manual interrompe apenas o movimento automático da vista. As abas continuam a abrir e a cena final fica livre para giro e zoom. Ao focar uma legenda interna, o enquadramento prioriza o coletor e os componentes, permitindo que partes externas das abas saiam da janela.
 
 A etiqueta em S6.1 contém um QR válido que codifica texto didático local, sem URL externa: part number `K24-DEMO-001`, lote `L26-041`, cavidade `04` e série `DEMO-0001`. A matriz está em `codigo-rastreabilidade.json` e é incorporada pelo gerador. Não é um código de produção. Na última etapa, as seis peças reutilizam a geometria existente e têm indicadores de identificação ausente.
@@ -54,9 +63,9 @@ O enquadramento guarda os vértices do coletor em coordenadas locais e aplica a 
 
 S9.1 tem duas etapas. O loop de 16 segundos mostra uma câmara em corte com pistão, válvula, mola, injetor e vela. A válvula permanece aberta durante a subida ilustrada do pistão; partículas e trechos curtos mostram a mistura ar-combustível voltando pelo runner. A frente de chama parte da câmara e chega ao pleno, onde uma ignição com brilho suave e ondas representa o pico de pressão. A câmera acompanha o trajeto e retorna à câmara sem salto no reinício. Interação manual mantém o enquadramento escolhido, enquanto o ciclo físico continua. Ao avançar, o coletor fica opaco e a câmera aproxima a parede. A fissura cresce durante aproximadamente quatro segundos, com abertura escura, bordas irregulares e duas ramificações. A etapa termina estática e livre para inspeção. As legendas orientam a vista e restauram a peça completa quando a parede está em corte. Execute `node prototipo-mapa/verificar-backfire.mjs`; capturas e relatório ficam em `.producao/qa-backfire/`. Consulte as [referências técnicas](referencias-backfire.md) para a terminologia e o alcance da ilustração.
 
-Edite o roteiro em `slides.json`; cada função tem `severidade`, `linha` de origem, textos, três alvos 3D e `etapas`. A severidade determina a parada. São 25 etapas reais. S1 e S2 não têm animação de ar ou função de transparência. S2 já inicia com os três efeitos visuais ativos. S3 e S4 também iniciam diretamente em sua única etapa. S3 não tem animação de ar; os balões 2 e 3 acompanham a linha em relevo no topo e o canto superior da flange, respectivamente. Selecionar a linha com a tampa em corte restaura a vista completa. Na S4, um volume conservador da onda define o enquadramento e a animação não recalcula a distância da câmera; somente uma rotação de até 0,0015 rad (cerca de 0,086°) para cada lado faz o coletor vibrar. Os controles manuais continuam funcionando. `configuracao.json` mantém somente as configurações do painel e do mapa. Execute `node prototipo-mapa/gerar.mjs` na raiz do repositório para atualizar `iniciar.html`.
+Edite o roteiro técnico em `slides.json`; cada função tem `severidade`, `linha` de origem, textos, três alvos 3D e `etapas`. A severidade determina a parada. São 25 etapas técnicas, além da etapa de abertura. S1 e S2 não têm animação de ar ou função de transparência. S2 já inicia com os três efeitos visuais ativos. S3 e S4 também iniciam diretamente em sua única etapa. S3 não tem animação de ar; os balões 2 e 3 acompanham a linha em relevo no topo e o canto superior da flange, respectivamente. Selecionar a linha com a tampa em corte restaura a vista completa. Na S4, um volume conservador da onda define o enquadramento e a animação não recalcula a distância da câmera; somente uma rotação de até 0,0015 rad (cerca de 0,086°) para cada lado faz o coletor vibrar. Os controles manuais continuam funcionando. `configuracao.json` mantém somente as configurações do painel e do mapa. Execute `node prototipo-mapa/gerar.mjs` na raiz do repositório para atualizar `iniciar.html`.
 
-O painel tem 90% da largura e da altura, começando em 5% na horizontal e 2% na vertical para reservar a navegação inferior. O visor ocupa a coluna direita; diagramas, legendas e ferramentas têm linhas próprias, sem sobrepor o modelo. Nas trocas entre funções da mesma parada, o fade é aplicado a `#slide-content`, sem apagar o painel branco ou aplicar o véu global sobre o mapa. Conteúdo e controles são verificados em 1600×900, 1280×720 e 1280×960.
+Nos slides técnicos, o painel tem 90% da largura e da altura, começando em 5% na horizontal e 2% na vertical para reservar a navegação inferior. O visor ocupa a coluna direita; diagramas, legendas e ferramentas têm linhas próprias, sem sobrepor o modelo. Nas trocas entre funções da mesma parada, o fade é aplicado a `#slide-content`, sem apagar o painel branco ou aplicar o véu global sobre o mapa. Conteúdo e controles são verificados em 1600×900, 1280×720 e 1280×960.
 
 Instale as dependências de `package.json` e execute `node prototipo-mapa/verificar-completa.mjs`. O teste abre o navegador apenas em modo headless e produz relatório e capturas em `.producao/qa-completa/`. Para indicar outro executável Chromium, configure `PRESENTATION_BROWSER`. Os nomes anteriores `verificar-prototipo.mjs` e `verificar-sensoriais.mjs` encaminham à suíte atual, porque a navegação e o estado padrão mudaram.
 

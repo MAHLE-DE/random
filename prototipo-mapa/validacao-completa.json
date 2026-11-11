@@ -1,8 +1,8 @@
 {
   "data": "2026-11-11",
-  "revisao": "Acidente antes da S10, circuito do servofreio e conclusão com agradecimento branco",
+  "revisao": "Capa geométrica com transformação no carro, voo da marca e autoria nos slides",
   "arquivo": "iniciar.html",
-  "sha256": "01c0f88b41346d20c782314ada4088a5474856d0e5c30c6be9e533d0cb668385",
+  "sha256": "d84101c393295a9f92350362989750a640cc048dd783bd64229f32f14cd029a6",
   "normalizacaoHash": "LF, conforme .gitattributes",
   "fonte": {
     "arquivo": "apresentacao_qualidade_completa.xlsx",
@@ -48,49 +48,186 @@
     }
   ],
   "funcoes": 13,
-  "slides": 14,
+  "slides": 15,
   "paradas": 10,
-  "etapas": 25,
+  "etapas": 26,
+  "etapasAbertura": 1,
+  "etapasTecnicas": 25,
+  "autores": [
+    "Bruno Caetano",
+    "Cauã Ferrari"
+  ],
+  "unidade": "BU2 SA (TMD2)",
+  "corCarro": "#1B267D",
+  "geometriaAbertura": {
+    "cubos": 2,
+    "faces": 9,
+    "subcubos": 27,
+    "malhasMorfadas": 46,
+    "duracaoSegundos": 13.8,
+    "fadeTextoFundoSegundos": 1,
+    "modeloOriginal": true,
+    "imagemReferenciaComoTextura": false
+  },
+  "erros": [],
+  "rede": [],
+  "abertura": [
+    {
+      "width": 1600,
+      "height": 900,
+      "duracao": 13.8,
+      "quadros": 723,
+      "quadrosAnimados": 720,
+      "quadrosFade": 57,
+      "fases": [
+        "fade",
+        "rolamento",
+        "subdivisao",
+        "morfagem",
+        "marca",
+        "entrada_no_mapa"
+      ],
+      "redimensionamento": {
+        "before": 3.007900000000001,
+        "during": 3.1991000000000014,
+        "after": 3.8040000000000007,
+        "temporarySize": {
+          "width": 1536,
+          "height": 948
+        }
+      },
+      "encaixe": {
+        "frames": 170,
+        "maxScaleRate": 2.1633789655266504,
+        "maxDepthRate": 1.8723654807236287,
+        "erroEncaixe": 8.881784197001252e-16,
+        "erroLogo": 2.12096188367986e-14
+      },
+      "rodapes": 14,
+      "cancelamento": true,
+      "aparenciaFinal": {
+        "cor": "#1B267D",
+        "logosLaterais": 0,
+        "logoCapo": true
+      }
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "duracao": 13.8,
+      "quadros": 756,
+      "quadrosAnimados": 755,
+      "quadrosFade": 57,
+      "fases": [
+        "fade",
+        "rolamento",
+        "subdivisao",
+        "morfagem",
+        "marca",
+        "entrada_no_mapa"
+      ],
+      "redimensionamento": {
+        "before": 3.0047000000000015,
+        "during": 3.181400000000001,
+        "after": 3.737800000000001,
+        "temporarySize": {
+          "width": 1216,
+          "height": 768
+        }
+      },
+      "encaixe": {
+        "frames": 192,
+        "maxScaleRate": 2.1634203737703523,
+        "maxDepthRate": 1.8724615897736991,
+        "erroEncaixe": 8.881784197001252e-16,
+        "erroLogo": 2.12096188367986e-14
+      },
+      "rodapes": 14,
+      "cancelamento": true,
+      "aparenciaFinal": {
+        "cor": "#1B267D",
+        "logosLaterais": 0,
+        "logoCapo": true
+      }
+    },
+    {
+      "width": 1280,
+      "height": 960,
+      "duracao": 13.8,
+      "quadros": 750,
+      "quadrosAnimados": 749,
+      "quadrosFade": 57,
+      "fases": [
+        "fade",
+        "rolamento",
+        "subdivisao",
+        "morfagem",
+        "marca",
+        "entrada_no_mapa"
+      ],
+      "redimensionamento": {
+        "before": 3.002500000000002,
+        "during": 3.187200000000002,
+        "after": 3.8227000000000033,
+        "temporarySize": {
+          "width": 1216,
+          "height": 1008
+        }
+      },
+      "encaixe": {
+        "frames": 193,
+        "maxScaleRate": 2.412638141884702,
+        "maxDepthRate": 2.206626865241366,
+        "erroEncaixe": 1.4432899320127035e-15,
+        "erroLogo": 1.6085595323533783e-14
+      },
+      "rodapes": 14,
+      "cancelamento": true,
+      "aparenciaFinal": {
+        "cor": "#1B267D",
+        "logosLaterais": 0,
+        "logoCapo": true
+      }
+    }
+  ],
   "resolucoes": [
     {
       "width": 1600,
       "height": 900,
       "funcoes": 13,
-      "estados": 25,
+      "estadosTecnicos": 25,
       "legendas": 39,
       "ruido": {
-        "amostras": 62,
+        "amostras": 59,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.002998261335708725
+        "amplitudeRotacao": 0.0029962933830132658
       }
     },
     {
       "width": 1280,
       "height": 720,
       "funcoes": 13,
-      "estados": 25,
+      "estadosTecnicos": 25,
       "legendas": 39,
       "ruido": {
-        "amostras": 62,
+        "amostras": 58,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.002998416706845355
+        "amplitudeRotacao": 0.0029932042706301166
       }
     },
     {
       "width": 1280,
       "height": 960,
       "funcoes": 13,
-      "estados": 25,
+      "estadosTecnicos": 25,
       "legendas": 39,
       "ruido": {
-        "amostras": 62,
+        "amostras": 59,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.0029990064542884326
+        "amplitudeRotacao": 0.002999945793532656
       }
     }
   ],
-  "erros": [],
-  "rede": [],
   "navegacao": [
     {
       "from": 0,
@@ -176,619 +313,54 @@
       "de": "rastreabilidade",
       "para": "servico",
       "tipo": "next",
-      "quadros": 33,
-      "opacidadeMinimaConteudo": 0,
+      "quadros": 27,
       "painelPermanente": true
     },
     {
       "de": "quimica",
       "para": "distribuicao",
       "tipo": "next",
-      "quadros": 37,
-      "opacidadeMinimaConteudo": 0,
+      "quadros": 30,
       "painelPermanente": true
     },
     {
       "de": "backfire",
       "para": "estanqueidade",
       "tipo": "next",
-      "quadros": 38,
-      "opacidadeMinimaConteudo": 0,
+      "quadros": 32,
       "painelPermanente": true
     },
     {
       "de": "servico",
       "para": "rastreabilidade",
       "tipo": "back",
-      "quadros": 37,
-      "opacidadeMinimaConteudo": 0,
+      "quadros": 31,
       "painelPermanente": true
     },
     {
       "de": "quimica",
       "para": "distribuicao",
       "tipo": "select",
-      "quadros": 40,
-      "opacidadeMinimaConteudo": 0,
+      "quadros": 37,
       "painelPermanente": true
     }
   ],
-  "estrada": {
-    "segments": 3200,
-    "crossings": 0,
-    "minSeparation": 10.233437008084204,
-    "minRadius": 6.931910354662108,
-    "shoulderWidth": 6.96,
-    "openGap": 2150.3720817570147
-  },
-  "encerramento": [
-    {
-      "width": 1600,
-      "height": 900,
-      "sightlines": [
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 2
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 2
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 2
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 3
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 3
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 2
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 2
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 2
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 2
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        }
-      ],
-      "incident": {
-        "phase": "slide",
-        "elapsed": 4.850100000000003,
-        "expectedImpactAt": 3,
-        "runoffAt": 1.8403590616500825,
-        "impactAt": 3.016699999999999,
-        "revealAt": 4.850100000000003
-      },
-      "runoffFrames": 70,
-      "loopFrames": 877,
-      "crashGeometry": {
-        "origin": [
-          125.93641959285448,
-          2.1882293287188572,
-          48.28550744482239
-        ],
-        "tangent": [
-          -0.009204913172174424,
-          -0.01681627361733565,
-          -0.999816224370819
-        ],
-        "direction": [
-          -0.009206214963437414,
-          0,
-          -0.999957621905072
-        ],
-        "escapeLength": 23.857787786951658,
-        "treeRoadDistance": 12.281211630954736
-      },
-      "roadEndpoints": [
-        [
-          -6.522364060545809,
-          -5.406693268080785,
-          0.9927901270186881
-        ],
-        [
-          2.1879418840542293,
-          1.1662826106241337,
-          0.9993262912156136
-        ]
-      ],
-      "layout": {
-        "panel": {
-          "x": 64,
-          "y": 45,
-          "width": 640,
-          "height": 765,
-          "top": 45,
-          "right": 704,
-          "bottom": 810,
-          "left": 64
-        },
-        "thanks": {
-          "x": 752,
-          "y": 108,
-          "width": 800,
-          "height": 172,
-          "top": 108,
-          "right": 1552,
-          "bottom": 280,
-          "left": 752
-        },
-        "footer": {
-          "x": 80,
-          "y": 851,
-          "width": 1440,
-          "height": 42,
-          "top": 851,
-          "right": 1520,
-          "bottom": 893,
-          "left": 80
-        },
-        "color": "rgb(255, 255, 255)",
-        "opacity": 1,
-        "font": 121.6,
-        "scroll": 763,
-        "client": 763
-      }
-    },
-    {
-      "width": 1280,
-      "height": 720,
-      "sightlines": [
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 2
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 2
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 2
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 3
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 3
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 2
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 2
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 2
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 2
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        }
-      ],
-      "incident": {
-        "phase": "slide",
-        "elapsed": 4.850300000000003,
-        "expectedImpactAt": 3,
-        "runoffAt": 1.8403590616500825,
-        "impactAt": 3.0000000000000027,
-        "revealAt": 4.850300000000003
-      },
-      "runoffFrames": 69,
-      "loopFrames": 877,
-      "crashGeometry": {
-        "origin": [
-          125.93641959285448,
-          2.1882293287188572,
-          48.28550744482239
-        ],
-        "tangent": [
-          -0.009204913172174424,
-          -0.01681627361733565,
-          -0.999816224370819
-        ],
-        "direction": [
-          -0.009206214963437414,
-          0,
-          -0.999957621905072
-        ],
-        "escapeLength": 23.857787786951658,
-        "treeRoadDistance": 12.281211630954736
-      },
-      "roadEndpoints": [
-        [
-          -6.522364060545809,
-          -5.406693268080785,
-          0.9927901270186881
-        ],
-        [
-          2.1879418840542293,
-          1.1662826106241337,
-          0.9993262912156136
-        ]
-      ],
-      "layout": {
-        "panel": {
-          "x": 51.1875,
-          "y": 36,
-          "width": 512,
-          "height": 612,
-          "top": 36,
-          "right": 563.1875,
-          "bottom": 648,
-          "left": 51.1875
-        },
-        "thanks": {
-          "x": 601.59375,
-          "y": 86.390625,
-          "width": 640.015625,
-          "height": 137,
-          "top": 86.390625,
-          "right": 1241.609375,
-          "bottom": 223.390625,
-          "left": 601.59375
-        },
-        "footer": {
-          "x": 64,
-          "y": 674,
-          "width": 1152,
-          "height": 40,
-          "top": 674,
-          "right": 1216,
-          "bottom": 714,
-          "left": 64
-        },
-        "color": "rgb(255, 255, 255)",
-        "opacity": 1,
-        "font": 97.28,
-        "scroll": 610,
-        "client": 610
-      }
-    },
-    {
-      "width": 1280,
-      "height": 960,
-      "sightlines": [
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 1
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 2
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 2
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 2
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 2
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 2
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 1
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        },
-        {
-          "carro": 0,
-          "arvoreImpacto": 0
-        }
-      ],
-      "incident": {
-        "phase": "slide",
-        "elapsed": 4.850000000000003,
-        "expectedImpactAt": 3,
-        "runoffAt": 1.8403590616500825,
-        "impactAt": 3.0000999999999975,
-        "revealAt": 4.850000000000003
-      },
-      "runoffFrames": 69,
-      "loopFrames": 877,
-      "crashGeometry": {
-        "origin": [
-          125.93641959285448,
-          2.1882293287188572,
-          48.28550744482239
-        ],
-        "tangent": [
-          -0.009204913172174424,
-          -0.01681627361733565,
-          -0.999816224370819
-        ],
-        "direction": [
-          -0.009206214963437414,
-          0,
-          -0.999957621905072
-        ],
-        "escapeLength": 23.857787786951658,
-        "treeRoadDistance": 12.281211630954736
-      },
-      "roadEndpoints": [
-        [
-          -4.8614775488028235,
-          -3.0082868526343076,
-          0.9966341282845114
-        ],
-        [
-          2.4309655230423433,
-          0.9752283049607481,
-          0.999675104090226
-        ]
-      ],
-      "layout": {
-        "panel": {
-          "x": 51.1875,
-          "y": 48,
-          "width": 512,
-          "height": 816,
-          "top": 48,
-          "right": 563.1875,
-          "bottom": 864,
-          "left": 51.1875
-        },
-        "thanks": {
-          "x": 601.59375,
-          "y": 115.1875,
-          "width": 640.015625,
-          "height": 137,
-          "top": 115.1875,
-          "right": 1241.609375,
-          "bottom": 252.1875,
-          "left": 601.59375
-        },
-        "footer": {
-          "x": 64,
-          "y": 911,
-          "width": 1152,
-          "height": 42,
-          "top": 911,
-          "right": 1216,
-          "bottom": 953,
-          "left": 64
-        },
-        "color": "rgb(255, 255, 255)",
-        "opacity": 1,
-        "font": 97.28,
-        "scroll": 814,
-        "client": 814
-      }
-    }
-  ],
   "checks": [
-    "A estrada é aberta, não se cruza no plano XZ e suas extremidades ficam além da tela na conclusão",
-    "Separação entre trechos não adjacentes supera a largura total dos acostamentos; o raio mínimo evita dobrar as bordas internas das curvas",
-    "Ao deixar S9.2, o carro entra na curva e segue pela tangente até atingir a árvore aos três segundos",
-    "O slide 10 permanece oculto até haver impacto, deformação e início do fogo",
-    "25 amostras de câmera em cada resolução verificam a ausência de árvores cobrindo o carro na sequência do acidente",
-    "Marcas de derrapagem, modelo amassado, chamas e fumaça reutilizam os recursos existentes",
-    "S10 tem uma única etapa, com loop de ar do masterback ao coletor e obstrução do conector",
-    "A obstrução interrompe o fluxo representado, aproxima a câmera e mostra exclamação vermelha",
-    "O texto relaciona a obstrução à perda de renovação do vácuo e, após o consumo da reserva, à redução da assistência",
-    "Conclusão com largura de 40% à esquerda e texto resumido sobre a integração dos setores",
-    "Obrigado grande e branco à direita aparece depois de concluir a transição e exibir o painel",
-    "Retorno da conclusão conserva o acidente; seleção direta o repete; saltar para outro slide cancela os efeitos",
-    "Regressão geral em 13 funções, 14 telas e 25 etapas: 75 estados/resoluções, 117 focos e cinco fades na mesma parada",
-    "Zero erros JavaScript/WebGL e zero solicitações HTTP/HTTPS durante a apresentação"
+    "O arquivo abre na capa estática e aguarda um único avanço",
+    "Jornada da qualidade, autores e unidade seguem a referência, sem texto SLIDE TEMPLATE",
+    "Texto e retângulo cinza desaparecem juntos durante exatamente um segundo",
+    "A composição original é reconstruída com dois cubos e nove faces em geometria nativa, sem imagem de fundo",
+    "Rolamentos por pivô, mudança de perspectiva, faces de cores diferentes e 27 subcubos conduzem a montagem",
+    "46 malhas da própria geometria do veículo usam posições de morph entre blocos e o modelo final",
+    "Pintura final #1B267D; materiais de vidros, pneus e metais são preservados",
+    "A marca vetorial branca em placa azul viaja em 3D e se encaixa exatamente no capô",
+    "Logos laterais removidas antes de criar réplicas, amassado e exportações da apresentação",
+    "A escala e profundidade convergem ao mapa sem recuo; geometria coincide com o carro real ao terminar",
+    "Redimensionamento durante a animação não reinicia relógio e mantém as peças no enquadramento",
+    "Autores e unidade no canto inferior esquerdo das 14 telas de conteúdo, incluindo a conclusão de 40%",
+    "Início e Voltar em S1 restauram a capa; seleção direta cancela a abertura; avanço repetido não pula etapas",
+    "Regressão geral: 13 funções, 25 etapas técnicas, 75 estados/resoluções, 117 focos e cinco fades na mesma parada",
+    "A capa adiciona uma tela e uma etapa, sem adicionar uma parada ao mapa",
+    "Zero erros JavaScript/WebGL e zero requisições HTTP/HTTPS; nenhuma nova dependência externa"
   ]
 }

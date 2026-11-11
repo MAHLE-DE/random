@@ -11,6 +11,8 @@ const smooth=x=>{x=clamp(x,0,1);return x*x*(3-2*x)};
 const ease=x=>x*x*x*(x*(x*6-15)+10);
 const lerp=T.MathUtils.lerp;
 __DANO_SOURCE__
+__CAR_APPEARANCE_SOURCE__
+__OPENING_SOURCE__
 __VEGETACAO_SOURCE__
 __COLETOR_SOURCE__
 __VISIBILITY_SOURCE__
@@ -192,9 +194,7 @@ function readCar(b64){
  json.nodes.forEach((n,i)=>(n.children||[]).forEach(k=>nodes[i].add(nodes[k])));const root=new T.Group();json.scenes[json.scene||0].nodes.forEach(i=>root.add(nodes[i]));return root;
 }
 const car=readCar('__CARRO_BASE64__');scene.add(car);
-// A marca lateral já é geometria vetorial: reaproveitada sobre o capô, sem textura externa.
-const sideLogo=car.getObjectByName('Logotipo_vetorial_lateral_1');
-if(sideLogo){const hood=sideLogo.clone(true);hood.name='Logotipo_MAHLE_no_capo';hood.quaternion.setFromRotationMatrix(new T.Matrix4().makeBasis(V(0,0,-1),V(.9935,-.1135,0).normalize(),V(-.1135,-.9935,0).normalize()));hood.scale.set(.010,.018,.010);hood.position.set(.82,1.087,.565);car.add(hood)}
+const carAppearance=prepararCarroApresentacao(T,car);
 const damaged=criarCarroAmassado(T,car);scene.add(damaged.root);damaged.root.visible=false;
 // Sombras da floresta são estáveis e reutilizadas. O carro usa contato dinâmico próprio.
 car.traverse(o=>{if(o.isMesh)o.castShadow=false});damaged.root.traverse(o=>{if(o.isMesh)o.castShadow=false});
@@ -223,7 +223,8 @@ const wheels=[],steers=[];car.traverse(o=>{if(o.name.startsWith('Roda_giratoria'
 function orient(u){const x=tangent(u),z=new T.Vector3().crossVectors(x,V(0,1,0)).normalize(),y=new T.Vector3().crossVectors(z,x).normalize();return new T.Quaternion().setFromRotationMatrix(new T.Matrix4().makeBasis(x,y,z))}
 const PAGE_END=CONFIG.slides.length;
 const pageStop=p=>p===PAGE_END?FINAL_SLIDE:CONFIG.slides[p].severidade-1;
-let pageIndex=0,demoStep=0;
+let pageIndex=-1,demoStep=0;
+let opening=null;
 let carU=stops[0],index=0,motion=null,lastTime=null,cameraTween=null,fade=null,crash=null,crashed=false,fireTime=0,impacts=0,crashPose=null,incident=null;
 let mapDirty=true,mapClock=0,lastMapDraw=-10,shadowAge=10,shadowAnchor=V(1e6,0,1e6),shadowAerial=null,shadowRenders=0,sceneRenders=0;
 let look=V(),boom=V(),carTurn=orient(carU),wheelAngle=0;
@@ -315,6 +316,7 @@ function resetCrash(){crash=null;incident=null;crashed=false;fireTime=0;impacts=
 function finishWreck(){car.position.copy(wreckPosition);car.quaternion.copy(directionQuaternion(crashDirection));syncDamaged();damaged.aplicar(1);damaged.root.visible=true;car.visible=false;fire.visible=true;skid.visible=true;crashed=true;fireTime=Math.max(fireTime,1)}
 function beginCrash(rolling=false,speed=escapeLength/1.4){crash={time:0,impacted:false,rolling,speed,contactTime:escapeLength/speed+(rolling?0:.08),travelled:0,initialLook:look.clone(),initialBoom:boom.clone()};if(incident){incident.phase='tangente';incident.runoffAt=incident.elapsed}appendSkids();ui()}
 function setContent(){
+ if(opening?.status().ativa){$('conteudo').classList.add('absent');$('obrigado').classList.remove('visible');return}
  const end=pageIndex===PAGE_END,busy=!!motion||!!cameraTween||!!crash||!!fade&&!fade.contentOnly,s=CONFIG.slides[pageIndex];
  $('conteudo').className='content'+(end?' conclusion':' model-slide')+(busy?' absent':'')+(!end&&['logistica','rastreabilidade','servico','quimica','distribuicao','agua','backfire','vacuo'].includes(s.id)?' large-scene':'')+(!end&&s.id==='quimica'?' corrosion-scene':'')+(!end&&s.id==='distribuicao'?' air-scene':'');
  $('obrigado').classList.toggle('visible',end&&!busy);$('obrigado').setAttribute('aria-hidden',String(!end||busy));
@@ -336,15 +338,18 @@ function setContent(){
 function fitSensationTitle(){const el=$('sistema-titulo');el.style.removeProperty('font-size');if(!el.classList.contains('perceived-effect')||!el.clientWidth)return;const size=parseFloat(getComputedStyle(el).fontSize);if(el.scrollWidth>el.clientWidth)el.style.fontSize=(size*(el.clientWidth-2)/el.scrollWidth)+'px'}
 new ResizeObserver(fitSensationTitle).observe($('sistema-titulo').parentElement);
 function ensureSelectedVisible(){
+ if(pageIndex<0)return;
  const list=$('numeros'),item=$('etapa-'+pageIndex),left=item.offsetLeft-list.offsetLeft;
  if(left<list.scrollLeft)list.scrollTo({left,behavior:'smooth'});
  else if(left+item.offsetWidth>list.scrollLeft+list.clientWidth)list.scrollTo({left:left+item.offsetWidth-list.clientWidth,behavior:'smooth'});
 }
 function ui(){
+ if(opening?.status().ativa){const state=opening.status();$('conteudo').classList.add('absent');$('anterior').disabled=true;$('proximo').disabled=state.animando;$('proximo').textContent='Iniciar jornada →';$('slide-contador').textContent='Capa';$('estado').textContent=state.animando?'Construindo a jornada':'Jornada da qualidade';$('etapa-inicio').classList.add('current');$('etapa-inicio').setAttribute('aria-current','step');$('obrigado').classList.remove('visible');$('obrigado').setAttribute('aria-hidden','true');for(let i=0;i<=PAGE_END;i++){$('etapa-'+i).className='step';$('etapa-'+i).setAttribute('aria-current','false')}return}
+ $('etapa-inicio').classList.remove('current');$('etapa-inicio').setAttribute('aria-current','false');
  mapDirty=true;const busy=!!motion||!!cameraTween||!!fade||!!crash,s=CONFIG.slides[pageIndex],last=s?s.etapas.length-1:0;
- $('anterior').disabled=busy||(pageIndex===0&&demoStep===0);$('proximo').disabled=busy||pageIndex===PAGE_END;
+ $('anterior').disabled=busy;$('proximo').disabled=busy||pageIndex===PAGE_END;
  $('proximo').textContent=pageIndex===PAGE_END?'Jornada concluída':demoStep<last?'Próxima etapa →':pageIndex===PAGE_END-1?'Conclusão →':'Próximo slide →';
- $('slide-contador').textContent=`${pageIndex+1} / ${PAGE_END+1}`;
+ $('slide-contador').textContent=`${pageIndex+2} / ${PAGE_END+2}`;
  $('estado').textContent=busy?'Transição em andamento':pageIndex===PAGE_END?'Jornada completa':`S${s.severidade} · ${s.titulo} · etapa ${demoStep+1}/${s.etapas.length}`;
  for(let i=0;i<=PAGE_END;i++){$('etapa-'+i).className='step'+(i===pageIndex?' current':i<pageIndex?' done':'');$('etapa-'+i).setAttribute('aria-current',i===pageIndex?'step':'false')}
  labels.forEach((label,i)=>{label.ring.material=i===index?blue:gray;label.label.rotation.z=poses[i].yaw});
@@ -356,6 +361,7 @@ function setInstant(to){
 }
 function selectSlide(page){
  if(fade||page<0||page>PAGE_END)return;
+ if(opening?.status().ativa){opening.ocultar();motion=null;cameraTween=null;crash=null;pageIndex=0;demoStep=0;setInstant(0)}
  if(page===PAGE_END-1){motion=null;cameraTween=null;resetCrash();if(index>=LAST_STOP)setInstant(LAST_STOP-1);gotoPage(page);return}
  const to=pageStop(page),contentOnly=to===index&&!motion&&!cameraTween&&!crash;
  motion=null;cameraTween=null;crash=null;fade={to,page,phase:0,time:0,switched:false,contentOnly};ui();
@@ -377,32 +383,41 @@ function gotoPage(page,phase=0){
  motion={from,end,to,direction,time:0,duration,crashOnArrival,initialLook:look.clone(),initialBoom:boom.clone(),startFrame:screenAt(at(from),{look,boom}).x,endPose:stopPose(to)};if(crashOnArrival)incident={phase:'aproximacao',elapsed:0,expectedImpactAt:3,runoffAt:null,impactAt:null,revealAt:null};ui();
 }
 function advance(direction){
+ if(opening?.status().ativa){if(direction>0&&opening.iniciar())ui();return}
  if(motion||cameraTween||fade||crash)return;
  const s=CONFIG.slides[pageIndex];
  if(direction>0){if(!s)return;if(demoStep<s.etapas.length-1){demoStep++;ui();return}gotoPage(pageIndex+1)}
- else {if(s&&demoStep>0){demoStep--;ui();return}if(pageIndex>0){const prev=pageIndex-1;gotoPage(prev,CONFIG.slides[prev].etapas.length-1)}}
+ else {if(s&&demoStep>0){demoStep--;ui();return}if(pageIndex>0){const prev=pageIndex-1;gotoPage(prev,CONFIG.slides[prev].etapas.length-1)}else showOpening()}
 }
-function setDemoStep(n){if(motion||cameraTween||fade||crash||pageIndex===PAGE_END)return;demoStep=clamp(n,0,CONFIG.slides[pageIndex].etapas.length-1);ui()}
+function setDemoStep(n){if(opening?.status().ativa||motion||cameraTween||fade||crash||pageIndex===PAGE_END)return;demoStep=clamp(n,0,CONFIG.slides[pageIndex].etapas.length-1);ui()}
 function fullscreen(){if(document.fullscreenElement)document.exitFullscreen?.();else document.documentElement.requestFullscreen?.().catch(()=>{})}
 $('proximo').addEventListener('click',()=>advance(1));$('anterior').addEventListener('click',()=>advance(-1));
 for(let i=0;i<=PAGE_END;i++)$('etapa-'+i).addEventListener('click',()=>selectSlide(i));
+$('etapa-inicio').addEventListener('click',()=>showOpening());
 function scrollList(direction){$('numeros').scrollBy({left:direction*($('etapa-0').offsetWidth+8),behavior:'smooth'})}
 $('rolar-anterior').addEventListener('click',()=>scrollList(-1));$('rolar-proximo').addEventListener('click',()=>scrollList(1));
 $('numeros').addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.preventDefault();$('numeros').scrollLeft+=e.deltaY}},{passive:false});
 addEventListener('keydown',e=>{
  if(e.repeat||e.altKey||e.ctrlKey||e.metaKey)return;
+ if(opening?.status().ativa&&[' ','ArrowRight','PageDown'].includes(e.key)){e.preventDefault();advance(1);return}
  if(e.target.closest?.('.model-tools,.field-legend,.model-pin')&&[' ','Enter'].includes(e.key))return;
  // Espaço e Enter conservam a semântica dos botões quando a lista tem foco.
  if(e.target.closest?.('.slide-nav')&&[' ','Enter','ArrowLeft','ArrowRight'].includes(e.key)){
-  if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();const next=clamp(Number(e.target.id.replace('etapa-',''))+(e.key==='ArrowRight'?1:-1),0,PAGE_END);$('etapa-'+next)?.focus()}return;
+  if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();const buttons=[...$('numeros').querySelectorAll('button')],current=buttons.indexOf(e.target.closest('button')),next=clamp(current+(e.key==='ArrowRight'?1:-1),0,buttons.length-1);buttons[next]?.focus()}return;
  }
  const key=e.key.toLowerCase();if([' ','arrowright','pagedown','arrowleft','pageup','f'].includes(key)){e.preventDefault();if([' ','arrowright','pagedown'].includes(key))advance(1);else if(['arrowleft','pageup'].includes(key))advance(-1);else fullscreen()}
 });
 let resizeTimer;
 addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{makePoses();if(!motion&&!cameraTween&&!fade&&!crash){const p=presentationPose(index);look.copy(p.look);boom.copy(p.boom)}else if(motion)motion.endPose=stopPose(motion.to);else if(cameraTween){const p=presentationPose(cameraTween.to);cameraTween.toLook=p.look;cameraTween.toBoom=p.boom}},150)});
 const first=stopPose(0);look.copy(first.look);boom.copy(first.boom);place(carU);
-const manifoldView=criarVisorColetor(T,{visivel:()=>pageIndex<PAGE_END&&!motion&&!cameraTween&&!crash&&(!fade||fade.contentOnly&&fade.switched)});
+const manifoldView=criarVisorColetor(T,{visivel:()=>pageIndex>=0&&pageIndex<PAGE_END&&!opening?.status().ativa&&!motion&&!cameraTween&&!crash&&(!fade||fade.contentOnly&&fade.switched)});
+function syncMapCamera(){camera.position.copy(look).add(boom);camera.lookAt(look);camera.updateMatrixWorld(true)}
+function showOpening(){motion=null;cameraTween=null;fade=null;pageIndex=-1;demoStep=0;setInstant(0);syncMapCamera();$('fade').style.opacity=0;$('slide-content').style.opacity=1;opening.mostrar();ui()}
+syncMapCamera();
+opening=criarAbertura(T,{car,logoCapo:carAppearance.logoCapo,mapCamera:camera,prepareMapCamera:syncMapCamera,onFinish:()=>{pageIndex=0;demoStep=0;car.visible=true;mapDirty=true;ui()}});
+showOpening();
 function update(dt){
+ if(opening.status().ativa){opening.update(dt);car.visible=!opening.status().animando;if(opening.status().ativa&&opening.status().tempo<10.3)return}
  mapClock+=dt;shadowAge+=dt;manifoldView.update(dt);
  if(incident&&incident.revealAt===null)incident.elapsed+=dt;
  vegetation.wind.value+=dt;
@@ -495,7 +510,7 @@ function verificarGeometria(){
  return{minClearance,negative,closureGap:roadPoints[0].distanceTo(roadPoints.at(-1)),roadLength:roadDistances.at(-1),forestCount:forestPoints.length-clearedTrees,comprimentoApresentacao:total,distanciasEntreParadas:stops.slice(1).map((u,i)=>(u-stops[i])*total),duracaoTransicao:TRAVEL_DURATION,escalaHorizontal:CONFIG.percurso.escalaHorizontal,variantStats:vegetation.variants.map(v=>({tipo:v.type,triangles:(v.wood.getAttribute('position').count+(v.leaves?.getAttribute('position').count||0))/3,altura:v.height})),contactTimeRolling:escapeLength/((stops[LAST_STOP]-stops[LAST_STOP-1])*total/TRAVEL_DURATION)};
 }
 // Diagnóstico local para validação: sem telemetria, sem persistência e sem rede.
-window.prototipo={estado:()=>({index,pageIndex,demoStep,slideId:CONFIG.slides[pageIndex]?.id,paradas:STOP_COUNT,slides:PAGE_END+1,carU,sceneRenders,shadowRenders,coletor:manifoldView.estado(),skidSamples,skidDrawCounts:skidTracks.map(t=>t.g.drawRange.count),moving:!!motion||!!cameraTween||!!crash,fading:!!fade,tracking:!!motion,incident:incident?{...incident}:null,roadEndpoints:roadPoints.filter((p,i)=>i===0||i===roadPoints.length-1).map(p=>p.clone().project(camera).toArray()),crashGeometry:{origin:crashOrigin.toArray(),tangent:exitTangent.toArray(),direction:crashDirection.toArray(),escapeLength,treeRoadDistance:groundInfo(treePosition.x,treePosition.z).distance},crashTime:crash?.time??null,contactTime:crash?.contactTime??null,crashTravelled:crash?.travelled??null,forestCount:forestPoints.length-clearedTrees,visibleTrees,treeVariants:vegetation.variants.length,roadClosed:roadPoints[0].distanceTo(roadPoints.at(-1))<.001,triangles:renderer.info.render.triangles,crashed,fire:fire.visible,impacts,damagedVisible:damaged.root.visible,tree:treePosition.toArray(),frontDirection:V(1,0,0).applyQuaternion(car.quaternion).toArray(),wreckPosition:wreckPosition.toArray(),crashLayout:roadIntrusions(crashPose,LAST_STOP,0),progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===FINAL_SLIDE,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide,setDemoStep,roteiro:CONFIG.slides,verificarGeometria,verificarVisibilidade,exportarColetor:cut=>manifoldView.exportar(cut),exportarArvore:i=>vegetation.tree(i),exportarIntegro:()=>{const c=car.clone(true);c.position.set(0,0,0);c.quaternion.identity();c.visible=true;return c},exportarAmassado:()=>damaged.exportar()};
+window.prototipo={abertura:{mostrar:showOpening,iniciar:()=>advance(1),estado:()=>opening.estado()},estado:()=>({abertura:opening.estado(),carroAparencia:{cor:'#1B267D',logosLaterais:carAppearance.info.logosLateraisRestantes,logoCapo:true},index,pageIndex,demoStep,slideId:CONFIG.slides[pageIndex]?.id,paradas:STOP_COUNT,slides:PAGE_END+2,carU,sceneRenders,shadowRenders,coletor:manifoldView.estado(),skidSamples,skidDrawCounts:skidTracks.map(t=>t.g.drawRange.count),moving:!!motion||!!cameraTween||!!crash,fading:!!fade,tracking:!!motion,incident:incident?{...incident}:null,roadEndpoints:roadPoints.filter((p,i)=>i===0||i===roadPoints.length-1).map(p=>p.clone().project(camera).toArray()),crashGeometry:{origin:crashOrigin.toArray(),tangent:exitTangent.toArray(),direction:crashDirection.toArray(),escapeLength,treeRoadDistance:groundInfo(treePosition.x,treePosition.z).distance},crashTime:crash?.time??null,contactTime:crash?.contactTime??null,crashTravelled:crash?.travelled??null,forestCount:forestPoints.length-clearedTrees,visibleTrees,treeVariants:vegetation.variants.length,roadClosed:roadPoints[0].distanceTo(roadPoints.at(-1))<.001,triangles:renderer.info.render.triangles,crashed,fire:fire.visible,impacts,damagedVisible:damaged.root.visible,tree:treePosition.toArray(),frontDirection:V(1,0,0).applyQuaternion(car.quaternion).toArray(),wreckPosition:wreckPosition.toArray(),crashLayout:roadIntrusions(crashPose,LAST_STOP,0),progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===FINAL_SLIDE,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide,setDemoStep,roteiro:CONFIG.slides,verificarGeometria,verificarVisibilidade,exportarColetor:cut=>manifoldView.exportar(cut),exportarArvore:i=>vegetation.tree(i),exportarIntegro:()=>{const c=car.clone(true);c.position.set(0,0,0);c.quaternion.identity();c.visible=true;return c},exportarAmassado:()=>damaged.exportar()};
 ui();requestAnimationFrame(tick);
 } catch(error){console.error(error);$('erro').classList.remove('hidden');$('erro').textContent='Não foi possível iniciar a cena 3D. Abra este arquivo no Microsoft Edge ou Google Chrome com suporte a WebGL. Detalhe: '+error.message;$('estado').textContent='Cena indisponível';}
 })();

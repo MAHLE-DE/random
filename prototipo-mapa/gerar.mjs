@@ -14,6 +14,8 @@ const car=(await fs.readFile(path.join(root,'modelos/carro.glb'))).toString('bas
 let svg=await fs.readFile(path.join(root,'midias/mahle-azul.svg'),'utf8');
 svg=svg.slice(svg.indexOf('<svg')).replace('<svg','<svg class="brand" role="img" aria-label="MAHLE"');
 const damage=await fs.readFile(path.join(base,'dano.js'),'utf8');
+const carAppearance=await fs.readFile(path.join(base,'carro-aparencia.js'),'utf8');
+const opening=await fs.readFile(path.join(base,'abertura.js'),'utf8');
 const vegetation=await fs.readFile(path.join(base,'vegetacao.js'),'utf8');
 const manifold=await fs.readFile(path.join(base,'coletor.js'),'utf8');
 const viewer=await fs.readFile(path.join(base,'visor-coletor.js'),'utf8');
@@ -38,6 +40,7 @@ app=app.replace('__CENA_DISTRIBUICAO_SOURCE__',()=>airScene);
 app=app.replace('__CENA_AGUA_SOURCE__',()=>waterScene);
 app=app.replace('__CENA_BACKFIRE_SOURCE__',()=>backfireScene);
 app=app.replace('__CENA_VACUO_SOURCE__',()=>vacuumScene);
+app=app.replace('__CAR_APPEARANCE_SOURCE__',()=>carAppearance).replace('__OPENING_SOURCE__',()=>opening);
 const steps=labels.map((label,i)=>`<button class="step" id="etapa-${i}" aria-label="${i===config.slides.length?'Selecionar conclusão':'Selecionar severidade '+config.slides[i].severidade+': '+config.slides[i].titulo}" type="button">${label}</button>`).join('');
 let html=await fs.readFile(path.join(base,'interface.html'),'utf8');
 const p=config.painel,panelCSS=`--painel-x:${p.margemLateral*100}%;--painel-y:${p.topo*100}%;--painel-largura:${p.largura*100}%;--painel-altura:${p.altura*100}%;--painel-opacidade:${p.opacidade};`;
