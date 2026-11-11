@@ -22,7 +22,7 @@ function criarVisorColetor(T,{visivel=()=>true}={}){
   model.root.updateWorldMatrix(true,true);let cache=pointCache.get(cut);
   if(!cache){const local=[],unique=new Set(),inverse=new T.Matrix4().copy(pivot.matrixWorld).invert();model.root.traverseVisible(o=>{if(!o.geometry||isDemo(o))return;const attr=o.geometry.getAttribute('position'),matrix=new T.Matrix4().multiplyMatrices(inverse,o.matrixWorld);for(let i=0;i<attr.count;i++){const p=V().fromBufferAttribute(attr,i).applyMatrix4(matrix),key=p.x+','+p.y+','+p.z;if(!unique.has(key)){unique.add(key);local.push(p)}}});cache={local,world:local.map(()=>V())};pointCache.set(cut,cache)}
   // As demonstrações também entram no enquadramento, por seus limites atuais.
-  const bounds=demo.limitesEnquadramento(selected>=0);if(!bounds.isEmpty()){const inverse=new T.Matrix4().copy(pivot.matrixWorld).invert();for(const x of [bounds.min.x,bounds.max.x])for(const y of [bounds.min.y,bounds.max.y])for(const z of [bounds.min.z,bounds.max.z])cache.world.push(V(x,y,z).applyMatrix4(inverse))}
+  const custom=demo.pontosEnquadramento(),inverse=new T.Matrix4().copy(pivot.matrixWorld).invert();if(custom)cache.world.push(...custom.map(p=>p.applyMatrix4(inverse)));else{const bounds=demo.limitesEnquadramento(selected>=0);if(!bounds.isEmpty()){for(const x of [bounds.min.x,bounds.max.x])for(const y of [bounds.min.y,bounds.max.y])for(const z of [bounds.min.z,bounds.max.z])cache.world.push(V(x,y,z).applyMatrix4(inverse))}}
   for(let i=0;i<cache.local.length;i++)cache.world[i].copy(cache.local[i]).applyMatrix4(pivot.matrixWorld);const extra=cache.world.splice(cache.local.length);return cache.world.concat(extra.map(p=>p.applyMatrix4(pivot.matrixWorld)));
  }
  function position(){
@@ -60,7 +60,7 @@ function criarVisorColetor(T,{visivel=()=>true}={}){
  function render(){if(!visivel()||host.clientWidth<1){pending=true;return}r.shadowMap.needsUpdate=true;r.render(studio,c);rendered++;pending=false;updatePin()}
  function refresh(){position();render()}
  function resize(){const w=host.clientWidth,h=host.clientHeight;if(w<1||h<1)return;if(w!==width||h!==height){width=w;height=h;r.setSize(w,h);c.aspect=w/h;c.updateProjectionMatrix();refresh()}}
- function reset(){viewTween=null;pivot.rotation.set(0,0,0);zoom=current?.id==='aparencia'?1.15:current?.id==='rastreabilidade'&&stage===2?1.25:1.1;focus=false;selected=-1;const presentation=demo.apresentacao();direction.copy(presentation?V(...presentation.direction).normalize():current?.id==='vacuo'?V(1.4,.55,1).normalize():current?.id==='aparencia'?V(-.42,.82,1.35).normalize():current?.id==='tatil'?V(-.42,.62,1.35).normalize():initialDirection);refresh()}
+ function reset(){viewTween=null;pivot.rotation.set(0,0,0);zoom=current?.id==='aparencia'?1.15:current?.id==='rastreabilidade'&&stage===2?1.25:1.1;focus=false;selected=-1;const presentation=demo.apresentacao();if(presentation?.zoom)zoom=presentation.zoom;direction.copy(presentation?V(...presentation.direction).normalize():current?.id==='vacuo'?V(1.4,.55,1).normalize():current?.id==='aparencia'?V(-.42,.82,1.35).normalize():current?.id==='tatil'?V(-.42,.62,1.35).normalize():initialDirection);refresh()}
  function zoomBy(factor){viewTween=null;zoom=clamp(zoom*factor,.6,1.25);refresh()}
  function permiteTransparencia(){return current&&!['identificacao','aparencia'].includes(current.id)}
  function setCut(on){cut=on;pointCache.clear();model.corte(cut);demo.corte(cut);$('coletor-corte').setAttribute('aria-pressed',String(cut));$('coletor-corte').textContent=cut?'Vista completa':'Vista em corte'}
@@ -68,13 +68,13 @@ function criarVisorColetor(T,{visivel=()=>true}={}){
  function setTransparency(on){on=!!on&&permiteTransparencia();transparent=!!on;for(const [m,base]of materials){m.opacity=on?Math.min(base.opacity,.22):base.opacity;m.transparent=on||base.transparent;m.depthWrite=on?false:base.depthWrite;m.needsUpdate=true}$('coletor-transparencia').setAttribute('aria-pressed',String(transparent))}
  function mostrarSlide(index,n=0){
   if(index===slide&&stage===n)return;
-  const preserve=index===slide&&current?.id==='logistica'&&stage===0&&n===1,from={direction:direction.clone(),rotation:pivot.rotation.clone(),zoom};
+  const preserve=index===slide&&['logistica','servico'].includes(current?.id)&&stage===0&&n===1,from={direction:direction.clone(),rotation:pivot.rotation.clone(),zoom};
   slide=index;stage=n;current=CONFIG.slides[index];clock=0;viewTween=null;effects.set(current.id,n);demo.set(current,n);pointCache.clear();cut=false;model.corte(false);
   setTransparency(['limpeza','distribuicao','agua','backfire'].includes(current.id));$('coletor-transparencia').classList.toggle('hidden',!permiteTransparencia());$('coletor-transparencia').disabled=!permiteTransparencia();
   key.position.set(current.id==='aparencia'?-5:-4,current.id==='aparencia'?4:8,7);$('coletor-corte').setAttribute('aria-pressed','false');$('coletor-corte').textContent='Vista em corte';$('diagrama').innerHTML=diagramaDemonstracao(current,n);
-  if(current.id==='logistica'&&n===1){
-   const dest=V(...demo.apresentacao().direction).normalize();if(!preserve){from.direction=V(-.75,.8,1.4).normalize();from.rotation=new T.Euler();from.zoom=1.1}
-   direction.copy(from.direction);pivot.rotation.copy(from.rotation);zoom=from.zoom;focus=false;selected=-1;viewTween={...from,to:dest,time:0,duration:2.4};refresh();
+  const presentation=demo.apresentacao();if(presentation?.duration){
+   const dest=V(...presentation.direction).normalize();if(!preserve){from.direction=V(...(current.id==='servico'?[-.42,.66,1.35]:[-.75,.8,1.4])).normalize();from.rotation=new T.Euler();from.zoom=1.1}
+   direction.copy(from.direction);pivot.rotation.copy(from.rotation);zoom=from.zoom;focus=false;selected=-1;viewTween={...from,to:dest,toZoom:presentation.zoom||1.1,time:0,duration:presentation.duration};refresh();
   }else reset();
   if(current.id==='identificacao'&&n===1){direction.copy(V(0,.2,1).normalize());zoom=1.25;refresh()}
  }
@@ -86,6 +86,6 @@ function criarVisorColetor(T,{visivel=()=>true}={}){
  $('coletor-transparencia').addEventListener('click',()=>{setTransparency(!transparent);refresh()});
  $('coletor-corte').addEventListener('click',()=>{setCut(!cut);refresh()});
  $('coletor-restaurar').addEventListener('click',reset);new ResizeObserver(resize).observe(host);
- function update(dt){if(!visivel()||!current)return;clock+=dt;const changed=demo.tick(dt);let movingView=false;if(viewTween){movingView=true;const t=viewTween;t.time+=dt;const q=clamp(t.time/t.duration,0,1),u=q*q*(3-2*q);direction.lerpVectors(t.direction,t.to,u).normalize();pivot.rotation.set(t.rotation.x*(1-u),Math.atan2(Math.sin(t.rotation.y),Math.cos(t.rotation.y))*(1-u),t.rotation.z*(1-u));zoom=T.MathUtils.lerp(t.zoom,1.1,u);if(q===1)viewTween=null}if(changed||pending||movingView){if(current.id==='ruido'){pivot.rotation.z=Math.sin(clock*32)*.0015;if(pending)position();render()}else refresh()}}
+ function update(dt){if(!visivel()||!current)return;clock+=dt;const changed=demo.tick(dt);let movingView=false;if(viewTween){movingView=true;const t=viewTween;t.time+=dt;const q=clamp(t.time/t.duration,0,1),u=q*q*(3-2*q);direction.lerpVectors(t.direction,t.to,u).normalize();pivot.rotation.set(t.rotation.x*(1-u),Math.atan2(Math.sin(t.rotation.y),Math.cos(t.rotation.y))*(1-u),t.rotation.z*(1-u));zoom=T.MathUtils.lerp(t.zoom,t.toZoom,u);if(q===1)viewTween=null}if(changed||pending||movingView){if(current.id==='ruido'){pivot.rotation.z=Math.sin(clock*32)*.0015;if(pending)position();render()}else refresh()}}
  return{resize,reset,mostrarSlide,update,exportar:cut=>criarColetorK24(T).exportar(cut),estado:()=>({cut,rendered,width,height,zoom,focus,slide,stage,transparent,selected,modo:current?.id,demo:demo.estado(),animandoVista:!!viewTween,maos:current?.id==='tatil'?2:0,ondas:current?.id==='ruido',detalhesTateis:effects.detalhesTateis(),camera:{position:c.position.toArray(),direction:direction.toArray(),distance:c.position.distanceTo(target),fov:c.fov},escala:pivot.scale.toArray(),enquadramento:framing,marcacoesAusentes:current?.id==='identificacao'&&stage>0?3:0,dutos:model.runners.length,rotation:pivot.rotation.toArray().slice(0,3),alvosLocais:current?getTargets():[],alvos:pins.map(p=>!p.classList.contains('hidden'))})};
 }

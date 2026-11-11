@@ -1,8 +1,8 @@
 {
   "data": "2026-11-11",
-  "revisao": "Frases sensoriais completas, caixa de transporte e rastreabilidade 3D",
+  "revisao": "Acesso de manutenção em duas etapas, motor e ferramenta bloqueada",
   "arquivo": "iniciar.html",
-  "sha256": "7b8db1a504b2b238630ade0e6172804ab32ceaabd2cf040a9c472e0ebffa6cbc",
+  "sha256": "987c0136a6c954435bfdcf4ad3d68b560cfbe9ab0650aa9299b4ca59ae690dc6",
   "normalizacaoHash": "LF, conforme .gitattributes",
   "fonte": {
     "arquivo": "apresentacao_qualidade_completa.xlsx",
@@ -13,42 +13,42 @@
   "funcoes": 15,
   "slides": 16,
   "paradas": 10,
-  "etapas": 39,
+  "etapas": 38,
   "resolucoes": [
     {
       "width": 1600,
       "height": 900,
       "funcoes": 15,
-      "estados": 39,
+      "estados": 38,
       "legendas": 45,
       "ruido": {
-        "amostras": 59,
+        "amostras": 58,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.002998209674770792
+        "amplitudeRotacao": 0.002999849097343983
       }
     },
     {
       "width": 1280,
       "height": 720,
       "funcoes": 15,
-      "estados": 39,
+      "estados": 38,
       "legendas": 45,
       "ruido": {
-        "amostras": 59,
+        "amostras": 60,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.0029973825172723723
+        "amplitudeRotacao": 0.002997406001357356
       }
     },
     {
       "width": 1280,
       "height": 960,
       "funcoes": 15,
-      "estados": 39,
+      "estados": 38,
       "legendas": 45,
       "ruido": {
         "amostras": 59,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.002996728121630505
+        "amplitudeRotacao": 0.002997996984546103
       }
     }
   ],
@@ -151,7 +151,7 @@
       "de": "rastreabilidade",
       "para": "servico",
       "tipo": "next",
-      "quadros": 34,
+      "quadros": 33,
       "opacidadeMinimaConteudo": 0,
       "painelPermanente": true
     },
@@ -159,7 +159,7 @@
       "de": "servico",
       "para": "producao",
       "tipo": "next",
-      "quadros": 40,
+      "quadros": 38,
       "opacidadeMinimaConteudo": 0,
       "painelPermanente": true
     },
@@ -183,7 +183,7 @@
       "de": "backfire",
       "para": "estanqueidade",
       "tipo": "next",
-      "quadros": 40,
+      "quadros": 39,
       "opacidadeMinimaConteudo": 0,
       "painelPermanente": true
     },
@@ -191,7 +191,7 @@
       "de": "producao",
       "para": "servico",
       "tipo": "back",
-      "quadros": 40,
+      "quadros": 38,
       "opacidadeMinimaConteudo": 0,
       "painelPermanente": true
     },
@@ -202,6 +202,140 @@
       "quadros": 39,
       "opacidadeMinimaConteudo": 0,
       "painelPermanente": true
+    }
+  ],
+  "servico": [
+    {
+      "width": 1600,
+      "height": 900,
+      "fades": [
+        {
+          "nome": "01_Bloco_e_cabecote",
+          "inicioObservado": 0.10609999999999992,
+          "fimObservado": 0.9517999999999999
+        },
+        {
+          "nome": "02_Acessorios_e_mangueiras",
+          "inicioObservado": 0.9517999999999999,
+          "fimObservado": 1.711499999999999
+        },
+        {
+          "nome": "03_Travessa_obstrutora",
+          "inicioObservado": 1.8015999999999994,
+          "fimObservado": 2.6611999999999996
+        },
+        {
+          "nome": "04_Limites_do_compartimento",
+          "inicioObservado": 2.713099999999999,
+          "fimObservado": 3.554199999999998
+        },
+        {
+          "nome": "05_Chave_em_L_bloqueada",
+          "inicioObservado": 3.608099999999997,
+          "fimObservado": 4.1592999999999964
+        },
+        {
+          "nome": "06_Indicadores_de_bloqueio",
+          "inicioObservado": 4.1592999999999964,
+          "fimObservado": 4.600499999999994
+        }
+      ],
+      "amostras": 483,
+      "loop": {
+        "minOffset": 1.603,
+        "maxOffset": 2.543,
+        "variacaoCamera": 0,
+        "contatos": 28,
+        "ciclos": 1
+      }
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "fades": [
+        {
+          "nome": "01_Bloco_e_cabecote",
+          "inicioObservado": 0.10639999999999782,
+          "fimObservado": 0.960599999999999
+        },
+        {
+          "nome": "02_Acessorios_e_mangueiras",
+          "inicioObservado": 0.960599999999999,
+          "fimObservado": 1.7008999999999972
+        },
+        {
+          "nome": "03_Travessa_obstrutora",
+          "inicioObservado": 1.8046999999999962,
+          "fimObservado": 2.658399999999993
+        },
+        {
+          "nome": "04_Limites_do_compartimento",
+          "inicioObservado": 2.7113999999999927,
+          "fimObservado": 3.549999999999993
+        },
+        {
+          "nome": "05_Chave_em_L_bloqueada",
+          "inicioObservado": 3.602099999999991,
+          "fimObservado": 4.162399999999987
+        },
+        {
+          "nome": "06_Indicadores_de_bloqueio",
+          "inicioObservado": 4.162399999999987,
+          "fimObservado": 4.612999999999989
+        }
+      ],
+      "amostras": 484,
+      "loop": {
+        "minOffset": 1.603,
+        "maxOffset": 2.543,
+        "variacaoCamera": 0,
+        "contatos": 29,
+        "ciclos": 1
+      }
+    },
+    {
+      "width": 1280,
+      "height": 960,
+      "fades": [
+        {
+          "nome": "01_Bloco_e_cabecote",
+          "inicioObservado": 0.10609999999999854,
+          "fimObservado": 0.9592999999999958
+        },
+        {
+          "nome": "02_Acessorios_e_mangueiras",
+          "inicioObservado": 0.9592999999999958,
+          "fimObservado": 1.7119999999999993
+        },
+        {
+          "nome": "03_Travessa_obstrutora",
+          "inicioObservado": 1.8173999999999935,
+          "fimObservado": 2.6552999999999916
+        },
+        {
+          "nome": "04_Limites_do_compartimento",
+          "inicioObservado": 2.708699999999993,
+          "fimObservado": 3.5560999999999914
+        },
+        {
+          "nome": "05_Chave_em_L_bloqueada",
+          "inicioObservado": 3.609499999999993,
+          "fimObservado": 4.154599999999988
+        },
+        {
+          "nome": "06_Indicadores_de_bloqueio",
+          "inicioObservado": 4.154599999999988,
+          "fimObservado": 4.606599999999989
+        }
+      ],
+      "amostras": 484,
+      "loop": {
+        "minOffset": 1.603,
+        "maxOffset": 2.543,
+        "variacaoCamera": 0,
+        "contatos": 29,
+        "ciclos": 1
+      }
     }
   ],
   "produto": [
@@ -756,14 +890,15 @@
     }
   ],
   "checks": [
-    "Frases de sensação percebida de S2/S3/S4 completas, em uma linha, sem truncamento, nas três resoluções",
-    "Caixa fechada e abertura de duas abas, partindo da orientação deixada pelo apresentador",
-    "Quatro juntas nos bocais; apenas uma parcialmente deslocada; seis limitadores montados e dois soltos no fundo",
-    "Vista superior inclinada após a abertura e alvos das legendas visíveis",
-    "Rastreabilidade em três etapas, com QR, part number, lote, série e cavidade didáticos coerentes",
-    "Interrogações no 3D e lote ampliado de seis coletores com geometria compartilhada",
-    "39 etapas, 117 estados/resoluções, 135 focos de legenda e sete cenários de fade sem regressões",
-    "Giro, corte e zoom manuais, vibração de S4 sem zoom e reapresentação das cenas verificados",
+    "S6.2 tem exatamente duas etapas: fixador parcialmente solto; conjunto com acesso bloqueado",
+    "Bloco, cabeçote, acessórios, travessa, compartimento translúcido, chave e sinais de bloqueio em seis fades sequenciais",
+    "Vista parte da orientação escolhida e se ajusta suavemente durante a montagem",
+    "Soquete em L e parafuso com eixos coincidentes; face de admissão alinhada à flange",
+    "Curso de 0,94 unidade, contato sem penetração da travessa e recuo em loop de 2,4 segundos",
+    "Enquadramento do loop constante nas três resoluções; giro, legendas, retorno e reentrada aprovados",
+    "Somente o conteúdo de serviço foi alterado no roteiro; embalagem, rastreabilidade e títulos sensoriais passaram novamente",
+    "38 etapas, 114 estados/resoluções, 135 focos de legenda e sete cenários de fade sem regressões",
+    "Sem avanço automático de etapa nem movimento do carro durante a demonstração",
     "Zero erros JS/WebGL reportados e zero solicitações HTTP/HTTPS"
   ]
 }

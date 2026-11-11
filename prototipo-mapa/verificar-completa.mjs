@@ -10,7 +10,7 @@ try{
  const page=await browser.newPage({offline:true,viewport:{width:1600,height:900}});page.on('pageerror',e=>report.errors.push(e.message));page.on('console',m=>{if(m.type()==='error')report.errors.push(m.text().slice(0,1200))});page.on('request',r=>{if(/^https?:/.test(r.url()))report.network.push(r.url())});
  await page.goto(pathToFileURL(path.resolve('prototipo-mapa/iniciar.html')).href);await page.waitForFunction(()=>window.prototipo,{timeout:90000});
  const script=await page.evaluate(()=>prototipo.roteiro);assert(script.length===15,'Esperadas 15 funções da planilha');assert(new Set(script.map(s=>s.linha)).size===15&&script.every((s,i)=>s.linha===i+3),'Correspondência de linhas da planilha');
- assert(script.every(s=>s.etapas.every(e=>!/inspeção 3d/i.test(e[0])))&&[1,2,3].every(i=>script[i].etapas.length===1)&&script[4].etapas.length===2&&script[5].etapas.length===3&&script.reduce((n,s)=>n+s.etapas.length,0)===39,'Inspeção extra ou quantidade de etapas incorreta');
+ assert(script.every(s=>s.etapas.every(e=>!/inspeção 3d/i.test(e[0])))&&[1,2,3].every(i=>script[i].etapas.length===1)&&script[4].etapas.length===2&&script[5].etapas.length===3&&script[6].etapas.length===2&&script.reduce((n,s)=>n+s.etapas.length,0)===38,'Inspeção extra ou quantidade de etapas incorreta');
  assert(await page.locator('#sequencia,#inspecionar-demo,#repetir-demo,.step-progress').count()===0,'Mapeador ou botão de inspeção ainda presente');
  assert(await page.locator('.meaning>section').count()===2&&await page.locator('.meaning>button,.meaning>div').count()===0,'Coluna esquerda deve conter só o texto explicativo');
  const state=()=>page.evaluate(()=>prototipo.estado());const idle=()=>page.waitForFunction(()=>!prototipo.estado().moving&&!prototipo.estado().fading,null,{timeout:20000});
@@ -24,6 +24,7 @@ try{
    for(let j=0;j<script[i].etapas.length;j++){
     if(j){await page.keyboard.press('ArrowRight');assert((await state()).demoStep===j,'Seta não avança etapa: '+i+'/'+j)}
     if(i===4&&j===1)await page.waitForFunction(()=>!prototipo.estado().coletor.animandoVista&&!prototipo.estado().coletor.demo.animated);
+    if(i===6&&j===1)await page.waitForFunction(()=>!prototipo.estado().coletor.animandoVista&&prototipo.estado().coletor.demo.elapsed>4.7);
     await page.waitForTimeout(75);s=await state();frame(s.coletor,`${i}/${j}/${size.width}`);
     assert(JSON.stringify(s.car)===JSON.stringify(car),'Carro se moveu durante demonstração');
     if(i<2){assert(!s.coletor.transparent&&!s.coletor.demo.animated&&s.coletor.demo.objetos===0,'S1/S2 deve ser opaco e sem animação de ar');assert(!await page.locator('#coletor-transparencia').isVisible(),'Transparência visível em S1/S2');const b=await page.locator('#coletor-viewport').boundingBox();await page.mouse.move(b.x+b.width*.5,b.y+b.height*.5);await page.mouse.down();await page.mouse.move(b.x+b.width*.5+80,b.y+b.height*.5+30,{steps:3});await page.mouse.up();assert(Math.abs((await state()).coletor.rotation[1])>.4,'Rotação indisponível em etapa S1/S2');frame((await state()).coletor,'giro S1/S2');await page.locator('#coletor-restaurar').click()}
@@ -33,8 +34,8 @@ try{
     assert(Math.abs(layout.panel.width-size.width*.9)<1&&Math.abs(layout.panel.height-size.height*.9)<1,'Painel diferente de 90%');
     assert(layout.panel.bottom+2<=layout.footer.top,'Slide sobrepõe navegação');assert(layout.scroll<=layout.client+1,'Slide possui conteúdo cortado');
     assert(layout.sections.at(-1).bottom<layout.panel.bottom,'Texto fora do painel');assert(layout.meaning.right+4<=layout.model.left,'Texto sobrepõe modelo');
-    assert(layout.model.height>100&&(i===4||i===5?layout.model.bottom<=layout.legend.top+1:layout.model.bottom<=layout.diagram.top+1&&layout.diagram.bottom<=layout.legend.top+1)&&layout.legend.bottom<=layout.tools.top+1&&layout.tools.bottom<layout.panel.bottom,'Sobreposição no visor');
-    if(i<6||j===1)await page.screenshot({path:`${output}/${size.width}x${size.height}-${String(i+1).padStart(2,'0')}-etapa${j+1}.png`});
+    assert(layout.model.height>100&&([4,5,6].includes(i)?layout.model.bottom<=layout.legend.top+1:layout.model.bottom<=layout.diagram.top+1&&layout.diagram.bottom<=layout.legend.top+1)&&layout.legend.bottom<=layout.tools.top+1&&layout.tools.bottom<layout.panel.bottom,'Sobreposição no visor');
+    if(i<7||j===1)await page.screenshot({path:`${output}/${size.width}x${size.height}-${String(i+1).padStart(2,'0')}-etapa${j+1}.png`});
    }
    const final=await state();assert(!final.coletor.cut,'Última etapa deve manter a versão completa do coletor');
    await page.waitForTimeout(200);assert((await state()).demoStep===script[i].etapas.length-1,'Avanço automático indevido');
@@ -69,5 +70,5 @@ try{
  }
  await select(1);assert((await page.locator('#proximo').textContent()).includes('Próximo slide'),'S2 ainda oferece etapa extra');await page.keyboard.press('ArrowRight');await idle();assert((await state()).pageIndex===2,'S2 não segue direto para S3');
  for(const i of [2,3]){await select(i);assert((await page.locator('#proximo').textContent()).includes('Próximo slide'),'S3/S4 ainda oferece etapa extra');await page.keyboard.press('ArrowRight');await idle();assert((await state()).pageIndex===i+1,'S3/S4 não segue diretamente ao próximo slide')}
- assert(!report.errors.length&&!report.network.length,'Erros de execução ou rede');await fs.writeFile(`${output}/relatorio.json`,JSON.stringify(report,null,2));console.log('APROVADO: 39 etapas, nova embalagem e rastreabilidade, controles 3D, títulos e navegação offline');
+ assert(!report.errors.length&&!report.network.length,'Erros de execução ou rede');await fs.writeFile(`${output}/relatorio.json`,JSON.stringify(report,null,2));console.log('APROVADO: 38 etapas, novo acesso de manutenção, controles 3D, títulos e navegação offline');
 }catch(e){await fs.writeFile(`${output}/falha.json`,JSON.stringify({...report,error:e.message,stack:e.stack},null,2));throw e}finally{await browser.close()}

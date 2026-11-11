@@ -1,5 +1,18 @@
 # Validação do protótipo
 
+## Acesso de manutenção em duas etapas — 11/11/2026
+
+- Primeira etapa com parafuso parcialmente solto na flange, rosca exposta, folga e destaque pulsante. As legendas distinguem o fixador, a flange e os parafusos apertados.
+- Na segunda, seis grupos aparecem com fade em sequência: bloco/cabeçote, acessórios, travessa obstrutora, delimitações translúcidas do compartimento, chave e indicações de bloqueio. A vista parte da orientação deixada pelo apresentador e muda suavemente por 2,65 segundos.
+- O coletor está montado na face de admissão do cabeçote, junto à flange original. A chave em L tem soquete sextavado aberto e eixo paralelo ao fixador. A travessa acima do coletor impede a inserção.
+- O movimento repete descida, contato e recuo em ciclos de 2,4 segundos. Foram observados contatos sem penetração da travessa, curso de 0,94 unidade e variação nula na distância de câmera durante o loop. X vermelho, trajetória e aviso de falta de passagem reforçam o impedimento.
+- Testes específicos aprovados em 1600×900, 1280×720 e 1280×960. Verificadas as opacidades intermediárias dos seis fades, rotação durante o loop, foco das legendas, retorno e reentrada, sem avanço automático nem deslocamento do carro.
+- Regressão completa aprovada: 38 etapas, 114 estados nas três resoluções, 135 focos de legenda, navegação das 15 funções e sete transições na mesma parada. Embalagem e rastreabilidade também passaram novamente na suíte específica.
+- Capturas inspecionadas em três resoluções e no instante de contato. Relatórios em `.producao/qa-servico/`, `.producao/qa-completa/` e `.producao/qa-embalagem-rastreio/`. Zero erros JavaScript/WebGL e zero requisições HTTP/HTTPS reportados.
+- As dimensões e a montagem são ilustrativas; não foram acrescentadas dependências externas. O hash LF do HTML e os resumos estão em `validacao-completa.json`.
+
+As seções abaixo registram versões anteriores.
+
 ## Frases sensoriais, embalagem e rastreabilidade — 11/11/2026
 
 - S2–S4 usam as frases completas “Sensação percebida ligeiramente/moderadamente/muito desagradável”. A fonte é dimensionada pela largura disponível, sem corte ou reticências; as três frases foram verificadas em uma linha nos três tamanhos de tela.

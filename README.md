@@ -6,7 +6,7 @@ A apresentação completa tem **15 funções e uma conclusão**, organizadas em 
 
 O carro percorre dez paradas. S6 e S7 têm três funções cada; S9 tem duas. Entre funções da mesma severidade, apenas o slide muda: o carro permanece na mesma parada. A barra inferior identifica esses slides como `6·1`, `6·2`, `6·3`, por exemplo.
 
-São **39 etapas reais**, sem uma fase adicional de inspeção. **Clique em Próxima etapa ou pressione → / Espaço** para continuar; ao final da sequência, o controle abre o próximo slide. **←** retorna uma etapa; na primeira, retorna à última etapa real do slide anterior. O coletor pode ser girado em qualquer etapa. A coluna esquerda fica reservada ao texto explicativo, sem mapeador de demonstração guiada ou botão de inspeção.
+São **38 etapas reais**, sem uma fase adicional de inspeção. **Clique em Próxima etapa ou pressione → / Espaço** para continuar; ao final da sequência, o controle abre o próximo slide. **←** retorna uma etapa; na primeira, retorna à última etapa real do slide anterior. O coletor pode ser girado em qualquer etapa. A coluna esquerda fica reservada ao texto explicativo, sem mapeador de demonstração guiada ou botão de inspeção.
 
 O coletor entra **completo** em todos os slides. Arraste para girar, use a roda ou − / + para zoom e selecione as legendas numeradas para localizar cada região. Corte e reenquadramento permanecem disponíveis. Transparência é um recurso dos slides a partir de S3; S1 e S2 não têm esse botão nem ativação automática de transparência pelas legendas.
 
@@ -17,6 +17,8 @@ S3 e S4 também têm uma única etapa, já com os efeitos ativos. Na S3, a later
 Em S2, S3 e S4, o efeito é escrito como “Sensação percebida … desagradável”; a fonte se ajusta à largura para manter a frase completa em uma linha. S5 tem duas etapas: caixa de papelão fechada e abertura das duas abas, com transição contínua para a vista superior inclinada a partir da orientação deixada pelo apresentador. Quatro juntas aparecem nos bocais dos runners; uma está parcialmente solta. Seis limitadores metálicos permanecem nos furos e dois estão no fundo da caixa. As legendas permitem aproximar os detalhes internos.
 
 A primeira função de S6 mantém três etapas: etiqueta existente, registro inadequado/ausente e lote inteiro. QR code, part number, lote, série e cavidade usam dados demonstrativos coerentes. Uma demarcação destaca a etiqueta no coletor; interrogações grandes aparecem diretamente no 3D quando os registros falham. O lote usa seis réplicas da geometria do coletor em uma área ampliada.
+
+A segunda função de S6 tem duas etapas: um parafuso parcialmente solto na flange; depois, a montagem gradual do motor, acessórios, travessa e limites transparentes do compartimento. A chave em L desce, encontra a travessa e recua em loop, com X vermelho e indicação de falta de passagem. O coletor está na face de admissão do cabeçote. A vista se ajusta suavemente durante a montagem; o loop mantém o enquadramento estável. Giro e legendas continuam disponíveis.
 
 O painel ocupa 90% da largura e da altura, com uma faixa inferior exclusiva para navegação. Os gráficos, efeitos, fragmentos, tempos, distâncias e fluxos são ilustrativos, sem valores de ensaio ou simulação. S10 representa perda de assistência do servofreio e uma comparação qualitativa da distância de parada, **sem colisão**.
 
@@ -30,6 +32,7 @@ Os testes usam Edge em modo headless, com navegação offline, capturas e verifi
 - `prototipo-mapa/configuracao.json`: dez paradas, escala, transições e painel.
 - `prototipo-mapa/demonstracoes.js`: cenas 3D e diagramas das demonstrações.
 - `prototipo-mapa/cenas-produto.js`: caixa articulada, juntas, limitadores e identificação/lote em 3D.
+- `prototipo-mapa/cena-servico.js`: fixador, motor, compartimento translúcido e chave bloqueada, com montagem em fade e loop de tentativa.
 - `prototipo-mapa/codigo-rastreabilidade.json`: dados didáticos e matriz do QR incorporados no HTML; não exige biblioteca ou rede durante a apresentação.
 - `prototipo-mapa/efeitos-coletor.js`: aparência, rugosidade e materiais.
 - `prototipo-mapa/visor-coletor.js`: rotação, zoom, corte, transparência, legendas e câmera do coletor.
