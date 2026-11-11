@@ -1,5 +1,21 @@
 # Validação do protótipo
 
+## Apresentação completa — 11/11/2026
+
+- Roteiro das 15 funções da planilha integrado, com 58 etapas controladas pelo apresentador e uma conclusão. São 16 telas em dez paradas; S6, S7 e S9 reutilizam a parada entre suas funções.
+- Painel de 90% da largura e da altura, em 5% na horizontal e 2% na vertical. Faixa inferior exclusiva para seleção de slide e avanço/retorno. Tipografia e área do modelo ajustadas.
+- Coletor completo na entrada, etapas internas com transparência quando necessário e restauração da vista completa e opaca na inspeção final. Giro, zoom, corte e transparência disponíveis.
+- Três legendas interativas por função, com números ancorados no modelo, foco e indicação de região oculta. Os 135 focos das três resoluções localizaram alvos visíveis.
+- Aparência ampliada com manchas, marcas de fluxo, variação de tom e iluminação rasante. Rugosidade cobre toda a lateral frontal do plenum, separada em metades compatíveis com o corte.
+- Transporte, rastreabilidade, serviço, produção, resistência química, limpeza, distribuição de ar, água, retorno de chama, estanqueidade e servofreio representados por cenas 3D e diagramas vetoriais. Animações limitadas à etapa atual, sem avanço automático do roteiro.
+- S10 mostra circuito de vácuo, perda de assistência, esforço no pedal e comparação qualitativa de distância de parada, sem colisão. A vista inicial lateral mantém a conexão visível; seus 15 estados/resoluções foram verificados separadamente.
+- Suíte completa aprovada em 1600×900, 1280×720 e 1280×960: 174 estados de demonstração, 45 inspeções finais, 135 focos de legenda e navegação sequencial por todas as funções. Foram conferidos retorno, cancelamento e redesenho da inspeção final após transição.
+- Sete cenas adicionais capturadas e inspecionadas: identidade, proteção, produção, partícula congelada, água, fragmentos contidos e frenagem. Estrada fechada e dez enquadramentos do mapa sem obstruções nos alvos auditados.
+- Zero erros JavaScript/WebGL reportados e zero solicitações HTTP/HTTPS, em Edge headless e contexto offline. Capturas e relatórios locais em `.producao/qa-completa/`. Resumo reproduzível e hashes em `validacao-completa.json`.
+- As animações são representações qualitativas. Não constituem simulações de escoamento, análises estruturais, previsões de vida ou ensaios de frenagem. Projeção e passador físico continuam sujeitos à conferência no equipamento final.
+
+As seções abaixo registram versões anteriores. A batida descrita nas validações históricas não é acionada pela navegação atual.
+
 ## Slides sensoriais e visibilidade do mapa — 10/11/2026
 
 - Slides 2, 3 e 4 desenvolvidos com função, exemplos e efeito percebido ligeiramente, moderadamente e muito desagradável. O texto ressalta nos três casos que aparência, tato e ruído podem ocupar S2, S3 ou S4, conforme a intensidade do incômodo.

@@ -15,6 +15,7 @@ __VEGETACAO_SOURCE__
 __COLETOR_SOURCE__
 __VISIBILITY_SOURCE__
 __EFFECTS_SOURCE__
+__DEMOS_SOURCE__
 __VISOR_SOURCE__
 try {
 const scene=new T.Scene();scene.background=new T.Color('#b4c99b');
@@ -212,6 +213,9 @@ const carCorners=[];for(const x of [localCarBox.min.x,localCarBox.max.x])for(con
 const wheels=[],steers=[];car.traverse(o=>{if(o.name.startsWith('Roda_giratoria'))wheels.push(o);if(o.name.startsWith('Manga_de_eixo'))steers.push(o)});
 // O eixo longitudinal do modelo é +X; a base local acompanha a inclinação.
 function orient(u){const x=tangent(u),z=new T.Vector3().crossVectors(x,V(0,1,0)).normalize(),y=new T.Vector3().crossVectors(z,x).normalize();return new T.Quaternion().setFromRotationMatrix(new T.Matrix4().makeBasis(x,y,z))}
+const PAGE_END=CONFIG.slides.length;
+const pageStop=p=>p===PAGE_END?FINAL_SLIDE:CONFIG.slides[p].severidade-1;
+let pageIndex=0,demoStep=0;
 let carU=stops[0],index=0,motion=null,lastTime=null,cameraTween=null,fade=null,crash=null,crashed=false,fireTime=0,impacts=0,crashPose=null;
 let mapDirty=true,mapClock=0,lastMapDraw=-10,shadowAge=10,shadowAnchor=V(1e6,0,1e6),shadowAerial=null,shadowRenders=0,sceneRenders=0;
 let look=V(),boom=V(),carTurn=orient(carU),wheelAngle=0;
@@ -294,89 +298,98 @@ function resetCrash(){crash=null;crashed=false;fireTime=0;impacts=0;skidSamples=
 function finishWreck(){car.position.copy(wreckPosition);car.quaternion.copy(directionQuaternion(crashDirection));syncDamaged();damaged.aplicar(1);damaged.root.visible=true;car.visible=false;fire.visible=true;skid.visible=true;crashed=true;fireTime=Math.max(fireTime,1)}
 function beginCrash(rolling=false){const speed=rolling?(stops[LAST_STOP]-stops[LAST_STOP-1])*total/TRAVEL_DURATION:escapeLength/.85;crash={time:0,impacted:false,rolling,speed,contactTime:escapeLength/speed+(rolling?0:.08),travelled:0,initialLook:look.clone(),initialBoom:boom.clone()};appendSkids();ui()}
 function setContent(){
- const end=index===FINAL_SLIDE,first=index===0,modelSlide=index<4,busy=!!motion||!!cameraTween||!!crash,s=first?CONFIG.primeiroSlide:CONFIG.slidesSensoriais[index+1];
- $('conteudo').className='content'+(contentSides[index]==='right'?' right':'')+(end?' conclusion':'')+(busy?' absent':'')+(modelSlide?' model-slide':'')+(modelSlide&&!first?' sensory-slide':'');
- $('titulo-parada').textContent=end?'CONCLUSÃO':`SEVERIDADE ${index+1} · EFEITO NO SISTEMA`;
- $('titulo').textContent=modelSlide?s.titulo:end?'Uma visão do caminho completo.':index===LAST_STOP&&crashed?'Perda de controle. Impacto frontal.':`Severidade ${index+1}`;
- $('descricao').textContent=modelSlide?s.funcao:end?'Aqui entra a conclusão da apresentação, com a jornada inteira ao lado.':index===LAST_STOP&&crashed?'Demonstração visual da batida. Selecione 10 novamente para repetir a sequência.':'Espaço reservado para o conteúdo desta severidade.';
- $('primeiro-conteudo').classList.toggle('hidden',!modelSlide);$('ferramentas-modelo').classList.toggle('hidden',!modelSlide);
- if(modelSlide){
-  $('sistema-contexto').textContent=first?'NO SISTEMA · S1':`EFEITO NO SISTEMA · S${index+1}`;$('exemplos-contexto').textContent=first?'RESSALVA PARA A MAHLE':'EXEMPLOS · INTENSIDADE PERCEBIDA';
+ const end=pageIndex===PAGE_END,busy=!!motion||!!cameraTween||!!fade,s=CONFIG.slides[pageIndex];
+ $('conteudo').className='content'+(end?' conclusion':' model-slide')+(busy?' absent':'');
+ $('titulo-parada').textContent=end?'CONCLUSÃO · JORNADA DA QUALIDADE':`SEVERIDADE ${s.severidade} · EFEITO NO SISTEMA`;
+ $('titulo').textContent=end?'Uma peça. Muitos efeitos.':s.titulo;
+ $('descricao').textContent=end?'Da identificação ao fornecimento de vácuo: a consequência no sistema orienta a avaliação.':s.funcao;
+ $('primeiro-conteudo').classList.toggle('hidden',end);$('conclusao-conteudo').classList.toggle('hidden',!end);
+ if(!end){
+  const same=CONFIG.slides.filter(p=>p.severidade===s.severidade),part=same.indexOf(s)+1;
+  $('sistema-contexto').textContent=`EFEITO NO SISTEMA · S${s.severidade}`+(same.length>1?` · FUNÇÃO ${part}/${same.length}`:'');
+  $('exemplos-contexto').textContent=s.severidade===1?'RESSALVA PARA A MAHLE':'EXEMPLOS · CONSEQUÊNCIA OBSERVADA';
   $('sistema-titulo').textContent=s.sistemaTitulo;$('sistema-texto').textContent=s.sistemaTexto;
-  $('mahle-titulo').textContent=first?s.mahleTitulo:s.exemplosTitulo;$('mahle-texto').textContent=first?s.mahleTexto:s.exemplosTexto;$('mahle-destaque').textContent=first?s.mahleDestaque:s.destaque;
-  $('modelo-caption').textContent=first?'Três campos sem gravação · áreas destacadas no injetado':s.caption;
-  (first?['Data de injeção','Número do componente','Número de cavidade']:s.legendas).forEach((label,i)=>$('legenda-'+i).textContent=label);
-  manifoldView.mostrarSlide(index);requestAnimationFrame(()=>manifoldView.resize());
+  $('mahle-titulo').textContent=s.exemplosTitulo;$('mahle-texto').textContent=s.exemplosTexto;$('mahle-destaque').textContent=s.destaque;
+  $('modelo-caption').textContent='MODELO DIDÁTICO · '+(demoStep===s.etapas.length-1?'Arraste para girar · legendas localizam as regiões':'Etapa controlada por clique ou → · sem avanço automático');
+  s.legendas.forEach((v,i)=>$('legenda-'+i).textContent=v);
+  $('passo-titulo').textContent=s.etapas[demoStep][0];$('passo-texto').textContent=s.etapas[demoStep][1];
+  $('passo-contador').textContent=`${demoStep+1} / ${s.etapas.length}`;
+  $('passo-progresso').innerHTML=s.etapas.map((_,i)=>`<span class="${i<=demoStep?'done':''}"></span>`).join('');
+  $('inspecionar-demo').disabled=demoStep===s.etapas.length-1;$('repetir-demo').disabled=demoStep===0;
+  manifoldView.mostrarSlide(pageIndex,demoStep);requestAnimationFrame(()=>manifoldView.resize());
  }
 }
 function ensureSelectedVisible(){
- const list=$('numeros'),item=$('etapa-'+index),left=item.offsetLeft-list.offsetLeft;
+ const list=$('numeros'),item=$('etapa-'+pageIndex),left=item.offsetLeft-list.offsetLeft;
  if(left<list.scrollLeft)list.scrollTo({left,behavior:'smooth'});
  else if(left+item.offsetWidth>list.scrollLeft+list.clientWidth)list.scrollTo({left:left+item.offsetWidth-list.clientWidth,behavior:'smooth'});
 }
 function ui(){
- mapDirty=true;
- const busy=!!motion||!!cameraTween||!!fade||!!crash;
- $('anterior').disabled=busy||index===0;$('proximo').disabled=busy||index===FINAL_SLIDE;
- $('proximo').textContent=index===LAST_STOP?'Conclusão →':'Avançar →';
- $('estado').innerHTML=fade?'Trocando slide <span>Transição suave</span>':crash?`Severidade 10 <span>${crash.impacted?'Impacto frontal':'Perda de controle'}</span>`:cameraTween?'Novo enquadramento <span>Câmera em movimento</span>':motion?`Percurso ${String(index+1).padStart(2,'0')} → ${String(motion.to+1).padStart(2,'0')} <span>Em movimento</span>`:index===FINAL_SLIDE?'Conclusão <span>Jornada completa</span>':`Severidade ${index+1} <span>${crashed?'Após o impacto':'Aguardando avanço'}</span>`;
- for(let i=0;i<=FINAL_SLIDE;i++){$('etapa-'+i).className='step'+(i===index?' current':i<index?' done':'');$('etapa-'+i).setAttribute('aria-current',i===index?'step':'false')}
- labels.forEach((label,i)=>{label.ring.material=i===index?blue:gray;label.label.rotation.z=i===LAST_STOP&&crashed?crashPose.yaw:poses[i].yaw});
+ mapDirty=true;const busy=!!motion||!!cameraTween||!!fade,s=CONFIG.slides[pageIndex],last=s?s.etapas.length-1:0;
+ $('anterior').disabled=busy||(pageIndex===0&&demoStep===0);$('proximo').disabled=busy||pageIndex===PAGE_END;
+ $('proximo').textContent=pageIndex===PAGE_END?'Jornada concluída':demoStep<last?'Próxima etapa →':pageIndex===PAGE_END-1?'Conclusão →':'Próximo slide →';
+ $('slide-contador').textContent=`${pageIndex+1} / ${PAGE_END+1}`;
+ $('estado').textContent=busy?'Transição em andamento':pageIndex===PAGE_END?'Jornada completa':`S${s.severidade} · ${s.titulo} · etapa ${demoStep+1}/${s.etapas.length}`;
+ for(let i=0;i<=PAGE_END;i++){$('etapa-'+i).className='step'+(i===pageIndex?' current':i<pageIndex?' done':'');$('etapa-'+i).setAttribute('aria-current',i===pageIndex?'step':'false')}
+ labels.forEach((label,i)=>{label.ring.material=i===index?blue:gray;label.label.rotation.z=poses[i].yaw});
  setContent();ensureSelectedVisible();
 }
 function setInstant(to){
- resetCrash();
- index=to;carU=stops[Math.min(to,LAST_STOP)];carTurn.copy(orient(carU));place(carU);steers.forEach(s=>s.rotation.y=0);
- if(to===FINAL_SLIDE)finishWreck();
+ resetCrash();index=to;carU=stops[Math.min(to,LAST_STOP)];carTurn.copy(orient(carU));place(carU);steers.forEach(s=>s.rotation.y=0);
  const pose=presentationPose(to);look.copy(pose.look);boom.copy(pose.boom);
 }
-function selectSlide(to){
- if(fade||to<0||to>FINAL_SLIDE||(index===to&&to!==LAST_STOP&&!motion&&!cameraTween&&!crash))return;
- // Um salto cancela o percurso atual; a troca de mundo acontece apenas no branco total.
- motion=null;cameraTween=null;crash=null;fade={to,time:0,switched:false};ui();
+function selectSlide(page){
+ if(fade||page<0||page>PAGE_END)return;
+ motion=null;cameraTween=null;crash=null;fade={to:pageStop(page),page,phase:0,time:0,switched:false};ui();
 }
-function advance(direction){
- if(motion||cameraTween||fade||crash)return;
- const to=index+direction;if(to<0||to>FINAL_SLIDE)return;
- if(index===LAST_STOP&&crashed&&direction<0){selectSlide(to);return}
+function gotoPage(page,phase=0){
+ const to=pageStop(page);pageIndex=page;demoStep=phase;
+ if(to===index){fade={to,page,phase,time:0,switched:false};ui();return}
  if(to===FINAL_SLIDE||index===FINAL_SLIDE){
   const pose=presentationPose(to);cameraTween={to,fromLook:look.clone(),fromBoom:boom.clone(),toLook:pose.look,toBoom:pose.boom,fromScreen:car.position.clone().project(camera),toScreen:screenAt(car.position,pose),time:0,duration:TRAVEL_DURATION};ui();return;
  }
- const from=carU,end=stops[to];
- // Um único relógio sincroniza carro, órbita e composição: todos chegam juntos.
+ const from=carU,end=stops[to],direction=to>index?1:-1;
  motion={from,end,to,direction,time:0,duration:TRAVEL_DURATION,initialLook:look.clone(),initialBoom:boom.clone(),startFrame:screenAt(at(from),{look,boom}).x,endPose:stopPose(to)};ui();
 }
+function advance(direction){
+ if(motion||cameraTween||fade)return;
+ const s=CONFIG.slides[pageIndex];
+ if(direction>0){if(!s)return;if(demoStep<s.etapas.length-1){demoStep++;ui();return}gotoPage(pageIndex+1)}
+ else {if(s&&demoStep>0){demoStep--;ui();return}if(pageIndex>0){const prev=pageIndex-1;gotoPage(prev,CONFIG.slides[prev].etapas.length-1)}}
+}
+function setDemoStep(n){if(motion||cameraTween||fade||pageIndex===PAGE_END)return;demoStep=clamp(n,0,CONFIG.slides[pageIndex].etapas.length-1);ui()}
+$('repetir-demo').addEventListener('click',()=>setDemoStep(0));$('inspecionar-demo').addEventListener('click',()=>setDemoStep(CONFIG.slides[pageIndex].etapas.length-1));
 function fullscreen(){if(document.fullscreenElement)document.exitFullscreen?.();else document.documentElement.requestFullscreen?.().catch(()=>{})}
 $('proximo').addEventListener('click',()=>advance(1));$('anterior').addEventListener('click',()=>advance(-1));
-for(let i=0;i<=FINAL_SLIDE;i++)$('etapa-'+i).addEventListener('click',()=>selectSlide(i));
+for(let i=0;i<=PAGE_END;i++)$('etapa-'+i).addEventListener('click',()=>selectSlide(i));
 function scrollList(direction){$('numeros').scrollBy({left:direction*($('etapa-0').offsetWidth+8),behavior:'smooth'})}
 $('rolar-anterior').addEventListener('click',()=>scrollList(-1));$('rolar-proximo').addEventListener('click',()=>scrollList(1));
 $('numeros').addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.preventDefault();$('numeros').scrollLeft+=e.deltaY}},{passive:false});
 addEventListener('keydown',e=>{
  if(e.repeat||e.altKey||e.ctrlKey||e.metaKey)return;
- if(e.target.closest?.('.model-tools')&&[' ','Enter'].includes(e.key))return;
+ if(e.target.closest?.('.model-tools,.sequence-actions,.field-legend,.model-pin')&&[' ','Enter'].includes(e.key))return;
  // Espaço e Enter conservam a semântica dos botões quando a lista tem foco.
  if(e.target.closest?.('.slide-nav')&&[' ','Enter','ArrowLeft','ArrowRight'].includes(e.key)){
-  if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();const next=clamp(Number(e.target.id.replace('etapa-',''))+(e.key==='ArrowRight'?1:-1),0,FINAL_SLIDE);$('etapa-'+next)?.focus()}return;
+  if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();const next=clamp(Number(e.target.id.replace('etapa-',''))+(e.key==='ArrowRight'?1:-1),0,PAGE_END);$('etapa-'+next)?.focus()}return;
  }
  const key=e.key.toLowerCase();if([' ','arrowright','pagedown','arrowleft','pageup','f'].includes(key)){e.preventDefault();if([' ','arrowright','pagedown'].includes(key))advance(1);else if(['arrowleft','pageup'].includes(key))advance(-1);else fullscreen()}
 });
 let resizeTimer;
 addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{makePoses();if(!motion&&!cameraTween&&!fade&&!crash){const p=presentationPose(index);look.copy(p.look);boom.copy(p.boom)}else if(motion)motion.endPose=stopPose(motion.to);else if(cameraTween){const p=presentationPose(cameraTween.to);cameraTween.toLook=p.look;cameraTween.toBoom=p.boom}},150)});
 const first=stopPose(0);look.copy(first.look);boom.copy(first.boom);place(carU);
-const manifoldView=criarVisorColetor(T,{visivel:()=>index<4});
+const manifoldView=criarVisorColetor(T,{visivel:()=>pageIndex<PAGE_END&&!motion&&!cameraTween&&!fade});
 function update(dt){
- mapClock+=dt;shadowAge+=dt;
+ mapClock+=dt;shadowAge+=dt;manifoldView.update(dt);
  vegetation.wind.value+=dt;
  if(fade){
   fade.time+=dt;const out=.27,hold=.08,into=.34;
   $('fade').style.opacity=fade.time<out?smooth(fade.time/out):fade.time<out+hold?1:1-smooth((fade.time-out-hold)/into);
-  if(!fade.switched&&fade.time>=out){fade.switched=true;setInstant(fade.to);ui()}
-  if(fade.time>=out+hold+into){fade=null;$('fade').style.opacity=0;if(index===LAST_STOP)beginCrash();else ui()}
+  if(!fade.switched&&fade.time>=out){fade.switched=true;pageIndex=fade.page;demoStep=fade.phase;setInstant(fade.to);ui()}
+  if(fade.time>=out+hold+into){fade=null;$('fade').style.opacity=0;ui()}
  }
  if(cameraTween){const t=cameraTween;t.time+=dt;const u=ease(clamp(t.time/t.duration,0,1));look.lerpVectors(t.fromLook,t.toLook,u);boom.lerpVectors(t.fromBoom,t.toBoom,u);framePoint(car.position,lerp(t.fromScreen.x,t.toScreen.x,u),lerp(t.fromScreen.y,t.toScreen.y,u));if(u===1){look.copy(t.toLook);boom.copy(t.toBoom);index=t.to;cameraTween=null;ui()}}
  if(motion){
-  const m=motion;m.time+=dt;const q=clamp(m.time/m.duration,0,1),u=m.to===LAST_STOP&&m.direction>0?q*q*(2-q):ease(q),v=ease(q),previousU=carU;
+  const m=motion;m.time+=dt;const q=clamp(m.time/m.duration,0,1),u=ease(q),v=ease(q),previousU=carU;
   carU=lerp(m.from,m.end,u);
   // Voltar refaz o mesmo caminho de ré, mantendo a frente do carro orientada à estrada.
   carTurn.copy(orient(carU));
@@ -399,7 +412,7 @@ function update(dt){
   const framing=lerp(initialScreenX,endScreenX,v)*(1-Math.sin(v*Math.PI)**2*.75);
   look.copy(compose(at(carU),boom,framing).look);
   if(q===1){
-   look.copy(m.endPose.look);boom.copy(m.endPose.boom);steers.forEach(s=>s.rotation.y=0);index=m.to;motion=null;if(index===LAST_STOP&&m.direction>0)beginCrash(true);else ui();
+   look.copy(m.endPose.look);boom.copy(m.endPose.boom);steers.forEach(s=>s.rotation.y=0);index=m.to;motion=null;ui();
   }
  }
  if(crash){
@@ -459,7 +472,7 @@ function verificarGeometria(){
  return{minClearance,negative,closureGap:roadPoints[0].distanceTo(roadPoints.at(-1)),roadLength:roadDistances.at(-1),forestCount:forestPoints.length-clearedTrees,comprimentoApresentacao:total,distanciasEntreParadas:stops.slice(1).map((u,i)=>(u-stops[i])*total),duracaoTransicao:TRAVEL_DURATION,escalaHorizontal:CONFIG.percurso.escalaHorizontal,variantStats:vegetation.variants.map(v=>({tipo:v.type,triangles:(v.wood.getAttribute('position').count+(v.leaves?.getAttribute('position').count||0))/3,altura:v.height})),contactTimeRolling:escapeLength/((stops[LAST_STOP]-stops[LAST_STOP-1])*total/TRAVEL_DURATION)};
 }
 // Diagnóstico local para validação: sem telemetria, sem persistência e sem rede.
-window.prototipo={estado:()=>({index,paradas:STOP_COUNT,slides:FINAL_SLIDE+1,carU,sceneRenders,shadowRenders,coletor:manifoldView.estado(),skidSamples,skidDrawCounts:skidTracks.map(t=>t.g.drawRange.count),moving:!!motion||!!cameraTween||!!crash,fading:!!fade,tracking:!!motion,crashTime:crash?.time??null,contactTime:crash?.contactTime??null,crashTravelled:crash?.travelled??null,forestCount:forestPoints.length-clearedTrees,visibleTrees,treeVariants:vegetation.variants.length,roadClosed:roadPoints[0].distanceTo(roadPoints.at(-1))<.001,triangles:renderer.info.render.triangles,crashed,fire:fire.visible,impacts,damagedVisible:damaged.root.visible,tree:treePosition.toArray(),frontDirection:V(1,0,0).applyQuaternion(car.quaternion).toArray(),wreckPosition:wreckPosition.toArray(),crashLayout:roadIntrusions(crashPose,LAST_STOP,0),progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===FINAL_SLIDE,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide,verificarGeometria,verificarVisibilidade,exportarColetor:cut=>manifoldView.exportar(cut),exportarArvore:i=>vegetation.tree(i),exportarIntegro:()=>{const c=car.clone(true);c.position.set(0,0,0);c.quaternion.identity();c.visible=true;return c},exportarAmassado:()=>damaged.exportar()};
+window.prototipo={estado:()=>({index,pageIndex,demoStep,slideId:CONFIG.slides[pageIndex]?.id,paradas:STOP_COUNT,slides:PAGE_END+1,carU,sceneRenders,shadowRenders,coletor:manifoldView.estado(),skidSamples,skidDrawCounts:skidTracks.map(t=>t.g.drawRange.count),moving:!!motion||!!cameraTween||!!crash,fading:!!fade,tracking:!!motion,crashTime:crash?.time??null,contactTime:crash?.contactTime??null,crashTravelled:crash?.travelled??null,forestCount:forestPoints.length-clearedTrees,visibleTrees,treeVariants:vegetation.variants.length,roadClosed:roadPoints[0].distanceTo(roadPoints.at(-1))<.001,triangles:renderer.info.render.triangles,crashed,fire:fire.visible,impacts,damagedVisible:damaged.root.visible,tree:treePosition.toArray(),frontDirection:V(1,0,0).applyQuaternion(car.quaternion).toArray(),wreckPosition:wreckPosition.toArray(),crashLayout:roadIntrusions(crashPose,LAST_STOP,0),progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===FINAL_SLIDE,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide,setDemoStep,roteiro:CONFIG.slides,verificarGeometria,verificarVisibilidade,exportarColetor:cut=>manifoldView.exportar(cut),exportarArvore:i=>vegetation.tree(i),exportarIntegro:()=>{const c=car.clone(true);c.position.set(0,0,0);c.quaternion.identity();c.visible=true;return c},exportarAmassado:()=>damaged.exportar()};
 ui();requestAnimationFrame(tick);
 } catch(error){console.error(error);$('erro').classList.remove('hidden');$('erro').textContent='Não foi possível iniciar a cena 3D. Abra este arquivo no Microsoft Edge ou Google Chrome com suporte a WebGL. Detalhe: '+error.message;$('estado').textContent='Cena indisponível';}
 })();

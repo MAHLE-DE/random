@@ -1,0 +1,238 @@
+{
+  "data": "2026-11-11",
+  "arquivo": "iniciar.html",
+  "sha256": "3cd373e9d46fc8c407865263fb9163b9e3987534d98770a1e3125ee3de33b65f",
+  "fonte": {
+    "arquivo": "apresentacao_qualidade_completa.xlsx",
+    "aba": "Sheet1",
+    "linhas": "B3:F17",
+    "sha256": "0372e1b4d30dcfcbcef71ec2efeed02649c8dbba2dd7ffc5d563ec930d93080f"
+  },
+  "funcoes": 15,
+  "slides": 16,
+  "paradas": 10,
+  "etapas": 58,
+  "resolucoes": [
+    {
+      "width": 1600,
+      "height": 900,
+      "funcoes": 15,
+      "estados": 58,
+      "legendas": 45
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "funcoes": 15,
+      "estados": 58,
+      "legendas": 45
+    },
+    {
+      "width": 1280,
+      "height": 960,
+      "funcoes": 15,
+      "estados": 58,
+      "legendas": 45
+    }
+  ],
+  "erros": [],
+  "rede": [],
+  "navegacao": [
+    {
+      "from": 0,
+      "to": 1,
+      "stop": 1,
+      "carStayed": false
+    },
+    {
+      "from": 1,
+      "to": 2,
+      "stop": 2,
+      "carStayed": false
+    },
+    {
+      "from": 2,
+      "to": 3,
+      "stop": 3,
+      "carStayed": false
+    },
+    {
+      "from": 3,
+      "to": 4,
+      "stop": 4,
+      "carStayed": false
+    },
+    {
+      "from": 4,
+      "to": 5,
+      "stop": 5,
+      "carStayed": false
+    },
+    {
+      "from": 5,
+      "to": 6,
+      "stop": 5,
+      "carStayed": true
+    },
+    {
+      "from": 6,
+      "to": 7,
+      "stop": 5,
+      "carStayed": true
+    },
+    {
+      "from": 7,
+      "to": 8,
+      "stop": 6,
+      "carStayed": false
+    },
+    {
+      "from": 8,
+      "to": 9,
+      "stop": 6,
+      "carStayed": true
+    },
+    {
+      "from": 9,
+      "to": 10,
+      "stop": 6,
+      "carStayed": true
+    },
+    {
+      "from": 10,
+      "to": 11,
+      "stop": 7,
+      "carStayed": false
+    },
+    {
+      "from": 11,
+      "to": 12,
+      "stop": 8,
+      "carStayed": false
+    },
+    {
+      "from": 12,
+      "to": 13,
+      "stop": 8,
+      "carStayed": true
+    },
+    {
+      "from": 13,
+      "to": 14,
+      "stop": 9,
+      "carStayed": false
+    },
+    {
+      "from": 14,
+      "to": 15,
+      "stop": 10,
+      "carStayed": true
+    }
+  ],
+  "cenasAdicionais": [
+    "identidade",
+    "protecao",
+    "producao",
+    "particula-congelada",
+    "agua",
+    "fragmentos",
+    "frenagem"
+  ],
+  "s10Enquadramentos": 15,
+  "mapa": {
+    "estradaFechada": true,
+    "intersecoesTerreno": 0,
+    "distanciasEntreParadas": [
+      48.57125164224317,
+      48.57125164224317,
+      48.571251642243155,
+      48.57125164224318,
+      48.57125164224318,
+      48.571251642243155,
+      48.571251642243155,
+      48.571251642243155,
+      48.571251642243155
+    ],
+    "visibilidade": {
+      "paradas": [
+        {
+          "carro": 0,
+          "numero": 0,
+          "arvoreImpacto": 0,
+          "enquadrado": true
+        },
+        {
+          "carro": 0,
+          "numero": 0,
+          "arvoreImpacto": 0,
+          "enquadrado": true
+        },
+        {
+          "carro": 0,
+          "numero": 0,
+          "arvoreImpacto": 0,
+          "enquadrado": true
+        },
+        {
+          "carro": 0,
+          "numero": 0,
+          "arvoreImpacto": 0,
+          "enquadrado": true
+        },
+        {
+          "carro": 0,
+          "numero": 0,
+          "arvoreImpacto": 0,
+          "enquadrado": true
+        },
+        {
+          "carro": 0,
+          "numero": 0,
+          "arvoreImpacto": 0,
+          "enquadrado": true
+        },
+        {
+          "carro": 0,
+          "numero": 0,
+          "arvoreImpacto": 0,
+          "enquadrado": true
+        },
+        {
+          "carro": 0,
+          "numero": 0,
+          "arvoreImpacto": 0,
+          "enquadrado": true
+        },
+        {
+          "carro": 0,
+          "numero": 0,
+          "arvoreImpacto": 0,
+          "enquadrado": true
+        },
+        {
+          "carro": 0,
+          "numero": 0,
+          "arvoreImpacto": 0,
+          "enquadrado": true
+        }
+      ],
+      "acidente": {
+        "carro": 0,
+        "numero": 0,
+        "arvoreImpacto": 0,
+        "enquadrado": true
+      },
+      "arvoresSemFolhas": 0,
+      "arvoresRetiradasDosCorredores": 176
+    }
+  },
+  "checks": [
+    "Painel de 90% da largura e altura, sem sobrepor navegação",
+    "15 funções nas dez paradas, na ordem da planilha",
+    "58 etapas manuais; inspeção 3D completa e opaca ao final",
+    "135 focos de legenda, corte, giro e zoom máximo nas três resoluções",
+    "Retorno, conclusão, cancelamento e troca de funções sem mover o carro",
+    "S10 sem colisão; enquadramento lateral do circuito verificado em 15 estados",
+    "JavaScript e WebGL sem erros reportados; nenhuma conexão HTTP/HTTPS"
+  ]
+}

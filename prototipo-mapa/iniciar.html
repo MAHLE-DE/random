@@ -28,7 +28,7 @@ THE SOFTWARE.
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; font-src 'none'; connect-src 'none'; media-src 'none'">
 <title>MAHLE · Jornada da qualidade</title>
 <style>
-:root{--painel-x:10%;--painel-y:10%;--painel-largura:80%;--painel-altura:80%;--painel-opacidade:0.85;}
+:root{--painel-x:5%;--painel-y:2%;--painel-largura:90%;--painel-altura:90%;--painel-opacidade:0.9;}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#fff;color:#102b40;font-family:Arial,sans-serif}canvas{display:block;width:100%;height:100%}.hidden{display:none!important}
 .content{position:absolute;z-index:2;left:var(--painel-x);top:var(--painel-y);width:var(--painel-largura);height:var(--painel-altura);padding:34px 40px 84px;background:rgba(255,255,255,var(--painel-opacidade));border:1px solid #ffffff80;border-radius:10px;box-shadow:0 12px 40px #20391818;transition:opacity .20s;pointer-events:none;display:flex;flex-direction:column}
 .content.absent{opacity:0;pointer-events:none}.content.absent *{pointer-events:none!important}
@@ -57,6 +57,67 @@ THE SOFTWARE.
 .sound-source{position:absolute;width:160px;height:160px}.sound-source svg{width:100%;height:100%;overflow:visible}.sound-source circle.wave{fill:none;stroke:#0063d9;stroke-width:2.4;filter:drop-shadow(0 0 1px white);transform-origin:55px 55px;animation:sound-wave 2s ease-out infinite}.sound-source circle.wave:nth-child(2){animation-delay:-.5s;stroke:#b57419}.sound-source circle.wave:nth-child(3){animation-delay:-1s}.sound-source circle.wave:nth-child(4){animation-delay:-1.5s;stroke:#b57419}@keyframes sound-wave{0%{transform:scale(.30);opacity:.95}100%{transform:scale(1.12);opacity:0}}
 @media(prefers-reduced-motion:reduce){.touch-hand .reach,.sound-source circle.wave{animation:none}.sound-source circle.wave{opacity:.55}}
 </style>
+<style>/* Painel de 90% com faixa inferior exclusiva para navegação. */
+.content{padding:28px 34px 24px;overflow:hidden}
+.slide-brand{top:28px;right:32px;width:132px;height:34px}
+.eyebrow{font-size:clamp(18px,1.4vw,27px);margin-bottom:9px}
+.content h1{font-size:clamp(32px,2.9vw,52px);margin-bottom:10px}
+.slide-function{font-size:clamp(17px,1.35vw,25px);line-height:1.35;max-width:95%}
+.first-content{grid-template-columns:minmax(0,41fr) minmax(0,59fr);gap:30px;margin-top:20px}
+.meaning{gap:18px;padding:0}
+.meaning h2{font-size:clamp(21px,1.75vw,31px);margin-bottom:8px}
+.meaning p{font-size:clamp(17px,1.35vw,25px);line-height:1.38}
+.meaning .emphasis{font-size:clamp(15px,1.09vw,20px);line-height:1.35;margin-top:10px}
+.section-kicker{font-size:clamp(11px,.85vw,16px);margin-bottom:6px}
+.model-pane{grid-template-rows:auto minmax(100px,1fr) auto auto auto;gap:9px}
+.model-caption{color:#30516d;font-size:clamp(13px,.95vw,18px)}
+#coletor-viewport{border:1px solid #b4c9db66;border-radius:12px;background:linear-gradient(145deg,#f7fbff88,#eef4f733);isolation:isolate}
+#coletor-viewport canvas{position:absolute;inset:0}
+.model-pin{position:absolute;z-index:4;width:28px;height:28px;padding:0;border-radius:50%;border:2px solid white;background:#0062bc;color:white;font-size:15px;font-weight:700;box-shadow:0 2px 9px #12365044;overflow:visible}
+.model-pin:after{content:'';position:absolute;top:25px;left:11px;width:2px;height:12px;background:#0062bc;border-right:1px solid white}
+.model-pin:hover,.model-pin.selected{background:#c97612;outline:2px solid #c97612}
+.field-legend{gap:7px;font-size:clamp(12px,.93vw,17px);pointer-events:auto}
+.field-legend>button{display:grid;grid-template-columns:25px 1fr;gap:2px 7px;text-align:left;height:auto;min-height:50px;padding:7px 9px;border:1px solid #b2c6d8;background:#f9fcfff2;line-height:1.2;min-width:0}
+.field-legend>button i{grid-row:span 2;display:grid;place-items:center;align-self:center;width:24px;height:24px;background:#0062bc;color:white;border-radius:50%;font:700 13px Arial;font-style:normal}
+.field-legend small{font-size:10px;color:#4a6378}
+.field-legend .selected{background:#fff5e6;border-color:#b87821}
+.field-legend .selected i{background:#b87821}
+.model-tools{position:static;max-width:none;justify-content:center;gap:6px;flex-wrap:nowrap}
+.model-tools button{height:33px;font-size:12px;padding:0 8px;white-space:nowrap}
+.model-tools button.zoom{width:29px;font-size:21px;flex-shrink:0}
+.zoom-value{min-width:36px;font-size:12px}
+.sequence{margin-top:auto;border:1px solid #adc5de;border-radius:10px;background:#f5f9fff0;padding:12px 15px;pointer-events:auto}
+.sequence .section-kicker{display:flex;justify-content:space-between;color:#0060b5}
+.sequence h3{font-size:clamp(17px,1.2vw,22px);margin:3px 0 6px;color:#123b5d}
+.sequence p{font-size:clamp(14px,1vw,18px);line-height:1.35}
+.sequence-actions{display:flex;gap:8px;margin-top:11px}
+.sequence-actions button{height:30px;font-size:12px;padding:0 10px;background:white}
+.step-progress{display:flex;gap:5px;margin:8px 0}
+.step-progress span{height:4px;flex:1;border-radius:4px;background:#cad9e7}.step-progress span.done{background:#0066c7}
+.diagram{height:clamp(72px,10vh,108px);background:#f8fbfff5;border:1px solid #d1dee8;border-radius:9px;padding:3px 8px;overflow:hidden}.diagram svg{display:block;width:100%;height:100%}
+.bottom{bottom:7px;left:5%;right:5%;height:42px;align-items:center;gap:16px}
+.bottom .panel{padding:3px 8px;border-radius:9px}.bottom .status,.help{display:none}
+.numbers{width:272px;scrollbar-width:none;padding:0}.step{flex-basis:48px;width:48px;height:32px;font-size:12px}
+.controls button{height:38px;font-size:14px}.controls .primary{min-width:158px}
+.slide-counter{font-size:12px;color:#30516d;white-space:nowrap;margin-right:6px;background:#fffffff2;padding:6px 9px;border-radius:6px}
+.conclusion-body{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:26px;flex:1;min-height:0}
+.conclusion-body article{padding:20px;border:1px solid #bcd0e1;border-radius:12px;background:#f7fbffd9}
+.conclusion-body h2{color:#0043bc;font-size:24px;margin:0 0 10px}.conclusion-body p{font-size:19px;line-height:1.5;margin:0 0 18px}
+.severity-summary{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.severity-summary div{font-size:16px;padding:12px;border-radius:7px;background:#e5eff8}.severity-summary b{color:#0043bc}
+.spectrum-bar{transform-box:fill-box;transform-origin:bottom;animation:spectrum .6s ease-in-out infinite alternate}.travelling-dot{animation:drift 1.4s linear infinite}
+@keyframes spectrum{to{transform:scaleY(.5)}}@keyframes drift{to{transform:translateX(35px)}}
+.braking-normal{animation:brake-normal 1.8s ease-out both}.braking-reduced{animation:brake-reduced 2.7s ease-out both}
+@keyframes brake-normal{from{transform:translateX(-240px)}to{transform:translateX(0)}}@keyframes brake-reduced{from{transform:translateX(-410px)}to{transform:translateX(0)}}
+@media(max-height:800px){
+ .content{padding:20px 25px 16px}.slide-brand{top:20px;right:25px;width:110px;height:28px}.eyebrow{font-size:17px;margin-bottom:6px}.content h1{font-size:32px;margin-bottom:7px}.slide-function{font-size:17px;line-height:1.3}
+ .first-content{margin-top:14px;gap:22px}.meaning{gap:13px}.meaning h2{font-size:21px;margin-bottom:6px}.meaning p{font-size:16px;line-height:1.33}.meaning .emphasis{font-size:14px;line-height:1.3;margin-top:8px}.section-kicker{font-size:10px;margin-bottom:5px}.meaning section{padding-left:12px}
+ .sequence{padding:9px 12px}.sequence h3{font-size:17px}.sequence p{font-size:14px;line-height:1.3}.sequence-actions{margin-top:8px}.sequence-actions button{height:27px;font-size:11px}.step-progress{margin:6px 0}
+ .model-pane{gap:6px}.model-caption{font-size:12px}.diagram{height:98px}.field-legend>button{min-height:43px;padding:5px 6px;font-size:12px}.field-legend small{font-size:9px}.model-tools button{font-size:11px;height:30px;padding:0 6px}.zoom-value{font-size:11px;min-width:32px}
+ .bottom{bottom:6px;height:40px}.bottom .status{display:none}.conclusion-body{gap:16px;margin-top:18px}.conclusion-body article{padding:16px}.conclusion-body h2{font-size:21px}.conclusion-body p{font-size:17px}.severity-summary div{font-size:14px;padding:9px}
+}
+@media(max-width:1050px){.first-content{grid-template-columns:42fr 58fr;gap:15px}.model-tools{gap:3px;flex-wrap:wrap}.model-tools button{font-size:10px}.numbers{width:216px}.step{flex-basis:48px}.slide-counter{display:none}.content h1{font-size:29px}.meaning p{font-size:15px}}
+@media(prefers-reduced-motion:reduce){.spectrum-bar,.travelling-dot,.braking-normal,.braking-reduced{animation:none}}
+</style>
 <main id="mundo" aria-label="Mapa tridimensional com estrada e carro animado"></main>
 <section class="content" id="conteudo" aria-label="Slide da apresentação">
  <div class="slide-brand"><svg class="brand" role="img" aria-label="MAHLE"
@@ -80,17 +141,19 @@ THE SOFTWARE.
   <div class="meaning">
    <section><div class="section-kicker" id="sistema-contexto">NO SISTEMA · S1</div><h2 id="sistema-titulo">Sem efeito funcional</h2><p id="sistema-texto"></p></section>
    <section class="business"><div class="section-kicker" id="exemplos-contexto">RESSALVA PARA A MAHLE</div><h2 id="mahle-titulo">A rastreabilidade faz diferença</h2><p id="mahle-texto"></p><p class="emphasis" id="mahle-destaque"></p></section>
+   <div class="sequence" id="sequencia"><div class="section-kicker"><span>DEMONSTRAÇÃO GUIADA</span><span id="passo-contador"></span></div><div class="step-progress" id="passo-progresso"></div><h3 id="passo-titulo"></h3><p id="passo-texto"></p><div class="sequence-actions"><button id="repetir-demo">↺ Reiniciar</button><button id="inspecionar-demo">Ir à inspeção 3D</button></div></div>
   </div>
-  <div class="model-pane"><div class="model-caption" id="modelo-caption">Três campos sem gravação · áreas destacadas no injetado</div><div id="coletor-viewport" aria-label="Modelo 3D dos efeitos no coletor"><div id="marcacao-alvo" class="model-pin">!</div>
+  <div class="model-pane"><div class="model-caption" id="modelo-caption">Três campos sem gravação · áreas destacadas no injetado</div><div id="coletor-viewport" aria-label="Modelo 3D dos efeitos no coletor">
    <svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs><symbol id="mao-ilustrada" viewBox="0 0 120 160"><path d="M36 157 32 125 16 97 10 77Q8 68 16 66L24 70 35 86 30 36Q28 23 37 20T48 31L51 67 50 18Q50 6 59 6T68 18L69 65 74 29Q75 18 83 20T91 32L85 76 94 48Q97 40 104 44T108 57L101 89 89 114 82 128 85 157Z" fill="#eeeae0" stroke="#243746" stroke-width="3" stroke-linejoin="round"/><path d="M36 157 32 125 43 113 71 119 82 128 85 157Z" fill="#748292"/><path d="m35 86 12 16 7 25M51 67l4 22M69 65l-1 23M85 76l-7 19M43 113l28 6M36 139l44 4M34 46l13-2M53 35h13M76 44l12 2M94 65l11 3" fill="none" stroke="#4d5b66" stroke-width="2.3" stroke-linecap="round"/><path d="m44 103 14-7 17 5-6 15-18-4Z" fill="#c6c6bc"/><path d="m39 129 8 3m-5 5 9 2m17-7 9 2m-8 5 9 2" stroke="#a8b4bd" stroke-width="2"/></symbol></defs></svg>
    <div class="effect-overlay hidden" id="maos-tato" aria-label="Duas mãos ilustradas indicam intenção de toque"><div class="touch-hand left"><div class="reach"><svg viewBox="0 0 120 160"><use href="#mao-ilustrada"/></svg></div></div><div class="touch-hand right"><div class="reach"><svg viewBox="0 0 120 160"><use href="#mao-ilustrada"/></svg></div></div></div>
    <div class="effect-overlay hidden" id="ondas-ruido" aria-label="Ondas ilustram ruído de admissão não atenuado"><div class="sound-source"><svg viewBox="0 0 110 110"><circle class="wave" cx="55" cy="55" r="42"/><circle class="wave" cx="55" cy="55" r="42"/><circle class="wave" cx="55" cy="55" r="42"/><circle class="wave" cx="55" cy="55" r="42"/><path d="M39 48h10l13-12v38L49 62H39Z" fill="#0043bc" stroke="#fff" stroke-width="2"/></svg></div><div class="sound-source"><svg viewBox="0 0 110 110"><circle class="wave" cx="55" cy="55" r="42"/><circle class="wave" cx="55" cy="55" r="42"/><circle class="wave" cx="55" cy="55" r="42"/><circle class="wave" cx="55" cy="55" r="42"/></svg></div></div>
-  </div><div class="field-legend"><span><i class="empty-mark"></i><b id="legenda-0">Data de injeção</b></span><span><i class="empty-mark"></i><b id="legenda-1">Número do componente</b></span><span><i class="empty-mark"></i><b id="legenda-2">Número de cavidade</b></span></div></div>
+  </div><div class="diagram" id="diagrama"></div><div class="field-legend"><button type="button" aria-pressed="false"><i>1</i><b id="legenda-0"></b><small>Clique para localizar</small></button><button type="button" aria-pressed="false"><i>2</i><b id="legenda-1"></b><small>Clique para localizar</small></button><button type="button" aria-pressed="false"><i>3</i><b id="legenda-2"></b><small>Clique para localizar</small></button></div> <div class="model-tools" id="ferramentas-modelo"><button class="zoom" id="coletor-menos" aria-label="Afastar coletor">−</button><span class="zoom-value" id="coletor-zoom">110%</span><button class="zoom" id="coletor-mais" aria-label="Aproximar coletor">+</button><button id="coletor-marcas">Localizar</button><button id="coletor-corte" aria-pressed="false">Vista em corte</button><button id="coletor-transparencia" aria-pressed="false">Transparência</button><button id="coletor-restaurar">Reenquadrar</button></div></div>
  </div>
- <div class="model-tools hidden" id="ferramentas-modelo"><button class="zoom" id="coletor-menos" aria-label="Afastar coletor">−</button><span class="zoom-value" id="coletor-zoom">110%</span><button class="zoom" id="coletor-mais" aria-label="Aproximar coletor">+</button><button id="coletor-marcas">Focar marcações</button><button id="coletor-corte" aria-pressed="false">Vista completa</button><button id="coletor-restaurar">Reenquadrar</button></div>
+
+ <div id="conclusao-conteudo" class="conclusion-body hidden"><article><h2>O efeito orienta a severidade</h2><p>A mesma peça pode apresentar efeitos muito diferentes. Avalie a função afetada, a intensidade percebida e a consequência para o sistema.</p><div class="severity-summary"><div><b>S1</b> · Sem efeito funcional</div><div><b>S2–S4</b> · Incômodo percebido</div><div><b>S5–S6</b> · Função secundária</div><div><b>S7–S8</b> · Função primária</div><div><b>S9</b> · Segurança e requisitos</div><div><b>S10</b> · Frenagem segura</div></div></article><article><h2>Da peça ao veículo</h2><p>Identificar a falha é o começo. Entender o efeito permite distinguir uma alteração de aparência, uma dificuldade de serviço, uma perda de desempenho e um risco à segurança.</p><p>A nota acompanha o cenário descrito. Não é uma propriedade fixa do componente nem do nome do defeito.</p><p>Dez paradas, 15 funções: volte a qualquer slide pela barra inferior para revisar a demonstração.</p></article></div>
 </section>
 <div class="veil" id="fade"></div>
-<div class="bottom"><div class="panel"><div class="status" role="status" aria-live="polite" id="estado">Preparando o mapa…</div><nav class="slide-nav" aria-label="Selecionar severidade"><button class="nav-scroll" id="rolar-anterior" aria-label="Rolar lista para a esquerda">‹</button><div class="numbers" id="numeros"><button class="step" id="etapa-0" aria-label="Selecionar severidade 1" type="button">01</button><button class="step" id="etapa-1" aria-label="Selecionar severidade 2" type="button">02</button><button class="step" id="etapa-2" aria-label="Selecionar severidade 3" type="button">03</button><button class="step" id="etapa-3" aria-label="Selecionar severidade 4" type="button">04</button><button class="step" id="etapa-4" aria-label="Selecionar severidade 5" type="button">05</button><button class="step" id="etapa-5" aria-label="Selecionar severidade 6" type="button">06</button><button class="step" id="etapa-6" aria-label="Selecionar severidade 7" type="button">07</button><button class="step" id="etapa-7" aria-label="Selecionar severidade 8" type="button">08</button><button class="step" id="etapa-8" aria-label="Selecionar severidade 9" type="button">09</button><button class="step" id="etapa-9" aria-label="Selecionar severidade 10" type="button">10</button><button class="step" id="etapa-10" aria-label="Selecionar conclusão" type="button">Fim</button></div><button class="nav-scroll" id="rolar-proximo" aria-label="Rolar lista para a direita">›</button></nav></div><div><div class="controls"><button id="anterior" aria-label="Voltar um slide">← Voltar</button><button id="proximo" class="primary">Avançar →</button></div><div class="help">Espaço / → avançar · ← voltar · F tela cheia</div></div></div>
+<div class="bottom"><div class="panel"><div class="status" role="status" aria-live="polite" id="estado">Preparando o mapa…</div><nav class="slide-nav" aria-label="Selecionar severidade"><button class="nav-scroll" id="rolar-anterior" aria-label="Rolar lista para a esquerda">‹</button><div class="numbers" id="numeros"><button class="step" id="etapa-0" aria-label="Selecionar severidade 1: Marcação dos componentes" type="button">01</button><button class="step" id="etapa-1" aria-label="Selecionar severidade 2: Aparência do coletor" type="button">02</button><button class="step" id="etapa-2" aria-label="Selecionar severidade 3: Rugosidade e percepção tátil" type="button">03</button><button class="step" id="etapa-3" aria-label="Selecionar severidade 4: Ruído de admissão" type="button">04</button><button class="step" id="etapa-4" aria-label="Selecionar severidade 5: Proteção no transporte" type="button">05</button><button class="step" id="etapa-5" aria-label="Selecionar severidade 6: Rastreabilidade do produto" type="button">6·1</button><button class="step" id="etapa-6" aria-label="Selecionar severidade 6: Acesso para manutenção" type="button">6·2</button><button class="step" id="etapa-7" aria-label="Selecionar severidade 6: Viabilidade de produção" type="button">6·3</button><button class="step" id="etapa-8" aria-label="Selecionar severidade 7: Resistência química" type="button">7·1</button><button class="step" id="etapa-9" aria-label="Selecionar severidade 7: Limpeza interna" type="button">7·2</button><button class="step" id="etapa-10" aria-label="Selecionar severidade 7: Quantidade e distribuição de ar" type="button">7·3</button><button class="step" id="etapa-11" aria-label="Selecionar severidade 8: Água e condensado" type="button">08</button><button class="step" id="etapa-12" aria-label="Selecionar severidade 9: Resistência ao retorno de chama" type="button">9·1</button><button class="step" id="etapa-13" aria-label="Selecionar severidade 9: Estanqueidade da admissão" type="button">9·2</button><button class="step" id="etapa-14" aria-label="Selecionar severidade 10: Vácuo para o servofreio" type="button">10</button><button class="step" id="etapa-15" aria-label="Selecionar conclusão" type="button">Fim</button></div><button class="nav-scroll" id="rolar-proximo" aria-label="Rolar lista para a direita">›</button></nav></div><div><div class="controls"><span id="slide-contador" class="slide-counter"></span><button id="anterior" aria-label="Voltar um slide">← Voltar</button><button id="proximo" class="primary">Avançar →</button></div><div class="help">Espaço / → avançar · ← voltar · F tela cheia</div></div></div>
 <div class="error hidden" id="erro" role="alert"></div>
 <script>/**
  * @license
@@ -54667,7 +54730,7 @@ const T = { ACESFilmicToneMapping, AddEquation, AddOperation, AdditiveAnimationB
    Biblioteca e modelo são incorporados por gerar.mjs. Nenhuma requisição de rede. */
 (() => {
 'use strict';
-const CONFIG={"painel":{"margemLateral":0.1,"largura":0.8,"topo":0.1,"altura":0.8,"opacidade":0.85},"composicaoMapa":{"margemLateral":0.05,"largura":0.516,"topo":0.168,"altura":0.624},"percurso":{"escalaHorizontal":1.8,"duracaoTransicao":2.5},"paradas":[{"severidade":1,"u":0.055,"lado":"left"},{"severidade":2,"u":0.155,"lado":"right"},{"severidade":3,"u":0.255,"lado":"left"},{"severidade":4,"u":0.355,"lado":"right"},{"severidade":5,"u":0.455,"lado":"left"},{"severidade":6,"u":0.555,"lado":"right"},{"severidade":7,"u":0.655,"lado":"left"},{"severidade":8,"u":0.755,"lado":"right"},{"severidade":9,"u":0.855,"lado":"left"},{"severidade":10,"u":0.955,"lado":"right"}],"slidesSensoriais":{"2":{"titulo":"Aparência do coletor","funcao":"Atender aos requisitos de aparência das superfícies moldadas do coletor de ar.","sistemaTitulo":"Ligeiramente desagradável","sistemaTexto":"Pequenas alterações visuais geram um incômodo discreto, sem prejudicar o fornecimento de ar nem o funcionamento do motor.","exemplosTitulo":"Marcas que chamam pouca atenção","exemplosTexto":"Manchas superficiais, leve variação de cor e marcas de fluxo aparentes na superfície moldada são exemplos desse efeito.","destaque":"Aparência, tato e ruído podem ocupar S2, S3 ou S4. A nota depende da intensidade do incômodo, não do tipo de exemplo.","caption":"Aspecto visual · manchas e marcas superficiais","legendas":["Manchas superficiais","Marcas de fluxo","Variação de cor"],"efeito":"aparencia"},"3":{"titulo":"Rugosidade e percepção tátil","funcao":"Garantir superfícies e bordas adequadas ao contato e ao manuseio do coletor de ar.","sistemaTitulo":"Moderadamente desagradável","sistemaTexto":"Uma superfície áspera ou uma borda incômoda provoca desconforto perceptível ao toque, sem perda de desempenho do coletor.","exemplosTitulo":"O toque evidencia a irregularidade","exemplosTexto":"Rugosidade elevada, rebarbas superficiais e cantos vivos podem incomodar o manuseio. Neste exemplo, o efeito é desconforto, sem lesão.","destaque":"Aparência, tato e ruído podem ocupar S2, S3 ou S4. A nota depende da intensidade do incômodo, não do tipo de exemplo.","caption":"Percepção tátil · mãos ilustram a intenção de toque","legendas":["Alta rugosidade","Cantos vivos","Contato ilustrado"],"efeito":"tatil"},"4":{"titulo":"Ruído de admissão","funcao":"Contribuir para a atenuação do ruído e das pulsações acústicas da admissão.","sistemaTitulo":"Muito desagradável","sistemaTexto":"Um som de admissão muito perceptível causa forte incômodo, mesmo com o fornecimento de ar e o funcionamento do motor preservados.","exemplosTitulo":"O som se destaca durante o uso","exemplosTexto":"Ronco de admissão, assobio ou ressonância que o coletor gera, amplifica ou deixa de atenuar são exemplos desse efeito.","destaque":"Aparência, tato e ruído podem ocupar S2, S3 ou S4. A nota depende da intensidade do incômodo, não do tipo de exemplo.","caption":"Ruído não atenuado · ondas sonoras ilustrativas","legendas":["Pulsos de pressão","Vibração das paredes","Som não atenuado"],"efeito":"ruido"}},"primeiroSlide":{"titulo":"Marcação dos componentes","funcao":"Garantir marcação dos componentes com data de injeção, número do componente e número de cavidade","sistemaTitulo":"Sem efeito funcional","sistemaTexto":"Marcações ausentes ou incorretas não alteram as funções primárias nem as secundárias do coletor de ar.","mahleTitulo":"A rastreabilidade faz diferença","mahleTexto":"Em caso de problema no cliente, a identificação incompleta dificulta delimitar as peças que precisam de ação.","mahleDestaque":"Quanto maior o conjunto de peças sem identificação confiável, maior pode ser o custo para a MAHLE.","nota":"A severidade 1 se refere ao efeito funcional no sistema."}};const STOP_COUNT=CONFIG.paradas.length,LAST_STOP=STOP_COUNT-1,FINAL_SLIDE=STOP_COUNT,STOP_PARAMS=CONFIG.paradas.map(p=>p.u);
+const CONFIG={"painel":{"margemLateral":0.05,"largura":0.9,"topo":0.02,"altura":0.9,"opacidade":0.9},"composicaoMapa":{"margemLateral":0.05,"largura":0.516,"topo":0.168,"altura":0.624},"percurso":{"escalaHorizontal":1.8,"duracaoTransicao":2.5},"paradas":[{"severidade":1,"u":0.055,"lado":"left"},{"severidade":2,"u":0.155,"lado":"right"},{"severidade":3,"u":0.255,"lado":"left"},{"severidade":4,"u":0.355,"lado":"right"},{"severidade":5,"u":0.455,"lado":"left"},{"severidade":6,"u":0.555,"lado":"right"},{"severidade":7,"u":0.655,"lado":"left"},{"severidade":8,"u":0.755,"lado":"right"},{"severidade":9,"u":0.855,"lado":"left"},{"severidade":10,"u":0.955,"lado":"right"}],"fonteConteudo":{"arquivo":"apresentacao_qualidade_completa.xlsx","aba":"Sheet1","linhas":"3:17","criterio":"Roteiro técnico do usuário; valores e fenômenos visuais são ilustrativos."},"slides":[{"id":"identificacao","severidade":1,"linha":3,"titulo":"Marcação dos componentes","funcao":"Garantir identificação permanente com data de injeção, número da peça e número da cavidade.","sistemaTitulo":"Sem efeito funcional","sistemaTexto":"Marcações ausentes ou ilegíveis não alteram o fornecimento de ar nem o funcionamento percebido do coletor no veículo.","exemplosTitulo":"A rastreabilidade faz diferença","exemplosTexto":"Sem data, código ou cavidade, fica mais difícil localizar as peças envolvidas em uma investigação de qualidade.","destaque":"A nota 1 se refere ao efeito funcional. A perda de identidade pode ampliar a contenção e o custo para a MAHLE.","legendas":["Data de injeção","Número da peça","Cavidade"],"alvos":[[-0.93,0.31,1.84],[-0.27,0.31,1.84],[0.39,0.31,1.84]],"etapas":[["Peça íntegra","O coletor funciona e suas três marcações permitem identificar sua origem."],["Identidade apagada","Aproxime os três campos: a função de conduzir ar permanece, mas a identificação desaparece."],["Qual peça investigar?","Sem uma identidade confiável, a investigação pode alcançar um conjunto maior de peças."],["Inspeção 3D","Gire o coletor e selecione cada legenda para localizar os campos sem gravação."]]},{"id":"aparencia","severidade":2,"linha":4,"titulo":"Aparência do coletor","funcao":"Atender aos requisitos de aparência das superfícies moldadas do coletor de ar.","sistemaTitulo":"Ligeiramente desagradável","sistemaTexto":"Alterações visuais discretas geram um incômodo ligeiro, sem prejudicar montagem, vedação, fluxo de ar ou durabilidade esperada.","exemplosTitulo":"A luz revela a diferença","exemplosTexto":"Manchas, variação de tonalidade, marcas de fluxo e linhas superficiais leves aparecem sob a iluminação rasante.","destaque":"Aparência, tato e ruído podem ocupar S2, S3 ou S4. A nota depende da intensidade do incômodo, não do tipo de exemplo.","legendas":["Manchas","Marcas de fluxo","Variação de tom"],"alvos":[[-1.25,0.64,1.83],[0.8,0.72,1.84],[1.9,0.85,1.8]],"etapas":[["Superfície de referência","Observe o acabamento uniforme antes de revelar as alterações."],["Revelar alterações","A luz rasante evidencia várias regiões. O destaque visual é ampliado para facilitar a apresentação."],["Inspeção 3D","Gire a peça e use as legendas. A régua indica incômodo ligeiro; o fluxo continua normal."]]},{"id":"tatil","severidade":3,"linha":5,"titulo":"Rugosidade e percepção tátil","funcao":"Garantir superfícies e bordas adequadas ao contato e ao manuseio do coletor de ar.","sistemaTitulo":"Moderadamente desagradável","sistemaTexto":"Uma superfície áspera ou uma borda incômoda causa desconforto perceptível ao toque, sem comprometer a função da admissão.","exemplosTitulo":"O toque evidencia a irregularidade","exemplosTexto":"Textura acima do esperado, linha de partição perceptível e pequenos cantos incomodam o manuseio, sem lesão ou interferência de montagem.","destaque":"Aparência, tato e ruído podem ocupar S2, S3 ou S4. Aqui, o efeito é desconforto tátil, sem risco de corte.","legendas":["Lateral rugosa","Linha de partição","Contato ilustrado"],"alvos":[[-1.5,0.5,1.8],[0,0.67,1.84],[1.6,0.52,1.82]],"etapas":[["Superfície lisa","A mesma peça serve de referência antes da aplicação da rugosidade."],["Contato com a lateral","Toda a lateral do plenum recebe textura. As mãos ilustram pressão e desconforto, sem lesão."],["Inspeção 3D","A textura acompanha a peça ao girar. O fluxo de ar permanece preservado."]]},{"id":"ruido","severidade":4,"linha":6,"titulo":"Ruído de admissão","funcao":"Evitar ruídos anormais associados ao coletor e às pulsações da admissão.","sistemaTitulo":"Muito desagradável","sistemaTexto":"Assobio, vibração ou ressonância muito perceptíveis causam forte incômodo, mesmo com as funções do veículo preservadas.","exemplosTitulo":"O som se destaca durante o uso","exemplosTexto":"Uma tampa pode vibrar ou uma faixa de rotação pode excitar uma ressonância, sem perda relevante de torque, vedação ou dirigibilidade.","destaque":"Aparência, tato e ruído podem ocupar S2, S3 ou S4. As ondas e o espectro representam o ruído sem reproduzir áudio.","legendas":["Pulsos de pressão","Vibração da tampa","Ruído percebido"],"alvos":[[-2.9,0.67,0.65],[0,1.2,0.9],[2,0.65,1.8]],"etapas":[["Admissão preservada","O fluxo azul continua atravessando o coletor normalmente."],["Faixa de ressonância","Vibração leve, ondas e espectro representam um ruído muito desagradável."],["Inspeção 3D","Explore o coletor parado. As ondas permanecem como indicação do efeito acústico."]]},{"id":"logistica","severidade":5,"linha":7,"titulo":"Proteção no transporte","funcao":"Garantir projeto adequado para embalagem, transporte e entrega do coletor.","sistemaTitulo":"Função secundária degradada","sistemaTexto":"Uma proteção logística inadequada pode danificar elementos auxiliares e dificultar o manuseio ou a montagem, sem eliminar necessariamente o suprimento de ar.","exemplosTitulo":"O contato entre peças deixa marcas","exemplosTexto":"Um suporte, conector ou espigão pode riscar, empenar ou quebrar. Proteções soltas também permitem a entrada de sujeira.","destaque":"O dano ilustrado atinge um suporte secundário. A proteção deve impedir contato entre peças e preservar as interfaces.","legendas":["Suporte exposto","Contato entre peças","Berço de proteção"],"alvos":[[2.9,0.6,0.6],[0,1.2,0.6],[-2.4,0,1.5]],"etapas":[["Carga sem separadores","Três peças compartilham o contêiner e ficam próximas demais."],["Transporte e contato","Um deslocamento curto aproxima as peças e deforma o suporte destacado."],["Proteção correta","A cena congela; berços e separadores transparentes passam a proteger as peças."],["Inspeção 3D","O coletor volta ao visor livre, com o suporte destacado para inspeção."]]},{"id":"rastreabilidade","severidade":6,"linha":8,"titulo":"Rastreabilidade do produto","funcao":"Relacionar o produto ao lote, à cavidade, aos parâmetros e ao histórico de produção.","sistemaTitulo":"Função secundária perdida","sistemaTexto":"O coletor pode continuar operando, mas a perda do vínculo com os registros impede a rastreabilidade necessária à contenção e à gestão de campo.","exemplosTitulo":"O código existe, mas o vínculo falha","exemplosTexto":"Código 2D ilegível, etiqueta trocada ou registro ausente rompem a relação entre a peça, a matéria-prima e o processo.","destaque":"Neste cenário, a função secundária de rastreabilidade é perdida. O efeito avaliado é diferente do efeito funcional da marcação em S1.","legendas":["Código 2D","Identidade da peça","Vínculo com o lote"],"alvos":[[-0.93,0.31,1.84],[-0.27,0.31,1.84],[0.39,0.31,1.84]],"etapas":[["Rede conectada","Código, lote, cavidade e parâmetros se relacionam com uma peça identificada."],["Vínculos rompidos","Os registros ficam desconectados. A peça funciona, mas seu histórico deixa de ser recuperável."],["Contenção ampliada","Uma investigação que começaria em uma peça passa a considerar um lote inteiro."],["Inspeção 3D","Selecione as legendas para localizar a região de identificação."]]},{"id":"servico","severidade":6,"linha":9,"titulo":"Acesso para manutenção","funcao":"Permitir manutenção e serviço com acesso e procedimentos adequados.","sistemaTitulo":"Função secundária perdida","sistemaTexto":"A falta de acessibilidade aumenta o tempo de serviço e pode exigir desmontagens adicionais, embora o sistema de admissão ainda funcione.","exemplosTitulo":"A ferramenta não encontra passagem","exemplosTexto":"Fixador inacessível, conector sem espaço de destravamento ou mangueira presa por componentes vizinhos dificultam o reparo.","destaque":"A função de serviço exige espaço para ferramenta, mãos e retirada das peças, sem provocar danos durante a manutenção.","legendas":["Fixador","Envelope da ferramenta","Interface de serviço"],"alvos":[[2.63,1.61,-3.18],[2.7,2,-2],[2.6,0.6,0.5]],"etapas":[["Acesso obstruído","A ferramenta tenta alcançar o fixador, mas encontra o volume de um componente vizinho."],["Desmontagens adicionais","O caminho bloqueado aumenta as operações e o tempo de intervenção, de forma ilustrativa."],["Corredor de acesso","O volume vizinho é afastado e um corredor verde permite alcançar o fixador."],["Inspeção 3D","O coletor fica livre para explorar os pontos de fixação e serviço."]]},{"id":"producao","severidade":6,"linha":10,"titulo":"Viabilidade de produção","funcao":"Garantir condições para fabricar, montar e inspecionar o coletor no processo interno.","sistemaTitulo":"Função secundária perdida","sistemaTexto":"Geometria inviável ou montagem instável pode parar operações, gerar retrabalho ou sucata, sem significar por si só a perda direta da admissão no veículo.","exemplosTitulo":"A linha para antes de concluir","exemplosTexto":"Uma peça presa no molde ou uma junta sem acesso para soldagem e aperto impede completar o processo de forma consistente.","destaque":"Ângulos de desmoldagem e envelopes de ferramenta devem ser compatíveis com as operações previstas.","legendas":["Desmoldagem","Junta de união","Acesso de ferramenta"],"alvos":[[-2.4,0.8,1],[0,0.67,1.84],[2.5,1.2,-2.8]],"etapas":[["Linha de produção","O coletor passa por moldagem, união e inspeção."],["Estação bloqueada","O molde retém a peça e a ferramenta não alcança a junta. A linha é interrompida."],["Visão de engenharia","O molde abre e os envelopes corrigidos aparecem em verde para liberar a operação."],["Inspeção 3D","Inspecione a geometria e as regiões necessárias à fabricação."]]},{"id":"quimica","severidade":7,"linha":11,"titulo":"Resistência química","funcao":"Resistir à corrosão e ao ataque químico durante a vida em serviço.","sistemaTitulo":"Função primária degradada","sistemaTexto":"A degradação química pode enfraquecer paredes, conexões e vedações, reduzindo o desempenho necessário à condução normal ao longo da vida útil.","exemplosTitulo":"O material muda com a exposição","exemplosTexto":"Óleo, combustível, agentes de limpeza, névoa salina ou gases do cárter podem causar inchamento, fissuras, amolecimento ou corrosão de insertos.","destaque":"A comparação ilustra uma evolução em serviço. Não representa ensaio de material ou previsão de vida útil.","legendas":["Fissuras na parede","Exposição química","Inserto degradado"],"alvos":[[-1,0.7,1.84],[1,0.8,1.84],[2.63,1.61,-3.18]],"etapas":[["Tempo zero","A referência íntegra é comparada à peça que será exposta em serviço."],["Ataque progressivo","Ondas químicas atingem a parede; manchas, fissuras e alteração do inserto tornam-se visíveis."],["Desempenho reduzido","A intensidade do fluxo diminui para representar a degradação da função primária."],["Inspeção 3D","Gire a peça para observar as regiões de degradação destacadas."]]},{"id":"limpeza","severidade":7,"linha":12,"titulo":"Limpeza interna","funcao":"Fornecer ar limpo e controlado, sem contaminantes remanescentes no coletor.","sistemaTitulo":"Função primária degradada","sistemaTexto":"Corpos estranhos transportados pela admissão podem afetar sensores, válvulas, combustão e componentes a jusante durante a vida útil.","exemplosTitulo":"O contaminante segue com o ar","exemplosTexto":"Cavacos plásticos, poeira, óleo ou partículas de processo permanecem no interior e seguem em direção ao motor.","destaque":"A sequência congela antes do contato. As partículas e a vista interna são ilustrativas, com dimensões ampliadas.","legendas":["Entrada de ar","Contaminante no duto","Saída para o motor"],"alvos":[[-3.1,0.67,0.65],[0.6,0.9,-1.5],[0.6,1.12,-3.1]],"etapas":[["Interior visível","A carcaça fica translúcida para mostrar o caminho do ar até os quatro dutos."],["Partículas em movimento","Partículas contrastantes percorrem a admissão; uma janela interna acompanha o trajeto."],["Congelar antes do contato","A partícula fica retida visualmente antes da válvula, destacando o caminho de risco."],["Inspeção 3D","A carcaça volta à vista completa. Use corte ou transparência para investigar o interior."]]},{"id":"distribuicao","severidade":7,"linha":13,"titulo":"Quantidade e distribuição de ar","funcao":"Fornecer ao motor a quantidade e a distribuição de ar requeridas.","sistemaTitulo":"Função primária degradada","sistemaTexto":"Restrição ou distribuição desigual reduz torque, potência, resposta ou eficiência. O veículo ainda se desloca, com desempenho prejudicado.","exemplosTitulo":"Um ramo recebe menos ar","exemplosTexto":"Obstrução parcial, seção insuficiente ou um duto deformado altera o equilíbrio entre os cilindros e reduz a capacidade da admissão.","destaque":"As barras e a curva de torque são comparações qualitativas. Não representam resultados de simulação ou medição.","legendas":["Entrada comum","Restrição no duto 3","Distribuição aos cilindros"],"alvos":[[-3,0.67,0.65],[0.6,0.9,-1.7],[1.8,1.12,-3.1]],"etapas":[["Fluxo equilibrado","Quatro caminhos azuis alimentam os cilindros com intensidade semelhante."],["Restrição localizada","O terceiro duto é parcialmente bloqueado e seu fluxo muda para amarelo e vermelho."],["Pulsos desbalanceados","O desequilíbrio chega aos cilindros; a curva qualitativa indica redução de torque."],["Inspeção 3D","Explore a região da restrição e compare os quatro dutos."]]},{"id":"agua","severidade":8,"linha":14,"titulo":"Água e condensado","funcao":"Evitar ingestão excessiva de água e acúmulo de condensado no coletor.","sistemaTitulo":"Função primária perdida","sistemaTexto":"Água acumulada pode ser aspirada de uma vez, interrompendo a admissão e a condução normal, com possibilidade de falha grave do motor.","exemplosTitulo":"Uma bolsa de água chega ao motor","exemplosTexto":"Drenagem insuficiente permite acúmulo. Em uma manobra, o volume pode provocar falha de combustão, apagamento ou risco de calço hidráulico.","destaque":"O volume e o movimento da água são esquemáticos. A sequência representa a perda da função, sem simular o fenômeno físico.","legendas":["Condensação","Ponto de acúmulo","Caminho para o motor"],"alvos":[[-1.7,1,0.7],[0,0.15,0.8],[0.6,1.12,-3.1]],"etapas":[["Condensação","Gotas surgem no interior da carcaça translúcida."],["Acúmulo no ponto baixo","A drenagem insuficiente permite formar uma bolsa de água."],["Aspiração do volume","Uma inclinação ilustrativa libera água para os dutos. O fluxo cessa e os cilindros apagam."],["Inspeção 3D","O coletor retorna à vista completa para examinar os caminhos de acúmulo e saída."]]},{"id":"backfire","severidade":9,"linha":15,"titulo":"Resistência ao retorno de chama","funcao":"Preservar a integridade estrutural do coletor diante de um retorno de chama.","sistemaTitulo":"Segurança e integridade afetadas","sistemaTexto":"Uma ruptura por pico de pressão pode liberar fragmentos ou gases quentes, causar incêndio e comprometer requisitos de segurança do compartimento do motor.","exemplosTitulo":"A pressão volta pelos dutos","exemplosTexto":"Uma combustão retorna à admissão e pode romper carcaça, solda ou tampa, expondo os componentes próximos a gases quentes.","destaque":"O escudo contém fragmentos estilizados. Cores e deformações são didáticas, sem resultado de análise estrutural.","legendas":["Onda de retorno","Região de ruptura","Tampa e união"],"alvos":[[0.6,1.12,-2.8],[0.2,0.67,1.85],[1.3,1.2,0.9]],"etapas":[["Retorno de pressão","Uma onda luminosa percorre os dutos no sentido inverso ao fluxo normal."],["Carcaça solicitada","O mapa de cores ilustra solicitação e a fissura avança na região de união."],["Ruptura contida","Fragmentos estilizados se afastam dentro de um escudo visual de segurança."],["Inspeção 3D","O modelo volta ao controle livre, com a região de ruptura destacada."]]},{"id":"estanqueidade","severidade":9,"linha":16,"titulo":"Estanqueidade da admissão","funcao":"Impedir fugas e entrada de ar não medido no sistema de admissão.","sistemaTitulo":"Requisitos de emissões afetados","sistemaTexto":"Uma fuga relevante altera o controle da mistura e pode levar ao não atendimento de requisitos legais ou regulamentares, além de afetar desempenho e diagnóstico.","exemplosTitulo":"O sensor não vê todo o ar","exemplosTexto":"Trinca, porosidade, solda incompleta ou vedação deslocada permite entrada de ar após a medição e pode acender a luz de avaria.","destaque":"A fumaça revela a falha na verificação de pressão. Em operação, a mesma falha pode admitir ar não medido.","legendas":["Ar medido","Falha de vedação","Interface flangeada"],"alvos":[[-3.1,0.67,0.65],[0.5,0.67,1.85],[1.8,1.12,-3.18]],"etapas":[["Verificação por pressão","O coletor é pressurizado virtualmente para evidenciar uma possível fuga."],["Fuga localizada","Partículas fluorescentes escapam pela união. A região perde pressão."],["Mistura e diagnóstico","A leitura do sensor diverge do fluxo real. Indicadores de avaria e emissões aparecem."],["Inspeção 3D","Selecione as legendas para explorar a falha e as interfaces de vedação."]]},{"id":"vacuo","severidade":10,"linha":17,"titulo":"Vácuo para o servofreio","funcao":"Fornecer vácuo confiável ao servofreio para preservar a assistência à frenagem.","sistemaTitulo":"Frenagem segura comprometida","sistemaTexto":"A perda de vácuo pode aumentar muito o esforço no pedal e afetar a frenagem segura, com risco para ocupantes e outras pessoas no trânsito.","exemplosTitulo":"O pedal exige mais esforço","exemplosTexto":"Bocal rompido, tomada obstruída, mangueira desconectada ou fuga no circuito reduz a assistência do servofreio.","destaque":"A perda de assistência não significa ausência total de freio. A distância mostrada é ilustrativa e não representa um ensaio.","legendas":["Tomada de vácuo","Mangueira","Servofreio"],"alvos":[[2.7,0.7,0.5],[3.2,1,0.5],[3.6,1.2,0.5]],"etapas":[["Circuito com assistência","O caminho destacado conecta a tomada do coletor ao servofreio."],["Vácuo interrompido","A conexão se rompe visualmente e o gradiente de vácuo desaparece."],["Maior esforço no pedal","O pedal esquemático exige força crescente para representar a assistência reduzida."],["Distância de parada","Dois percursos ilustram o aumento da distância de parada na condição representada, sem colisão."],["Inspeção 3D","O coletor volta ao controle livre para examinar a tomada de vácuo e a conexão."]]}]};const STOP_COUNT=CONFIG.paradas.length,LAST_STOP=STOP_COUNT-1,FINAL_SLIDE=STOP_COUNT,STOP_PARAMS=CONFIG.paradas.map(p=>p.u);
 const TRAVEL_DURATION=CONFIG.percurso.duracaoTransicao;
 const $=id=>document.getElementById(id);
 const V=(x=0,y=0,z=0)=>new T.Vector3(x,y,z);
@@ -54837,8 +54900,8 @@ function criarColetorK24(T,{espessura=.055}={}){
   const geometry=new T.BoxGeometry(.57,.19,.055),pad=mesh(geometry,padMaterial,name+'_ausente',marking);pad.position.set(-.93+i*.66,.31,1.80);pad.userData.gravacao=null;
   const line=new T.LineSegments(new T.EdgesGeometry(geometry),new T.LineBasicMaterial({color:'#d48a20',transparent:true,opacity:.95}));line.position.copy(pad.position);line.name='Contorno_'+name;highlight.add(line);
  }
- function corte(active=true){upper.visible=!active;cutOnly.forEach(o=>o.visible=active);fullOnly.forEach(o=>o.visible=!active);root.userData.corte=active}
- root.userData={tipo:'Reconstrução didática de coletor K24',referencia:'K24 Intake Manifold - EP6 YOUTUBE',espessuraRelativa:espessura,dutos:4};corte(true);
+ function corte(active=false){upper.visible=!active;cutOnly.forEach(o=>o.visible=active);fullOnly.forEach(o=>o.visible=!active);root.userData.corte=active}
+ root.userData={tipo:'Reconstrução didática de coletor K24',referencia:'K24 Intake Manifold - EP6 YOUTUBE',espessuraRelativa:espessura,dutos:4};corte(false);
  return{root,upper,runners,corte,alvoMarcacoes:V(-.27,.31,1.84),exportar(cut=false){const r=root.clone(true);r.position.set(0,0,0);r.quaternion.identity();r.getObjectByName('Destaques_didaticos_das_marcacoes')?.removeFromParent();r.getObjectByName('Metade_superior').visible=!cut;for(const o of cutOnly)r.getObjectByName(o.name).visible=cut;for(const o of fullOnly)r.getObjectByName(o.name).visible=!cut;r.userData.corte=cut;return r}};
 }
 
@@ -54875,13 +54938,20 @@ function criarEfeitosColetor(T,model){
  for(const o of meshes){o.material=skin;const position=o.geometry.getAttribute('position'),matrix=new T.Matrix4().multiplyMatrices(inverse,o.matrixWorld),coords=[],uv=[];for(let i=0;i<position.count;i++){const p=new T.Vector3().fromBufferAttribute(position,i).applyMatrix4(matrix);coords.push(p.x,p.y,p.z);uv.push(p.x*.8+p.z*.23,p.y*1.8+p.z*.9)}o.geometry.setAttribute('surfaceLocal',new T.Float32BufferAttribute(coords,3));o.geometry.setAttribute('uv',new T.Float32BufferAttribute(uv,2))}
  skin.onBeforeCompile=shader=>{shader.uniforms.effectKind=mode;shader.vertexShader='attribute vec3 surfaceLocal; varying vec3 effectPosition;\n'+shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\neffectPosition=surfaceLocal;');shader.fragmentShader='uniform float effectKind; varying vec3 effectPosition;\n'+shader.fragmentShader.replace('#include <color_fragment>',`#include <color_fragment>
  if(effectKind>0.5&&effectKind<1.5){
-  vec3 p=effectPosition;float front=smoothstep(1.35,1.60,p.z);
+  vec3 p=effectPosition;float front=smoothstep(1.30,1.60,p.z);
   float stain=1.0-smoothstep(0.30,0.68,length((p.xy-vec2(-1.1,0.54))*vec2(1.35,2.9))+0.06*sin(p.x*37.0+p.y*23.0));
   float mark=(1.0-smoothstep(0.018,0.035,abs(p.y-0.58-0.048*sin(p.x*8.0))))*smoothstep(0.2,0.4,p.x)*(1.0-smoothstep(1.8,2.2,p.x));
   float variation=(1.0-smoothstep(0.25,0.60,length((p.xy-vec2(0.35,0.36))*vec2(1.7,4.3))));
   diffuseColor.rgb=mix(diffuseColor.rgb,vec3(0.28,0.21,0.13),front*stain*0.8);
   diffuseColor.rgb=mix(diffuseColor.rgb,vec3(0.48,0.53,0.56),front*mark*0.65);
   diffuseColor.rgb=mix(diffuseColor.rgb,vec3(0.12,0.19,0.24),front*variation*0.6);
+  float mottles=0.5+0.5*sin(p.x*13.0+sin(p.y*17.0)*1.5)*sin(p.y*23.0+p.z*8.0);
+  float clusters=(1.0-smoothstep(0.3,0.9,length((p.xy-vec2(-1.35,0.65))*vec2(1.0,1.8))))+(1.0-smoothstep(0.35,0.8,length((p.xy-vec2(1.75,0.82))*vec2(1.0,2.0))));
+  float flowBands=pow(0.5+0.5*sin(p.x*25.0+p.y*16.0+sin(p.x*3.0)*2.5),9.0);
+  diffuseColor.rgb=mix(diffuseColor.rgb,vec3(0.47,0.39,0.29),front*clamp(clusters,0.0,1.0)*mottles*0.55);
+  diffuseColor.rgb=mix(diffuseColor.rgb,vec3(0.38,0.46,0.50),front*flowBands*0.22);
+  float seam=1.0-smoothstep(0.003,0.013,abs(p.y-0.67));
+  diffuseColor.rgb=mix(diffuseColor.rgb,vec3(0.55,0.54,0.48),front*seam*0.55);
  }
 `)};
  const rim=root.getObjectByName('Plenum_borda_inferior'),edges=new T.LineSegments(new T.EdgesGeometry(rim.geometry,30),new T.LineBasicMaterial({color:'#b77d24'}));edges.name='Cantos_destacados_para_o_toque';root.add(edges);
@@ -54889,12 +54959,106 @@ function criarEfeitosColetor(T,model){
  const wall=root.getObjectByName('Plenum_parede_externa_inferior').geometry.getAttribute('position'),front=new Map();
  for(let i=0;i<wall.count;i++){const x=wall.getX(i),z=wall.getZ(i);if(z>1.1)front.set(x,Math.max(front.get(x)??-Infinity,z))}
  const outline=[...front].sort((a,b)=>a[0]-b[0]),surfaceZ=x=>{for(let i=1;i<outline.length;i++){const a=outline[i-1],b=outline[i];if(x>=a[0]&&x<=b[0])return T.MathUtils.lerp(a[1],b[1],(x-a[0])/(b[0]-a[0]))}return 1.8};
- const patchGeo=new T.PlaneGeometry(3.5,.39,54,12),pos=patchGeo.getAttribute('position'),colors=[];
- for(let i=0;i<pos.count;i++){const x=pos.getX(i),y=pos.getY(i)+.39,u=Math.abs(x)/1.75,v=Math.abs(y-.39)/.195,edge=Math.max(0,1-u**6)*Math.max(0,1-v**6),noise=(Math.sin(i*73.31)*43758.54)%1,h=Math.abs(noise),c=new T.Color('#47575e').lerp(new T.Color('#a8ada5'),h*.82);pos.setXYZ(i,x,y,surfaceZ(x)+.003+edge*(.012+h*.065));colors.push(c.r,c.g,c.b)}
- patchGeo.setAttribute('color',new T.Float32BufferAttribute(colors,3));patchGeo.computeVertexNormals();const patch=new T.Mesh(patchGeo,new T.MeshStandardMaterial({vertexColors:true,roughness:.98,flatShading:true,side:T.DoubleSide}));patch.name='Relevo_didatico_de_alta_rugosidade';root.add(patch);
+ function roughPatch(y0,y1,parent){const g=new T.PlaneGeometry(5.42,y1-y0,100,16),pos=g.getAttribute('position'),colors=[];
+  for(let i=0;i<pos.count;i++){const x=pos.getX(i),y=pos.getY(i)+(y0+y1)/2,u=Math.abs(x)/2.71,v=Math.abs(y-.59)/.51,edge=Math.max(0,1-u**12)*Math.max(0,1-v**12),noise=(Math.sin(x*127.1+y*311.7)*43758.54)%1,h=Math.abs(noise),c=new T.Color('#47575e').lerp(new T.Color('#a8ada5'),h*.82);pos.setXYZ(i,x,y,surfaceZ(x)+.003+edge*(.012+h*.045));colors.push(c.r,c.g,c.b)}
+  g.setAttribute('color',new T.Float32BufferAttribute(colors,3));g.computeVertexNormals();const o=new T.Mesh(g,new T.MeshStandardMaterial({vertexColors:true,roughness:.98,flatShading:true,side:T.DoubleSide}));o.name='Relevo_didatico_de_alta_rugosidade';parent.add(o);return o}
+ const patch=roughPatch(.08,.67,root),patchUpper=roughPatch(.67,1.1,model.upper);
  const marking=root.getObjectByName('Superficies_de_marcacao_sem_gravacao'),highlight=root.getObjectByName('Destaques_didaticos_das_marcacoes');
- function set(index){mode.value=index;marking.visible=highlight.visible=index===0;edges.visible=patch.visible=index===2;skin.color.copy(index===2?new T.Color('#6b7477'):baseColor);skin.roughness=index===2?.96:.36;skin.bumpScale=index===2?.095:0;skin.clearcoat=index===2?0:.20;skin.emissive.set(index===3?'#123d6e':'#000000');skin.emissiveIntensity=index===3?.22:0}
- set(0);return{set,nomes:['marcacoes','aparencia','tatil','ruido']};
+ const labels=[];
+ for(const [i,label]of ['DATA','PEÇA','CAV.'].entries()){const canvas=document.createElement('canvas');canvas.width=128;canvas.height=40;const ctx=canvas.getContext('2d');ctx.fillStyle='#c8d3da';ctx.font='bold 25px Arial';ctx.textAlign='center';ctx.fillText(label,64,29);const o=new T.Mesh(new T.PlaneGeometry(.52,.16),new T.MeshBasicMaterial({map:new T.CanvasTexture(canvas),transparent:true,side:T.DoubleSide}));o.position.set(-.93+i*.66,.31,1.834);root.add(o);labels.push(o)}
+ function set(id,stage=0){const enabled=stage>0,index=enabled?['identificacao','aparencia','tatil','ruido'].indexOf(id):0;mode.value=index;marking.visible=highlight.visible=id==='identificacao'||id==='rastreabilidade';labels.forEach(o=>o.visible=id==='identificacao'&&stage===0);edges.visible=patch.visible=patchUpper.visible=id==='tatil'&&enabled;skin.color.copy(id==='tatil'&&enabled?new T.Color('#6b7477'):id==='quimica'&&enabled?new T.Color('#666c52'):baseColor);skin.roughness=id==='tatil'&&enabled?.96:.36;skin.bumpScale=id==='tatil'&&enabled?.105:0;skin.clearcoat=id==='tatil'&&enabled?0:.20;skin.emissive.set(id==='ruido'&&enabled?'#123d6e':'#000000');skin.emissiveIntensity=id==='ruido'&&enabled?.22:0}
+ set('identificacao',0);return{set,nomes:['marcacoes','aparencia','tatil','ruido']};
+}
+
+// Sequências ilustrativas: o relógio anima só a etapa atual; nunca avança o roteiro.
+function criarDemonstracoes(T,model){
+ const V=(x=0,y=0,z=0)=>new T.Vector3(x,y,z),group=new T.Group();group.name='Demonstracoes_didaticas';model.root.add(group);
+ const blue='#167de0',red='#dc4c38',green='#159c79',amber='#d99622';let current=null,step=0,elapsed=0,animated=false,actors=[];
+ function mat(color,opacity=1){return new T.MeshStandardMaterial({color,roughness:.5,metalness:.12,transparent:opacity<1,opacity,depthWrite:opacity===1,side:T.DoubleSide})}
+ function mesh(g,color,p,scale,opacity=1){const o=new T.Mesh(g,mat(color,opacity));if(p)o.position.copy(p);if(scale)o.scale.copy(scale);group.add(o);return o}
+ const box=(p,s,c=blue,o=1)=>mesh(new T.BoxGeometry(1,1,1),c,p,s,o);
+ function line(points,c=blue,r=.035,o=1){return mesh(new T.TubeGeometry(new T.CatmullRomCurve3(points),40,r,7,false),c,null,null,o)}
+ function ring(p,r,c){const o=mesh(new T.TorusGeometry(r,.035,8,48),c,p);return o}
+ function proxy(x,z,gray=false){const g=new T.Group();group.add(g);const m=mat(gray?'#96a4ad':'#526571',.48),add=(geo,p)=>{const o=new T.Mesh(geo,m);o.position.copy(p);g.add(o);return o};add(new T.BoxGeometry(4.8,1,1.8),V(0,.6,.8));for(const dx of [-1.8,-.6,.6,1.8])add(new T.CylinderGeometry(.28,.28,2.5,8),V(dx,.8,-1.4)).rotation.x=Math.PI/2;g.position.set(x,0,z);return g}
+ function flow(mode='normal',water=false){
+  const reverse=mode==='reverse',xs=[-1.8,-.6,.6,1.8];
+  for(let i=0;i<4;i++){
+   const blocked=mode==='restriction'&&i===2,c=water?'#2bafd0':reverse?'#ff7b34':blocked?amber:blue;
+   const points=[V(-3.25,.67,.65),V(-1,.65,.6),V(xs[i],.67,-.2),V(xs[i],.85,-1.6),V(xs[i],1.12,-3.1)];
+   const curve=new T.CatmullRomCurve3(points),tube=mesh(new T.TubeGeometry(curve,48,water?.085:.025,6,false),c,null,null,.48);tube.material.depthTest=false;tube.renderOrder=7;
+   const beads=[];for(let j=0;j<5;j++){const b=mesh(new T.SphereGeometry(water?.12:.055,8,6),c,curve.getPoint(j/5));b.material.depthTest=false;b.renderOrder=8;beads.push(b)}
+   actors.push(t=>{for(let j=0;j<beads.length;j++){let u=(j/5+t*(blocked?.06:.18))%1;if(reverse)u=1-u;beads[j].position.copy(curve.getPoint(u));beads[j].visible=mode!=='stopped'}});
+   if(mode==='degraded')tube.material.opacity=.18;if(mode==='stopped'){tube.visible=false;beads.forEach(b=>b.visible=false)}
+  }
+ }
+ function crack(){const paths=[[-1.4,-.7,-.9,-.4,-.15,.05],[.3,.55,.45,.9,1.1,1.3]];for(const path of paths)line(path.map((x,i)=>V(x,.93-i*.1,1.85)),red,.025)}
+ function vacuum(broken){const p=[V(2.65,.7,.5),V(3.25,.7,.5),V(3.3,1.1,.5),V(3.85,1.1,.5)];line(p,broken?'#a6b0b7':green,.075);const booster=mesh(new T.CylinderGeometry(.48,.48,.22,28),broken?'#9da8af':green,V(3.9,1.1,.5));booster.rotation.z=Math.PI/2;box(V(2.8,.7,.5),V(.35,.18,.22),broken?red:green);if(broken){box(V(3.16,.7,.5),V(.15,.2,.23),red);ring(V(3.16,.7,.5),.3,red)}}
+ function clear(){for(const o of [...group.children]){o.traverse(n=>{n.geometry?.dispose();if(n.material){for(const m of Array.isArray(n.material)?n.material:[n.material])m.dispose()}});group.remove(o)}actors=[]}
+ function set(s,n){
+  current=s;step=n;elapsed=0;clear();const id=s.id,last=n===s.etapas.length-1,active=n>0;animated=!last;group.visible=true;
+  if(['identificacao','aparencia','tatil','ruido'].includes(id)){
+   if(id!=='identificacao'||n<2)flow();
+   if(id==='ruido'&&n===1){const o=ring(V(0,1.5,.7),1.3,amber);actors.push(t=>{o.scale.setScalar(.8+(t%1)*.5);o.material.opacity=1-t%1;o.material.transparent=true})}
+  }
+  if(id==='logistica'){
+   const support=box(V(2.9,.6,.6),V(.55,.18,.45),active?red:amber);if(active)support.rotation.z=.4;
+   if(!last){const a=proxy(-.2,-4.6),b=proxy(.2,4.6);box(V(0,-.3,.3),V(7,.2,13),'#7e8e98',.28);if(n===1)actors.push(t=>{const u=Math.min(t/1.4,1);a.position.z=-4.6+u*.7;b.position.z=4.6-u*.7;support.rotation.z=u*.5});if(n===2){for(const z of [-2.7,2.9])box(V(0,.6,z),V(6,2,.22),green,.32);for(const x of [-2.5,2.5])box(V(x,0,.5),V(.25,.4,11),green,.32)}}else{for(const x of [-2.5,2.5])box(V(x,-.02,.5),V(.35,.3,2.6),green,.32)}
+  }
+  if(id==='rastreabilidade'){box(V(-.9,.31,1.85),V(.5,.17,.045),active?red:green);if(n===1)ring(V(-.9,.31,1.9),.4,red)}
+  if(id==='servico'){
+   const target=V(2.63,1.61,-3.18);ring(target,.22,amber);if(!last){const obstacle=box(V(2.65,2.4,-2),V(1.7,1.2,1.7),n===2?green:'#8899a9',.24),tool=line([V(2.65,3.8,-3),V(2.65,2,-3),target],n===2?green:red,.10);if(n<2)actors.push(t=>{tool.position.y=.1*Math.sin(t*3)});else obstacle.position.x+=2;line([target,V(2.65,4,-3.18)],n===2?green:red,.18,.2)}else{box(V(2.65,2,-2),V(.6,.7,1.7),green,.12);ring(V(2.6,.6,.5),.2,green)}
+  }
+  if(id==='producao'&&!last){for(const x of [-3.6,3.6])box(V(x,.7,.4),V(.9,2.4,3.6),n===2?green:'#8a99aa',.25);if(n===1){box(V(0,1.7,.8),V(6,.2,2.7),red,.3);line([V(3.6,2.8,-1),V(1,1.6,-1)],red,.12)}if(n===2){line([V(-2,1.3,.9),V(-3,2.9,.9)],green,.08);line([V(2,1.3,.9),V(3,2.9,.9)],green,.08)}}
+  if(id==='quimica'){
+   flow(n>=2?'degraded':'normal');if(active){crack();ring(V(2.63,1.61,-3.18),.2,'#af6e36');for(let i=0;i<14;i++){const b=mesh(new T.SphereGeometry(.06,8,6),'#b56cba',V(-2.5+i*.38,.7,2.1));actors.push(t=>{b.position.y=.6+.22*Math.sin(t*2+i);b.position.z=1.84+.4*(1-(t*.4+i/14)%1)})}}if(!last){const ref=proxy(-.1,-5,true);ref.scale.setScalar(.8)}
+  }
+  if(id==='limpeza'){
+   flow();if(active){for(let i=0;i<9;i++){const curve=new T.CatmullRomCurve3([V(-2.9,.67,.65),V(.6,.7,0),V(.6,.95,-2.5),V(.6,1.12,-3)]),p=mesh(new T.IcosahedronGeometry(.09,0),i%2?amber:red,curve.getPoint(i/12));p.material.depthTest=false;p.renderOrder=9;const update=t=>p.position.copy(curve.getPoint(n===2||last?.94:((i/12+t*.13)%1)));update(0);actors.push(update)}ring(V(.6,1.12,-3),.32,red)}
+  }
+  if(id==='distribuicao'){flow(active?'restriction':'normal');if(active){const o=box(V(.6,.9,-1.7),V(.48,.5,.18),red);o.rotation.y=.25}}
+  if(id==='agua'){
+   if(n===0){for(let i=0;i<22;i++){const b=mesh(new T.SphereGeometry(.04+i%3*.01,8,6),'#28b6dd',V(-2.3+(i%8)*.6,.95,.3+Math.floor(i/8)*.45));actors.push(t=>{b.position.y=.95-(t*.15+i/22)% .7})}}
+   if(n>=1){const pool=box(V(0,.19,.7),V(4.5,.18,1.4),'#26afe0',.68);if(n===2){flow('stopped');flow('normal',true);actors.push(t=>{pool.scale.y=Math.max(.025,.18*(1-Math.min(t/2,1)));pool.rotation.z=.06*Math.sin(Math.min(t,1)*Math.PI/2)})}}
+  }
+  if(id==='backfire'){
+   if(!last)flow('reverse');if(active){crack();if(n===1)box(V(0,.9,1.83),V(4.6,.3,.035),red,.25)}if(n===2){const shield=mesh(new T.SphereGeometry(3.4,24,16),blue,V(0,.7,0),V(1.12,.6,.9),.08);shield.material.wireframe=true;for(let i=0;i<7;i++){const o=box(V(.1,.9,1.8),V(.18,.12,.13),amber);actors.push(t=>{const u=Math.min(t/1.5,1);o.position.set(.1+Math.sin(i*2)*u*2,.9+u*(i%3)*.35,1.8+u*.7);o.rotation.set(u*i,u*i*.5,0)})}}
+  }
+  if(id==='estanqueidade'){
+   flow();ring(V(.5,.67,1.85),.2,active?red:green);if(active){crack();for(let i=0;i<18;i++){const b=mesh(new T.SphereGeometry(.055,8,6),'#50d3a4',V(.5,.67,1.9),null,.6);actors.push(t=>{const u=(t*.38+i/18)%1;b.position.set(.5+u*.6*Math.sin(i),.67+u*.65,1.9+u*1.2);b.material.opacity=(1-u)*.75})}}
+  }
+  if(id==='vacuo'){vacuum(active);if(n===0)flow()}
+  if(last)animated=false;
+ }
+ function tick(dt){if(!animated)return false;elapsed+=dt;actors.forEach(f=>f(elapsed));return true}
+ return{set,tick,group,estado:()=>({id:current?.id,step,animated,elapsed})};
+}
+
+// Diagramas vetoriais complementam o 3D com relações que uma cor isolada não explica.
+function diagramaDemonstracao(s,n){
+ const id=s.id,active=n>0,last=n===s.etapas.length-1,blue='#0064cf',red='#c94135',green='#00836d',muted='#557087';
+ const text=(x,y,t,c=muted,size=15)=>`<text x="${x}" y="${y}" fill="${c}" font-size="${size}" font-family="Arial">${t}</text>`;
+ const rect=(x,y,w,h,c,r=7)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${c}"/>`;
+ const path=(d,c=blue,width=3,dash='')=>`<path d="${d}" stroke="${c}" stroke-width="${width}" fill="none" ${dash?'stroke-dasharray="'+dash+'"':''}/>`;
+ const car=(x,y,c,cls='')=>`<g transform="translate(${x} ${y})"><g class="${cls}">${rect(0,8,48,18,c,5)}${path('M9 8 L17 0 H32 L41 8',c,3)}<circle cx="12" cy="28" r="5" fill="#284154"/><circle cx="37" cy="28" r="5" fill="#284154"/></g></g>`;
+ let body='';
+ if(id==='identificacao'&&n===2||id==='rastreabilidade'&&n===2){body=text(8,18,id==='identificacao'?'Peças funcionais, identidade desconhecida':'Contenção: de uma peça para um lote');for(let i=0;i<24;i++){const x=10+i%12*48,y=30+Math.floor(i/12)*33;body+=rect(x,y+8,39,17,'#b8c4ce',3)+[0,1,2,3].map(j=>rect(x+3+j*9,y,5,10,'#8da0af',2)).join('')+text(x+14,y+22,'?',red,18)}}
+ else if(id==='identificacao'){body=['DATA','PEÇA','CAVIDADE'].map((v,i)=>rect(8+i*198,15,184,63,'#edf3f8')+text(20+i*198,38,v)+text(20+i*198,64,active?'SEM GRAVAÇÃO':['DATA*','PEÇA*','CAV.*'][i],active?red:blue,18)).join('');body+=text(8,103,'* Identificações didáticas, sem códigos de produção.',muted,12)}
+ else if(['aparencia','tatil','ruido'].includes(id)){const k=['aparencia','tatil','ruido'].indexOf(id);body=text(8,18,'Intensidade do incômodo percebido');['Ligeiro · S2','Moderado · S3','Intenso · S4'].forEach((t,i)=>{body+=rect(8+i*198,30,184,30,i===k?blue:'#e4ebf1')+text(18+i*198,51,t,i===k?'white':muted,15)});if(id==='ruido'&&active){for(let i=0;i<30;i++){const h=9+Math.abs(Math.sin(i*1.3))*24;body+=`<rect class="spectrum-bar" style="animation-delay:-${i*.07}s" x="${12+i*14}" y="${103-h}" width="9" height="${h}" fill="${i>18?red:'#d79325'}"/>`}body+=text(445,97,'Spectre illustratif'.replace('Spectre illustratif','Espectro ilustrativo'),muted,13)}else body+=text(8,91,active?'Fluxo de ar preservado · representação ampliada':'Referência antes do efeito',green,16)}
+ else if(id==='rastreabilidade'){const nodes=['Código 2D','Lote','Cavidade','Parâmetros'];nodes.forEach((v,i)=>{body+=rect(8+i*149,15,133,39,active?'#f9e9e5':'#e6f3ee')+text(17+i*149,40,v,active?red:green);if(i<3)body+=path(`M${141+i*149} 34h16`,active?red:green,3,active?'3 4':'')});body+=text(8,88,active?'Registros sem vínculo recuperável':'Peça, processo e matéria-prima conectados',active?red:green,18)}
+ else if(id==='logistica'){body=['Peças soltas','Contato no transporte','Berços e separadores'].map((v,i)=>rect(8+i*198,22,184,49,n===i?i===1?'#f9e9e5':'#e4f3ed':'#edf1f5')+text(17+i*198,52,v,n===i?i===1?red:green:muted,14)).join('');body+=text(8,101,'Proteção das interfaces auxiliares · sequência ilustrativa',muted,13)}
+ else if(id==='servico'){body=text(8,20,n===2||last?'Acesso liberado':'Acesso bloqueado',n===2||last?green:red,18);['Acessar fixador','Retirar vizinhos','Desconectar','Remontar'].forEach((v,i)=>body+=rect(8+i*149,35,133,34,i>0&&n!==1?'#edf1f5':'#fae9e4')+text(16+i*149,57,v,muted,13));body+=text(8,99,n===1?'Mais operações → mais tempo de serviço (sem escala numérica)':'O envelope deve permitir inserção e retirada da ferramenta.',muted,14)}
+ else if(id==='producao'){['Moldagem','União','Inspeção'].forEach((v,i)=>{body+=rect(8+i*198,20,180,42,n===1?'#fae8e3':n===2?'#e4f3ec':'#e5edf6')+text(22+i*198,47,v,n===1?red:n===2?green:blue,18);if(i<2)body+=path(`M${188+i*198} 41h16`,n===1?red:green)});body+=text(8,96,n===1?'LINHA INTERROMPIDA':n===2?'Envelopes e abertura corrigidos':'Viabilidade avaliada antes da liberação',n===1?red:green,17)}
+ else if(id==='quimica'){body=text(8,20,'TEMPO ZERO',green)+text(318,20,'VIDA EM SERVIÇO',active?red:blue)+path('M300 7v90','#c3d1dc',1);for(let i=0;i<4;i++){body+=rect(10+i*64,38,48,36,blue)+rect(320+i*64,38,48,active?18:36,active?'#ad793c':blue)}body+=text(8,105,'Comparação qualitativa: ataque químico → material degradado → fluxo reduzido',muted,13)}
+ else if(id==='limpeza'){body=path('M12 52 H540',blue,9)+text(8,20,'Vista interna esquemática · caminho até a válvula');for(let i=0;i<6;i++)body+=`<circle class="${n===1?'travelling-dot':''}" cx="${40+i*74}" cy="52" r="${active?7:3}" fill="${active?red:'#b5e3ff'}"/>`;body+=path('M548 29v46 M532 76l33-48',muted,5)+text(8,102,n===2?'CONGELADO · partícula antes do contato':'Partículas ampliadas para permitir a visualização',n===2?red:muted,14);if(n===2)body+=`<circle cx="510" cy="52" r="13" fill="none" stroke="${red}" stroke-width="3"/>`}
+ else if(id==='distribuicao'){for(let i=0;i<4;i++){const h=active&&i===2?20:59;body+=rect(12+i*77,82-h,48,h,active&&i===2?red:blue)+text(12+i*77,104,'C'+(i+1),muted,13)}body+=path('M347 86V14 M347 86h235','#a1b5c6',1)+path('M353 77 Q420 2 576 26',blue,3,'6 4')+path(active?'M353 83 Q420 40 576 59':'M353 77 Q420 2 576 26',active?red:blue,3)+text(367,105,'Torque · comparação qualitativa',muted,12)}
+ else if(id==='agua'){body=text(8,20,n===0?'Gotas → condensado':n===1?'Condensado → bolsa de água':'Água aspirada → admissão interrompida',n>=2?red:blue,18);for(let i=0;i<4;i++){body+=rect(20+i*139,34,115,44,n>=2?'#687a89':blue)+text(38+i*139,62,n>=2?'APAGADO':'CILINDRO '+(i+1),'white',13)}body+=text(8,105,'Perda de função primária · risco de falha grave do motor',red,14)}
+ else if(id==='backfire'){body=path('M555 48H35',n===0?'#df8639':red,7)+path('M58 30 32 48 58 66',red,5)+text(8,20,'Pressão no sentido inverso · representação qualitativa',red,17)+text(8,101,n===2?'ESCUDO ATIVO · fragmentos contidos':'Mapa de cores ilustrativo, sem valores de tensão',muted,14);for(let i=0;i<9;i++)body+=rect(150+i*40,35,34,26,['#448abf','#5ea0aa','#a1af63','#d4aa3e','#e28a33','#dc6932','#cb4b37','#bb3535','#9e3038'][i])}
+ else if(id==='estanqueidade'){body=text(8,20,n<2?'Verificação de fuga por pressurização':'Operação: ar não medido e controle de mistura',blue,16);body+=rect(8,33,172,39,'#e8f1fa')+text(20,58,'Sensor: ar medido',blue)+path('M188 52h45',blue,5)+rect(242,33,172,39,'#e8f1fa')+text(252,58,'Fluxo real',blue);if(n>=2)body+=path('M325 12v20',red,5)+rect(436,22,153,63,'#fae7e1')+text(451,47,'AVARIA',red,17)+text(451,69,'EMISSÕES',red,17);body+=text(8,103,n>=2?'Entrada adicional após o sensor → mistura e diagnóstico afetados':'Fumaça de teste sai pela falha; em admissão, ar pode entrar.',muted,13)}
+ else if(id==='vacuo'){
+  if(n===3){body=text(8,16,'Distâncias ilustrativas · mesmas condições de comparação');body+=path('M12 47H300',green,3)+car(252,20,green,'braking-normal')+text(318,47,'Com assistência',green,14)+path('M12 90H470',red,3)+car(422,63,red,'braking-reduced')+text(486,90,'Reduzida',red,13)}
+  else{body=text(8,18,'Coletor → mangueira → servofreio',active?red:green,17);body+=path('M12 48H350',active?'#9ba8b2':green,10,active?'18 10':'')+rect(365,28,74,48,active?'#b6c1ca':green)+path('M456 41l39 43h58',muted,6);for(let i=0;i<(n>=2?5:2);i++)body+=path(`M${490+i*16} 16v19`,n>=2?red:green,3);body+=text(8,103,n>=2?'Assistência reduzida → maior esforço no pedal':active?'Circuito interrompido · vácuo perdido':'Circuito íntegro · assistência disponível',active?red:green,15)}
+ }
+ return `<svg viewBox="0 0 600 114" role="img" aria-label="${s.etapas[n][0]}">${body}</svg>`;
 }
 
 // Inspeção 3D sob demanda. O enquadramento acompanha giro, corte, zoom e tamanho do visor.
@@ -54902,6 +55066,8 @@ function criarVisorColetor(T,{visivel=()=>true}={}){
  const $=id=>document.getElementById(id),V=(x=0,y=0,z=0)=>new T.Vector3(x,y,z),clamp=T.MathUtils.clamp;
  const host=$('coletor-viewport'),studio=new T.Scene(),model=criarColetorK24(T),pivot=new T.Group();studio.add(pivot);pivot.add(model.root);
  const effects=criarEfeitosColetor(T,model);
+ const materials=new Map();model.root.traverse(o=>{if(o.material)materials.set(o.material,{opacity:o.material.opacity,transparent:o.material.transparent,depthWrite:o.material.depthWrite})});
+ const demo=criarDemonstracoes(T,model);model.corte(false);
  const box=new T.Box3().setFromObject(model.root),center=box.getCenter(V());model.root.position.sub(center);
  studio.add(new T.HemisphereLight('#ffffff','#afbecb',2.4));const key=new T.DirectionalLight('#fff4e5',3.1);key.position.set(-4,8,7);key.castShadow=true;key.shadow.mapSize.set(1024,1024);Object.assign(key.shadow.camera,{left:-5,right:5,top:5,bottom:-5,far:30});key.shadow.normalBias=.014;studio.add(key);
  const fill=new T.DirectionalLight('#bddbff',1.8);fill.position.set(5,3,-4);studio.add(fill);
@@ -54909,14 +55075,18 @@ function criarVisorColetor(T,{visivel=()=>true}={}){
  const r=new T.WebGLRenderer({antialias:true,alpha:true});r.setClearColor(0xffffff,0);r.setPixelRatio(Math.min(devicePixelRatio,1.5));r.shadowMap.enabled=true;r.shadowMap.type=T.PCFSoftShadowMap;r.shadowMap.autoUpdate=false;r.toneMapping=T.ACESFilmicToneMapping;r.outputColorSpace=T.SRGBColorSpace;host.prepend(r.domElement);
  r.domElement.setAttribute('aria-label','Coletor 3D: arraste para girar e use a roda do mouse para aproximar');
  const c=new T.PerspectiveCamera(34,1,.1,120),initialDirection=V(-.42,.30,1.35).normalize(),direction=initialDirection.clone(),target=V();
- let width=0,height=0,cut=true,drag=null,rendered=0,zoom=1.1,focus=false,framing=null,slide=0;
+ let width=0,height=0,cut=false,drag=null,rendered=0,zoom=1.1,focus=false,framing=null,slide=-1,stage=-1,current=null,selected=-1,transparent=false,clock=0,pending=true;
+ const pins=[0,1,2].map(i=>{const b=document.createElement('button');b.type='button';b.className='model-pin';b.textContent=i+1;b.addEventListener('click',()=>focusTarget(i));host.appendChild(b);return b});
+ const raycaster=new T.Raycaster();
  // A nuvem usa os vértices reais de todas as peças visíveis. É preparada uma vez
  // por versão (corte/completa) e reutilizada, evitando caixas vazias que diminuiriam o modelo.
  const pointCache=new Map(),projected=V();
  function modelPoints(){
   model.root.updateWorldMatrix(true,true);let cache=pointCache.get(cut);
-  if(!cache){const local=[],unique=new Set(),inverse=new T.Matrix4().copy(pivot.matrixWorld).invert();model.root.traverseVisible(o=>{if(!o.geometry)return;const attr=o.geometry.getAttribute('position'),matrix=new T.Matrix4().multiplyMatrices(inverse,o.matrixWorld);for(let i=0;i<attr.count;i++){const p=V().fromBufferAttribute(attr,i).applyMatrix4(matrix),key=p.x+','+p.y+','+p.z;if(!unique.has(key)){unique.add(key);local.push(p)}}});cache={local,world:local.map(()=>V())};pointCache.set(cut,cache)}
-  for(let i=0;i<cache.local.length;i++)cache.world[i].copy(cache.local[i]).applyMatrix4(pivot.matrixWorld);return cache.world;
+  if(!cache){const local=[],unique=new Set(),inverse=new T.Matrix4().copy(pivot.matrixWorld).invert();model.root.traverseVisible(o=>{if(!o.geometry||isDemo(o))return;const attr=o.geometry.getAttribute('position'),matrix=new T.Matrix4().multiplyMatrices(inverse,o.matrixWorld);for(let i=0;i<attr.count;i++){const p=V().fromBufferAttribute(attr,i).applyMatrix4(matrix),key=p.x+','+p.y+','+p.z;if(!unique.has(key)){unique.add(key);local.push(p)}}});cache={local,world:local.map(()=>V())};pointCache.set(cut,cache)}
+  // As demonstrações também entram no enquadramento, por seus limites atuais.
+  const bounds=new T.Box3().setFromObject(demo.group);if(!bounds.isEmpty()){const inverse=new T.Matrix4().copy(pivot.matrixWorld).invert();for(const x of [bounds.min.x,bounds.max.x])for(const y of [bounds.min.y,bounds.max.y])for(const z of [bounds.min.z,bounds.max.z])cache.world.push(V(x,y,z).applyMatrix4(inverse))}
+  for(let i=0;i<cache.local.length;i++)cache.world[i].copy(cache.local[i]).applyMatrix4(pivot.matrixWorld);const extra=cache.world.splice(cache.local.length);return cache.world.concat(extra.map(p=>p.applyMatrix4(pivot.matrixWorld)));
  }
  function position(){
   if(width<1||height<1)return;
@@ -54937,25 +55107,36 @@ function criarVisorColetor(T,{visivel=()=>true}={}){
   $('coletor-zoom').textContent=Math.round(zoom*100)+'%';$('coletor-menos').disabled=zoom<=.6001;$('coletor-mais').disabled=zoom>=1.2499;
  }
  function screenPoint(point){const p=model.root.localToWorld(point.clone()).project(c);return{x:(p.x*.5+.5)*width,y:(-p.y*.5+.5)*height}}
- function updatePin(){model.root.updateWorldMatrix(true,true);const p=model.root.localToWorld(model.alvoMarcacoes.clone()),normal=V(0,0,1).transformDirection(model.root.matrixWorld),front=normal.dot(c.position.clone().sub(p))>0,v=p.project(c),pin=$('marcacao-alvo');pin.classList.toggle('hidden',slide!==0||!front||Math.abs(v.x)>.94||Math.abs(v.y)>.92||v.z< -1||v.z>1);pin.style.left=((v.x*.5+.5)*width-13)+'px';pin.style.top=((-v.y*.5+.5)*height-34)+'px';
-  $('maos-tato').classList.toggle('hidden',slide!==2);$('ondas-ruido').classList.toggle('hidden',slide!==3);
-  if(slide===2){const size=clamp(width*.20,78,128);for(const [j,hand]of [...$('maos-tato').children].entries()){const a=screenPoint(V(j?1.7:-1.4,.65,1.78)),x=j?a.x-size*.08:a.x-size*.92;hand.style.width=size+'px';hand.style.height=size*4/3+'px';hand.style.left=clamp(x,8,width-size-8)+'px';hand.style.top=clamp(a.y-15,8,height-size*4/3-8)+'px'}}
-  if(slide===3){for(const [i,wave]of [...$('ondas-ruido').children].entries()){const p=screenPoint(i?V(2.3,.6,1.8):V(-3.0,.67,.65));wave.style.left=clamp(p.x-80,2,width-162)+'px';wave.style.top=clamp(p.y-80,2,height-162)+'px'}}
+ function isDemo(o){for(let p=o;p;p=p.parent)if(p===demo.group)return true;return false}
+ function updatePin(){if(!current)return;model.root.updateWorldMatrix(true,true);
+  const surfaces=[];model.root.traverseVisible(o=>{if(o.isMesh&&!isDemo(o))surfaces.push(o)});
+  current.alvos.forEach((a,i)=>{const p=model.root.localToWorld(V(...a)),v=p.clone().project(c),distance=c.position.distanceTo(p);raycaster.set(c.position,p.clone().sub(c.position).normalize());const hit=transparent?null:raycaster.intersectObjects(surfaces,false)[0],occluded=!!hit&&hit.distance<distance-.25;const visible=!occluded&&Math.abs(v.x)<.94&&Math.abs(v.y)<.88&&v.z>-1&&v.z<1;
+   pins[i].classList.toggle('hidden',!visible);pins[i].classList.toggle('selected',selected===i);pins[i].style.left=((v.x*.5+.5)*width-14)+'px';pins[i].style.top=((-v.y*.5+.5)*height-38)+'px';pins[i].title=current.legendas[i];
+   const legend=$('legenda-'+i).parentElement;legend.classList.toggle('selected',selected===i);legend.setAttribute('aria-pressed',String(selected===i));legend.querySelector('small').textContent=visible?'Localizado no modelo':'Clique para orientar a vista';
+  });
+  const touch=current.id==='tatil'&&stage>0,sound=current.id==='ruido'&&stage>0;
+  $('maos-tato').classList.toggle('hidden',!touch);$('ondas-ruido').classList.toggle('hidden',!sound);
+  if(touch){const size=clamp(width*.18,65,110);for(const [j,hand]of [...$('maos-tato').children].entries()){const a=screenPoint(V(j?1.7:-1.4,.65,1.78)),x=j?a.x-size*.08:a.x-size*.92;hand.style.width=size+'px';hand.style.height=size*4/3+'px';hand.style.left=clamp(x,8,width-size-8)+'px';hand.style.top=clamp(a.y-15,8,height-size*4/3-8)+'px'}}
+  if(sound){for(const [i,wave]of [...$('ondas-ruido').children].entries()){const p=screenPoint(i?V(2.3,.6,1.8):V(-3.0,.67,.65));wave.style.left=clamp(p.x-80,2,Math.max(2,width-162))+'px';wave.style.top=clamp(p.y-80,2,Math.max(2,height-162))+'px'}}
  }
- function render(){if(!visivel()||host.clientWidth<1)return;r.shadowMap.needsUpdate=true;r.render(studio,c);rendered++;updatePin()}
+ function render(){if(!visivel()||host.clientWidth<1){pending=true;return}r.shadowMap.needsUpdate=true;r.render(studio,c);rendered++;pending=false;updatePin()}
  function refresh(){position();render()}
  function resize(){const w=host.clientWidth,h=host.clientHeight;if(w<1||h<1)return;if(w!==width||h!==height){width=w;height=h;r.setSize(w,h);c.aspect=w/h;c.updateProjectionMatrix();refresh()}}
- function reset(){pivot.rotation.set(0,0,0);zoom=1.1;focus=false;direction.copy(initialDirection);refresh()}
+ function reset(){pivot.rotation.set(0,0,0);zoom=1.1;focus=false;selected=-1;direction.copy(current?.id==='vacuo'?V(1.4,.55,1).normalize():initialDirection);refresh()}
  function zoomBy(factor){zoom=clamp(zoom*factor,.6,1.25);refresh()}
- function focusMarkings(){pivot.rotation.set(0,0,0);direction.copy(V(-.03,.14,1).normalize());zoom=1.25;focus=true;refresh()}
- function mostrarSlide(index){if(index===slide)return;slide=index;effects.set(index);pointCache.clear();cut=index===0;model.corte(cut);$('coletor-corte').setAttribute('aria-pressed',String(!cut));$('coletor-corte').textContent=cut?'Vista completa':'Vista em corte';$('coletor-marcas').textContent=index===0?'Focar marcações':index===1?'Focar aparência':index===2?'Focar superfície':'Focar coletor';reset()}
+ function focusTarget(i){if(!current)return;selected=i;const a=current.alvos[i];pivot.rotation.set(0,0,0);direction.copy(V(a[2]<-1?-.2:a[0]>2.7?1.1:0,.32,a[2]<-1?-1:1).normalize());zoom=1.25;focus=true;refresh();if(pins[i].classList.contains('hidden')){setTransparency(true);refresh()}}
+ function setTransparency(on){transparent=on;for(const [m,base]of materials){m.opacity=on?Math.min(base.opacity,.22):base.opacity;m.transparent=on||base.transparent;m.depthWrite=on?false:base.depthWrite;m.needsUpdate=true}$('coletor-transparencia').setAttribute('aria-pressed',String(on))}
+ function mostrarSlide(index,n=0){if(index===slide&&stage===n)return;slide=index;stage=n;current=CONFIG.slides[index];clock=0;effects.set(current.id,n);demo.set(current,n);pointCache.clear();cut=false;model.corte(false);const last=n===current.etapas.length-1;setTransparency(!last&&['limpeza','distribuicao','agua','backfire'].includes(current.id));key.position.set(current.id==='aparencia'&&n>0?-6:-4,current.id==='aparencia'&&n>0?2:8,7);$('coletor-corte').setAttribute('aria-pressed','false');$('coletor-corte').textContent='Vista em corte';$('diagrama').innerHTML=diagramaDemonstracao(current,n);$('diagrama').classList.toggle('at-rest',last);reset();if(current.id==='identificacao'&&n===1){direction.copy(V(0,.2,1).normalize());zoom=1.25;refresh()}}
  r.domElement.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY};r.domElement.setPointerCapture(e.pointerId);e.stopPropagation()});
  r.domElement.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;pivot.rotation.y+=dx*.009;pivot.rotation.x=clamp(pivot.rotation.x+dy*.007,-.60,.60);drag={x:e.clientX,y:e.clientY};refresh()});
  r.domElement.addEventListener('pointerup',()=>{drag=null});r.domElement.addEventListener('pointercancel',()=>{drag=null});r.domElement.addEventListener('wheel',e=>{e.preventDefault();zoomBy(Math.exp(-e.deltaY*.0012))},{passive:false});
- $('coletor-menos').addEventListener('click',()=>zoomBy(1/1.2));$('coletor-mais').addEventListener('click',()=>zoomBy(1.2));$('coletor-marcas').addEventListener('click',focusMarkings);
- $('coletor-corte').addEventListener('click',()=>{cut=!cut;model.corte(cut);$('coletor-corte').setAttribute('aria-pressed',String(!cut));$('coletor-corte').textContent=cut?'Vista completa':'Vista em corte';refresh()});
+ $('coletor-menos').addEventListener('click',()=>zoomBy(1/1.2));$('coletor-mais').addEventListener('click',()=>zoomBy(1.2));$('coletor-marcas').addEventListener('click',()=>focusTarget(selected<0?0:(selected+1)%3));
+ [0,1,2].forEach(i=>$('legenda-'+i).parentElement.addEventListener('click',()=>focusTarget(i)));
+ $('coletor-transparencia').addEventListener('click',()=>{setTransparency(!transparent);refresh()});
+ $('coletor-corte').addEventListener('click',()=>{cut=!cut;pointCache.clear();model.corte(cut);$('coletor-corte').setAttribute('aria-pressed',String(cut));$('coletor-corte').textContent=cut?'Vista completa':'Vista em corte';refresh()});
  $('coletor-restaurar').addEventListener('click',reset);new ResizeObserver(resize).observe(host);
- return{resize,reset,mostrarSlide,exportar:cut=>criarColetorK24(T).exportar(cut),estado:()=>({cut,rendered,width,height,zoom,focus,modo:effects.nomes[slide],maos:slide===2?2:0,ondas:slide===3,enquadramento:framing,marcacoesAusentes:slide===0?3:0,dutos:model.runners.length,rotation:pivot.rotation.toArray().slice(0,3)})};
+ function update(dt){if(!visivel()||!current)return;clock+=dt;const changed=demo.tick(dt);if(changed||pending){if(current.id==='ruido'&&stage===1)pivot.rotation.z=Math.sin(clock*32)*.004;refresh()}}
+ return{resize,reset,mostrarSlide,update,exportar:cut=>criarColetorK24(T).exportar(cut),estado:()=>({cut,rendered,width,height,zoom,focus,slide,stage,transparent,selected,modo:current?.id,demo:demo.estado(),maos:current?.id==='tatil'&&stage>0?2:0,ondas:current?.id==='ruido'&&stage>0,enquadramento:framing,marcacoesAusentes:current?.id==='identificacao'&&stage>0?3:0,dutos:model.runners.length,rotation:pivot.rotation.toArray().slice(0,3),alvos:pins.map(p=>!p.classList.contains('hidden'))})};
 }
 
 try {
@@ -55154,6 +55335,9 @@ const carCorners=[];for(const x of [localCarBox.min.x,localCarBox.max.x])for(con
 const wheels=[],steers=[];car.traverse(o=>{if(o.name.startsWith('Roda_giratoria'))wheels.push(o);if(o.name.startsWith('Manga_de_eixo'))steers.push(o)});
 // O eixo longitudinal do modelo é +X; a base local acompanha a inclinação.
 function orient(u){const x=tangent(u),z=new T.Vector3().crossVectors(x,V(0,1,0)).normalize(),y=new T.Vector3().crossVectors(z,x).normalize();return new T.Quaternion().setFromRotationMatrix(new T.Matrix4().makeBasis(x,y,z))}
+const PAGE_END=CONFIG.slides.length;
+const pageStop=p=>p===PAGE_END?FINAL_SLIDE:CONFIG.slides[p].severidade-1;
+let pageIndex=0,demoStep=0;
 let carU=stops[0],index=0,motion=null,lastTime=null,cameraTween=null,fade=null,crash=null,crashed=false,fireTime=0,impacts=0,crashPose=null;
 let mapDirty=true,mapClock=0,lastMapDraw=-10,shadowAge=10,shadowAnchor=V(1e6,0,1e6),shadowAerial=null,shadowRenders=0,sceneRenders=0;
 let look=V(),boom=V(),carTurn=orient(carU),wheelAngle=0;
@@ -55236,89 +55420,98 @@ function resetCrash(){crash=null;crashed=false;fireTime=0;impacts=0;skidSamples=
 function finishWreck(){car.position.copy(wreckPosition);car.quaternion.copy(directionQuaternion(crashDirection));syncDamaged();damaged.aplicar(1);damaged.root.visible=true;car.visible=false;fire.visible=true;skid.visible=true;crashed=true;fireTime=Math.max(fireTime,1)}
 function beginCrash(rolling=false){const speed=rolling?(stops[LAST_STOP]-stops[LAST_STOP-1])*total/TRAVEL_DURATION:escapeLength/.85;crash={time:0,impacted:false,rolling,speed,contactTime:escapeLength/speed+(rolling?0:.08),travelled:0,initialLook:look.clone(),initialBoom:boom.clone()};appendSkids();ui()}
 function setContent(){
- const end=index===FINAL_SLIDE,first=index===0,modelSlide=index<4,busy=!!motion||!!cameraTween||!!crash,s=first?CONFIG.primeiroSlide:CONFIG.slidesSensoriais[index+1];
- $('conteudo').className='content'+(contentSides[index]==='right'?' right':'')+(end?' conclusion':'')+(busy?' absent':'')+(modelSlide?' model-slide':'')+(modelSlide&&!first?' sensory-slide':'');
- $('titulo-parada').textContent=end?'CONCLUSÃO':`SEVERIDADE ${index+1} · EFEITO NO SISTEMA`;
- $('titulo').textContent=modelSlide?s.titulo:end?'Uma visão do caminho completo.':index===LAST_STOP&&crashed?'Perda de controle. Impacto frontal.':`Severidade ${index+1}`;
- $('descricao').textContent=modelSlide?s.funcao:end?'Aqui entra a conclusão da apresentação, com a jornada inteira ao lado.':index===LAST_STOP&&crashed?'Demonstração visual da batida. Selecione 10 novamente para repetir a sequência.':'Espaço reservado para o conteúdo desta severidade.';
- $('primeiro-conteudo').classList.toggle('hidden',!modelSlide);$('ferramentas-modelo').classList.toggle('hidden',!modelSlide);
- if(modelSlide){
-  $('sistema-contexto').textContent=first?'NO SISTEMA · S1':`EFEITO NO SISTEMA · S${index+1}`;$('exemplos-contexto').textContent=first?'RESSALVA PARA A MAHLE':'EXEMPLOS · INTENSIDADE PERCEBIDA';
+ const end=pageIndex===PAGE_END,busy=!!motion||!!cameraTween||!!fade,s=CONFIG.slides[pageIndex];
+ $('conteudo').className='content'+(end?' conclusion':' model-slide')+(busy?' absent':'');
+ $('titulo-parada').textContent=end?'CONCLUSÃO · JORNADA DA QUALIDADE':`SEVERIDADE ${s.severidade} · EFEITO NO SISTEMA`;
+ $('titulo').textContent=end?'Uma peça. Muitos efeitos.':s.titulo;
+ $('descricao').textContent=end?'Da identificação ao fornecimento de vácuo: a consequência no sistema orienta a avaliação.':s.funcao;
+ $('primeiro-conteudo').classList.toggle('hidden',end);$('conclusao-conteudo').classList.toggle('hidden',!end);
+ if(!end){
+  const same=CONFIG.slides.filter(p=>p.severidade===s.severidade),part=same.indexOf(s)+1;
+  $('sistema-contexto').textContent=`EFEITO NO SISTEMA · S${s.severidade}`+(same.length>1?` · FUNÇÃO ${part}/${same.length}`:'');
+  $('exemplos-contexto').textContent=s.severidade===1?'RESSALVA PARA A MAHLE':'EXEMPLOS · CONSEQUÊNCIA OBSERVADA';
   $('sistema-titulo').textContent=s.sistemaTitulo;$('sistema-texto').textContent=s.sistemaTexto;
-  $('mahle-titulo').textContent=first?s.mahleTitulo:s.exemplosTitulo;$('mahle-texto').textContent=first?s.mahleTexto:s.exemplosTexto;$('mahle-destaque').textContent=first?s.mahleDestaque:s.destaque;
-  $('modelo-caption').textContent=first?'Três campos sem gravação · áreas destacadas no injetado':s.caption;
-  (first?['Data de injeção','Número do componente','Número de cavidade']:s.legendas).forEach((label,i)=>$('legenda-'+i).textContent=label);
-  manifoldView.mostrarSlide(index);requestAnimationFrame(()=>manifoldView.resize());
+  $('mahle-titulo').textContent=s.exemplosTitulo;$('mahle-texto').textContent=s.exemplosTexto;$('mahle-destaque').textContent=s.destaque;
+  $('modelo-caption').textContent='MODELO DIDÁTICO · '+(demoStep===s.etapas.length-1?'Arraste para girar · legendas localizam as regiões':'Etapa controlada por clique ou → · sem avanço automático');
+  s.legendas.forEach((v,i)=>$('legenda-'+i).textContent=v);
+  $('passo-titulo').textContent=s.etapas[demoStep][0];$('passo-texto').textContent=s.etapas[demoStep][1];
+  $('passo-contador').textContent=`${demoStep+1} / ${s.etapas.length}`;
+  $('passo-progresso').innerHTML=s.etapas.map((_,i)=>`<span class="${i<=demoStep?'done':''}"></span>`).join('');
+  $('inspecionar-demo').disabled=demoStep===s.etapas.length-1;$('repetir-demo').disabled=demoStep===0;
+  manifoldView.mostrarSlide(pageIndex,demoStep);requestAnimationFrame(()=>manifoldView.resize());
  }
 }
 function ensureSelectedVisible(){
- const list=$('numeros'),item=$('etapa-'+index),left=item.offsetLeft-list.offsetLeft;
+ const list=$('numeros'),item=$('etapa-'+pageIndex),left=item.offsetLeft-list.offsetLeft;
  if(left<list.scrollLeft)list.scrollTo({left,behavior:'smooth'});
  else if(left+item.offsetWidth>list.scrollLeft+list.clientWidth)list.scrollTo({left:left+item.offsetWidth-list.clientWidth,behavior:'smooth'});
 }
 function ui(){
- mapDirty=true;
- const busy=!!motion||!!cameraTween||!!fade||!!crash;
- $('anterior').disabled=busy||index===0;$('proximo').disabled=busy||index===FINAL_SLIDE;
- $('proximo').textContent=index===LAST_STOP?'Conclusão →':'Avançar →';
- $('estado').innerHTML=fade?'Trocando slide <span>Transição suave</span>':crash?`Severidade 10 <span>${crash.impacted?'Impacto frontal':'Perda de controle'}</span>`:cameraTween?'Novo enquadramento <span>Câmera em movimento</span>':motion?`Percurso ${String(index+1).padStart(2,'0')} → ${String(motion.to+1).padStart(2,'0')} <span>Em movimento</span>`:index===FINAL_SLIDE?'Conclusão <span>Jornada completa</span>':`Severidade ${index+1} <span>${crashed?'Após o impacto':'Aguardando avanço'}</span>`;
- for(let i=0;i<=FINAL_SLIDE;i++){$('etapa-'+i).className='step'+(i===index?' current':i<index?' done':'');$('etapa-'+i).setAttribute('aria-current',i===index?'step':'false')}
- labels.forEach((label,i)=>{label.ring.material=i===index?blue:gray;label.label.rotation.z=i===LAST_STOP&&crashed?crashPose.yaw:poses[i].yaw});
+ mapDirty=true;const busy=!!motion||!!cameraTween||!!fade,s=CONFIG.slides[pageIndex],last=s?s.etapas.length-1:0;
+ $('anterior').disabled=busy||(pageIndex===0&&demoStep===0);$('proximo').disabled=busy||pageIndex===PAGE_END;
+ $('proximo').textContent=pageIndex===PAGE_END?'Jornada concluída':demoStep<last?'Próxima etapa →':pageIndex===PAGE_END-1?'Conclusão →':'Próximo slide →';
+ $('slide-contador').textContent=`${pageIndex+1} / ${PAGE_END+1}`;
+ $('estado').textContent=busy?'Transição em andamento':pageIndex===PAGE_END?'Jornada completa':`S${s.severidade} · ${s.titulo} · etapa ${demoStep+1}/${s.etapas.length}`;
+ for(let i=0;i<=PAGE_END;i++){$('etapa-'+i).className='step'+(i===pageIndex?' current':i<pageIndex?' done':'');$('etapa-'+i).setAttribute('aria-current',i===pageIndex?'step':'false')}
+ labels.forEach((label,i)=>{label.ring.material=i===index?blue:gray;label.label.rotation.z=poses[i].yaw});
  setContent();ensureSelectedVisible();
 }
 function setInstant(to){
- resetCrash();
- index=to;carU=stops[Math.min(to,LAST_STOP)];carTurn.copy(orient(carU));place(carU);steers.forEach(s=>s.rotation.y=0);
- if(to===FINAL_SLIDE)finishWreck();
+ resetCrash();index=to;carU=stops[Math.min(to,LAST_STOP)];carTurn.copy(orient(carU));place(carU);steers.forEach(s=>s.rotation.y=0);
  const pose=presentationPose(to);look.copy(pose.look);boom.copy(pose.boom);
 }
-function selectSlide(to){
- if(fade||to<0||to>FINAL_SLIDE||(index===to&&to!==LAST_STOP&&!motion&&!cameraTween&&!crash))return;
- // Um salto cancela o percurso atual; a troca de mundo acontece apenas no branco total.
- motion=null;cameraTween=null;crash=null;fade={to,time:0,switched:false};ui();
+function selectSlide(page){
+ if(fade||page<0||page>PAGE_END)return;
+ motion=null;cameraTween=null;crash=null;fade={to:pageStop(page),page,phase:0,time:0,switched:false};ui();
 }
-function advance(direction){
- if(motion||cameraTween||fade||crash)return;
- const to=index+direction;if(to<0||to>FINAL_SLIDE)return;
- if(index===LAST_STOP&&crashed&&direction<0){selectSlide(to);return}
+function gotoPage(page,phase=0){
+ const to=pageStop(page);pageIndex=page;demoStep=phase;
+ if(to===index){fade={to,page,phase,time:0,switched:false};ui();return}
  if(to===FINAL_SLIDE||index===FINAL_SLIDE){
   const pose=presentationPose(to);cameraTween={to,fromLook:look.clone(),fromBoom:boom.clone(),toLook:pose.look,toBoom:pose.boom,fromScreen:car.position.clone().project(camera),toScreen:screenAt(car.position,pose),time:0,duration:TRAVEL_DURATION};ui();return;
  }
- const from=carU,end=stops[to];
- // Um único relógio sincroniza carro, órbita e composição: todos chegam juntos.
+ const from=carU,end=stops[to],direction=to>index?1:-1;
  motion={from,end,to,direction,time:0,duration:TRAVEL_DURATION,initialLook:look.clone(),initialBoom:boom.clone(),startFrame:screenAt(at(from),{look,boom}).x,endPose:stopPose(to)};ui();
 }
+function advance(direction){
+ if(motion||cameraTween||fade)return;
+ const s=CONFIG.slides[pageIndex];
+ if(direction>0){if(!s)return;if(demoStep<s.etapas.length-1){demoStep++;ui();return}gotoPage(pageIndex+1)}
+ else {if(s&&demoStep>0){demoStep--;ui();return}if(pageIndex>0){const prev=pageIndex-1;gotoPage(prev,CONFIG.slides[prev].etapas.length-1)}}
+}
+function setDemoStep(n){if(motion||cameraTween||fade||pageIndex===PAGE_END)return;demoStep=clamp(n,0,CONFIG.slides[pageIndex].etapas.length-1);ui()}
+$('repetir-demo').addEventListener('click',()=>setDemoStep(0));$('inspecionar-demo').addEventListener('click',()=>setDemoStep(CONFIG.slides[pageIndex].etapas.length-1));
 function fullscreen(){if(document.fullscreenElement)document.exitFullscreen?.();else document.documentElement.requestFullscreen?.().catch(()=>{})}
 $('proximo').addEventListener('click',()=>advance(1));$('anterior').addEventListener('click',()=>advance(-1));
-for(let i=0;i<=FINAL_SLIDE;i++)$('etapa-'+i).addEventListener('click',()=>selectSlide(i));
+for(let i=0;i<=PAGE_END;i++)$('etapa-'+i).addEventListener('click',()=>selectSlide(i));
 function scrollList(direction){$('numeros').scrollBy({left:direction*($('etapa-0').offsetWidth+8),behavior:'smooth'})}
 $('rolar-anterior').addEventListener('click',()=>scrollList(-1));$('rolar-proximo').addEventListener('click',()=>scrollList(1));
 $('numeros').addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.preventDefault();$('numeros').scrollLeft+=e.deltaY}},{passive:false});
 addEventListener('keydown',e=>{
  if(e.repeat||e.altKey||e.ctrlKey||e.metaKey)return;
- if(e.target.closest?.('.model-tools')&&[' ','Enter'].includes(e.key))return;
+ if(e.target.closest?.('.model-tools,.sequence-actions,.field-legend,.model-pin')&&[' ','Enter'].includes(e.key))return;
  // Espaço e Enter conservam a semântica dos botões quando a lista tem foco.
  if(e.target.closest?.('.slide-nav')&&[' ','Enter','ArrowLeft','ArrowRight'].includes(e.key)){
-  if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();const next=clamp(Number(e.target.id.replace('etapa-',''))+(e.key==='ArrowRight'?1:-1),0,FINAL_SLIDE);$('etapa-'+next)?.focus()}return;
+  if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();const next=clamp(Number(e.target.id.replace('etapa-',''))+(e.key==='ArrowRight'?1:-1),0,PAGE_END);$('etapa-'+next)?.focus()}return;
  }
  const key=e.key.toLowerCase();if([' ','arrowright','pagedown','arrowleft','pageup','f'].includes(key)){e.preventDefault();if([' ','arrowright','pagedown'].includes(key))advance(1);else if(['arrowleft','pageup'].includes(key))advance(-1);else fullscreen()}
 });
 let resizeTimer;
 addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{makePoses();if(!motion&&!cameraTween&&!fade&&!crash){const p=presentationPose(index);look.copy(p.look);boom.copy(p.boom)}else if(motion)motion.endPose=stopPose(motion.to);else if(cameraTween){const p=presentationPose(cameraTween.to);cameraTween.toLook=p.look;cameraTween.toBoom=p.boom}},150)});
 const first=stopPose(0);look.copy(first.look);boom.copy(first.boom);place(carU);
-const manifoldView=criarVisorColetor(T,{visivel:()=>index<4});
+const manifoldView=criarVisorColetor(T,{visivel:()=>pageIndex<PAGE_END&&!motion&&!cameraTween&&!fade});
 function update(dt){
- mapClock+=dt;shadowAge+=dt;
+ mapClock+=dt;shadowAge+=dt;manifoldView.update(dt);
  vegetation.wind.value+=dt;
  if(fade){
   fade.time+=dt;const out=.27,hold=.08,into=.34;
   $('fade').style.opacity=fade.time<out?smooth(fade.time/out):fade.time<out+hold?1:1-smooth((fade.time-out-hold)/into);
-  if(!fade.switched&&fade.time>=out){fade.switched=true;setInstant(fade.to);ui()}
-  if(fade.time>=out+hold+into){fade=null;$('fade').style.opacity=0;if(index===LAST_STOP)beginCrash();else ui()}
+  if(!fade.switched&&fade.time>=out){fade.switched=true;pageIndex=fade.page;demoStep=fade.phase;setInstant(fade.to);ui()}
+  if(fade.time>=out+hold+into){fade=null;$('fade').style.opacity=0;ui()}
  }
  if(cameraTween){const t=cameraTween;t.time+=dt;const u=ease(clamp(t.time/t.duration,0,1));look.lerpVectors(t.fromLook,t.toLook,u);boom.lerpVectors(t.fromBoom,t.toBoom,u);framePoint(car.position,lerp(t.fromScreen.x,t.toScreen.x,u),lerp(t.fromScreen.y,t.toScreen.y,u));if(u===1){look.copy(t.toLook);boom.copy(t.toBoom);index=t.to;cameraTween=null;ui()}}
  if(motion){
-  const m=motion;m.time+=dt;const q=clamp(m.time/m.duration,0,1),u=m.to===LAST_STOP&&m.direction>0?q*q*(2-q):ease(q),v=ease(q),previousU=carU;
+  const m=motion;m.time+=dt;const q=clamp(m.time/m.duration,0,1),u=ease(q),v=ease(q),previousU=carU;
   carU=lerp(m.from,m.end,u);
   // Voltar refaz o mesmo caminho de ré, mantendo a frente do carro orientada à estrada.
   carTurn.copy(orient(carU));
@@ -55341,7 +55534,7 @@ function update(dt){
   const framing=lerp(initialScreenX,endScreenX,v)*(1-Math.sin(v*Math.PI)**2*.75);
   look.copy(compose(at(carU),boom,framing).look);
   if(q===1){
-   look.copy(m.endPose.look);boom.copy(m.endPose.boom);steers.forEach(s=>s.rotation.y=0);index=m.to;motion=null;if(index===LAST_STOP&&m.direction>0)beginCrash(true);else ui();
+   look.copy(m.endPose.look);boom.copy(m.endPose.boom);steers.forEach(s=>s.rotation.y=0);index=m.to;motion=null;ui();
   }
  }
  if(crash){
@@ -55401,7 +55594,7 @@ function verificarGeometria(){
  return{minClearance,negative,closureGap:roadPoints[0].distanceTo(roadPoints.at(-1)),roadLength:roadDistances.at(-1),forestCount:forestPoints.length-clearedTrees,comprimentoApresentacao:total,distanciasEntreParadas:stops.slice(1).map((u,i)=>(u-stops[i])*total),duracaoTransicao:TRAVEL_DURATION,escalaHorizontal:CONFIG.percurso.escalaHorizontal,variantStats:vegetation.variants.map(v=>({tipo:v.type,triangles:(v.wood.getAttribute('position').count+(v.leaves?.getAttribute('position').count||0))/3,altura:v.height})),contactTimeRolling:escapeLength/((stops[LAST_STOP]-stops[LAST_STOP-1])*total/TRAVEL_DURATION)};
 }
 // Diagnóstico local para validação: sem telemetria, sem persistência e sem rede.
-window.prototipo={estado:()=>({index,paradas:STOP_COUNT,slides:FINAL_SLIDE+1,carU,sceneRenders,shadowRenders,coletor:manifoldView.estado(),skidSamples,skidDrawCounts:skidTracks.map(t=>t.g.drawRange.count),moving:!!motion||!!cameraTween||!!crash,fading:!!fade,tracking:!!motion,crashTime:crash?.time??null,contactTime:crash?.contactTime??null,crashTravelled:crash?.travelled??null,forestCount:forestPoints.length-clearedTrees,visibleTrees,treeVariants:vegetation.variants.length,roadClosed:roadPoints[0].distanceTo(roadPoints.at(-1))<.001,triangles:renderer.info.render.triangles,crashed,fire:fire.visible,impacts,damagedVisible:damaged.root.visible,tree:treePosition.toArray(),frontDirection:V(1,0,0).applyQuaternion(car.quaternion).toArray(),wreckPosition:wreckPosition.toArray(),crashLayout:roadIntrusions(crashPose,LAST_STOP,0),progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===FINAL_SLIDE,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide,verificarGeometria,verificarVisibilidade,exportarColetor:cut=>manifoldView.exportar(cut),exportarArvore:i=>vegetation.tree(i),exportarIntegro:()=>{const c=car.clone(true);c.position.set(0,0,0);c.quaternion.identity();c.visible=true;return c},exportarAmassado:()=>damaged.exportar()};
+window.prototipo={estado:()=>({index,pageIndex,demoStep,slideId:CONFIG.slides[pageIndex]?.id,paradas:STOP_COUNT,slides:PAGE_END+1,carU,sceneRenders,shadowRenders,coletor:manifoldView.estado(),skidSamples,skidDrawCounts:skidTracks.map(t=>t.g.drawRange.count),moving:!!motion||!!cameraTween||!!crash,fading:!!fade,tracking:!!motion,crashTime:crash?.time??null,contactTime:crash?.contactTime??null,crashTravelled:crash?.travelled??null,forestCount:forestPoints.length-clearedTrees,visibleTrees,treeVariants:vegetation.variants.length,roadClosed:roadPoints[0].distanceTo(roadPoints.at(-1))<.001,triangles:renderer.info.render.triangles,crashed,fire:fire.visible,impacts,damagedVisible:damaged.root.visible,tree:treePosition.toArray(),frontDirection:V(1,0,0).applyQuaternion(car.quaternion).toArray(),wreckPosition:wreckPosition.toArray(),crashLayout:roadIntrusions(crashPose,LAST_STOP,0),progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===FINAL_SLIDE,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide,setDemoStep,roteiro:CONFIG.slides,verificarGeometria,verificarVisibilidade,exportarColetor:cut=>manifoldView.exportar(cut),exportarArvore:i=>vegetation.tree(i),exportarIntegro:()=>{const c=car.clone(true);c.position.set(0,0,0);c.quaternion.identity();c.visible=true;return c},exportarAmassado:()=>damaged.exportar()};
 ui();requestAnimationFrame(tick);
 } catch(error){console.error(error);$('erro').classList.remove('hidden');$('erro').textContent='Não foi possível iniciar a cena 3D. Abra este arquivo no Microsoft Edge ou Google Chrome com suporte a WebGL. Detalhe: '+error.message;$('estado').textContent='Cena indisponível';}
 })();

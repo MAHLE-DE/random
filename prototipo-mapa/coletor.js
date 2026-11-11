@@ -58,7 +58,7 @@ function criarColetorK24(T,{espessura=.055}={}){
   const geometry=new T.BoxGeometry(.57,.19,.055),pad=mesh(geometry,padMaterial,name+'_ausente',marking);pad.position.set(-.93+i*.66,.31,1.80);pad.userData.gravacao=null;
   const line=new T.LineSegments(new T.EdgesGeometry(geometry),new T.LineBasicMaterial({color:'#d48a20',transparent:true,opacity:.95}));line.position.copy(pad.position);line.name='Contorno_'+name;highlight.add(line);
  }
- function corte(active=true){upper.visible=!active;cutOnly.forEach(o=>o.visible=active);fullOnly.forEach(o=>o.visible=!active);root.userData.corte=active}
- root.userData={tipo:'Reconstrução didática de coletor K24',referencia:'K24 Intake Manifold - EP6 YOUTUBE',espessuraRelativa:espessura,dutos:4};corte(true);
+ function corte(active=false){upper.visible=!active;cutOnly.forEach(o=>o.visible=active);fullOnly.forEach(o=>o.visible=!active);root.userData.corte=active}
+ root.userData={tipo:'Reconstrução didática de coletor K24',referencia:'K24 Intake Manifold - EP6 YOUTUBE',espessuraRelativa:espessura,dutos:4};corte(false);
  return{root,upper,runners,corte,alvoMarcacoes:V(-.27,.31,1.84),exportar(cut=false){const r=root.clone(true);r.position.set(0,0,0);r.quaternion.identity();r.getObjectByName('Destaques_didaticos_das_marcacoes')?.removeFromParent();r.getObjectByName('Metade_superior').visible=!cut;for(const o of cutOnly)r.getObjectByName(o.name).visible=cut;for(const o of fullOnly)r.getObjectByName(o.name).visible=!cut;r.userData.corte=cut;return r}};
 }
