@@ -23,17 +23,13 @@ function criarDemonstracoes(T,model){
  function clear(){special?.dispose();special=null;for(const o of [...group.children]){o.traverse(n=>{if(!n.userData.sharedGeometry)n.geometry?.dispose();if(n.material&&!n.userData.sharedMaterial){for(const m of Array.isArray(n.material)?n.material:[n.material])m.dispose()}});group.remove(o)}actors=[]}
  function set(s,n){
   current=s;step=n;elapsed=0;clear();noiseBounds=null;const id=s.id,active=n>0;animated=true;group.visible=true;
-  special=criarCenaDistribuicao(T,model,group,id,n)||criarCenaCorrosao(T,model,group,id,n)||criarCenaServico(T,model,group,id,n)||criarCenaProduto(T,model,group,id,n);if(special){animated=special.animated;return}
+  special=criarCenaAgua(T,model,group,id,n)||criarCenaDistribuicao(T,model,group,id,n)||criarCenaCorrosao(T,model,group,id,n)||criarCenaServico(T,model,group,id,n)||criarCenaProduto(T,model,group,id,n);if(special){animated=special.animated;return}
   if(id==='ruido'){
    flow();
    const o=ring(V(0,1.5,.7),1.3,amber);o.scale.setScalar(1.3);actors.push(t=>{o.scale.setScalar(.8+(t%1)*.5);o.material.opacity=1-t%1;o.material.transparent=true});
    // O enquadramento usa o maior volume da onda, sem seguir sua pulsação.
    group.updateWorldMatrix(true,true);const inverse=group.matrixWorld.clone().invert();noiseBounds=new T.Box3();
    group.traverse(m=>{if(!m.geometry)return;m.geometry.computeBoundingBox();noiseBounds.union(m.geometry.boundingBox.clone().applyMatrix4(new T.Matrix4().multiplyMatrices(inverse,m.matrixWorld)))});noiseBounds.expandByScalar(.06);
-  }
-  if(id==='agua'){
-   if(n===0){for(let i=0;i<22;i++){const b=mesh(new T.SphereGeometry(.04+i%3*.01,8,6),'#28b6dd',V(-2.3+(i%8)*.6,.95,.3+Math.floor(i/8)*.45));actors.push(t=>{b.position.y=.95-(t*.15+i/22)% .7})}}
-   if(n>=1){const pool=box(V(0,.19,.7),V(4.5,.18,1.4),'#26afe0',.68);if(n===2){flow('stopped');flow('normal',true);actors.push(t=>{pool.scale.y=Math.max(.025,.18*(1-Math.min(t/2,1)));pool.rotation.z=.06*Math.sin(Math.min(t,1)*Math.PI/2)})}}
   }
   if(id==='backfire'){
    flow('reverse');if(active){crack();if(n===1)box(V(0,.9,1.83),V(4.6,.3,.035),red,.25)}if(n===2){const shield=mesh(new T.SphereGeometry(3.4,24,16),blue,V(0,.7,0),V(1.12,.6,.9),.08);shield.material.wireframe=true;for(let i=0;i<7;i++){const o=box(V(.1,.9,1.8),V(.18,.12,.13),amber);actors.push(t=>{const u=Math.min(t/1.5,1);o.position.set(.1+Math.sin(i*2)*u*2,.9+u*(i%3)*.35,1.8+u*.7);o.rotation.set(u*i,u*i*.5,0)})}}
@@ -46,7 +42,7 @@ function criarDemonstracoes(T,model){
  }
  function tick(dt){if(!animated)return false;elapsed+=dt;if(special)animated=special.update(elapsed);else actors.forEach(f=>f(elapsed));return true}
  function limitesEnquadramento(focused=false){group.updateWorldMatrix(true,true);return special?.bounds(focused)||(noiseBounds?noiseBounds.clone().applyMatrix4(group.matrixWorld):new T.Box3().setFromObject(group))}
- return{set,tick,group,limitesEnquadramento,pontosEnquadramento:()=>special?.framingPoints?.(),detalheEnquadramento:i=>special?.closeup?.(i),margensVisor:()=>special?.insets?.(),alvos:()=>special?.targets(),corte:on=>special?.corte?.(on),apresentacao:()=>special?.presentation,estado:()=>({id:current?.id,step,animated,elapsed,objetos:group.children.length,cena:special?.info()})};
+ return{set,tick,group,limitesEnquadramento,pontosEnquadramento:()=>special?.framingPoints?.(),detalheEnquadramento:i=>special?.closeup?.(i),margensVisor:()=>special?.insets?.(),vistaAnimada:()=>special?.view?.(),alvos:()=>special?.targets(),corte:on=>special?.corte?.(on),apresentacao:()=>special?.presentation,estado:()=>({id:current?.id,step,animated,elapsed,objetos:group.children.length,cena:special?.info()})};
 }
 
 // Diagramas vetoriais complementam o 3D com relações que uma cor isolada não explica.
@@ -64,7 +60,6 @@ function diagramaDemonstracao(s,n){
  else if(id==='logistica'){body=['Peças soltas','Contato no transporte','Berços e separadores'].map((v,i)=>rect(8+i*198,22,184,49,n===i?i===1?'#f9e9e5':'#e4f3ed':'#edf1f5')+text(17+i*198,52,v,n===i?i===1?red:green:muted,14)).join('');body+=text(8,101,'Proteção das interfaces auxiliares · sequência ilustrativa',muted,13)}
  else if(id==='servico'){body=text(8,20,n===0?'Fixador com aperto pendente':'Ferramenta bloqueada pela travessa',n===0?blue:red,18)+text(8,65,n===0?'O problema é simples; o acesso precisa permitir o reparo.':'O conjunto montado impede a inserção da chave.',muted,17)+text(8,101,'Representação didática do espaço de manutenção.',muted,14)}
  else if(id==='quimica'){body=text(8,20,active?'APÓS EXPOSIÇÃO EM SERVIÇO':'TEMPO ZERO',active?red:green,18)+text(8,65,active?'Corrosão nos insertos e limitadores de compressão':'Componentes metálicos íntegros e brilhantes',muted,17)+text(8,101,'Passagem de tempo ilustrativa, sem escala de vida útil.',muted,14)}
- else if(id==='agua'){body=text(8,20,n===0?'Gotas → condensado':n===1?'Condensado → bolsa de água':'Água aspirada → admissão interrompida',n>=2?red:blue,18);for(let i=0;i<4;i++){body+=rect(20+i*139,34,115,44,n>=2?'#687a89':blue)+text(38+i*139,62,n>=2?'APAGADO':'CILINDRO '+(i+1),'white',13)}body+=text(8,105,'Perda de função primária · risco de falha grave do motor',red,14)}
  else if(id==='backfire'){body=path('M555 48H35',n===0?'#df8639':red,7)+path('M58 30 32 48 58 66',red,5)+text(8,20,'Pressão no sentido inverso · representação qualitativa',red,17)+text(8,101,n===2?'ESCUDO ATIVO · fragmentos contidos':'Mapa de cores ilustrativo, sem valores de tensão',muted,14);for(let i=0;i<9;i++)body+=rect(150+i*40,35,34,26,['#448abf','#5ea0aa','#a1af63','#d4aa3e','#e28a33','#dc6932','#cb4b37','#bb3535','#9e3038'][i])}
  else if(id==='estanqueidade'){body=text(8,20,n<2?'Verificação de fuga por pressurização':'Operação: ar não medido e controle de mistura',blue,16);body+=rect(8,33,172,39,'#e8f1fa')+text(20,58,'Sensor: ar medido',blue)+path('M188 52h45',blue,5)+rect(242,33,172,39,'#e8f1fa')+text(252,58,'Fluxo real',blue);if(n>=2)body+=path('M325 12v20',red,5)+rect(436,22,153,63,'#fae7e1')+text(451,47,'AVARIA',red,17)+text(451,69,'EMISSÕES',red,17);body+=text(8,103,n>=2?'Entrada adicional após o sensor → mistura e diagnóstico afetados':'Fumaça de teste sai pela falha; em admissão, ar pode entrar.',muted,13)}
  else if(id==='vacuo'){

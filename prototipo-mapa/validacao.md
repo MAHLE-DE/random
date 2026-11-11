@@ -1,5 +1,18 @@
 # Validação do protótipo
 
+## Água, inclinação e calço hidráulico — 11/11/2026
+
+- S8 foi reconstruído em duas etapas. A primeira mostra 64 gotas de posições e tamanhos variados aderindo à parede interna e à tampa, uma entrada leve pelo bocal e acúmulo no pleno. A segunda representa inclinação lateral, água pelos quatro runners e chegada às quatro câmaras.
+- A inclinação física usa o eixo X do coletor, lateral à fileira dos runners. Os vértices do modelo são enquadrados com sua transformação atual, sem confundir a inclinação automática com o giro manual de apresentação. O líquido no pleno altera sua superfície e diminui durante a ingestão.
+- Quatro cilindros em corte aparecem ligados à flange. A frente líquida percorre os dutos e o nível das câmaras aumenta antes da tentativa de compressão. Os pistões sobem e ficam bloqueados abaixo da água. Foram verificados zero atravessamentos e altura constante do líquido no loop final.
+- A câmera gira para o lado aberto dos cilindros e aproxima o detalhe. O aviso “Calço hidráulico — Água não comprime. O pistão para.” fica no próprio 3D. O diagrama antigo foi removido desse slide, e os indicadores do detalhe final preservam a leitura do aviso.
+- A sequência termina em cerca de 7,15 segundos, mantendo uma tentativa sutil de compressão bloqueada. A câmera permanece estável no loop. Giro ou zoom manual interrompem a vista automática, enquanto o fenômeno continua. Reenquadrar restaura o conjunto; voltar à primeira etapa nivela o coletor.
+- Teste específico aprovado em 1600×900, 1280×720 e 1280×960, incluindo condensação, entrada leve, inclinação, ingestão nos quatro runners, quatro câmaras com água, bloqueio dos pistões, câmera, foco, corte, retorno, interrupção manual e limpeza da pose ao sair. Capturas inspecionadas nas três resoluções.
+- Regressão geral aprovada: 13 funções, 14 telas, 29 etapas, 87 estados nas três resoluções, 117 focos de legenda e cinco transições na mesma parada. O teste específico de distribuição de ar passou novamente, incluindo posição dos gráficos e estabilidade da câmera.
+- Nenhuma dependência externa nova. Sem erros JavaScript/WebGL ou solicitações HTTP/HTTPS reportados. Relatórios e capturas em `.producao/qa-agua/`, `.producao/qa-distribuicao/` e `.producao/qa-completa/`. Hash LF e resumos em `validacao-completa.json`.
+
+As seções abaixo registram versões anteriores.
+
 ## Distribuição de ar em S7.2 — 11/11/2026
 
 - Limpeza interna foi removida do roteiro, das cenas e da navegação. A distribuição de ar passou a S7.2, imediatamente após resistência química. A apresentação tem 13 funções, 14 telas e 30 etapas em dez paradas; as linhas 10 e 12 da planilha de referência não são apresentadas.
