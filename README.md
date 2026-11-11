@@ -6,7 +6,7 @@ A apresentação tem **13 funções e uma conclusão**, organizadas em dez sever
 
 O carro percorre dez paradas. S6, S7 e S9 têm duas funções cada. Entre funções da mesma severidade, apenas o slide muda: o carro permanece na mesma parada. Após `6·2`, a sequência segue diretamente para `7·1`. A distribuição de ar ocupa `7·2`, após resistência química.
 
-São **29 etapas reais**, sem uma fase adicional de inspeção. **Clique em Próxima etapa ou pressione → / Espaço** para continuar; ao final da sequência, o controle abre o próximo slide. **←** retorna uma etapa; na primeira, retorna à última etapa real do slide anterior. O coletor pode ser girado em qualquer etapa. A coluna esquerda fica reservada ao texto explicativo, sem mapeador de demonstração guiada ou botão de inspeção.
+São **28 etapas reais**, sem uma fase adicional de inspeção. **Clique em Próxima etapa ou pressione → / Espaço** para continuar; ao final da sequência, o controle abre o próximo slide. **←** retorna uma etapa; na primeira, retorna à última etapa real do slide anterior. O coletor pode ser girado em qualquer etapa. A coluna esquerda fica reservada ao texto explicativo, sem mapeador de demonstração guiada ou botão de inspeção.
 
 O coletor entra **completo** em todos os slides. Arraste para girar, use a roda ou − / + para zoom e selecione as legendas numeradas para localizar cada região. Corte e reenquadramento permanecem disponíveis. O botão de transparência existe somente no slide de distribuição de ar, que começa com o recurso ativado. Os efeitos de transparência usados nas demais demonstrações seguem seu roteiro.
 
@@ -26,6 +26,8 @@ S7.2 tem duas etapas de distribuição de ar. Primeiro, 24 trajetórias desenham
 
 S8 tem duas etapas: condensação nas paredes com uma pequena entrada de água pelo bocal; depois, inclinação lateral e ingestão pelos quatro runners. O motor em corte mostra a água nas quatro câmaras, com pistões que tentam subir e ficam bloqueados. A câmera aproxima o lado aberto dos cilindros para mostrar o calço hidráulico. As indicações ficam no próprio 3D, sem o antigo diagrama abaixo do visor. Giro, corte, foco e reenquadramento continuam disponíveis; voltar à primeira etapa restaura o coletor nivelado.
 
+S9.1 mostra retorno de chama em duas etapas. A primeira repete um ciclo lento de 16 segundos: injeção, pistão subindo com admissão aberta, retorno da mistura, propagação da chama e ignição no coletor. A câmera alterna suavemente entre a câmara e o pleno. A segunda encerra o loop, torna o coletor opaco e aproxima uma fissura que cresce e se ramifica na parede moldada. O texto relaciona o pico de pressão à perda de integridade e ao possível comprometimento dos requisitos de emissões. A dessincronia é um cenário ilustrado; veja as [referências técnicas](prototipo-mapa/referencias-backfire.md).
+
 O painel ocupa 90% da largura e da altura, com uma faixa inferior exclusiva para navegação. Os gráficos, efeitos, fragmentos, tempos, distâncias e fluxos são ilustrativos, sem valores de ensaio ou simulação. S10 representa perda de assistência do servofreio e uma comparação qualitativa da distância de parada, **sem colisão**.
 
 ## Desenvolvimento
@@ -42,6 +44,7 @@ Os testes usam Edge em modo headless, com navegação offline, capturas e verifi
 - `prototipo-mapa/cena-corrosao.js`: insertos e limitadores, metal reflexivo, corrosão progressiva, detalhe e indicador de tempo.
 - `prototipo-mapa/cena-distribuicao.js`: streamlines curtas, desbalanceamento do R4, seção transversal pulsante e gráficos dentro do visor.
 - `prototipo-mapa/cena-agua.js`: condensação, entrada de água, inclinação lateral, escoamento pelos runners e calço hidráulico em quatro cilindros em corte.
+- `prototipo-mapa/cena-backfire.js`: câmara, pistão, válvula e injetor; retorno de mistura/chama; ignição no pleno e trinca progressiva no injetado.
 - `prototipo-mapa/codigo-rastreabilidade.json`: dados didáticos e matriz do QR incorporados no HTML; não exige biblioteca ou rede durante a apresentação.
 - `prototipo-mapa/efeitos-coletor.js`: aparência, rugosidade e materiais.
 - `prototipo-mapa/visor-coletor.js`: rotação, zoom, corte, transparência, legendas e câmera do coletor.

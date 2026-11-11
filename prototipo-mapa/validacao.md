@@ -1,5 +1,18 @@
 # Validação do protótipo
 
+## Retorno de chama e trinca no injetado — 11/11/2026
+
+- S9.1 foi reconstruído em duas etapas. O texto usa retorno de chama pela admissão, ignição da mistura e pico de pressão. A dessincronia é o cenário mostrado; não é apresentada como causa exclusiva. A relação com emissões é descrita como risco possível decorrente de perda de integridade e fugas. As referências primárias da Honda e Raetech estão em `referencias-backfire.md`.
+- A primeira etapa repete um ciclo lento de 16 segundos. Câmara em corte, pistão, válvula, mola, injetor e vela mostram a subida do pistão com a admissão aberta. Partículas e trechos curtos representam mistura retornando pelo runner, seguida pela propagação de chama da câmara ao coletor e ignição no pleno.
+- A câmera alterna suavemente entre a câmara e o pleno e volta ao ponto inicial sem salto no reinício. Os testes observaram ciclos completos, movimento de pistão com válvula aberta, retorno de mistura, frente de chama, ignição e continuidade do enquadramento. Não há avanço automático de etapa.
+- Ao avançar, o coletor fica opaco e a câmera parte da posição atual em direção à parede moldada. A trinca cresce por aproximadamente quatro segundos e se ramifica, com núcleo escuro e bordas irregulares em relevo. O efeito termina estático e interativo.
+- A interação manual interrompe a vista automática e mantém a região escolhida, enquanto o fenômeno continua. Giro, foco, corte, retorno e passagem para S9.2 foram verificados. A fissura e seus indicadores respeitam o corte, e localizar a trinca restaura a parede completa opaca. O indicador da válvula foi deslocado para a haste para preservar a visão da abertura.
+- Teste específico de backfire aprovado em 1600×900, 1280×720 e 1280×960, com capturas de câmara, ignição e fissura. Verificações adicionais de corte e indicador da válvula também passaram nas três resoluções.
+- Regressão geral aprovada: 13 funções, 14 telas, 28 etapas, 84 estados nas três resoluções, 117 focos de legenda e cinco transições na mesma parada. O teste específico do slide 8 foi repetido e aprovado, incluindo inclinação, calço hidráulico e interrupção manual da câmera.
+- Sem dependências externas novas, erros JavaScript/WebGL ou conexões HTTP/HTTPS durante a apresentação. Relatórios e capturas em `.producao/qa-backfire/`, `.producao/qa-agua/` e `.producao/qa-completa/`. Hash LF e resumos em `validacao-completa.json`.
+
+As seções abaixo registram versões anteriores.
+
 ## Água, inclinação e calço hidráulico — 11/11/2026
 
 - S8 foi reconstruído em duas etapas. A primeira mostra 64 gotas de posições e tamanhos variados aderindo à parede interna e à tampa, uma entrada leve pelo bocal e acúmulo no pleno. A segunda representa inclinação lateral, água pelos quatro runners e chegada às quatro câmaras.

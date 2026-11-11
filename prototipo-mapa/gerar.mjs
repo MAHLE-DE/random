@@ -24,6 +24,7 @@ const productScenes=await fs.readFile(path.join(base,'cenas-produto.js'),'utf8')
 const serviceScene=await fs.readFile(path.join(base,'cena-servico.js'),'utf8');
 const corrosionScene=await fs.readFile(path.join(base,'cena-corrosao.js'),'utf8');
 const airScene=await fs.readFile(path.join(base,'cena-distribuicao.js'),'utf8');
+const backfireScene=await fs.readFile(path.join(base,'cena-backfire.js'),'utf8');
 const waterScene=await fs.readFile(path.join(base,'cena-agua.js'),'utf8');
 const css=await fs.readFile(path.join(base,'apresentacao.css'),'utf8');
 const config=JSON.parse(await fs.readFile(path.join(base,'configuracao.json'),'utf8'));
@@ -34,6 +35,7 @@ const labels=config.slides.map((s,i)=>{const same=config.slides.filter(p=>p.seve
 app=app.replace('__CENA_CORROSAO_SOURCE__',()=>corrosionScene);
 app=app.replace('__CENA_DISTRIBUICAO_SOURCE__',()=>airScene);
 app=app.replace('__CENA_AGUA_SOURCE__',()=>waterScene);
+app=app.replace('__CENA_BACKFIRE_SOURCE__',()=>backfireScene);
 const steps=labels.map((label,i)=>`<button class="step" id="etapa-${i}" aria-label="${i===config.slides.length?'Selecionar conclusão':'Selecionar severidade '+config.slides[i].severidade+': '+config.slides[i].titulo}" type="button">${label}</button>`).join('');
 let html=await fs.readFile(path.join(base,'interface.html'),'utf8');
 const p=config.painel,panelCSS=`--painel-x:${p.margemLateral*100}%;--painel-y:${p.topo*100}%;--painel-largura:${p.largura*100}%;--painel-altura:${p.altura*100}%;--painel-opacidade:${p.opacidade};`;

@@ -1,8 +1,8 @@
 {
   "data": "2026-11-11",
-  "revisao": "Condensação, inclinação lateral e calço hidráulico em duas etapas",
+  "revisao": "Retorno de chama em loop e fissura progressiva na carcaça opaca",
   "arquivo": "iniciar.html",
-  "sha256": "1a91c8f72c9c302da31c567d1539fb44a3f22b5d713daae128c5df43ca338ba3",
+  "sha256": "23acb8a523583b0ddfb641d09c14ae1c691023175ed1c526ae1f3159d44aa6ee",
   "normalizacaoHash": "LF, conforme .gitattributes",
   "fonte": {
     "arquivo": "apresentacao_qualidade_completa.xlsx",
@@ -29,45 +29,55 @@
       12
     ]
   },
+  "fontesTecnicas": [
+    {
+      "titulo": "Honda R&D: Study on the Generation Mechanism of Backfires",
+      "url": "https://global.honda/en/technical-review/papers/10003379/"
+    },
+    {
+      "titulo": "Raetech: Simulated Backfire Testing",
+      "url": "https://www.raetech.com/Manifold/manifold.php"
+    }
+  ],
   "funcoes": 13,
   "slides": 14,
   "paradas": 10,
-  "etapas": 29,
+  "etapas": 28,
   "resolucoes": [
     {
       "width": 1600,
       "height": 900,
       "funcoes": 13,
-      "estados": 29,
+      "estados": 28,
       "legendas": 39,
       "ruido": {
-        "amostras": 60,
+        "amostras": 59,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.002998341160515002
+        "amplitudeRotacao": 0.0029986012232438913
       }
     },
     {
       "width": 1280,
       "height": 720,
       "funcoes": 13,
-      "estados": 29,
+      "estados": 28,
       "legendas": 39,
       "ruido": {
         "amostras": 59,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.0029983594067966284
+        "amplitudeRotacao": 0.0029967073698214403
       }
     },
     {
       "width": 1280,
       "height": 960,
       "funcoes": 13,
-      "estados": 29,
+      "estados": 28,
       "legendas": 39,
       "ruido": {
-        "amostras": 60,
+        "amostras": 59,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.0029986643331476985
+        "amplitudeRotacao": 0.002996362628172473
       }
     }
   ],
@@ -158,7 +168,7 @@
       "de": "rastreabilidade",
       "para": "servico",
       "tipo": "next",
-      "quadros": 35,
+      "quadros": 34,
       "opacidadeMinimaConteudo": 0,
       "painelPermanente": true
     },
@@ -174,7 +184,7 @@
       "de": "backfire",
       "para": "estanqueidade",
       "tipo": "next",
-      "quadros": 39,
+      "quadros": 37,
       "opacidadeMinimaConteudo": 0,
       "painelPermanente": true
     },
@@ -182,7 +192,7 @@
       "de": "servico",
       "para": "rastreabilidade",
       "tipo": "back",
-      "quadros": 34,
+      "quadros": 35,
       "opacidadeMinimaConteudo": 0,
       "painelPermanente": true
     },
@@ -195,11 +205,275 @@
       "painelPermanente": true
     }
   ],
+  "backfire": [
+    {
+      "width": 1600,
+      "height": 900,
+      "amostrasLoop": 989,
+      "amostrasTrinca": 247,
+      "quadrosPistaoComValvulaAberta": 130,
+      "reinicioContinuo": true,
+      "ramificacoes": 3,
+      "camaraAoColetor": {
+        "inicio": [
+          0.6,
+          0.78,
+          -4.55
+        ],
+        "fim": [
+          5.551115123125783e-17,
+          0.6699999999999999,
+          0.8000000000000002
+        ]
+      },
+      "interrupcaoManual": true,
+      "layout": {
+        "viewport": {
+          "x": 694.390625,
+          "y": 223.859375,
+          "width": 790.59375,
+          "height": 478.140625,
+          "top": 223.859375,
+          "right": 1484.984375,
+          "bottom": 702,
+          "left": 694.390625
+        },
+        "legend": {
+          "x": 694.390625,
+          "y": 711,
+          "width": 790.59375,
+          "height": 50,
+          "top": 711,
+          "right": 1484.984375,
+          "bottom": 761,
+          "left": 694.390625
+        },
+        "tools": {
+          "x": 694.390625,
+          "y": 770,
+          "width": 790.59375,
+          "height": 33,
+          "top": 770,
+          "right": 1484.984375,
+          "bottom": 803,
+          "left": 694.390625
+        },
+        "panel": {
+          "x": 80,
+          "y": 18,
+          "width": 1440,
+          "height": 810,
+          "top": 18,
+          "right": 1520,
+          "bottom": 828,
+          "left": 80
+        },
+        "footer": {
+          "x": 80,
+          "y": 851,
+          "width": 1440,
+          "height": 42,
+          "top": 851,
+          "right": 1520,
+          "bottom": 893,
+          "left": 80
+        }
+      }
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "amostrasLoop": 994,
+      "amostrasTrinca": 249,
+      "quadrosPistaoComValvulaAberta": 128,
+      "reinicioContinuo": true,
+      "ramificacoes": 3,
+      "camaraAoColetor": {
+        "inicio": [
+          0.6,
+          0.78,
+          -4.55
+        ],
+        "fim": [
+          5.551115123125783e-17,
+          0.6699999999999999,
+          0.8000000000000002
+        ]
+      },
+      "interrupcaoManual": true,
+      "layout": {
+        "viewport": {
+          "x": 553.96875,
+          "y": 163.15625,
+          "width": 636.015625,
+          "height": 397.234375,
+          "top": 163.15625,
+          "right": 1189.984375,
+          "bottom": 560.390625,
+          "left": 553.96875
+        },
+        "legend": {
+          "x": 553.96875,
+          "y": 566.390625,
+          "width": 636.015625,
+          "height": 43,
+          "top": 566.390625,
+          "right": 1189.984375,
+          "bottom": 609.390625,
+          "left": 553.96875
+        },
+        "tools": {
+          "x": 553.96875,
+          "y": 615.390625,
+          "width": 636.015625,
+          "height": 30,
+          "top": 615.390625,
+          "right": 1189.984375,
+          "bottom": 645.390625,
+          "left": 553.96875
+        },
+        "panel": {
+          "x": 64,
+          "y": 14.390625,
+          "width": 1152,
+          "height": 648,
+          "top": 14.390625,
+          "right": 1216,
+          "bottom": 662.390625,
+          "left": 64
+        },
+        "footer": {
+          "x": 64,
+          "y": 674,
+          "width": 1152,
+          "height": 40,
+          "top": 674,
+          "right": 1216,
+          "bottom": 714,
+          "left": 64
+        }
+      }
+    },
+    {
+      "width": 1280,
+      "height": 960,
+      "amostrasLoop": 994,
+      "amostrasTrinca": 249,
+      "quadrosPistaoComValvulaAberta": 128,
+      "reinicioContinuo": true,
+      "ramificacoes": 3,
+      "camaraAoColetor": {
+        "inicio": [
+          0.6,
+          0.78,
+          -4.55
+        ],
+        "fim": [
+          5.551115123125783e-17,
+          0.6699999999999999,
+          0.8000000000000002
+        ]
+      },
+      "interrupcaoManual": true,
+      "layout": {
+        "viewport": {
+          "x": 560.3125,
+          "y": 200.484375,
+          "width": 620.6875,
+          "height": 538.328125,
+          "top": 200.484375,
+          "right": 1181,
+          "bottom": 738.8125,
+          "left": 560.3125
+        },
+        "legend": {
+          "x": 560.3125,
+          "y": 747.8125,
+          "width": 620.6875,
+          "height": 68.375,
+          "top": 747.8125,
+          "right": 1181,
+          "bottom": 816.1875,
+          "left": 560.3125
+        },
+        "tools": {
+          "x": 560.3125,
+          "y": 825.1875,
+          "width": 620.6875,
+          "height": 33,
+          "top": 825.1875,
+          "right": 1181,
+          "bottom": 858.1875,
+          "left": 560.3125
+        },
+        "panel": {
+          "x": 64,
+          "y": 19.1875,
+          "width": 1152,
+          "height": 864,
+          "top": 19.1875,
+          "right": 1216,
+          "bottom": 883.1875,
+          "left": 64
+        },
+        "footer": {
+          "x": 64,
+          "y": 911,
+          "width": 1152,
+          "height": 42,
+          "top": 911,
+          "right": 1216,
+          "bottom": 953,
+          "left": 64
+        }
+      }
+    }
+  ],
+  "corteTrinca": [
+    {
+      "width": 1600,
+      "height": 900,
+      "corte": true,
+      "foco": true
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "corte": true,
+      "foco": true
+    },
+    {
+      "width": 1280,
+      "height": 960,
+      "corte": true,
+      "foco": true
+    }
+  ],
+  "indicadorValvula": [
+    {
+      "width": 1600,
+      "height": 900,
+      "indicadorNaHaste": true,
+      "valvulaAberta": 0.22
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "indicadorNaHaste": true,
+      "valvulaAberta": 0.22
+    },
+    {
+      "width": 1280,
+      "height": 960,
+      "indicadorNaHaste": true,
+      "valvulaAberta": 0.22
+    }
+  ],
   "agua": [
     {
       "width": 1600,
       "height": 900,
-      "amostras": 474,
+      "amostras": 469,
       "gotas": 64,
       "anguloFinal": -0.42,
       "runners": [
@@ -214,7 +488,7 @@
           "aguaAltura": 0.45,
           "aguaTopo": 1.2,
           "aguaFundo": 0.75,
-          "pistaoTopo": 0.7300749150282996,
+          "pistaoTopo": 0.7301475242549438,
           "bloqueado": true,
           "intersecaoAgua": 0
         },
@@ -223,7 +497,7 @@
           "aguaAltura": 0.45,
           "aguaTopo": 1.2,
           "aguaFundo": 0.75,
-          "pistaoTopo": 0.7300749150282996,
+          "pistaoTopo": 0.7301475242549438,
           "bloqueado": true,
           "intersecaoAgua": 0
         },
@@ -232,7 +506,7 @@
           "aguaAltura": 0.45,
           "aguaTopo": 1.2,
           "aguaFundo": 0.75,
-          "pistaoTopo": 0.7300749150282996,
+          "pistaoTopo": 0.7301475242549438,
           "bloqueado": true,
           "intersecaoAgua": 0
         },
@@ -241,14 +515,14 @@
           "aguaAltura": 0.45,
           "aguaTopo": 1.2,
           "aguaFundo": 0.75,
-          "pistaoTopo": 0.7300749150282996,
+          "pistaoTopo": 0.7301475242549438,
           "bloqueado": true,
           "intersecaoAgua": 0
         }
       ],
       "variacaoCamera": 0,
       "variacaoAgua": 0,
-      "cursoBloqueado": 0.0199244364343395,
+      "cursoBloqueado": 0.01985101184581295,
       "layout": {
         "model": {
           "x": 694.390625,
@@ -306,7 +580,7 @@
     {
       "width": 1280,
       "height": 720,
-      "amostras": 476,
+      "amostras": 469,
       "gotas": 64,
       "anguloFinal": -0.42,
       "runners": [
@@ -321,7 +595,7 @@
           "aguaAltura": 0.45,
           "aguaTopo": 1.2,
           "aguaFundo": 0.75,
-          "pistaoTopo": 0.730065458683679,
+          "pistaoTopo": 0.7301875551393564,
           "bloqueado": true,
           "intersecaoAgua": 0
         },
@@ -330,7 +604,7 @@
           "aguaAltura": 0.45,
           "aguaTopo": 1.2,
           "aguaFundo": 0.75,
-          "pistaoTopo": 0.730065458683679,
+          "pistaoTopo": 0.7301875551393564,
           "bloqueado": true,
           "intersecaoAgua": 0
         },
@@ -339,7 +613,7 @@
           "aguaAltura": 0.45,
           "aguaTopo": 1.2,
           "aguaFundo": 0.75,
-          "pistaoTopo": 0.730065458683679,
+          "pistaoTopo": 0.7301875551393564,
           "bloqueado": true,
           "intersecaoAgua": 0
         },
@@ -348,14 +622,14 @@
           "aguaAltura": 0.45,
           "aguaTopo": 1.2,
           "aguaFundo": 0.75,
-          "pistaoTopo": 0.730065458683679,
+          "pistaoTopo": 0.7301875551393564,
           "bloqueado": true,
           "intersecaoAgua": 0
         }
       ],
       "variacaoCamera": 0,
       "variacaoAgua": 0,
-      "cursoBloqueado": 0.019933746137780983,
+      "cursoBloqueado": 0.019812422578632805,
       "layout": {
         "model": {
           "x": 553.96875,
@@ -413,7 +687,7 @@
     {
       "width": 1280,
       "height": 960,
-      "amostras": 475,
+      "amostras": 474,
       "gotas": 64,
       "anguloFinal": -0.42,
       "runners": [
@@ -428,7 +702,7 @@
           "aguaAltura": 0.45,
           "aguaTopo": 1.2,
           "aguaFundo": 0.75,
-          "pistaoTopo": 0.7301724479108881,
+          "pistaoTopo": 0.7301904576878061,
           "bloqueado": true,
           "intersecaoAgua": 0
         },
@@ -437,7 +711,7 @@
           "aguaAltura": 0.45,
           "aguaTopo": 1.2,
           "aguaFundo": 0.75,
-          "pistaoTopo": 0.7301724479108881,
+          "pistaoTopo": 0.7301904576878061,
           "bloqueado": true,
           "intersecaoAgua": 0
         },
@@ -446,7 +720,7 @@
           "aguaAltura": 0.45,
           "aguaTopo": 1.2,
           "aguaFundo": 0.75,
-          "pistaoTopo": 0.7301724479108881,
+          "pistaoTopo": 0.7301904576878061,
           "bloqueado": true,
           "intersecaoAgua": 0
         },
@@ -455,14 +729,14 @@
           "aguaAltura": 0.45,
           "aguaTopo": 1.2,
           "aguaFundo": 0.75,
-          "pistaoTopo": 0.7301724479108881,
+          "pistaoTopo": 0.7301904576878061,
           "bloqueado": true,
           "intersecaoAgua": 0
         }
       ],
       "variacaoCamera": 0,
       "variacaoAgua": 0,
-      "cursoBloqueado": 0.019825629190288963,
+      "cursoBloqueado": 0.019809213370801326,
       "layout": {
         "model": {
           "x": 560.3125,
@@ -518,319 +792,19 @@
       "interrupcaoManual": true
     }
   ],
-  "distribuicao": [
-    {
-      "width": 1600,
-      "height": 900,
-      "amostras": 191,
-      "linhasEquilibradas": [
-        6,
-        6,
-        6,
-        6
-      ],
-      "linhasDesbalanceadas": [
-        6,
-        6,
-        6,
-        2
-      ],
-      "secao": {
-        "runner": 4,
-        "posicao": [
-          1.8,
-          0.9150080940996086,
-          -1.9606042412645674
-        ],
-        "normal": [
-          0,
-          0.2582917123003736,
-          -0.9660669704305913
-        ],
-        "visivel": true,
-        "opacidade": 0.1215478090331313,
-        "escala": 1.0004480499832749
-      },
-      "variacaoCamera": 0,
-      "variacaoOpacidade": 0.1899954267957833,
-      "layout": {
-        "viewport": {
-          "x": 694.390625,
-          "y": 223.859375,
-          "width": 790.59375,
-          "height": 478.140625,
-          "top": 223.859375,
-          "right": 1484.984375,
-          "bottom": 702,
-          "left": 694.390625
-        },
-        "charts": {
-          "x": 1285.984375,
-          "y": 351.921875,
-          "width": 186,
-          "height": 222,
-          "top": 351.921875,
-          "right": 1471.984375,
-          "bottom": 573.921875,
-          "left": 1285.984375
-        },
-        "legend": {
-          "x": 694.390625,
-          "y": 711,
-          "width": 790.59375,
-          "height": 50,
-          "top": 711,
-          "right": 1484.984375,
-          "bottom": 761,
-          "left": 694.390625
-        },
-        "cards": [
-          {
-            "x": 1285.984375,
-            "y": 351.921875,
-            "width": 186,
-            "height": 106,
-            "top": 351.921875,
-            "right": 1471.984375,
-            "bottom": 457.921875,
-            "left": 1285.984375
-          },
-          {
-            "x": 1285.984375,
-            "y": 467.921875,
-            "width": 186,
-            "height": 106,
-            "top": 467.921875,
-            "right": 1471.984375,
-            "bottom": 573.921875,
-            "left": 1285.984375
-          }
-        ],
-        "bars": [
-          34,
-          34,
-          34,
-          10.8800048828125
-        ],
-        "modelRight": 531.3323000488103,
-        "modelBottom": 421.849162464201,
-        "orientation": "lateral",
-        "progress": "1"
-      }
-    },
-    {
-      "width": 1280,
-      "height": 720,
-      "amostras": 191,
-      "linhasEquilibradas": [
-        6,
-        6,
-        6,
-        6
-      ],
-      "linhasDesbalanceadas": [
-        6,
-        6,
-        6,
-        2
-      ],
-      "secao": {
-        "runner": 4,
-        "posicao": [
-          1.8,
-          0.9150080940996086,
-          -1.9606042412645674
-        ],
-        "normal": [
-          0,
-          0.2582917123003736,
-          -0.9660669704305913
-        ],
-        "visivel": true,
-        "opacidade": 0.12115067347225734,
-        "escala": 1.0003330896893377
-      },
-      "variacaoCamera": 0,
-      "variacaoOpacidade": 0.18991680922270865,
-      "layout": {
-        "viewport": {
-          "x": 553.96875,
-          "y": 163.15625,
-          "width": 636.015625,
-          "height": 397.234375,
-          "top": 163.15625,
-          "right": 1189.984375,
-          "bottom": 560.390625,
-          "left": 553.96875
-        },
-        "charts": {
-          "x": 999.46875,
-          "y": 254.078125,
-          "width": 177.515625,
-          "height": 215.375,
-          "top": 254.078125,
-          "right": 1176.984375,
-          "bottom": 469.453125,
-          "left": 999.46875
-        },
-        "legend": {
-          "x": 553.96875,
-          "y": 566.390625,
-          "width": 636.015625,
-          "height": 43,
-          "top": 566.390625,
-          "right": 1189.984375,
-          "bottom": 609.390625,
-          "left": 553.96875
-        },
-        "cards": [
-          {
-            "x": 999.46875,
-            "y": 254.078125,
-            "width": 177.515625,
-            "height": 102.6875,
-            "top": 254.078125,
-            "right": 1176.984375,
-            "bottom": 356.765625,
-            "left": 999.46875
-          },
-          {
-            "x": 999.46875,
-            "y": 366.765625,
-            "width": 177.515625,
-            "height": 102.6875,
-            "top": 366.765625,
-            "right": 1176.984375,
-            "bottom": 469.453125,
-            "left": 999.46875
-          }
-        ],
-        "bars": [
-          34,
-          34,
-          34,
-          10.8800048828125
-        ],
-        "modelRight": 393.2075444447736,
-        "modelBottom": 329.85788866494613,
-        "orientation": "lateral",
-        "progress": "1"
-      }
-    },
-    {
-      "width": 1280,
-      "height": 960,
-      "amostras": 191,
-      "linhasEquilibradas": [
-        6,
-        6,
-        6,
-        6
-      ],
-      "linhasDesbalanceadas": [
-        6,
-        6,
-        6,
-        2
-      ],
-      "secao": {
-        "runner": 4,
-        "posicao": [
-          1.8,
-          0.9150080940996086,
-          -1.9606042412645674
-        ],
-        "normal": [
-          0,
-          0.2582917123003736,
-          -0.9660669704305913
-        ],
-        "visivel": true,
-        "opacidade": 0.12250516769979775,
-        "escala": 1.0007251801236257
-      },
-      "variacaoCamera": 0,
-      "variacaoOpacidade": 0.18994436285081726,
-      "layout": {
-        "viewport": {
-          "x": 560.3125,
-          "y": 200.484375,
-          "width": 620.6875,
-          "height": 538.328125,
-          "top": 200.484375,
-          "right": 1181,
-          "bottom": 738.8125,
-          "left": 560.3125
-        },
-        "charts": {
-          "x": 573.3125,
-          "y": 621.8125,
-          "width": 594.6875,
-          "height": 106,
-          "top": 621.8125,
-          "right": 1168,
-          "bottom": 727.8125,
-          "left": 573.3125
-        },
-        "legend": {
-          "x": 560.3125,
-          "y": 747.8125,
-          "width": 620.6875,
-          "height": 68.375,
-          "top": 747.8125,
-          "right": 1181,
-          "bottom": 816.1875,
-          "left": 560.3125
-        },
-        "cards": [
-          {
-            "x": 655.65625,
-            "y": 621.8125,
-            "width": 210,
-            "height": 106,
-            "top": 621.8125,
-            "right": 865.65625,
-            "bottom": 727.8125,
-            "left": 655.65625
-          },
-          {
-            "x": 875.65625,
-            "y": 621.8125,
-            "width": 210,
-            "height": 106,
-            "top": 621.8125,
-            "right": 1085.65625,
-            "bottom": 727.8125,
-            "left": 875.65625
-          }
-        ],
-        "bars": [
-          34,
-          34,
-          34,
-          10.8800048828125
-        ],
-        "modelRight": 516.6748371504538,
-        "modelBottom": 366.9785478488397,
-        "orientation": "inferior",
-        "progress": "1"
-      }
-    }
-  ],
   "checks": [
-    "S8 tem duas etapas: condensação/entrada leve; inclinação lateral, ingestão pelos quatro runners e calço hidráulico",
-    "64 gotas aderem às paredes internas e à tampa; entrada leve pelo bocal se soma ao acúmulo no pleno",
-    "A rotação física usa o eixo X lateral e é independente do giro manual de apresentação",
-    "A superfície do acúmulo se altera com a inclinação, e uma frente líquida percorre os quatro runners",
-    "Quatro câmaras em corte recebem água antes da tentativa de compressão dos pistões",
-    "Pistões bloqueados não atravessam o líquido, e a altura da água permanece constante no loop final",
-    "A câmera gira para o lado aberto dos cilindros e aproxima o mecanismo, com texto provocativo dentro do 3D",
-    "O diagrama abaixo do visor foi removido de S8; indicadores do detalhe final preservam a leitura do aviso",
-    "Foco, corte, giro, reenquadramento, retorno à condensação e reentrada aprovados nas três resoluções",
-    "Interação manual interrompe a câmera automática; sequência de água continua até o estado final",
-    "A inclinação é restaurada na saída e não passa ao slide seguinte",
-    "13 funções, 14 telas e 29 etapas; 87 estados/resoluções, 117 focos de legenda e cinco transições na mesma parada",
-    "Distribuição de ar e seus gráficos passaram novamente após a atualização do enquadramento",
-    "Zero erros JavaScript/WebGL reportados e zero conexões HTTP/HTTPS"
+    "S9.1 tem duas etapas, com texto resumido sobre retorno de chama, ignição da mistura, pressão e possível efeito em emissões",
+    "Sincronismo inadequado é apresentado como cenário ilustrado, apoiado por referências primárias sobre outros mecanismos e ensaios de integridade",
+    "Loop de 16 segundos mostra pistão subindo com admissão aberta, injeção e mistura retornando pelo runner",
+    "A frente de chama começa na câmara e percorre o caminho até o pleno, antes da ignição interna",
+    "Câmera alterna entre câmara e coletor e retorna suavemente no reinício; loop não avança o roteiro",
+    "Interação manual congela orientação e região de enquadramento, mantendo a animação física",
+    "Na segunda etapa, a peça fica opaca imediatamente e a câmera parte da posição atual antes de focar a parede",
+    "Fissura cresce e se ramifica em três caminhos com abertura escura e bordas em relevo; não é resultado de análise estrutural",
+    "Trinca e seus indicadores acompanham a vista em corte; focar o alvo restaura a parede completa opaca",
+    "Indicador da válvula foi posicionado na haste para deixar a abertura visível",
+    "13 funções, 14 telas, 28 etapas; 84 estados/resoluções, 117 focos de legenda e cinco transições na mesma parada",
+    "Slide 8 foi testado novamente para preservar sua câmera, inclinação e interrupção manual",
+    "Zero erros JavaScript/WebGL reportados e zero solicitações HTTP/HTTPS durante a apresentação"
   ]
 }
