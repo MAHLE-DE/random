@@ -1,7 +1,7 @@
 // Sequências ilustrativas: o relógio anima só a etapa atual; nunca avança o roteiro.
 function criarDemonstracoes(T,model){
  const V=(x=0,y=0,z=0)=>new T.Vector3(x,y,z),group=new T.Group();group.name='Demonstracoes_didaticas';model.root.add(group);
- const blue='#167de0',red='#dc4c38',green='#159c79',amber='#d99622';let current=null,step=0,elapsed=0,animated=false,actors=[];
+ const blue='#167de0',red='#dc4c38',green='#159c79',amber='#d99622';let current=null,step=0,elapsed=0,animated=false,actors=[],noiseBounds=null;
  function mat(color,opacity=1){return new T.MeshStandardMaterial({color,roughness:.5,metalness:.12,transparent:opacity<1,opacity,depthWrite:opacity===1,side:T.DoubleSide})}
  function mesh(g,color,p,scale,opacity=1){const o=new T.Mesh(g,mat(color,opacity));if(p)o.position.copy(p);if(scale)o.scale.copy(scale);group.add(o);return o}
  const box=(p,s,c=blue,o=1)=>mesh(new T.BoxGeometry(1,1,1),c,p,s,o);
@@ -23,10 +23,13 @@ function criarDemonstracoes(T,model){
  function vacuum(broken){const p=[V(2.65,.7,.5),V(3.25,.7,.5),V(3.3,1.1,.5),V(3.85,1.1,.5)];line(p,broken?'#a6b0b7':green,.075);const booster=mesh(new T.CylinderGeometry(.48,.48,.22,28),broken?'#9da8af':green,V(3.9,1.1,.5));booster.rotation.z=Math.PI/2;box(V(2.8,.7,.5),V(.35,.18,.22),broken?red:green);if(broken){box(V(3.16,.7,.5),V(.15,.2,.23),red);ring(V(3.16,.7,.5),.3,red)}}
  function clear(){for(const o of [...group.children]){o.traverse(n=>{n.geometry?.dispose();if(n.material){for(const m of Array.isArray(n.material)?n.material:[n.material])m.dispose()}});group.remove(o)}actors=[]}
  function set(s,n){
-  current=s;step=n;elapsed=0;clear();const id=s.id,active=n>0;animated=true;group.visible=true;
-  if(['tatil','ruido'].includes(id)){
+  current=s;step=n;elapsed=0;clear();noiseBounds=null;const id=s.id,active=n>0;animated=true;group.visible=true;
+  if(id==='ruido'){
    flow();
-   if(id==='ruido'&&n===1){const o=ring(V(0,1.5,.7),1.3,amber);actors.push(t=>{o.scale.setScalar(.8+(t%1)*.5);o.material.opacity=1-t%1;o.material.transparent=true})}
+   const o=ring(V(0,1.5,.7),1.3,amber);o.scale.setScalar(1.3);actors.push(t=>{o.scale.setScalar(.8+(t%1)*.5);o.material.opacity=1-t%1;o.material.transparent=true});
+   // O enquadramento usa o maior volume da onda, sem seguir sua pulsação.
+   group.updateWorldMatrix(true,true);const inverse=group.matrixWorld.clone().invert();noiseBounds=new T.Box3();
+   group.traverse(m=>{if(!m.geometry)return;m.geometry.computeBoundingBox();noiseBounds.union(m.geometry.boundingBox.clone().applyMatrix4(new T.Matrix4().multiplyMatrices(inverse,m.matrixWorld)))});noiseBounds.expandByScalar(.06);
   }
   if(id==='logistica'){
    const support=box(V(2.9,.6,.6),V(.55,.18,.45),active?red:amber);if(active)support.rotation.z=.4;
@@ -58,12 +61,13 @@ function criarDemonstracoes(T,model){
   animated=actors.length>0;
  }
  function tick(dt){if(!animated)return false;elapsed+=dt;actors.forEach(f=>f(elapsed));return true}
- return{set,tick,group,estado:()=>({id:current?.id,step,animated,elapsed,objetos:group.children.length})};
+ function limitesEnquadramento(){group.updateWorldMatrix(true,true);return noiseBounds?noiseBounds.clone().applyMatrix4(group.matrixWorld):new T.Box3().setFromObject(group)}
+ return{set,tick,group,limitesEnquadramento,estado:()=>({id:current?.id,step,animated,elapsed,objetos:group.children.length})};
 }
 
 // Diagramas vetoriais complementam o 3D com relações que uma cor isolada não explica.
 function diagramaDemonstracao(s,n){
- const id=s.id,active=n>0,last=n===s.etapas.length-1,blue='#0064cf',red='#c94135',green='#00836d',muted='#557087';
+ const id=s.id,active=n>0||['tatil','ruido'].includes(id),last=n===s.etapas.length-1,blue='#0064cf',red='#c94135',green='#00836d',muted='#557087';
  const text=(x,y,t,c=muted,size=15)=>`<text x="${x}" y="${y}" fill="${c}" font-size="${size}" font-family="Arial">${t}</text>`;
  const rect=(x,y,w,h,c,r=7)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${c}"/>`;
  const path=(d,c=blue,width=3,dash='')=>`<path d="${d}" stroke="${c}" stroke-width="${width}" fill="none" ${dash?'stroke-dasharray="'+dash+'"':''}/>`;
@@ -71,7 +75,7 @@ function diagramaDemonstracao(s,n){
  let body='';
  if(id==='identificacao'&&n===2||id==='rastreabilidade'&&n===2){body=text(8,18,id==='identificacao'?'Peças funcionais, identidade desconhecida':'Contenção: de uma peça para um lote');for(let i=0;i<24;i++){const x=10+i%12*48,y=30+Math.floor(i/12)*33;body+=rect(x,y+8,39,17,'#b8c4ce',3)+[0,1,2,3].map(j=>rect(x+3+j*9,y,5,10,'#8da0af',2)).join('')+text(x+14,y+22,'?',red,18)}}
  else if(id==='identificacao'){body=['DATA','PEÇA','CAVIDADE'].map((v,i)=>rect(8+i*198,15,184,63,'#edf3f8')+text(20+i*198,38,v)+text(20+i*198,64,active?'SEM GRAVAÇÃO':['DATA*','PEÇA*','CAV.*'][i],active?red:blue,18)).join('');body+=text(8,103,'* Identificações didáticas, sem códigos de produção.',muted,12)}
- else if(['aparencia','tatil','ruido'].includes(id)){const k=['aparencia','tatil','ruido'].indexOf(id);body=text(8,18,'Intensidade do incômodo percebido');['Ligeiro · S2','Moderado · S3','Intenso · S4'].forEach((t,i)=>{body+=rect(8+i*198,30,184,30,i===k?blue:'#e4ebf1')+text(18+i*198,51,t,i===k?'white':muted,15)});if(id==='ruido'&&active){for(let i=0;i<30;i++){const h=9+Math.abs(Math.sin(i*1.3))*24;body+=`<rect class="spectrum-bar" style="animation-delay:-${i*.07}s" x="${12+i*14}" y="${103-h}" width="9" height="${h}" fill="${i>18?red:'#d79325'}"/>`}body+=text(445,97,'Spectre illustratif'.replace('Spectre illustratif','Espectro ilustrativo'),muted,13)}else body+=text(8,91,id==='aparencia'?'Três alterações de acabamento em regiões separadas':active?'Fluxo de ar preservado · representação ampliada':'Referência antes do efeito',green,16)}
+ else if(['aparencia','tatil','ruido'].includes(id)){const k=['aparencia','tatil','ruido'].indexOf(id);body=text(8,18,'Intensidade do incômodo percebido');['Ligeiro · S2','Moderado · S3','Intenso · S4'].forEach((t,i)=>{body+=rect(8+i*198,30,184,30,i===k?blue:'#e4ebf1')+text(18+i*198,51,t,i===k?'white':muted,15)});if(id==='ruido'&&active){for(let i=0;i<30;i++){const h=9+Math.abs(Math.sin(i*1.3))*24;body+=`<rect class="spectrum-bar" style="animation-delay:-${i*.07}s" x="${12+i*14}" y="${103-h}" width="9" height="${h}" fill="${i>18?red:'#d79325'}"/>`}body+=text(445,97,'Spectre illustratif'.replace('Spectre illustratif','Espectro ilustrativo'),muted,13)}else body+=text(8,91,id==='aparencia'?'Três alterações de acabamento em regiões separadas':id==='tatil'?'Lateral rugosa · linha de partição no topo · canto da flange':active?'Fluxo de ar preservado · representação ampliada':'Referência antes do efeito',green,16)}
  else if(id==='rastreabilidade'){const nodes=['Código 2D','Lote','Cavidade','Parâmetros'];nodes.forEach((v,i)=>{body+=rect(8+i*149,15,133,39,active?'#f9e9e5':'#e6f3ee')+text(17+i*149,40,v,active?red:green);if(i<3)body+=path(`M${141+i*149} 34h16`,active?red:green,3,active?'3 4':'')});body+=text(8,88,active?'Registros sem vínculo recuperável':'Peça, processo e matéria-prima conectados',active?red:green,18)}
  else if(id==='logistica'){body=['Peças soltas','Contato no transporte','Berços e separadores'].map((v,i)=>rect(8+i*198,22,184,49,n===i?i===1?'#f9e9e5':'#e4f3ed':'#edf1f5')+text(17+i*198,52,v,n===i?i===1?red:green:muted,14)).join('');body+=text(8,101,'Proteção das interfaces auxiliares · sequência ilustrativa',muted,13)}
  else if(id==='servico'){body=text(8,20,n===2||last?'Acesso liberado':'Acesso bloqueado',n===2||last?green:red,18);['Acessar fixador','Retirar vizinhos','Desconectar','Remontar'].forEach((v,i)=>body+=rect(8+i*149,35,133,34,i>0&&n!==1?'#edf1f5':'#fae9e4')+text(16+i*149,57,v,muted,13));body+=text(8,99,n===1?'Mais operações → mais tempo de serviço (sem escala numérica)':'O envelope deve permitir inserção e retirada da ferramenta.',muted,14)}

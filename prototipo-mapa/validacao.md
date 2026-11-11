@@ -1,5 +1,18 @@
 # Validação do protótipo
 
+## Refino S3/S4 — 11/11/2026
+
+- S3 e S4 têm uma única etapa, com efeitos ativos desde a entrada; o roteiro completo passa a 40 etapas. S1/S2 e as funções seguintes mantêm seus dados e etapas anteriores.
+- S3 inicia com rugosidade e duas mãos, sem representação de fluxo de ar. A linha de partição foi construída como ressalto sobre o topo do plenum, fora da lateral rugosa. O balão 2 coincide com esse relevo.
+- O balão 3 passa a identificar o canto superior direito da flange, com um contorno em L nas duas faces. Não há mais uma legenda de contato apontando para uma área sem elemento correspondente.
+- Os três alvos da S3 estão visíveis na entrada. Selecionar a linha em corte restaura a tampa; selecionar os detalhes permite vê-los sem ativar transparência.
+- S4 já inicia com a coloração azul, as ondas, o anel 3D, o espectro de 30 barras e a representação de ar preservados. A expansão do anel usa um volume máximo fixo para enquadramento; a animação não reposiciona a câmera.
+- Vibração angular limitada a ±0,0015 rad (cerca de ±0,086°). Nas três resoluções, a amostragem temporal confirmou variação zero na distância da câmera, com posição, zoom e escala constantes. O giro e o zoom manuais continuam disponíveis.
+- Testes específicos de S3/S4 e regressão geral aprovados em 1600×900, 1280×720 e 1280×960: 120 estados de demonstração, 135 focos de legenda e sete cenários de fade na mesma parada.
+- Sem erros JavaScript/WebGL reportados e sem conexões HTTP/HTTPS. Capturas específicas em `.producao/qa-s34/` e regressão em `.producao/qa-completa/`. Hash normalizado LF e resumos em `validacao-completa.json`.
+
+As seções abaixo são registros históricos de versões anteriores.
+
 ## Refino S1/S2 e transições — 11/11/2026
 
 - Fade entre funções da mesma parada limitado a `#slide-content`: painel branco, carro, câmera e mapa permanecem visíveis. O conteúdo é substituído na opacidade zero; o novo modelo já está desenhado antes de reaparecer.

@@ -6,11 +6,13 @@ A apresentação completa tem **15 funções e uma conclusão**, organizadas em 
 
 O carro percorre dez paradas. S6 e S7 têm três funções cada; S9 tem duas. Entre funções da mesma severidade, apenas o slide muda: o carro permanece na mesma parada. A barra inferior identifica esses slides como `6·1`, `6·2`, `6·3`, por exemplo.
 
-São **42 etapas reais**, sem uma fase adicional de inspeção. **Clique em Próxima etapa ou pressione → / Espaço** para continuar; ao final da sequência, o controle abre o próximo slide. **←** retorna uma etapa; na primeira, retorna à última etapa real do slide anterior. O coletor pode ser girado em qualquer etapa. A coluna esquerda fica reservada ao texto explicativo, sem mapeador de demonstração guiada ou botão de inspeção.
+São **40 etapas reais**, sem uma fase adicional de inspeção. **Clique em Próxima etapa ou pressione → / Espaço** para continuar; ao final da sequência, o controle abre o próximo slide. **←** retorna uma etapa; na primeira, retorna à última etapa real do slide anterior. O coletor pode ser girado em qualquer etapa. A coluna esquerda fica reservada ao texto explicativo, sem mapeador de demonstração guiada ou botão de inspeção.
 
 O coletor entra **completo** em todos os slides. Arraste para girar, use a roda ou − / + para zoom e selecione as legendas numeradas para localizar cada região. Corte e reenquadramento permanecem disponíveis. Transparência é um recurso dos slides a partir de S3; S1 e S2 não têm esse botão nem ativação automática de transparência pelas legendas.
 
 S1 e S2 não exibem animação de ar. S2 tem uma única etapa: manchas localizadas na lateral esquerda, marcas curvas de fluxo do polímero no topo central e uma mudança ampla de tonalidade no lado direito do topo, sem textura de manchas. O enquadramento permite comparar as três regiões. Entre funções da mesma parada, apenas o conteúdo desaparece e reaparece; o painel branco, o carro e a câmera do mapa permanecem estáveis.
+
+S3 e S4 também têm uma única etapa, já com os efeitos ativos. Na S3, a lateral rugosa e as mãos aparecem sem animação de ar; o balão 2 aponta para uma linha de partição em relevo no topo, e o balão 3 destaca o canto superior direito da flange. Na S4, as ondas, cores e espectro continuam animados, mas a câmera não acompanha a expansão das ondas: o coletor mantém somente uma vibração angular sutil. Giro e zoom manuais permanecem disponíveis.
 
 O painel ocupa 90% da largura e da altura, com uma faixa inferior exclusiva para navegação. Os gráficos, efeitos, fragmentos, tempos, distâncias e fluxos são ilustrativos, sem valores de ensaio ou simulação. S10 representa perda de assistência do servofreio e uma comparação qualitativa da distância de parada, **sem colisão**.
 

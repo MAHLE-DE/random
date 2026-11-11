@@ -19,8 +19,8 @@ As animações não avançam o roteiro automaticamente. Transporte, partículas 
 |---|---|---|
 | S1 | Identificação permanente | Campos identificados, apagamento e ampliação do conjunto sob investigação |
 | S2 | Aparência | Uma etapa: manchas na lateral, marcas curvas de fluxo no topo central e uma faixa ampla e lisa de tonalidade no topo direito |
-| S3 | Rugosidade e tato | Lateral rugosa do plenum, linha de partição e mãos ilustradas |
-| S4 | Ruído | Fluxo preservado, vibração leve, ondas e espectro visual |
+| S3 | Rugosidade e tato | Uma etapa: lateral rugosa e mãos, sem ar; linha de partição em relevo no topo e canto vivo destacado na flange |
+| S4 | Ruído | Uma etapa: vibração sutil, ondas e espectro ativos; enquadramento fixo, sem aproximar ou afastar automaticamente |
 | S5 | Embalagem, transporte e entrega | Peças em contêiner, contato, suporte deformado e separadores |
 | S6 · 1 | Rastreabilidade | Rede de registros, elos rompidos e contenção ampliada |
 | S6 · 2 | Manutenção e serviço | Ferramenta bloqueada, operações adicionais e corredor de acesso |
@@ -38,7 +38,7 @@ Fonte técnica: `../apresentacao_qualidade_completa.xlsx`, `Sheet1!B3:F17`. A no
 
 ## Edição e reprodução
 
-Edite o roteiro em `slides.json`; cada função tem `severidade`, `linha` de origem, textos, três alvos 3D e `etapas`. A severidade determina a parada. São 42 etapas reais. S1 e S2 não têm animação de ar ou função de transparência. S2 já inicia com os três efeitos visuais ativos. `configuracao.json` mantém somente as configurações do painel e do mapa. Execute `node prototipo-mapa/gerar.mjs` na raiz do repositório para atualizar `iniciar.html`.
+Edite o roteiro em `slides.json`; cada função tem `severidade`, `linha` de origem, textos, três alvos 3D e `etapas`. A severidade determina a parada. São 40 etapas reais. S1 e S2 não têm animação de ar ou função de transparência. S2 já inicia com os três efeitos visuais ativos. S3 e S4 também iniciam diretamente em sua única etapa. S3 não tem animação de ar; os balões 2 e 3 acompanham a linha em relevo no topo e o canto superior da flange, respectivamente. Selecionar a linha com a tampa em corte restaura a vista completa. Na S4, um volume conservador da onda define o enquadramento e a animação não recalcula a distância da câmera; somente uma rotação de até 0,0015 rad (cerca de 0,086°) para cada lado faz o coletor vibrar. Os controles manuais continuam funcionando. `configuracao.json` mantém somente as configurações do painel e do mapa. Execute `node prototipo-mapa/gerar.mjs` na raiz do repositório para atualizar `iniciar.html`.
 
 O painel tem 90% da largura e da altura, começando em 5% na horizontal e 2% na vertical para reservar a navegação inferior. O visor ocupa a coluna direita; diagramas, legendas e ferramentas têm linhas próprias, sem sobrepor o modelo. Nas trocas entre funções da mesma parada, o fade é aplicado a `#slide-content`, sem apagar o painel branco ou aplicar o véu global sobre o mapa. Conteúdo e controles são verificados em 1600×900, 1280×720 e 1280×960.
 

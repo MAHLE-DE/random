@@ -33,7 +33,15 @@ function criarEfeitosColetor(T,model){
   diffuseColor.rgb=mix(diffuseColor.rgb,tone,toneArea*0.88);
  }
 `)};
- const rim=root.getObjectByName('Plenum_borda_inferior'),edges=new T.LineSegments(new T.EdgesGeometry(rim.geometry,30),new T.LineBasicMaterial({color:'#b77d24'}));edges.name='Cantos_destacados_para_o_toque';root.add(edges);
+ // Exemplos táteis reais e separados da lateral rugosa: um ressalto no topo
+ // e o canto superior direito da flange, com contorno nas duas faces.
+ const V=(x,y,z)=>new T.Vector3(x,y,z),seam=new T.Group(),corner=new T.Group();
+ seam.name='Linha_de_particao_no_topo';corner.name='Canto_vivo_da_flange';model.upper.add(seam);root.add(corner);
+ function raisedLine(points,radius,color,parent){const path=new T.CurvePath();for(let i=1;i<points.length;i++)path.add(new T.LineCurve3(points[i-1],points[i]));const m=new T.Mesh(new T.TubeGeometry(path,32,radius,8,false),new T.MeshStandardMaterial({color,roughness:.66,metalness:.12}));m.castShadow=true;m.receiveShadow=true;parent.add(m);return m}
+ raisedLine([V(-1.95,1.208,.638),V(.30,1.208,.638)],.015,'#36434c',seam);
+ raisedLine([V(-1.95,1.216,.60),V(.30,1.216,.60)],.018,'#c6a36c',seam);
+ for(const z of [-3.095,-3.28])raisedLine([V(2.43,1.80,z),V(2.90,1.80,z),V(2.90,1.34,z)],.022,'#d8a542',corner);
+ const seamTarget=V(-.75,1.234,.60),cornerTarget=V(2.90,1.80,-3.095);
  // Relevo externo irregular, com bordas que se encontram com a parede real.
  const wall=root.getObjectByName('Plenum_parede_externa_inferior').geometry.getAttribute('position'),front=new Map();
  for(let i=0;i<wall.count;i++){const x=wall.getX(i),z=wall.getZ(i);if(z>1.1)front.set(x,Math.max(front.get(x)??-Infinity,z))}
@@ -45,6 +53,7 @@ function criarEfeitosColetor(T,model){
  const marking=root.getObjectByName('Superficies_de_marcacao_sem_gravacao'),highlight=root.getObjectByName('Destaques_didaticos_das_marcacoes');
  const labels=[];
  for(const [i,label]of ['DATA','PEÇA','CAV.'].entries()){const canvas=document.createElement('canvas');canvas.width=128;canvas.height=40;const ctx=canvas.getContext('2d');ctx.fillStyle='#c8d3da';ctx.font='bold 25px Arial';ctx.textAlign='center';ctx.fillText(label,64,29);const o=new T.Mesh(new T.PlaneGeometry(.52,.16),new T.MeshBasicMaterial({map:new T.CanvasTexture(canvas),transparent:true,side:T.DoubleSide}));o.position.set(-.93+i*.66,.31,1.834);root.add(o);labels.push(o)}
- function set(id,stage=0){const enabled=stage>0||id==='aparencia',index=enabled?['identificacao','aparencia','tatil','ruido'].indexOf(id):0;mode.value=index;marking.visible=highlight.visible=id==='identificacao'||id==='rastreabilidade';labels.forEach(o=>o.visible=id==='identificacao'&&stage===0);edges.visible=patch.visible=patchUpper.visible=id==='tatil'&&enabled;skin.color.copy(id==='tatil'&&enabled?new T.Color('#6b7477'):id==='quimica'&&enabled?new T.Color('#666c52'):baseColor);skin.roughness=id==='tatil'&&enabled?.96:id==='aparencia'?.50:.36;skin.bumpScale=id==='tatil'&&enabled?.105:0;skin.clearcoat=id==='tatil'&&enabled?0:.20;skin.emissive.set(id==='ruido'&&enabled?'#123d6e':'#000000');skin.emissiveIntensity=id==='ruido'&&enabled?.22:0}
- set('identificacao',0);return{set,nomes:['marcacoes','aparencia','tatil','ruido']};
+ function set(id,stage=0){const enabled=stage>0||['aparencia','tatil','ruido'].includes(id),index=enabled?['identificacao','aparencia','tatil','ruido'].indexOf(id):0;mode.value=index;marking.visible=highlight.visible=id==='identificacao'||id==='rastreabilidade';labels.forEach(o=>o.visible=id==='identificacao'&&stage===0);seam.visible=corner.visible=patch.visible=patchUpper.visible=id==='tatil'&&enabled;skin.color.copy(id==='tatil'&&enabled?new T.Color('#6b7477'):id==='quimica'&&enabled?new T.Color('#666c52'):baseColor);skin.roughness=id==='tatil'&&enabled?.96:id==='aparencia'?.50:.36;skin.bumpScale=id==='tatil'&&enabled?.105:0;skin.clearcoat=id==='tatil'&&enabled?0:.20;skin.emissive.set(id==='ruido'&&enabled?'#123d6e':'#000000');skin.emissiveIntensity=id==='ruido'&&enabled?.22:0}
+ function detalhesTateis(){return{linhaParticao:{visivel:seam.visible&&model.upper.visible,alvo:seamTarget.toArray(),malhas:seam.children.length},cantoVivo:{visivel:corner.visible,alvo:cornerTarget.toArray(),malhas:corner.children.length}}}
+ set('identificacao',0);return{set,detalhesTateis,nomes:['marcacoes','aparencia','tatil','ruido']};
 }

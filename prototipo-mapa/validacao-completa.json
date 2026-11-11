@@ -1,8 +1,8 @@
 {
   "data": "2026-11-11",
-  "revisao": "Refino S1/S2 e simplificação das etapas",
+  "revisao": "S3/S4 em etapa única, detalhes táteis e vibração sem zoom",
   "arquivo": "iniciar.html",
-  "sha256": "2b028ac28ba6ed3914f5bfa6cff6c89710816af0c4072d4ef6db76db4527037a",
+  "sha256": "c8b8b88267abc3e81cc9bf55d4ddb0c260f093d88aaddd80a9a13074e775fef5",
   "normalizacaoHash": "LF, conforme .gitattributes",
   "fonte": {
     "arquivo": "apresentacao_qualidade_completa.xlsx",
@@ -13,28 +13,43 @@
   "funcoes": 15,
   "slides": 16,
   "paradas": 10,
-  "etapas": 42,
+  "etapas": 40,
   "resolucoes": [
     {
       "width": 1600,
       "height": 900,
       "funcoes": 15,
-      "estados": 42,
-      "legendas": 45
+      "estados": 40,
+      "legendas": 45,
+      "ruido": {
+        "amostras": 62,
+        "variacaoDistancia": 0,
+        "amplitudeRotacao": 0.0029986748930484705
+      }
     },
     {
       "width": 1280,
       "height": 720,
       "funcoes": 15,
-      "estados": 42,
-      "legendas": 45
+      "estados": 40,
+      "legendas": 45,
+      "ruido": {
+        "amostras": 62,
+        "variacaoDistancia": 0,
+        "amplitudeRotacao": 0.002998780819400062
+      }
     },
     {
       "width": 1280,
       "height": 960,
       "funcoes": 15,
-      "estados": 42,
-      "legendas": 45
+      "estados": 40,
+      "legendas": 45,
+      "ruido": {
+        "amostras": 62,
+        "variacaoDistancia": 0,
+        "amplitudeRotacao": 0.002997695794721477
+      }
     }
   ],
   "erros": [],
@@ -136,75 +151,157 @@
       "de": "rastreabilidade",
       "para": "servico",
       "tipo": "next",
-      "quadros": 39,
+      "quadros": 41,
       "opacidadeMinimaConteudo": 0,
-      "painelPermanente": true,
-      "carroECameraEstaveis": true
+      "painelPermanente": true
     },
     {
       "de": "servico",
       "para": "producao",
       "tipo": "next",
-      "quadros": 40,
+      "quadros": 42,
       "opacidadeMinimaConteudo": 0,
-      "painelPermanente": true,
-      "carroECameraEstaveis": true
+      "painelPermanente": true
     },
     {
       "de": "quimica",
       "para": "limpeza",
       "tipo": "next",
-      "quadros": 38,
+      "quadros": 41,
       "opacidadeMinimaConteudo": 0,
-      "painelPermanente": true,
-      "carroECameraEstaveis": true
+      "painelPermanente": true
     },
     {
       "de": "limpeza",
       "para": "distribuicao",
       "tipo": "next",
-      "quadros": 41,
+      "quadros": 42,
       "opacidadeMinimaConteudo": 0,
-      "painelPermanente": true,
-      "carroECameraEstaveis": true
+      "painelPermanente": true
     },
     {
       "de": "backfire",
       "para": "estanqueidade",
       "tipo": "next",
-      "quadros": 39,
+      "quadros": 42,
       "opacidadeMinimaConteudo": 0,
-      "painelPermanente": true,
-      "carroECameraEstaveis": true
+      "painelPermanente": true
     },
     {
       "de": "producao",
       "para": "servico",
       "tipo": "back",
-      "quadros": 40,
+      "quadros": 41,
       "opacidadeMinimaConteudo": 0,
-      "painelPermanente": true,
-      "carroECameraEstaveis": true
+      "painelPermanente": true
     },
     {
       "de": "rastreabilidade",
       "para": "producao",
       "tipo": "select",
-      "quadros": 40,
+      "quadros": 42,
       "opacidadeMinimaConteudo": 0,
-      "painelPermanente": true,
-      "carroECameraEstaveis": true
+      "painelPermanente": true
+    }
+  ],
+  "s34": [
+    {
+      "width": 1600,
+      "height": 900,
+      "tatil": {
+        "linhaParticao": {
+          "visivel": true,
+          "alvo": [
+            -0.75,
+            1.234,
+            0.6
+          ],
+          "malhas": 2
+        },
+        "cantoVivo": {
+          "visivel": true,
+          "alvo": [
+            2.9,
+            1.8,
+            -3.095
+          ],
+          "malhas": 2
+        }
+      },
+      "ruido": {
+        "frames": 68,
+        "variacaoDistancia": 0,
+        "amplitudeRotacao": 0.002998606437590076
+      }
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "tatil": {
+        "linhaParticao": {
+          "visivel": true,
+          "alvo": [
+            -0.75,
+            1.234,
+            0.6
+          ],
+          "malhas": 2
+        },
+        "cantoVivo": {
+          "visivel": true,
+          "alvo": [
+            2.9,
+            1.8,
+            -3.095
+          ],
+          "malhas": 2
+        }
+      },
+      "ruido": {
+        "frames": 68,
+        "variacaoDistancia": 0,
+        "amplitudeRotacao": 0.0029985005112384824
+      }
+    },
+    {
+      "width": 1280,
+      "height": 960,
+      "tatil": {
+        "linhaParticao": {
+          "visivel": true,
+          "alvo": [
+            -0.75,
+            1.234,
+            0.6
+          ],
+          "malhas": 2
+        },
+        "cantoVivo": {
+          "visivel": true,
+          "alvo": [
+            2.9,
+            1.8,
+            -3.095
+          ],
+          "malhas": 2
+        }
+      },
+      "ruido": {
+        "frames": 68,
+        "variacaoDistancia": 0,
+        "amplitudeRotacao": 0.002998507276427962
+      }
     }
   ],
   "checks": [
-    "42 etapas reais; nenhuma fase extra de inspeção",
-    "Coluna esquerda somente com texto; mapeador e botão de inspeção removidos",
-    "S1/S2 sem objetos ou animações de fluxo de ar, sem transparência manual ou automática",
-    "S2 tem uma etapa e os três efeitos já ativos: manchas laterais, marcas de fluxo e faixa de tom no topo",
-    "Rotação em todas as etapas de S1/S2, nos últimos cenários das demais funções e nos três tamanhos de tela",
-    "135 focos de legenda visíveis, corte e zoom máximo",
-    "Sete fades na mesma parada: painel branco e mapa estáveis, conteúdo chega a zero e retorna, novo modelo desenhado antes de reaparecer",
-    "Funções S3 a S10 mantêm textos e etapas anteriores, removendo apenas a antiga inspeção final",
-    "Zero erros reportados de JavaScript/WebGL e zero solicitações HTTP/HTTPS"
+    "S3/S4 iniciam diretamente em sua única etapa; 40 etapas no roteiro completo",
+    "S3 com rugosidade e duas mãos, sem objetos nem animação de fluxo de ar",
+    "Linha de partição em relevo no topo, com alvo coincidente e retorno à vista completa ao selecionar sua legenda em corte",
+    "Canto superior direito da flange destacado em ambas as faces e ligado ao balão 3",
+    "Três balões S3 visíveis na entrada e alvos focados sem transparência",
+    "S4 com cores, ondas, fluxo e 30 barras de espectro preservados; oscilação limitada a 0,0015 rad por lado",
+    "Câmera, distância, zoom e escala constantes durante a animação de S4 nas três resoluções",
+    "Giro, corte, zoom e sete transições na mesma parada sem regressões",
+    "Zero erros JS/WebGL reportados e zero solicitações HTTP/HTTPS"
   ]
 }
