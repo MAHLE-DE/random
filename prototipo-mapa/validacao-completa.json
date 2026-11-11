@@ -1,8 +1,8 @@
 {
   "data": "2026-11-11",
-  "revisao": "S3/S4 em etapa única, detalhes táteis e vibração sem zoom",
+  "revisao": "Frases sensoriais completas, caixa de transporte e rastreabilidade 3D",
   "arquivo": "iniciar.html",
-  "sha256": "c8b8b88267abc3e81cc9bf55d4ddb0c260f093d88aaddd80a9a13074e775fef5",
+  "sha256": "7b8db1a504b2b238630ade0e6172804ab32ceaabd2cf040a9c472e0ebffa6cbc",
   "normalizacaoHash": "LF, conforme .gitattributes",
   "fonte": {
     "arquivo": "apresentacao_qualidade_completa.xlsx",
@@ -13,42 +13,42 @@
   "funcoes": 15,
   "slides": 16,
   "paradas": 10,
-  "etapas": 40,
+  "etapas": 39,
   "resolucoes": [
     {
       "width": 1600,
       "height": 900,
       "funcoes": 15,
-      "estados": 40,
+      "estados": 39,
       "legendas": 45,
       "ruido": {
-        "amostras": 62,
+        "amostras": 59,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.0029986748930484705
+        "amplitudeRotacao": 0.002998209674770792
       }
     },
     {
       "width": 1280,
       "height": 720,
       "funcoes": 15,
-      "estados": 40,
+      "estados": 39,
       "legendas": 45,
       "ruido": {
-        "amostras": 62,
+        "amostras": 59,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.002998780819400062
+        "amplitudeRotacao": 0.0029973825172723723
       }
     },
     {
       "width": 1280,
       "height": 960,
       "funcoes": 15,
-      "estados": 40,
+      "estados": 39,
       "legendas": 45,
       "ruido": {
-        "amostras": 62,
+        "amostras": 59,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.002997695794721477
+        "amplitudeRotacao": 0.002996728121630505
       }
     }
   ],
@@ -151,7 +151,7 @@
       "de": "rastreabilidade",
       "para": "servico",
       "tipo": "next",
-      "quadros": 41,
+      "quadros": 34,
       "opacidadeMinimaConteudo": 0,
       "painelPermanente": true
     },
@@ -159,7 +159,7 @@
       "de": "servico",
       "para": "producao",
       "tipo": "next",
-      "quadros": 42,
+      "quadros": 40,
       "opacidadeMinimaConteudo": 0,
       "painelPermanente": true
     },
@@ -167,7 +167,7 @@
       "de": "quimica",
       "para": "limpeza",
       "tipo": "next",
-      "quadros": 41,
+      "quadros": 40,
       "opacidadeMinimaConteudo": 0,
       "painelPermanente": true
     },
@@ -175,7 +175,7 @@
       "de": "limpeza",
       "para": "distribuicao",
       "tipo": "next",
-      "quadros": 42,
+      "quadros": 39,
       "opacidadeMinimaConteudo": 0,
       "painelPermanente": true
     },
@@ -183,7 +183,7 @@
       "de": "backfire",
       "para": "estanqueidade",
       "tipo": "next",
-      "quadros": 42,
+      "quadros": 40,
       "opacidadeMinimaConteudo": 0,
       "painelPermanente": true
     },
@@ -191,7 +191,7 @@
       "de": "producao",
       "para": "servico",
       "tipo": "back",
-      "quadros": 41,
+      "quadros": 40,
       "opacidadeMinimaConteudo": 0,
       "painelPermanente": true
     },
@@ -199,109 +199,571 @@
       "de": "rastreabilidade",
       "para": "producao",
       "tipo": "select",
-      "quadros": 42,
+      "quadros": 39,
       "opacidadeMinimaConteudo": 0,
       "painelPermanente": true
     }
   ],
-  "s34": [
+  "produto": [
     {
       "width": 1600,
       "height": 900,
-      "tatil": {
-        "linhaParticao": {
-          "visivel": true,
-          "alvo": [
-            -0.75,
-            1.234,
-            0.6
-          ],
-          "malhas": 2
+      "titulos": [
+        {
+          "text": "Sensação percebida ligeiramente desagradável",
+          "width": 528,
+          "scroll": 528,
+          "height": 29.15625,
+          "font": 24.3036,
+          "line": 29.1644
         },
-        "cantoVivo": {
-          "visivel": true,
-          "alvo": [
-            2.9,
-            1.8,
-            -3.095
+        {
+          "text": "Sensação percebida moderadamente desagradável",
+          "width": 528,
+          "scroll": 528,
+          "height": 26.9375,
+          "font": 22.4512,
+          "line": 26.9415
+        },
+        {
+          "text": "Sensação percebida muito desagradável",
+          "width": 528,
+          "scroll": 528,
+          "height": 33.59375,
+          "font": 28,
+          "line": 33.6
+        }
+      ],
+      "embalagem": {
+        "id": "logistica",
+        "stage": 1,
+        "didatico": true,
+        "juntas": 4,
+        "juntaDeslocada": 2,
+        "limitadoresMontados": 6,
+        "limitadoresSoltos": 2,
+        "furosSemLimitador": [
+          0,
+          6
+        ],
+        "abertura": 1,
+        "etiquetaExterna": "Etiqueta_da_caixa",
+        "detalhes": {
+          "abas": [
+            3.02,
+            -3.02
           ],
-          "malhas": 2
+          "juntas": [
+            {
+              "posicao": [
+                -1.8,
+                1.12,
+                -3.315
+              ],
+              "rotacao": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "posicao": [
+                -0.6,
+                1.12,
+                -3.315
+              ],
+              "rotacao": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "posicao": [
+                0.6,
+                1.165,
+                -3.3649999999999998
+              ],
+              "rotacao": [
+                0.26,
+                -0.18,
+                0
+              ]
+            },
+            {
+              "posicao": [
+                1.8,
+                1.12,
+                -3.315
+              ],
+              "rotacao": [
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "montados": [
+            [
+              -2.63,
+              1.61,
+              -3.285
+            ],
+            [
+              2.63,
+              0.69,
+              -3.285
+            ],
+            [
+              2.63,
+              1.61,
+              -3.285
+            ],
+            [
+              -1.8,
+              1.66,
+              -3.285
+            ],
+            [
+              -0.6,
+              1.66,
+              -3.285
+            ],
+            [
+              1.8,
+              1.66,
+              -3.285
+            ]
+          ],
+          "caidos": [
+            [
+              3.18,
+              -0.085,
+              -1.12
+            ],
+            [
+              3.05,
+              -0.085,
+              -1.76
+            ]
+          ]
         }
       },
-      "ruido": {
-        "frames": 68,
-        "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.002998606437590076
-      }
+      "rastreio": [
+        {
+          "id": "rastreabilidade",
+          "stage": 0,
+          "didatico": true,
+          "qrPayload": "DEMO|PN:K24-DEMO-001|LOT:L26-041|CAV:04|SN:DEMO-0001",
+          "registroAdequado": true,
+          "partNumber": "K24-DEMO-001",
+          "lote": "L26-041",
+          "pecasLote": 1,
+          "interrogacoes": 0,
+          "detalhes": {}
+        },
+        {
+          "id": "rastreabilidade",
+          "stage": 1,
+          "didatico": true,
+          "qrPayload": "DEMO|PN:K24-DEMO-001|LOT:L26-041|CAV:04|SN:DEMO-0001",
+          "registroAdequado": false,
+          "partNumber": "???",
+          "lote": "?????",
+          "pecasLote": 1,
+          "interrogacoes": 2,
+          "detalhes": {}
+        },
+        {
+          "id": "rastreabilidade",
+          "stage": 2,
+          "didatico": true,
+          "qrPayload": "DEMO|PN:K24-DEMO-001|LOT:L26-041|CAV:04|SN:DEMO-0001",
+          "registroAdequado": false,
+          "partNumber": "???",
+          "lote": "?????",
+          "pecasLote": 6,
+          "interrogacoes": 6,
+          "detalhes": {}
+        }
+      ]
     },
     {
       "width": 1280,
       "height": 720,
-      "tatil": {
-        "linhaParticao": {
-          "visivel": true,
-          "alvo": [
-            -0.75,
-            1.234,
-            0.6
-          ],
-          "malhas": 2
+      "titulos": [
+        {
+          "text": "Sensação percebida ligeiramente desagradável",
+          "width": 426,
+          "scroll": 426,
+          "height": 23.53125,
+          "font": 19.6123,
+          "line": 23.5348
         },
-        "cantoVivo": {
-          "visivel": true,
-          "alvo": [
-            2.9,
-            1.8,
-            -3.095
+        {
+          "text": "Sensação percebida moderadamente desagradável",
+          "width": 426,
+          "scroll": 426,
+          "height": 21.703125,
+          "font": 18.0976,
+          "line": 21.7171
+        },
+        {
+          "text": "Sensação percebida muito desagradável",
+          "width": 426,
+          "scroll": 426,
+          "height": 25.1875,
+          "font": 21,
+          "line": 25.2
+        }
+      ],
+      "embalagem": {
+        "id": "logistica",
+        "stage": 1,
+        "didatico": true,
+        "juntas": 4,
+        "juntaDeslocada": 2,
+        "limitadoresMontados": 6,
+        "limitadoresSoltos": 2,
+        "furosSemLimitador": [
+          0,
+          6
+        ],
+        "abertura": 1,
+        "etiquetaExterna": "Etiqueta_da_caixa",
+        "detalhes": {
+          "abas": [
+            3.02,
+            -3.02
           ],
-          "malhas": 2
+          "juntas": [
+            {
+              "posicao": [
+                -1.8,
+                1.12,
+                -3.315
+              ],
+              "rotacao": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "posicao": [
+                -0.6,
+                1.12,
+                -3.315
+              ],
+              "rotacao": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "posicao": [
+                0.6,
+                1.165,
+                -3.3649999999999998
+              ],
+              "rotacao": [
+                0.26,
+                -0.18,
+                0
+              ]
+            },
+            {
+              "posicao": [
+                1.8,
+                1.12,
+                -3.315
+              ],
+              "rotacao": [
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "montados": [
+            [
+              -2.63,
+              1.61,
+              -3.285
+            ],
+            [
+              2.63,
+              0.69,
+              -3.285
+            ],
+            [
+              2.63,
+              1.61,
+              -3.285
+            ],
+            [
+              -1.8,
+              1.66,
+              -3.285
+            ],
+            [
+              -0.6,
+              1.66,
+              -3.285
+            ],
+            [
+              1.8,
+              1.66,
+              -3.285
+            ]
+          ],
+          "caidos": [
+            [
+              3.18,
+              -0.085,
+              -1.12
+            ],
+            [
+              3.05,
+              -0.085,
+              -1.76
+            ]
+          ]
         }
       },
-      "ruido": {
-        "frames": 68,
-        "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.0029985005112384824
-      }
+      "rastreio": [
+        {
+          "id": "rastreabilidade",
+          "stage": 0,
+          "didatico": true,
+          "qrPayload": "DEMO|PN:K24-DEMO-001|LOT:L26-041|CAV:04|SN:DEMO-0001",
+          "registroAdequado": true,
+          "partNumber": "K24-DEMO-001",
+          "lote": "L26-041",
+          "pecasLote": 1,
+          "interrogacoes": 0,
+          "detalhes": {}
+        },
+        {
+          "id": "rastreabilidade",
+          "stage": 1,
+          "didatico": true,
+          "qrPayload": "DEMO|PN:K24-DEMO-001|LOT:L26-041|CAV:04|SN:DEMO-0001",
+          "registroAdequado": false,
+          "partNumber": "???",
+          "lote": "?????",
+          "pecasLote": 1,
+          "interrogacoes": 2,
+          "detalhes": {}
+        },
+        {
+          "id": "rastreabilidade",
+          "stage": 2,
+          "didatico": true,
+          "qrPayload": "DEMO|PN:K24-DEMO-001|LOT:L26-041|CAV:04|SN:DEMO-0001",
+          "registroAdequado": false,
+          "partNumber": "???",
+          "lote": "?????",
+          "pecasLote": 6,
+          "interrogacoes": 6,
+          "detalhes": {}
+        }
+      ]
     },
     {
       "width": 1280,
       "height": 960,
-      "tatil": {
-        "linhaParticao": {
-          "visivel": true,
-          "alvo": [
-            -0.75,
-            1.234,
-            0.6
-          ],
-          "malhas": 2
+      "titulos": [
+        {
+          "text": "Sensação percebida ligeiramente desagradável",
+          "width": 410,
+          "scroll": 410,
+          "height": 22.609375,
+          "font": 18.8437,
+          "line": 22.6125
         },
-        "cantoVivo": {
-          "visivel": true,
-          "alvo": [
-            2.9,
-            1.8,
-            -3.095
+        {
+          "text": "Sensação percebida moderadamente desagradável",
+          "width": 410,
+          "scroll": 410,
+          "height": 20.875,
+          "font": 17.408,
+          "line": 20.8896
+        },
+        {
+          "text": "Sensação percebida muito desagradável",
+          "width": 410,
+          "scroll": 410,
+          "height": 26.296875,
+          "font": 21.9165,
+          "line": 26.2999
+        }
+      ],
+      "embalagem": {
+        "id": "logistica",
+        "stage": 1,
+        "didatico": true,
+        "juntas": 4,
+        "juntaDeslocada": 2,
+        "limitadoresMontados": 6,
+        "limitadoresSoltos": 2,
+        "furosSemLimitador": [
+          0,
+          6
+        ],
+        "abertura": 1,
+        "etiquetaExterna": "Etiqueta_da_caixa",
+        "detalhes": {
+          "abas": [
+            3.02,
+            -3.02
           ],
-          "malhas": 2
+          "juntas": [
+            {
+              "posicao": [
+                -1.8,
+                1.12,
+                -3.315
+              ],
+              "rotacao": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "posicao": [
+                -0.6,
+                1.12,
+                -3.315
+              ],
+              "rotacao": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "posicao": [
+                0.6,
+                1.165,
+                -3.3649999999999998
+              ],
+              "rotacao": [
+                0.26,
+                -0.18,
+                0
+              ]
+            },
+            {
+              "posicao": [
+                1.8,
+                1.12,
+                -3.315
+              ],
+              "rotacao": [
+                0,
+                0,
+                0
+              ]
+            }
+          ],
+          "montados": [
+            [
+              -2.63,
+              1.61,
+              -3.285
+            ],
+            [
+              2.63,
+              0.69,
+              -3.285
+            ],
+            [
+              2.63,
+              1.61,
+              -3.285
+            ],
+            [
+              -1.8,
+              1.66,
+              -3.285
+            ],
+            [
+              -0.6,
+              1.66,
+              -3.285
+            ],
+            [
+              1.8,
+              1.66,
+              -3.285
+            ]
+          ],
+          "caidos": [
+            [
+              3.18,
+              -0.085,
+              -1.12
+            ],
+            [
+              3.05,
+              -0.085,
+              -1.76
+            ]
+          ]
         }
       },
-      "ruido": {
-        "frames": 68,
-        "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.002998507276427962
-      }
+      "rastreio": [
+        {
+          "id": "rastreabilidade",
+          "stage": 0,
+          "didatico": true,
+          "qrPayload": "DEMO|PN:K24-DEMO-001|LOT:L26-041|CAV:04|SN:DEMO-0001",
+          "registroAdequado": true,
+          "partNumber": "K24-DEMO-001",
+          "lote": "L26-041",
+          "pecasLote": 1,
+          "interrogacoes": 0,
+          "detalhes": {}
+        },
+        {
+          "id": "rastreabilidade",
+          "stage": 1,
+          "didatico": true,
+          "qrPayload": "DEMO|PN:K24-DEMO-001|LOT:L26-041|CAV:04|SN:DEMO-0001",
+          "registroAdequado": false,
+          "partNumber": "???",
+          "lote": "?????",
+          "pecasLote": 1,
+          "interrogacoes": 2,
+          "detalhes": {}
+        },
+        {
+          "id": "rastreabilidade",
+          "stage": 2,
+          "didatico": true,
+          "qrPayload": "DEMO|PN:K24-DEMO-001|LOT:L26-041|CAV:04|SN:DEMO-0001",
+          "registroAdequado": false,
+          "partNumber": "???",
+          "lote": "?????",
+          "pecasLote": 6,
+          "interrogacoes": 6,
+          "detalhes": {}
+        }
+      ]
     }
   ],
   "checks": [
-    "S3/S4 iniciam diretamente em sua única etapa; 40 etapas no roteiro completo",
-    "S3 com rugosidade e duas mãos, sem objetos nem animação de fluxo de ar",
-    "Linha de partição em relevo no topo, com alvo coincidente e retorno à vista completa ao selecionar sua legenda em corte",
-    "Canto superior direito da flange destacado em ambas as faces e ligado ao balão 3",
-    "Três balões S3 visíveis na entrada e alvos focados sem transparência",
-    "S4 com cores, ondas, fluxo e 30 barras de espectro preservados; oscilação limitada a 0,0015 rad por lado",
-    "Câmera, distância, zoom e escala constantes durante a animação de S4 nas três resoluções",
-    "Giro, corte, zoom e sete transições na mesma parada sem regressões",
+    "Frases de sensação percebida de S2/S3/S4 completas, em uma linha, sem truncamento, nas três resoluções",
+    "Caixa fechada e abertura de duas abas, partindo da orientação deixada pelo apresentador",
+    "Quatro juntas nos bocais; apenas uma parcialmente deslocada; seis limitadores montados e dois soltos no fundo",
+    "Vista superior inclinada após a abertura e alvos das legendas visíveis",
+    "Rastreabilidade em três etapas, com QR, part number, lote, série e cavidade didáticos coerentes",
+    "Interrogações no 3D e lote ampliado de seis coletores com geometria compartilhada",
+    "39 etapas, 117 estados/resoluções, 135 focos de legenda e sete cenários de fade sem regressões",
+    "Giro, corte e zoom manuais, vibração de S4 sem zoom e reapresentação das cenas verificados",
     "Zero erros JS/WebGL reportados e zero solicitações HTTP/HTTPS"
   ]
 }

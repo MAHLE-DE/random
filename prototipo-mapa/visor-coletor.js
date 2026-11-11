@@ -12,7 +12,7 @@ function criarVisorColetor(T,{visivel=()=>true}={}){
  const r=new T.WebGLRenderer({antialias:true,alpha:true});r.setClearColor(0xffffff,0);r.setPixelRatio(Math.min(devicePixelRatio,1.5));r.shadowMap.enabled=true;r.shadowMap.type=T.PCFSoftShadowMap;r.shadowMap.autoUpdate=false;r.toneMapping=T.ACESFilmicToneMapping;r.outputColorSpace=T.SRGBColorSpace;host.prepend(r.domElement);
  r.domElement.setAttribute('aria-label','Coletor 3D: arraste para girar e use a roda do mouse para aproximar');
  const c=new T.PerspectiveCamera(34,1,.1,120),initialDirection=V(-.42,.30,1.35).normalize(),direction=initialDirection.clone(),target=V();
- let width=0,height=0,cut=false,drag=null,rendered=0,zoom=1.1,focus=false,framing=null,slide=-1,stage=-1,current=null,selected=-1,transparent=false,clock=0,pending=true;
+ let width=0,height=0,cut=false,drag=null,rendered=0,zoom=1.1,focus=false,framing=null,slide=-1,stage=-1,current=null,selected=-1,transparent=false,clock=0,pending=true,viewTween=null;
  const pins=[0,1,2].map(i=>{const b=document.createElement('button');b.type='button';b.className='model-pin';b.textContent=i+1;b.addEventListener('click',()=>focusTarget(i));host.appendChild(b);return b});
  const raycaster=new T.Raycaster();
  // A nuvem usa os vértices reais de todas as peças visíveis. É preparada uma vez
@@ -22,7 +22,7 @@ function criarVisorColetor(T,{visivel=()=>true}={}){
   model.root.updateWorldMatrix(true,true);let cache=pointCache.get(cut);
   if(!cache){const local=[],unique=new Set(),inverse=new T.Matrix4().copy(pivot.matrixWorld).invert();model.root.traverseVisible(o=>{if(!o.geometry||isDemo(o))return;const attr=o.geometry.getAttribute('position'),matrix=new T.Matrix4().multiplyMatrices(inverse,o.matrixWorld);for(let i=0;i<attr.count;i++){const p=V().fromBufferAttribute(attr,i).applyMatrix4(matrix),key=p.x+','+p.y+','+p.z;if(!unique.has(key)){unique.add(key);local.push(p)}}});cache={local,world:local.map(()=>V())};pointCache.set(cut,cache)}
   // As demonstrações também entram no enquadramento, por seus limites atuais.
-  const bounds=demo.limitesEnquadramento();if(!bounds.isEmpty()){const inverse=new T.Matrix4().copy(pivot.matrixWorld).invert();for(const x of [bounds.min.x,bounds.max.x])for(const y of [bounds.min.y,bounds.max.y])for(const z of [bounds.min.z,bounds.max.z])cache.world.push(V(x,y,z).applyMatrix4(inverse))}
+  const bounds=demo.limitesEnquadramento(selected>=0);if(!bounds.isEmpty()){const inverse=new T.Matrix4().copy(pivot.matrixWorld).invert();for(const x of [bounds.min.x,bounds.max.x])for(const y of [bounds.min.y,bounds.max.y])for(const z of [bounds.min.z,bounds.max.z])cache.world.push(V(x,y,z).applyMatrix4(inverse))}
   for(let i=0;i<cache.local.length;i++)cache.world[i].copy(cache.local[i]).applyMatrix4(pivot.matrixWorld);const extra=cache.world.splice(cache.local.length);return cache.world.concat(extra.map(p=>p.applyMatrix4(pivot.matrixWorld)));
  }
  function position(){
@@ -45,10 +45,11 @@ function criarVisorColetor(T,{visivel=()=>true}={}){
  }
  function screenPoint(point){const p=model.root.localToWorld(point.clone()).project(c);return{x:(p.x*.5+.5)*width,y:(-p.y*.5+.5)*height}}
  function isDemo(o){for(let p=o;p;p=p.parent)if(p===demo.group)return true;return false}
+ function getTargets(){return demo.alvos()||current.alvos}
  function updatePin(){if(!current)return;model.root.updateWorldMatrix(true,true);
   const surfaces=[];model.root.traverseVisible(o=>{if(o.isMesh&&!isDemo(o))surfaces.push(o)});
-  current.alvos.forEach((a,i)=>{const p=model.root.localToWorld(V(...a)),v=p.clone().project(c),distance=c.position.distanceTo(p);raycaster.set(c.position,p.clone().sub(c.position).normalize());const hit=transparent?null:raycaster.intersectObjects(surfaces,false)[0],occluded=!!hit&&hit.distance<distance-.25,featureVisible=!(current.id==='tatil'&&i===1&&cut);const visible=featureVisible&&!occluded&&Math.abs(v.x)<.94&&Math.abs(v.y)<.88&&v.z>-1&&v.z<1;
-   pins[i].classList.toggle('hidden',!visible);pins[i].classList.toggle('selected',selected===i);pins[i].style.left=((v.x*.5+.5)*width-14)+'px';pins[i].style.top=((-v.y*.5+.5)*height-38)+'px';pins[i].title=current.legendas[i];
+  getTargets().forEach((a,i)=>{const p=model.root.localToWorld(V(...a)),v=p.clone().project(c),distance=c.position.distanceTo(p);raycaster.set(c.position,p.clone().sub(c.position).normalize());const hit=transparent?null:raycaster.intersectObjects(surfaces,false)[0],occluded=!!hit&&hit.distance<distance-.25,featureVisible=!(current.id==='tatil'&&i===1&&cut)&&!(current.id==='rastreabilidade'&&cut);const visible=featureVisible&&!occluded&&Math.abs(v.x)<.94&&Math.abs(v.y)<.88&&v.z>-1&&v.z<1;
+   pins[i].classList.toggle('hidden',!visible);pins[i].classList.toggle('selected',selected===i);pins[i].style.left=((v.x*.5+.5)*width-14)+'px';pins[i].style.top=((-v.y*.5+.5)*height-38)+'px';pins[i].title=(current.legendasPorEtapa?.[stage]||current.legendas)[i];
    const legend=$('legenda-'+i).parentElement;legend.classList.toggle('selected',selected===i);legend.setAttribute('aria-pressed',String(selected===i));legend.querySelector('small').textContent=!featureVisible?'Localizar na vista completa':visible?'Localizado no modelo':'Clique para orientar a vista';
   });
   const touch=current.id==='tatil',sound=current.id==='ruido';
@@ -59,14 +60,25 @@ function criarVisorColetor(T,{visivel=()=>true}={}){
  function render(){if(!visivel()||host.clientWidth<1){pending=true;return}r.shadowMap.needsUpdate=true;r.render(studio,c);rendered++;pending=false;updatePin()}
  function refresh(){position();render()}
  function resize(){const w=host.clientWidth,h=host.clientHeight;if(w<1||h<1)return;if(w!==width||h!==height){width=w;height=h;r.setSize(w,h);c.aspect=w/h;c.updateProjectionMatrix();refresh()}}
- function reset(){pivot.rotation.set(0,0,0);zoom=current?.id==='aparencia'?1.15:1.1;focus=false;selected=-1;direction.copy(current?.id==='vacuo'?V(1.4,.55,1).normalize():current?.id==='aparencia'?V(-.42,.82,1.35).normalize():current?.id==='tatil'?V(-.42,.62,1.35).normalize():initialDirection);refresh()}
- function zoomBy(factor){zoom=clamp(zoom*factor,.6,1.25);refresh()}
+ function reset(){viewTween=null;pivot.rotation.set(0,0,0);zoom=current?.id==='aparencia'?1.15:current?.id==='rastreabilidade'&&stage===2?1.25:1.1;focus=false;selected=-1;const presentation=demo.apresentacao();direction.copy(presentation?V(...presentation.direction).normalize():current?.id==='vacuo'?V(1.4,.55,1).normalize():current?.id==='aparencia'?V(-.42,.82,1.35).normalize():current?.id==='tatil'?V(-.42,.62,1.35).normalize():initialDirection);refresh()}
+ function zoomBy(factor){viewTween=null;zoom=clamp(zoom*factor,.6,1.25);refresh()}
  function permiteTransparencia(){return current&&!['identificacao','aparencia'].includes(current.id)}
- function setCut(on){cut=on;pointCache.clear();model.corte(cut);$('coletor-corte').setAttribute('aria-pressed',String(cut));$('coletor-corte').textContent=cut?'Vista completa':'Vista em corte'}
- function focusTarget(i){if(!current)return;selected=i;const a=current.alvos[i];if(current.id==='tatil'&&i===1&&cut)setCut(false);pivot.rotation.set(0,0,0);direction.copy(current.id==='tatil'&&i===1?V(-.16,1.25,1).normalize():current.id==='tatil'&&i===2?V(.65,.65,-1).normalize():current.id==='aparencia'&&i>0?V(-.12,1.6,.9).normalize():V(a[2]<-1?-.2:a[0]>2.7?1.1:0,.32,a[2]<-1?-1:1).normalize());zoom=1.25;focus=true;refresh();if(permiteTransparencia()&&pins[i].classList.contains('hidden')){setTransparency(true);refresh()}}
+ function setCut(on){cut=on;pointCache.clear();model.corte(cut);demo.corte(cut);$('coletor-corte').setAttribute('aria-pressed',String(cut));$('coletor-corte').textContent=cut?'Vista completa':'Vista em corte'}
+ function focusTarget(i){if(!current)return;viewTween=null;selected=i;const a=getTargets()[i],presentation=demo.apresentacao();if(cut&&(current.id==='rastreabilidade'||current.id==='tatil'&&i===1))setCut(false);pivot.rotation.set(0,0,0);direction.copy(presentation?V(...presentation.direction).normalize():current.id==='tatil'&&i===1?V(-.16,1.25,1).normalize():current.id==='tatil'&&i===2?V(.65,.65,-1).normalize():current.id==='aparencia'&&i>0?V(-.12,1.6,.9).normalize():V(a[2]<-1?-.2:a[0]>2.7?1.1:0,.32,a[2]<-1?-1:1).normalize());zoom=1.25;focus=true;refresh();if(permiteTransparencia()&&pins[i].classList.contains('hidden')){setTransparency(true);refresh()}}
  function setTransparency(on){on=!!on&&permiteTransparencia();transparent=!!on;for(const [m,base]of materials){m.opacity=on?Math.min(base.opacity,.22):base.opacity;m.transparent=on||base.transparent;m.depthWrite=on?false:base.depthWrite;m.needsUpdate=true}$('coletor-transparencia').setAttribute('aria-pressed',String(transparent))}
- function mostrarSlide(index,n=0){if(index===slide&&stage===n)return;slide=index;stage=n;current=CONFIG.slides[index];clock=0;effects.set(current.id,n);demo.set(current,n);pointCache.clear();cut=false;model.corte(false);setTransparency(['limpeza','distribuicao','agua','backfire'].includes(current.id));$('coletor-transparencia').classList.toggle('hidden',!permiteTransparencia());$('coletor-transparencia').disabled=!permiteTransparencia();key.position.set(current.id==='aparencia'?-5:-4,current.id==='aparencia'?4:8,7);$('coletor-corte').setAttribute('aria-pressed','false');$('coletor-corte').textContent='Vista em corte';$('diagrama').innerHTML=diagramaDemonstracao(current,n);reset();if(current.id==='identificacao'&&n===1){direction.copy(V(0,.2,1).normalize());zoom=1.25;refresh()}}
- r.domElement.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY};r.domElement.setPointerCapture(e.pointerId);e.stopPropagation()});
+ function mostrarSlide(index,n=0){
+  if(index===slide&&stage===n)return;
+  const preserve=index===slide&&current?.id==='logistica'&&stage===0&&n===1,from={direction:direction.clone(),rotation:pivot.rotation.clone(),zoom};
+  slide=index;stage=n;current=CONFIG.slides[index];clock=0;viewTween=null;effects.set(current.id,n);demo.set(current,n);pointCache.clear();cut=false;model.corte(false);
+  setTransparency(['limpeza','distribuicao','agua','backfire'].includes(current.id));$('coletor-transparencia').classList.toggle('hidden',!permiteTransparencia());$('coletor-transparencia').disabled=!permiteTransparencia();
+  key.position.set(current.id==='aparencia'?-5:-4,current.id==='aparencia'?4:8,7);$('coletor-corte').setAttribute('aria-pressed','false');$('coletor-corte').textContent='Vista em corte';$('diagrama').innerHTML=diagramaDemonstracao(current,n);
+  if(current.id==='logistica'&&n===1){
+   const dest=V(...demo.apresentacao().direction).normalize();if(!preserve){from.direction=V(-.75,.8,1.4).normalize();from.rotation=new T.Euler();from.zoom=1.1}
+   direction.copy(from.direction);pivot.rotation.copy(from.rotation);zoom=from.zoom;focus=false;selected=-1;viewTween={...from,to:dest,time:0,duration:2.4};refresh();
+  }else reset();
+  if(current.id==='identificacao'&&n===1){direction.copy(V(0,.2,1).normalize());zoom=1.25;refresh()}
+ }
+ r.domElement.addEventListener('pointerdown',e=>{viewTween=null;drag={x:e.clientX,y:e.clientY};r.domElement.setPointerCapture(e.pointerId);e.stopPropagation()});
  r.domElement.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;pivot.rotation.y+=dx*.009;pivot.rotation.x=clamp(pivot.rotation.x+dy*.007,-.60,.60);drag={x:e.clientX,y:e.clientY};refresh()});
  r.domElement.addEventListener('pointerup',()=>{drag=null});r.domElement.addEventListener('pointercancel',()=>{drag=null});r.domElement.addEventListener('wheel',e=>{e.preventDefault();zoomBy(Math.exp(-e.deltaY*.0012))},{passive:false});
  $('coletor-menos').addEventListener('click',()=>zoomBy(1/1.2));$('coletor-mais').addEventListener('click',()=>zoomBy(1.2));$('coletor-marcas').addEventListener('click',()=>focusTarget(selected<0?0:(selected+1)%3));
@@ -74,6 +86,6 @@ function criarVisorColetor(T,{visivel=()=>true}={}){
  $('coletor-transparencia').addEventListener('click',()=>{setTransparency(!transparent);refresh()});
  $('coletor-corte').addEventListener('click',()=>{setCut(!cut);refresh()});
  $('coletor-restaurar').addEventListener('click',reset);new ResizeObserver(resize).observe(host);
- function update(dt){if(!visivel()||!current)return;clock+=dt;const changed=demo.tick(dt);if(changed||pending){if(current.id==='ruido'){pivot.rotation.z=Math.sin(clock*32)*.0015;if(pending)position();render()}else refresh()}}
- return{resize,reset,mostrarSlide,update,exportar:cut=>criarColetorK24(T).exportar(cut),estado:()=>({cut,rendered,width,height,zoom,focus,slide,stage,transparent,selected,modo:current?.id,demo:demo.estado(),maos:current?.id==='tatil'?2:0,ondas:current?.id==='ruido',detalhesTateis:effects.detalhesTateis(),camera:{position:c.position.toArray(),distance:c.position.distanceTo(target),fov:c.fov},escala:pivot.scale.toArray(),enquadramento:framing,marcacoesAusentes:current?.id==='identificacao'&&stage>0?3:0,dutos:model.runners.length,rotation:pivot.rotation.toArray().slice(0,3),alvos:pins.map(p=>!p.classList.contains('hidden'))})};
+ function update(dt){if(!visivel()||!current)return;clock+=dt;const changed=demo.tick(dt);let movingView=false;if(viewTween){movingView=true;const t=viewTween;t.time+=dt;const q=clamp(t.time/t.duration,0,1),u=q*q*(3-2*q);direction.lerpVectors(t.direction,t.to,u).normalize();pivot.rotation.set(t.rotation.x*(1-u),Math.atan2(Math.sin(t.rotation.y),Math.cos(t.rotation.y))*(1-u),t.rotation.z*(1-u));zoom=T.MathUtils.lerp(t.zoom,1.1,u);if(q===1)viewTween=null}if(changed||pending||movingView){if(current.id==='ruido'){pivot.rotation.z=Math.sin(clock*32)*.0015;if(pending)position();render()}else refresh()}}
+ return{resize,reset,mostrarSlide,update,exportar:cut=>criarColetorK24(T).exportar(cut),estado:()=>({cut,rendered,width,height,zoom,focus,slide,stage,transparent,selected,modo:current?.id,demo:demo.estado(),animandoVista:!!viewTween,maos:current?.id==='tatil'?2:0,ondas:current?.id==='ruido',detalhesTateis:effects.detalhesTateis(),camera:{position:c.position.toArray(),direction:direction.toArray(),distance:c.position.distanceTo(target),fov:c.fov},escala:pivot.scale.toArray(),enquadramento:framing,marcacoesAusentes:current?.id==='identificacao'&&stage>0?3:0,dutos:model.runners.length,rotation:pivot.rotation.toArray().slice(0,3),alvosLocais:current?getTargets():[],alvos:pins.map(p=>!p.classList.contains('hidden'))})};
 }

@@ -21,8 +21,8 @@ As animações não avançam o roteiro automaticamente. Transporte, partículas 
 | S2 | Aparência | Uma etapa: manchas na lateral, marcas curvas de fluxo no topo central e uma faixa ampla e lisa de tonalidade no topo direito |
 | S3 | Rugosidade e tato | Uma etapa: lateral rugosa e mãos, sem ar; linha de partição em relevo no topo e canto vivo destacado na flange |
 | S4 | Ruído | Uma etapa: vibração sutil, ondas e espectro ativos; enquadramento fixo, sem aproximar ou afastar automaticamente |
-| S5 | Embalagem, transporte e entrega | Peças em contêiner, contato, suporte deformado e separadores |
-| S6 · 1 | Rastreabilidade | Rede de registros, elos rompidos e contenção ampliada |
+| S5 | Embalagem, transporte e entrega | Duas etapas: caixa fechada; abertura por duas abas com vista superior, uma junta parcialmente solta, seis limitadores montados e dois caídos |
+| S6 · 1 | Rastreabilidade | QR e identificadores na peça; campos ausentes com interrogações no 3D; lote ampliado com seis réplicas sem vínculo |
 | S6 · 2 | Manutenção e serviço | Ferramenta bloqueada, operações adicionais e corredor de acesso |
 | S6 · 3 | Produção e montagem interna | Moldagem, união, linha bloqueada e envelopes corrigidos |
 | S7 · 1 | Resistência química | Referência e exposição, fissuras, inserto e redução do fluxo |
@@ -38,7 +38,13 @@ Fonte técnica: `../apresentacao_qualidade_completa.xlsx`, `Sheet1!B3:F17`. A no
 
 ## Edição e reprodução
 
-Edite o roteiro em `slides.json`; cada função tem `severidade`, `linha` de origem, textos, três alvos 3D e `etapas`. A severidade determina a parada. São 40 etapas reais. S1 e S2 não têm animação de ar ou função de transparência. S2 já inicia com os três efeitos visuais ativos. S3 e S4 também iniciam diretamente em sua única etapa. S3 não tem animação de ar; os balões 2 e 3 acompanham a linha em relevo no topo e o canto superior da flange, respectivamente. Selecionar a linha com a tampa em corte restaura a vista completa. Na S4, um volume conservador da onda define o enquadramento e a animação não recalcula a distância da câmera; somente uma rotação de até 0,0015 rad (cerca de 0,086°) para cada lado faz o coletor vibrar. Os controles manuais continuam funcionando. `configuracao.json` mantém somente as configurações do painel e do mapa. Execute `node prototipo-mapa/gerar.mjs` na raiz do repositório para atualizar `iniciar.html`.
+S2–S4 apresentam a frase completa “Sensação percebida … desagradável”, com ajuste de fonte para uma linha. S5 abre a tampa em uma animação de 2,4 segundos, simultaneamente à mudança de vista; a orientação inicial é a deixada pelo apresentador. Uma interação manual interrompe apenas o movimento automático da vista. As abas continuam a abrir e a cena final fica livre para giro e zoom. Ao focar uma legenda interna, o enquadramento prioriza o coletor e os componentes, permitindo que partes externas das abas saiam da janela.
+
+A etiqueta em S6.1 contém um QR válido que codifica texto didático local, sem URL externa: part number `K24-DEMO-001`, lote `L26-041`, cavidade `04` e série `DEMO-0001`. A matriz está em `codigo-rastreabilidade.json` e é incorporada pelo gerador. Não é um código de produção. Na última etapa, as seis peças reutilizam a geometria existente e têm indicadores de identificação ausente.
+
+Para a regressão específica, execute `node prototipo-mapa/verificar-embalagem-rastreio.mjs`. Capturas e relatório ficam em `.producao/qa-embalagem-rastreio/`.
+
+Edite o roteiro em `slides.json`; cada função tem `severidade`, `linha` de origem, textos, três alvos 3D e `etapas`. A severidade determina a parada. São 39 etapas reais. S1 e S2 não têm animação de ar ou função de transparência. S2 já inicia com os três efeitos visuais ativos. S3 e S4 também iniciam diretamente em sua única etapa. S3 não tem animação de ar; os balões 2 e 3 acompanham a linha em relevo no topo e o canto superior da flange, respectivamente. Selecionar a linha com a tampa em corte restaura a vista completa. Na S4, um volume conservador da onda define o enquadramento e a animação não recalcula a distância da câmera; somente uma rotação de até 0,0015 rad (cerca de 0,086°) para cada lado faz o coletor vibrar. Os controles manuais continuam funcionando. `configuracao.json` mantém somente as configurações do painel e do mapa. Execute `node prototipo-mapa/gerar.mjs` na raiz do repositório para atualizar `iniciar.html`.
 
 O painel tem 90% da largura e da altura, começando em 5% na horizontal e 2% na vertical para reservar a navegação inferior. O visor ocupa a coluna direita; diagramas, legendas e ferramentas têm linhas próprias, sem sobrepor o modelo. Nas trocas entre funções da mesma parada, o fade é aplicado a `#slide-content`, sem apagar o painel branco ou aplicar o véu global sobre o mapa. Conteúdo e controles são verificados em 1600×900, 1280×720 e 1280×960.
 

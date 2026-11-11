@@ -16,6 +16,7 @@ __COLETOR_SOURCE__
 __VISIBILITY_SOURCE__
 __EFFECTS_SOURCE__
 __DEMOS_SOURCE__
+__CENAS_PRODUTO_SOURCE__
 __VISOR_SOURCE__
 try {
 const scene=new T.Scene();scene.background=new T.Color('#b4c99b');
@@ -299,7 +300,7 @@ function finishWreck(){car.position.copy(wreckPosition);car.quaternion.copy(dire
 function beginCrash(rolling=false){const speed=rolling?(stops[LAST_STOP]-stops[LAST_STOP-1])*total/TRAVEL_DURATION:escapeLength/.85;crash={time:0,impacted:false,rolling,speed,contactTime:escapeLength/speed+(rolling?0:.08),travelled:0,initialLook:look.clone(),initialBoom:boom.clone()};appendSkids();ui()}
 function setContent(){
  const end=pageIndex===PAGE_END,busy=!!motion||!!cameraTween||!!fade&&!fade.contentOnly,s=CONFIG.slides[pageIndex];
- $('conteudo').className='content'+(end?' conclusion':' model-slide')+(busy?' absent':'');
+ $('conteudo').className='content'+(end?' conclusion':' model-slide')+(busy?' absent':'')+(!end&&['logistica','rastreabilidade'].includes(s.id)?' large-scene':'');
  $('titulo-parada').textContent=end?'CONCLUSÃO · JORNADA DA QUALIDADE':`SEVERIDADE ${s.severidade} · EFEITO NO SISTEMA`;
  $('titulo').textContent=end?'Uma peça. Muitos efeitos.':s.titulo;
  $('descricao').textContent=end?'Da identificação ao fornecimento de vácuo: a consequência no sistema orienta a avaliação.':s.funcao;
@@ -308,13 +309,15 @@ function setContent(){
   const same=CONFIG.slides.filter(p=>p.severidade===s.severidade),part=same.indexOf(s)+1;
   $('sistema-contexto').textContent=`EFEITO NO SISTEMA · S${s.severidade}`+(same.length>1?` · FUNÇÃO ${part}/${same.length}`:'');
   $('exemplos-contexto').textContent=s.severidade===1?'RESSALVA PARA A MAHLE':'EXEMPLOS · CONSEQUÊNCIA OBSERVADA';
-  $('sistema-titulo').textContent=s.sistemaTitulo;$('sistema-texto').textContent=s.sistemaTexto;
+  $('sistema-titulo').textContent=s.sistemaTitulo;$('sistema-titulo').classList.toggle('perceived-effect',[2,3,4].includes(s.severidade));$('sistema-texto').textContent=s.sistemaTexto;
   $('mahle-titulo').textContent=s.exemplosTitulo;$('mahle-texto').textContent=s.exemplosTexto;$('mahle-destaque').textContent=s.destaque;
-  $('modelo-caption').textContent=s.id==='aparencia'?'MANCHAS NA LATERAL · MARCAS E VARIAÇÃO DE TOM NO TOPO':s.etapas[demoStep][0]+' · Arraste para girar';
-  s.legendas.forEach((v,i)=>$('legenda-'+i).textContent=v);
-  manifoldView.mostrarSlide(pageIndex,demoStep);requestAnimationFrame(()=>manifoldView.resize());
+  $('modelo-caption').textContent=s.id==='aparencia'?'MANCHAS NA LATERAL · MARCAS E VARIAÇÃO DE TOM NO TOPO':s.id==='rastreabilidade'&&demoStep===2?'LOTE DEMONSTRATIVO · 6 PEÇAS SEM VÍNCULO · Arraste para girar':s.etapas[demoStep][0]+' · Arraste para girar';
+  (s.legendasPorEtapa?.[demoStep]||s.legendas).forEach((v,i)=>$('legenda-'+i).textContent=v);
+  manifoldView.mostrarSlide(pageIndex,demoStep);requestAnimationFrame(()=>{manifoldView.resize();fitSensationTitle()});
  }
 }
+function fitSensationTitle(){const el=$('sistema-titulo');el.style.removeProperty('font-size');if(!el.classList.contains('perceived-effect')||!el.clientWidth)return;const size=parseFloat(getComputedStyle(el).fontSize);if(el.scrollWidth>el.clientWidth)el.style.fontSize=(size*(el.clientWidth-2)/el.scrollWidth)+'px'}
+new ResizeObserver(fitSensationTitle).observe($('sistema-titulo').parentElement);
 function ensureSelectedVisible(){
  const list=$('numeros'),item=$('etapa-'+pageIndex),left=item.offsetLeft-list.offsetLeft;
  if(left<list.scrollLeft)list.scrollTo({left,behavior:'smooth'});

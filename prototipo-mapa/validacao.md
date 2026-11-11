@@ -1,5 +1,18 @@
 # Validação do protótipo
 
+## Frases sensoriais, embalagem e rastreabilidade — 11/11/2026
+
+- S2–S4 usam as frases completas “Sensação percebida ligeiramente/moderadamente/muito desagradável”. A fonte é dimensionada pela largura disponível, sem corte ou reticências; as três frases foram verificadas em uma linha nos três tamanhos de tela.
+- S5 foi reconstruída em duas etapas: caixa de papelão opaca e fechada; abertura por duas abas articuladas e vista superior inclinada. A animação dura 2,4 segundos e começa na orientação deixada pelo apresentador, sem salto inicial. O movimento automático da vista pode ser interrompido por interação manual.
+- Quatro juntas são posicionadas nos bocais dos runners; uma fica parcialmente deslocada. Seis limitadores de compressão metálicos atravessam furos existentes e dois ficam soltos no fundo. A seleção das legendas prioriza os detalhes internos no enquadramento.
+- S6.1 mantém três etapas. A primeira tem etiqueta com QR, part number, lote, série e cavidade; a segunda mostra campos ausentes e interrogações no 3D; a terceira amplia o problema para seis réplicas do coletor. Marcas de canto demarcam a região de identificação.
+- O QR codifica somente texto demonstrativo local, coerente com os identificadores impressos. A matriz de 33 módulos está incluída no repositório e no HTML, sem dependência de rede ou de biblioteca de QR na apresentação.
+- Área 3D ampliada em S5 e S6.1, com legendas por etapa e alvos ancorados nos elementos correspondentes. As réplicas compartilham geometria, e a saída/reentrada do lote foi testada para evitar invalidação do modelo original.
+- Testes específicos aprovados em 1600×900, 1280×720 e 1280×960. Regressão geral: 117 estados, 135 focos de legenda, sete transições na mesma parada e navegação pelas 15 funções. S4 mantém sua distância de câmera constante durante a vibração.
+- Sem erros JavaScript/WebGL reportados e sem conexões HTTP/HTTPS. Capturas em `.producao/qa-embalagem-rastreio/` e `.producao/qa-completa/`. Hash LF e resumos em `validacao-completa.json`.
+
+As seções abaixo são registros históricos de versões anteriores.
+
 ## Refino S3/S4 — 11/11/2026
 
 - S3 e S4 têm uma única etapa, com efeitos ativos desde a entrada; o roteiro completo passa a 40 etapas. S1/S2 e as funções seguintes mantêm seus dados e etapas anteriores.

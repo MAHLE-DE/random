@@ -8,6 +8,9 @@
 .first-content{grid-template-columns:minmax(0,41fr) minmax(0,59fr);gap:30px;margin-top:20px}
 .meaning{gap:18px;padding:0}
 .meaning h2{font-size:clamp(21px,1.75vw,31px);margin-bottom:8px}
+.meaning h2.perceived-effect{white-space:nowrap;line-height:1.2}
+.large-scene .diagram{display:none}
+.large-scene .model-pane{grid-template-rows:auto minmax(120px,1fr) auto auto}
 .meaning p{font-size:clamp(17px,1.35vw,25px);line-height:1.38}
 .meaning .emphasis{font-size:clamp(15px,1.09vw,20px);line-height:1.35;margin-top:10px}
 .section-kicker{font-size:clamp(11px,.85vw,16px);margin-bottom:6px}

@@ -1,7 +1,7 @@
 // Sequências ilustrativas: o relógio anima só a etapa atual; nunca avança o roteiro.
 function criarDemonstracoes(T,model){
  const V=(x=0,y=0,z=0)=>new T.Vector3(x,y,z),group=new T.Group();group.name='Demonstracoes_didaticas';model.root.add(group);
- const blue='#167de0',red='#dc4c38',green='#159c79',amber='#d99622';let current=null,step=0,elapsed=0,animated=false,actors=[],noiseBounds=null;
+ const blue='#167de0',red='#dc4c38',green='#159c79',amber='#d99622';let current=null,step=0,elapsed=0,animated=false,actors=[],noiseBounds=null,special=null;
  function mat(color,opacity=1){return new T.MeshStandardMaterial({color,roughness:.5,metalness:.12,transparent:opacity<1,opacity,depthWrite:opacity===1,side:T.DoubleSide})}
  function mesh(g,color,p,scale,opacity=1){const o=new T.Mesh(g,mat(color,opacity));if(p)o.position.copy(p);if(scale)o.scale.copy(scale);group.add(o);return o}
  const box=(p,s,c=blue,o=1)=>mesh(new T.BoxGeometry(1,1,1),c,p,s,o);
@@ -21,9 +21,10 @@ function criarDemonstracoes(T,model){
  }
  function crack(){const paths=[[-1.4,-.7,-.9,-.4,-.15,.05],[.3,.55,.45,.9,1.1,1.3]];for(const path of paths)line(path.map((x,i)=>V(x,.93-i*.1,1.85)),red,.025)}
  function vacuum(broken){const p=[V(2.65,.7,.5),V(3.25,.7,.5),V(3.3,1.1,.5),V(3.85,1.1,.5)];line(p,broken?'#a6b0b7':green,.075);const booster=mesh(new T.CylinderGeometry(.48,.48,.22,28),broken?'#9da8af':green,V(3.9,1.1,.5));booster.rotation.z=Math.PI/2;box(V(2.8,.7,.5),V(.35,.18,.22),broken?red:green);if(broken){box(V(3.16,.7,.5),V(.15,.2,.23),red);ring(V(3.16,.7,.5),.3,red)}}
- function clear(){for(const o of [...group.children]){o.traverse(n=>{n.geometry?.dispose();if(n.material){for(const m of Array.isArray(n.material)?n.material:[n.material])m.dispose()}});group.remove(o)}actors=[]}
+ function clear(){special?.dispose();special=null;for(const o of [...group.children]){o.traverse(n=>{if(!n.userData.sharedGeometry)n.geometry?.dispose();if(n.material&&!n.userData.sharedMaterial){for(const m of Array.isArray(n.material)?n.material:[n.material])m.dispose()}});group.remove(o)}actors=[]}
  function set(s,n){
   current=s;step=n;elapsed=0;clear();noiseBounds=null;const id=s.id,active=n>0;animated=true;group.visible=true;
+  special=criarCenaProduto(T,model,group,id,n);if(special){animated=special.animated;return}
   if(id==='ruido'){
    flow();
    const o=ring(V(0,1.5,.7),1.3,amber);o.scale.setScalar(1.3);actors.push(t=>{o.scale.setScalar(.8+(t%1)*.5);o.material.opacity=1-t%1;o.material.transparent=true});
@@ -31,11 +32,6 @@ function criarDemonstracoes(T,model){
    group.updateWorldMatrix(true,true);const inverse=group.matrixWorld.clone().invert();noiseBounds=new T.Box3();
    group.traverse(m=>{if(!m.geometry)return;m.geometry.computeBoundingBox();noiseBounds.union(m.geometry.boundingBox.clone().applyMatrix4(new T.Matrix4().multiplyMatrices(inverse,m.matrixWorld)))});noiseBounds.expandByScalar(.06);
   }
-  if(id==='logistica'){
-   const support=box(V(2.9,.6,.6),V(.55,.18,.45),active?red:amber);if(active)support.rotation.z=.4;
-   {const a=proxy(-.2,-4.6),b=proxy(.2,4.6);box(V(0,-.3,.3),V(7,.2,13),'#7e8e98',.28);if(n===1)actors.push(t=>{const u=Math.min(t/1.4,1);a.position.z=-4.6+u*.7;b.position.z=4.6-u*.7;support.rotation.z=u*.5});if(n===2){for(const z of [-2.7,2.9])box(V(0,.6,z),V(6,2,.22),green,.32);for(const x of [-2.5,2.5])box(V(x,0,.5),V(.25,.4,11),green,.32)}}
-  }
-  if(id==='rastreabilidade'){box(V(-.9,.31,1.85),V(.5,.17,.045),active?red:green);if(n===1)ring(V(-.9,.31,1.9),.4,red)}
   if(id==='servico'){
    const target=V(2.63,1.61,-3.18);ring(target,.22,amber);{const obstacle=box(V(2.65,2.4,-2),V(1.7,1.2,1.7),n===2?green:'#8899a9',.24),tool=line([V(2.65,3.8,-3),V(2.65,2,-3),target],n===2?green:red,.10);if(n<2)actors.push(t=>{tool.position.y=.1*Math.sin(t*3)});else obstacle.position.x+=2;line([target,V(2.65,4,-3.18)],n===2?green:red,.18,.2)}
   }
@@ -60,9 +56,9 @@ function criarDemonstracoes(T,model){
   if(id==='vacuo'){vacuum(active);if(n===0)flow()}
   animated=actors.length>0;
  }
- function tick(dt){if(!animated)return false;elapsed+=dt;actors.forEach(f=>f(elapsed));return true}
- function limitesEnquadramento(){group.updateWorldMatrix(true,true);return noiseBounds?noiseBounds.clone().applyMatrix4(group.matrixWorld):new T.Box3().setFromObject(group)}
- return{set,tick,group,limitesEnquadramento,estado:()=>({id:current?.id,step,animated,elapsed,objetos:group.children.length})};
+ function tick(dt){if(!animated)return false;elapsed+=dt;if(special)animated=special.update(elapsed);else actors.forEach(f=>f(elapsed));return true}
+ function limitesEnquadramento(focused=false){group.updateWorldMatrix(true,true);return special?.bounds(focused)||(noiseBounds?noiseBounds.clone().applyMatrix4(group.matrixWorld):new T.Box3().setFromObject(group))}
+ return{set,tick,group,limitesEnquadramento,alvos:()=>special?.targets(),corte:on=>special?.corte(on),apresentacao:()=>special?.presentation,estado:()=>({id:current?.id,step,animated,elapsed,objetos:group.children.length,cena:special?.info()})};
 }
 
 // Diagramas vetoriais complementam o 3D com relações que uma cor isolada não explica.
