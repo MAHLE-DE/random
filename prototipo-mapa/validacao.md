@@ -1,5 +1,18 @@
 # Validação do protótipo
 
+## Acidente, servofreio e encerramento — 11/11/2026
+
+- A estrada passou a ter entrada e saída independentes, com extremidades fora da tela no zoom final. O traçado não se cruza no plano XZ, e a distância entre trechos não adjacentes supera a largura total dos acostamentos. O teste geométrico usa os mesmos controles, curvas e amostragem da malha da apresentação. O raio mínimo é maior que a meia largura da estrada com margem, evitando dobras nas bordas internas.
+- A região da parada 10 forma uma curva. Ao sair de S9.2, o carro se aproxima e sai pela tangente, atingindo uma árvore fora do asfalto aos três segundos. A câmera acompanha a saída sem interromper o movimento. Os efeitos existentes de marcas no solo, amassamento, fogo e fumaça foram reaproveitados.
+- S10 permanece oculto durante a aproximação, a batida e o início do fogo. O enquadramento foi verificado em 25 posições da sequência por resolução para retirar árvores que encobriam o carro. O teste registra o tempo real do impacto, exige apenas um impacto e verifica fogo e deformação antes da entrada do slide.
+- O slide tem uma única etapa em loop de 14 segundos, alternando circuito livre e conector obstruído. A mangueira mostra partículas e setas do masterback à admissão. A janela didática no conector permite enxergar a obstrução; a câmera aproxima o ponto e aparece uma exclamação vermelha. A assistência é explicada com a reserva de vácuo e o aumento de esforço no pedal. Fontes primárias da Bosch e HELLA estão em `referencias-servofreio.md`.
+- A conclusão ocupa 40% da largura à esquerda e resume a contribuição dos setores para a qualidade do projeto. O “OBRIGADO!” grande e branco aparece à direita depois do zoom e da entrada da conclusão. Texto, navegação e modelo não se sobrepõem nas três resoluções verificadas.
+- Navegação direta, repetição do acidente, retorno da conclusão e cancelamento durante a saída foram testados. O cancelamento limpa fogo, deformação e estado de colisão. A volta da conclusão mantém a cena do acidente.
+- A regressão geral passou em 1600×900, 1280×720 e 1280×960: 13 funções, 14 telas, 25 etapas reais, 75 estados/resoluções, 117 focos de legenda e cinco fades na mesma parada. O painel branco permanece estável nesses fades.
+- Nenhuma nova dependência externa, erro JavaScript/WebGL ou requisição HTTP/HTTPS durante a execução offline. Capturas e relatórios em `.producao/qa-final/` e `.producao/qa-completa/`. Hash LF e resumos em `validacao-completa.json`.
+
+As seções abaixo registram versões anteriores.
+
 ## Retorno de chama e trinca no injetado — 11/11/2026
 
 - S9.1 foi reconstruído em duas etapas. O texto usa retorno de chama pela admissão, ignição da mistura e pico de pressão. A dessincronia é o cenário mostrado; não é apresentada como causa exclusiva. A relação com emissões é descrita como risco possível decorrente de perda de integridade e fugas. As referências primárias da Honda e Raetech estão em `referencias-backfire.md`.

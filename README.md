@@ -6,7 +6,7 @@ A apresentação tem **13 funções e uma conclusão**, organizadas em dez sever
 
 O carro percorre dez paradas. S6, S7 e S9 têm duas funções cada. Entre funções da mesma severidade, apenas o slide muda: o carro permanece na mesma parada. Após `6·2`, a sequência segue diretamente para `7·1`. A distribuição de ar ocupa `7·2`, após resistência química.
 
-São **28 etapas reais**, sem uma fase adicional de inspeção. **Clique em Próxima etapa ou pressione → / Espaço** para continuar; ao final da sequência, o controle abre o próximo slide. **←** retorna uma etapa; na primeira, retorna à última etapa real do slide anterior. O coletor pode ser girado em qualquer etapa. A coluna esquerda fica reservada ao texto explicativo, sem mapeador de demonstração guiada ou botão de inspeção.
+São **25 etapas reais**, sem uma fase adicional de inspeção. **Clique em Próxima etapa ou pressione → / Espaço** para continuar; ao final da sequência, o controle abre o próximo slide. **←** retorna uma etapa; na primeira, retorna à última etapa real do slide anterior. O coletor pode ser girado em qualquer etapa. A coluna esquerda fica reservada ao texto explicativo, sem mapeador de demonstração guiada ou botão de inspeção.
 
 O coletor entra **completo** em todos os slides. Arraste para girar, use a roda ou − / + para zoom e selecione as legendas numeradas para localizar cada região. Corte e reenquadramento permanecem disponíveis. O botão de transparência existe somente no slide de distribuição de ar, que começa com o recurso ativado. Os efeitos de transparência usados nas demais demonstrações seguem seu roteiro.
 
@@ -28,7 +28,11 @@ S8 tem duas etapas: condensação nas paredes com uma pequena entrada de água p
 
 S9.1 mostra retorno de chama em duas etapas. A primeira repete um ciclo lento de 16 segundos: injeção, pistão subindo com admissão aberta, retorno da mistura, propagação da chama e ignição no coletor. A câmera alterna suavemente entre a câmara e o pleno. A segunda encerra o loop, torna o coletor opaco e aproxima uma fissura que cresce e se ramifica na parede moldada. O texto relaciona o pico de pressão à perda de integridade e ao possível comprometimento dos requisitos de emissões. A dessincronia é um cenário ilustrado; veja as [referências técnicas](prototipo-mapa/referencias-backfire.md).
 
-O painel ocupa 90% da largura e da altura, com uma faixa inferior exclusiva para navegação. Os gráficos, efeitos, fragmentos, tempos, distâncias e fluxos são ilustrativos, sem valores de ensaio ou simulação. S10 representa perda de assistência do servofreio e uma comparação qualitativa da distância de parada, **sem colisão**.
+Ao sair de S9.2, a aproximação da curva e a saída pela tangente levam à batida em uma árvore aos três segundos. A deformação, as marcas no solo e o fogo reaproveitam os efeitos existentes. S10 aparece depois do impacto e do início do fogo e tem uma única etapa em loop: ar do masterback em direção ao coletor, seguido de obstrução do conector, aproximação e exclamação vermelha. O texto explica a perda de assistência após o consumo da reserva de vácuo. Veja as [referências técnicas do servofreio](prototipo-mapa/referencias-servofreio.md).
+
+A estrada atravessa o mapa com duas extremidades fora da tela, sem fechar circuito nem cruzar a si mesma. A conclusão faz o zoom geral e ocupa 40% da largura à esquerda, destacando a integração entre projeto, validação, processo, fornecedores, montagem, logística e serviço. “OBRIGADO!” aparece grande e branco à direita após a conclusão entrar.
+
+Os demais slides ocupam 90% da largura e da altura, com uma faixa inferior exclusiva para navegação. Os gráficos, efeitos, fragmentos, tempos, distâncias e fluxos são ilustrativos, sem valores de ensaio ou simulação.
 
 ## Desenvolvimento
 

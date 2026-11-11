@@ -9,8 +9,8 @@ function criarVisibilidadeMapa(T,{vegetation,forestPoints,carCorners,labels,stop
  function worldParts(t){if(!t.visionParts){const all=new T.Box3();t.visionParts=bands[t.variant].map(({box,folhas})=>{const b=box.clone().applyMatrix4(t.matrix);all.union(b);return{points:corners(b),folhas}});t.visionBounds=corners(all)}return t.visionParts}
  tree.updateMatrixWorld(true);const impact={variant:12,matrix:tree.matrixWorld.clone()};
  function targets(p,i,crash){const matrix=new T.Matrix4().compose(p.clone().add(V(0,-.06,0)),crash?crashQuaternion():orient(stops[i]),V(1,1,1)),car=project(carCorners.map(c=>c.clone().applyMatrix4(matrix))),m=labels[i].base.position,b=new T.Box3(V(m.x-2.55,m.y-.1,m.z-2.55),V(m.x+2.55,m.y+.3,m.z+2.55));return{car,numero:project(corners(b))}}
- function audit(pose,i,{crash=false,nearby=forestPoints}={}){
-  camera=pose.camera;const p=crash?wreckPosition.clone().add(V(0,.06,0)):pose.point,rect=targets(p,i,crash),blockers=[];let car=0,numero=0;
+ function audit(pose,i,{crash=false,nearby=forestPoints,targetPoint=null}={}){
+  camera=pose.camera;const p=targetPoint||(crash?wreckPosition.clone().add(V(0,.06,0)):pose.point),rect=targets(p,i,crash),blockers=[];let car=0,numero=0;
   for(const t of nearby){if(t.reserved)continue;worldParts(t);const broad=project(t.visionBounds);if(!overlap(broad,rect.car)&&!overlap(broad,rect.numero))continue;let c=false,n=false;for(const part of t.visionParts){const r=project(part.points);c||=overlap(r,rect.car);n||=overlap(r,rect.numero)}if(c||n){blockers.push(t);if(c)car++;if(n)numero++}}
   let fixed=0;for(const part of worldParts(impact)){if(crash&&!part.folhas)continue;const r=project(part.points);if(overlap(r,rect.car)||overlap(r,rect.numero))fixed++}
   const inside=r=>r&&r.x0>-.94&&r.x1<.94&&r.y0>-.78&&r.y1<.88;

@@ -22,6 +22,7 @@ __CENA_CORROSAO_SOURCE__
 __CENA_DISTRIBUICAO_SOURCE__
 __CENA_AGUA_SOURCE__
 __CENA_BACKFIRE_SOURCE__
+__CENA_VACUO_SOURCE__
 __VISOR_SOURCE__
 try {
 const scene=new T.Scene();scene.background=new T.Color('#b4c99b');
@@ -44,17 +45,18 @@ const white=mat('#ffffff'),blue=mat('#0043bc'),pale=mat('#30372f'),gray=mat('#8d
 function mesh(geo,m,parent=scene){const o=new T.Mesh(geo,m);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o}
 // O percurso muda de direção livremente no plano e tem desníveis suaves.
 function mapPoint(x,y,z){return V(18+(x-18)*CONFIG.percurso.escalaHorizontal,y,6+(z-6)*CONFIG.percurso.escalaHorizontal)}
-const control=[[-43,.1,29],[-30,.2,17],[-13,.5,21],[1,1.1,11],[11,2.8,-6],[7,3.9,-24],[24,3.2,-39],[43,1.7,-31],[54,1.2,-13],[43,.6,5],[28,1.3,21],[35,2.7,39],[56,3.7,47],[77,2,34]].map(p=>mapPoint(...p));
+const control=[[-43,.1,29],[-30,.2,17],[-13,.5,21],[1,1.1,11],[11,2.8,-6],[7,3.9,-24],[24,3.2,-39],[43,1.7,-31],[54,1.2,-13],[43,.6,5],[28,1.3,21],[35,2.7,39],[56,3.7,47],[74,2.7,43],[77,2,24],[63,1.5,15]].map(p=>mapPoint(...p));
 const route=new T.CatmullRomCurve3(control,false,'centripetal');route.arcLengthDivisions=2500;route.updateArcLengths();
 const total=route.getLength();
 function at(u){return route.getPointAt(clamp(u,0,1))}
 function tangent(u){return route.getTangentAt(clamp(u,0,1)).normalize()}
 function side(u){const t=tangent(u);return V(-t.z,0,t.x).normalize()}
-// Continuação exterior fechada: mantém o percurso original, mas elimina as duas pontas.
-const extensionControl=[control.at(-2),control.at(-1),control.at(-1).clone().addScaledVector(tangent(1),35*CONFIG.percurso.escalaHorizontal),mapPoint(155,1,-4),mapPoint(200,.6,-70),mapPoint(155,.9,-150),mapPoint(50,1.3,-180),mapPoint(-55,.7,-165),mapPoint(-165,1.3,-115),mapPoint(-230,.8,-20),mapPoint(-175,.6,30),control[0].clone().addScaledVector(tangent(0),-35*CONFIG.percurso.escalaHorizontal),control[0],control[1]];
-const extension=new T.CatmullRomCurve3(extensionControl,false,'centripetal');
-const extensionAt=u=>extension.getPoint(lerp(1/(extensionControl.length-1),(extensionControl.length-2)/(extensionControl.length-1),u));
-const groundRoute=[...Array.from({length:321},(_,i)=>at(i/320)),...Array.from({length:1000},(_,i)=>extensionAt((i+1)/1000))];
+// Duas continuações independentes: a estrada atravessa o mapa, sem fechar circuito.
+const approachControl=[V(-1000,.2,430),mapPoint(-180,.3,70),control[0].clone().addScaledVector(tangent(0),-65),control[0],control[1]];
+const departureControl=[control.at(-2),control.at(-1),control.at(-1).clone().addScaledVector(tangent(1),14),mapPoint(57,1,-1),mapPoint(74,.8,-35),mapPoint(180,.8,-65),V(1000,.5,-360)];
+const approach=new T.CatmullRomCurve3(approachControl,false,'centripetal'),departure=new T.CatmullRomCurve3(departureControl,false,'centripetal');
+const approachAt=u=>approach.getPoint(u*.75),departureAt=u=>departure.getPoint(1/6+u*5/6);
+const groundRoute=[...Array.from({length:501},(_,i)=>approachAt(i/500)),...Array.from({length:320},(_,i)=>at((i+1)/320)),...Array.from({length:500},(_,i)=>departureAt((i+1)/500))];
 const groundCells=new Map(),cellSize=18;
 for(let i=1;i<groundRoute.length;i++){const a=groundRoute[i-1],b=groundRoute[i];for(let x=Math.floor((Math.min(a.x,b.x)-26)/cellSize);x<=Math.floor((Math.max(a.x,b.x)+26)/cellSize);x++)for(let z=Math.floor((Math.min(a.z,b.z)-26)/cellSize);z<=Math.floor((Math.max(a.z,b.z)+26)/cellSize);z++){const key=x+','+z;if(!groundCells.has(key))groundCells.set(key,[]);groundCells.get(key).push(i)}}
 function groundInfo(x,z){let best=1e10,h=0;for(const i of groundCells.get(Math.floor(x/cellSize)+','+Math.floor(z/cellSize))||[]){const a=groundRoute[i-1],b=groundRoute[i],dx=b.x-a.x,dz=b.z-a.z,t=clamp(((x-a.x)*dx+(z-a.z)*dz)/(dx*dx+dz*dz),0,1),d=(x-a.x-dx*t)**2+(z-a.z-dz*t)**2;if(d<best){best=d;h=lerp(a.y,b.y,t)}}return{distance:Math.sqrt(best),road:h}}
@@ -75,11 +77,11 @@ for(let tz=0;tz<TERRAIN_SEGMENTS_Z;tz+=100)for(let tx=0;tx<TERRAIN_SEGMENTS_X;tx
  for(let z=0;z<nz;z++)for(let x=0;x<nx;x++){const a=z*(nx+1)+x,b=a+nx+1,c=b+1,d=a+1;indices.push(a,b,d,b,c,d)}
  const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(positions,3));g.setAttribute('color',new T.Float32BufferAttribute(colors,3));g.setIndex(indices);g.computeVertexNormals();const tile=mesh(g,terrainMaterial,floor);tile.castShadow=false;
 }
-const roadPoints=[...Array.from({length:1201},(_,i)=>at(i/1200)),...Array.from({length:3600},(_,i)=>extensionAt((i+1)/3600))];
+const roadPoints=[...Array.from({length:1001},(_,i)=>approachAt(i/1000)),...Array.from({length:1200},(_,i)=>at((i+1)/1200)),...Array.from({length:1000},(_,i)=>departureAt((i+1)/1000))];
 const roadDistances=[0];for(let i=1;i<roadPoints.length;i++)roadDistances.push(roadDistances[i-1]+roadPoints[i].distanceTo(roadPoints[i-1]));
 function ribbon(width,height,material){
  const p=[],ix=[],uv=[],n=roadPoints.length-1;
- for(let i=0;i<=n;i++){const c=roadPoints[i],d=roadPoints[i===n?1:i+1].clone().sub(roadPoints[i===0?n-1:i-1]),s=V(-d.z,0,d.x).normalize();for(const sign of [-1,1]){p.push(...c.clone().addScaledVector(s,width*sign).add(V(0,height,0)).toArray());uv.push(width*sign,roadDistances[i])}}
+ for(let i=0;i<=n;i++){const c=roadPoints[i],d=roadPoints[Math.min(n,i+1)].clone().sub(roadPoints[Math.max(0,i-1)]),s=V(-d.z,0,d.x).normalize();for(const sign of [-1,1]){p.push(...c.clone().addScaledVector(s,width*sign).add(V(0,height,0)).toArray());uv.push(width*sign,roadDistances[i])}}
  for(let i=0;i<n;i++){let a=i*2;ix.push(a,a+1,a+2,a+1,a+3,a+2)}
  const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(p,3));g.setAttribute('uv',new T.Float32BufferAttribute(uv,2));g.setIndex(ix);g.computeVertexNormals();const m=mesh(g,material);m.castShadow=false;return m;
 }
@@ -95,12 +97,12 @@ ribbon(3.48,-.055,gray);const asphalt=ribbon(3.06,0,pale);asphalt.name='Asfalto_
 // Paisagem discreta: volumes claros preservam o fundo branco e a leitura da estrada.
 const stops=STOP_PARAMS;
 const crashOrigin=at(stops[LAST_STOP]),exitSide=side(stops[LAST_STOP]),exitTangent=tangent(stops[LAST_STOP]);
-const treePosition=crashOrigin.clone().addScaledVector(exitTangent,14).addScaledVector(exitSide,9);
+const treePosition=crashOrigin.clone().addScaledVector(exitTangent,26);
 treePosition.y=groundHeight(treePosition.x,treePosition.z);
 const crashDirection=treePosition.clone().sub(crashOrigin).setY(0).normalize();
 const hitPosition=treePosition.clone().addScaledVector(crashDirection,-2.16);hitPosition.y=groundHeight(hitPosition.x,hitPosition.z)-.06;
 const wreckPosition=treePosition.clone().addScaledVector(crashDirection,-1.38);wreckPosition.y=groundHeight(wreckPosition.x,wreckPosition.z)-.06;
-const escapeCurve=new T.CubicBezierCurve3(crashOrigin.clone().add(V(0,-.06,0)),crashOrigin.clone().addScaledVector(exitTangent,3.6),hitPosition.clone().addScaledVector(crashDirection,-3),hitPosition.clone());
+const escapeCurve=new T.LineCurve3(crashOrigin.clone().add(V(0,-.06,0)),hitPosition.clone());
 const vegetation=criarBibliotecaFlorestal(T);
 const tree=vegetation.tree(12);tree.name='Arvore_do_impacto_tronco_livre';tree.position.copy(treePosition);scene.add(tree);
 const escapeLength=escapeCurve.getLength();
@@ -222,13 +224,13 @@ function orient(u){const x=tangent(u),z=new T.Vector3().crossVectors(x,V(0,1,0))
 const PAGE_END=CONFIG.slides.length;
 const pageStop=p=>p===PAGE_END?FINAL_SLIDE:CONFIG.slides[p].severidade-1;
 let pageIndex=0,demoStep=0;
-let carU=stops[0],index=0,motion=null,lastTime=null,cameraTween=null,fade=null,crash=null,crashed=false,fireTime=0,impacts=0,crashPose=null;
+let carU=stops[0],index=0,motion=null,lastTime=null,cameraTween=null,fade=null,crash=null,crashed=false,fireTime=0,impacts=0,crashPose=null,incident=null;
 let mapDirty=true,mapClock=0,lastMapDraw=-10,shadowAge=10,shadowAnchor=V(1e6,0,1e6),shadowAerial=null,shadowRenders=0,sceneRenders=0;
 let look=V(),boom=V(),carTurn=orient(carU),wheelAngle=0;
 const contentSides=CONFIG.paradas.map(p=>p.lado).concat('left');
 const probeCamera=new T.PerspectiveCamera(42,camera.aspect,.1,1200);
 const roadProbes=[];for(let j=0;j<=550;j++){const u=j/550;for(const s of [-3.4,-1.7,0,1.7,3.4])roadProbes.push(at(u).addScaledVector(side(u),s))}
-let poses=[],layoutAudit=[];
+let poses=[],layoutAudit=[],crashSightlines=[];
 let clearedTrees=0;
 const visibility=criarVisibilidadeMapa(T,{vegetation,forestPoints,carCorners,labels,stops,orient,crashQuaternion:()=>directionQuaternion(crashDirection),tree,wreckPosition});
 // O painel agora é central. Mantemos a composição cinematográfica já aprovada do mapa.
@@ -269,7 +271,12 @@ function fitPose(p,i,includeTree=false){
  contacts.instanceMatrix.needsUpdate=true;lodFocus.set(1e6,0,1e6);renderer.shadowMap.needsUpdate=true;return best;
 }
 function auditPose(pose,i,crash=false){probeCamera.position.copy(pose.look).add(pose.boom);probeCamera.lookAt(pose.look);probeCamera.updateMatrixWorld();const a=visibility.audit({...pose,camera:probeCamera},i,{crash,nearby:visibility.nearby(pose.point)});return{carro:a.car,numero:a.numero,arvoreImpacto:a.fixed,enquadrado:a.inside}}
-function verificarVisibilidade(){return{paradas:poses.slice(0,STOP_COUNT).map((p,i)=>auditPose(p,i)),acidente:auditPose(crashPose,LAST_STOP,true),arvoresSemFolhas:vegetation.variants.filter(v=>!v.leaves||!v.low.leaves).length,arvoresRetiradasDosCorredores:clearedTrees}}
+function verificarVisibilidade(){return{paradas:poses.slice(0,STOP_COUNT).map((p,i)=>auditPose(p,i)),acidente:auditPose(crashPose,LAST_STOP,true),acidenteEmMovimento:crashSightlines,arvoresSemFolhas:vegetation.variants.filter(v=>!v.leaves||!v.low.leaves).length,arvoresRetiradasDosCorredores:clearedTrees}}
+function crashFraming(initialBoom,position,progress){
+ const u=ease(clamp(progress,0,1)),yaw0=Math.atan2(initialBoom.x,initialBoom.z),yaw1=Math.atan2(crashPose.boom.x,crashPose.boom.z),yaw=yaw0+Math.atan2(Math.sin(yaw1-yaw0),Math.cos(yaw1-yaw0))*u;
+ const radius=lerp(Math.hypot(initialBoom.x,initialBoom.z),Math.hypot(crashPose.boom.x,crashPose.boom.z),u),offset=V(Math.sin(yaw)*radius,lerp(initialBoom.y,crashPose.boom.y,u)+Math.sin(u*Math.PI)**2*1.5,Math.cos(yaw)*radius);
+ return compose(position.clone().add(V(0,.06,0)),offset,lerp(poses[LAST_STOP].screenX,crashPose.screenX,u));
+}
 function makePoses(){
  probeCamera.aspect=camera.aspect;probeCamera.updateProjectionMatrix();
  poses=stops.map((u,i)=>{
@@ -281,6 +288,10 @@ function makePoses(){
   return best;
  });
  crashPose=fitPose(wreckPosition.clone().add(V(0,.06,0)),LAST_STOP,true);
+ // Protege também os enquadramentos intermediários da saída, do impacto e do fogo.
+ const distance=(stops[LAST_STOP]-stops[LAST_STOP-1])*total,approachTime=3*distance/(distance+escapeLength),speed=distance/approachTime,contact=escapeLength/speed,duration=Math.max(3,contact+1.15),views=[];
+ for(let k=0;k<=24;k++){const time=k/24*duration,point=time<contact?escapeCurve.getPointAt(time/contact):wreckPosition.clone(),pose=crashFraming(poses[LAST_STOP].boom,point,time/duration);probeCamera.position.copy(pose.look).add(pose.boom);probeCamera.lookAt(pose.look);probeCamera.updateMatrixWorld();const options={crash:true,targetPoint:point.clone().add(V(0,.06,0)),nearby:visibility.nearby(point)},audit=visibility.audit({...pose,camera:probeCamera},LAST_STOP,options);for(const t of audit.blockers)if(!t.reserved){t.reserved=true;clearedTrees++;contacts.setMatrixAt(forestPoints.indexOf(t),new T.Matrix4().makeScale(0,0,0))}views.push({pose,options})}
+ crashSightlines=views.map(({pose,options})=>{probeCamera.position.copy(pose.look).add(pose.boom);probeCamera.lookAt(pose.look);probeCamera.updateMatrixWorld();const a=visibility.audit({...pose,camera:probeCamera},LAST_STOP,options);return{carro:a.car,arvoreImpacto:a.fixed}});contacts.instanceMatrix.needsUpdate=true;lodFocus.set(1e6,0,1e6);
  const aerialPoints=roadProbes.concat(stops.flatMap(u=>[-11,11].map(s=>at(u).addScaledVector(side(u),s))),[treePosition,treePosition.clone().add(V(0,7,0))]);
  let aerial=null,aerialCost=Infinity;
  for(let scale=.95;scale<=3.6;scale+=.05)for(let screenX=.40;screenX<=.60;screenX+=.025){
@@ -300,15 +311,16 @@ function presentationPose(i){return i===LAST_STOP&&crashed?crashPose:stopPose(i)
 function place(u){car.position.copy(at(u)).add(V(0,-.06,0));car.quaternion.copy(carTurn)}
 function directionQuaternion(d){const x=d.clone().normalize(),z=V().crossVectors(x,V(0,1,0)).normalize(),y=V().crossVectors(z,x).normalize();return new T.Quaternion().setFromRotationMatrix(new T.Matrix4().makeBasis(x,y,z))}
 function syncDamaged(){damaged.root.position.copy(car.position);damaged.root.quaternion.copy(car.quaternion)}
-function resetCrash(){crash=null;crashed=false;fireTime=0;impacts=0;skidSamples=0;skidTracks.forEach(t=>t.g.setDrawRange(0,0));damaged.aplicar(0);damaged.root.visible=false;car.visible=true;fire.visible=false;skid.visible=false}
+function resetCrash(){crash=null;incident=null;crashed=false;fireTime=0;impacts=0;skidSamples=0;skidTracks.forEach(t=>t.g.setDrawRange(0,0));damaged.aplicar(0);damaged.root.visible=false;car.visible=true;fire.visible=false;skid.visible=false}
 function finishWreck(){car.position.copy(wreckPosition);car.quaternion.copy(directionQuaternion(crashDirection));syncDamaged();damaged.aplicar(1);damaged.root.visible=true;car.visible=false;fire.visible=true;skid.visible=true;crashed=true;fireTime=Math.max(fireTime,1)}
-function beginCrash(rolling=false){const speed=rolling?(stops[LAST_STOP]-stops[LAST_STOP-1])*total/TRAVEL_DURATION:escapeLength/.85;crash={time:0,impacted:false,rolling,speed,contactTime:escapeLength/speed+(rolling?0:.08),travelled:0,initialLook:look.clone(),initialBoom:boom.clone()};appendSkids();ui()}
+function beginCrash(rolling=false,speed=escapeLength/1.4){crash={time:0,impacted:false,rolling,speed,contactTime:escapeLength/speed+(rolling?0:.08),travelled:0,initialLook:look.clone(),initialBoom:boom.clone()};if(incident){incident.phase='tangente';incident.runoffAt=incident.elapsed}appendSkids();ui()}
 function setContent(){
- const end=pageIndex===PAGE_END,busy=!!motion||!!cameraTween||!!fade&&!fade.contentOnly,s=CONFIG.slides[pageIndex];
- $('conteudo').className='content'+(end?' conclusion':' model-slide')+(busy?' absent':'')+(!end&&['logistica','rastreabilidade','servico','quimica','distribuicao','agua','backfire'].includes(s.id)?' large-scene':'')+(!end&&s.id==='quimica'?' corrosion-scene':'')+(!end&&s.id==='distribuicao'?' air-scene':'');
+ const end=pageIndex===PAGE_END,busy=!!motion||!!cameraTween||!!crash||!!fade&&!fade.contentOnly,s=CONFIG.slides[pageIndex];
+ $('conteudo').className='content'+(end?' conclusion':' model-slide')+(busy?' absent':'')+(!end&&['logistica','rastreabilidade','servico','quimica','distribuicao','agua','backfire','vacuo'].includes(s.id)?' large-scene':'')+(!end&&s.id==='quimica'?' corrosion-scene':'')+(!end&&s.id==='distribuicao'?' air-scene':'');
+ $('obrigado').classList.toggle('visible',end&&!busy);$('obrigado').setAttribute('aria-hidden',String(!end||busy));
  $('titulo-parada').textContent=end?'CONCLUSÃO · JORNADA DA QUALIDADE':`SEVERIDADE ${s.severidade} · EFEITO NO SISTEMA`;
- $('titulo').textContent=end?'Uma peça. Muitos efeitos.':s.titulo;
- $('descricao').textContent=end?'Da identificação ao fornecimento de vácuo: a consequência no sistema orienta a avaliação.':s.funcao;
+ $('titulo').textContent=end?'Qualidade em cada decisão.':s.titulo;
+ $('descricao').textContent=end?'Cada setor influencia a função do conjunto e a segurança de quem usa.':s.funcao;
  $('primeiro-conteudo').classList.toggle('hidden',end);$('conclusao-conteudo').classList.toggle('hidden',!end);
  if(!end){
   const same=CONFIG.slides.filter(p=>p.severidade===s.severidade),part=same.indexOf(s)+1;
@@ -318,7 +330,7 @@ function setContent(){
   $('mahle-titulo').textContent=s.exemplosTitulo;$('mahle-texto').textContent=s.exemplosTexto;$('mahle-destaque').textContent=s.destaque;
   $('modelo-caption').textContent=s.id==='aparencia'?'MANCHAS NA LATERAL · MARCAS E VARIAÇÃO DE TOM NO TOPO':s.id==='rastreabilidade'&&demoStep===2?'LOTE DEMONSTRATIVO · 6 PEÇAS SEM VÍNCULO · Arraste para girar':s.etapas[demoStep][0]+' · Arraste para girar';
   (s.legendasPorEtapa?.[demoStep]||s.legendas).forEach((v,i)=>$('legenda-'+i).textContent=v);
-  manifoldView.mostrarSlide(pageIndex,demoStep);requestAnimationFrame(()=>{manifoldView.resize();fitSensationTitle()});
+  if(!busy){manifoldView.mostrarSlide(pageIndex,demoStep);requestAnimationFrame(()=>{manifoldView.resize();fitSensationTitle()})}
  }
 }
 function fitSensationTitle(){const el=$('sistema-titulo');el.style.removeProperty('font-size');if(!el.classList.contains('perceived-effect')||!el.clientWidth)return;const size=parseFloat(getComputedStyle(el).fontSize);if(el.scrollWidth>el.clientWidth)el.style.fontSize=(size*(el.clientWidth-2)/el.scrollWidth)+'px'}
@@ -329,7 +341,7 @@ function ensureSelectedVisible(){
  else if(left+item.offsetWidth>list.scrollLeft+list.clientWidth)list.scrollTo({left:left+item.offsetWidth-list.clientWidth,behavior:'smooth'});
 }
 function ui(){
- mapDirty=true;const busy=!!motion||!!cameraTween||!!fade,s=CONFIG.slides[pageIndex],last=s?s.etapas.length-1:0;
+ mapDirty=true;const busy=!!motion||!!cameraTween||!!fade||!!crash,s=CONFIG.slides[pageIndex],last=s?s.etapas.length-1:0;
  $('anterior').disabled=busy||(pageIndex===0&&demoStep===0);$('proximo').disabled=busy||pageIndex===PAGE_END;
  $('proximo').textContent=pageIndex===PAGE_END?'Jornada concluída':demoStep<last?'Próxima etapa →':pageIndex===PAGE_END-1?'Conclusão →':'Próximo slide →';
  $('slide-contador').textContent=`${pageIndex+1} / ${PAGE_END+1}`;
@@ -339,11 +351,12 @@ function ui(){
  setContent();ensureSelectedVisible();
 }
 function setInstant(to){
- resetCrash();index=to;carU=stops[Math.min(to,LAST_STOP)];carTurn.copy(orient(carU));place(carU);steers.forEach(s=>s.rotation.y=0);
+ const keepWreck=crashed&&to>=LAST_STOP;if(!keepWreck)resetCrash();index=to;carU=stops[Math.min(to,LAST_STOP)];if(!keepWreck){carTurn.copy(orient(carU));place(carU)}steers.forEach(s=>s.rotation.y=0);
  const pose=presentationPose(to);look.copy(pose.look);boom.copy(pose.boom);
 }
 function selectSlide(page){
  if(fade||page<0||page>PAGE_END)return;
+ if(page===PAGE_END-1){motion=null;cameraTween=null;resetCrash();if(index>=LAST_STOP)setInstant(LAST_STOP-1);gotoPage(page);return}
  const to=pageStop(page),contentOnly=to===index&&!motion&&!cameraTween&&!crash;
  motion=null;cameraTween=null;crash=null;fade={to,page,phase:0,time:0,switched:false,contentOnly};ui();
 }
@@ -353,18 +366,23 @@ function gotoPage(page,phase=0){
  if(to===index){fade={to,page,phase,time:0,switched:false,contentOnly:true};ui();return}
  pageIndex=page;demoStep=phase;
  if(to===FINAL_SLIDE||index===FINAL_SLIDE){
+  if(index===FINAL_SLIDE&&to<LAST_STOP){resetCrash();place(carU)}
   const pose=presentationPose(to);cameraTween={to,fromLook:look.clone(),fromBoom:boom.clone(),toLook:pose.look,toBoom:pose.boom,fromScreen:car.position.clone().project(camera),toScreen:screenAt(car.position,pose),time:0,duration:TRAVEL_DURATION};ui();return;
  }
+ if(crashed){resetCrash();carTurn.copy(orient(carU));place(carU)}
  const from=carU,end=stops[to],direction=to>index?1:-1;
- motion={from,end,to,direction,time:0,duration:TRAVEL_DURATION,initialLook:look.clone(),initialBoom:boom.clone(),startFrame:screenAt(at(from),{look,boom}).x,endPose:stopPose(to)};ui();
+ const crashOnArrival=to===LAST_STOP,distance=Math.abs(end-from)*total;
+ // Aproximação + tangente terminam no impacto aos 3 s, sem parada na curva.
+ const duration=crashOnArrival?3*distance/(distance+escapeLength):TRAVEL_DURATION;
+ motion={from,end,to,direction,time:0,duration,crashOnArrival,initialLook:look.clone(),initialBoom:boom.clone(),startFrame:screenAt(at(from),{look,boom}).x,endPose:stopPose(to)};if(crashOnArrival)incident={phase:'aproximacao',elapsed:0,expectedImpactAt:3,runoffAt:null,impactAt:null,revealAt:null};ui();
 }
 function advance(direction){
- if(motion||cameraTween||fade)return;
+ if(motion||cameraTween||fade||crash)return;
  const s=CONFIG.slides[pageIndex];
  if(direction>0){if(!s)return;if(demoStep<s.etapas.length-1){demoStep++;ui();return}gotoPage(pageIndex+1)}
  else {if(s&&demoStep>0){demoStep--;ui();return}if(pageIndex>0){const prev=pageIndex-1;gotoPage(prev,CONFIG.slides[prev].etapas.length-1)}}
 }
-function setDemoStep(n){if(motion||cameraTween||fade||pageIndex===PAGE_END)return;demoStep=clamp(n,0,CONFIG.slides[pageIndex].etapas.length-1);ui()}
+function setDemoStep(n){if(motion||cameraTween||fade||crash||pageIndex===PAGE_END)return;demoStep=clamp(n,0,CONFIG.slides[pageIndex].etapas.length-1);ui()}
 function fullscreen(){if(document.fullscreenElement)document.exitFullscreen?.();else document.documentElement.requestFullscreen?.().catch(()=>{})}
 $('proximo').addEventListener('click',()=>advance(1));$('anterior').addEventListener('click',()=>advance(-1));
 for(let i=0;i<=PAGE_END;i++)$('etapa-'+i).addEventListener('click',()=>selectSlide(i));
@@ -383,9 +401,10 @@ addEventListener('keydown',e=>{
 let resizeTimer;
 addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{makePoses();if(!motion&&!cameraTween&&!fade&&!crash){const p=presentationPose(index);look.copy(p.look);boom.copy(p.boom)}else if(motion)motion.endPose=stopPose(motion.to);else if(cameraTween){const p=presentationPose(cameraTween.to);cameraTween.toLook=p.look;cameraTween.toBoom=p.boom}},150)});
 const first=stopPose(0);look.copy(first.look);boom.copy(first.boom);place(carU);
-const manifoldView=criarVisorColetor(T,{visivel:()=>pageIndex<PAGE_END&&!motion&&!cameraTween&&(!fade||fade.contentOnly&&fade.switched)});
+const manifoldView=criarVisorColetor(T,{visivel:()=>pageIndex<PAGE_END&&!motion&&!cameraTween&&!crash&&(!fade||fade.contentOnly&&fade.switched)});
 function update(dt){
  mapClock+=dt;shadowAge+=dt;manifoldView.update(dt);
+ if(incident&&incident.revealAt===null)incident.elapsed+=dt;
  vegetation.wind.value+=dt;
  if(fade){
   fade.time+=dt;const out=.27,hold=.08,into=.34;
@@ -397,7 +416,7 @@ function update(dt){
  }
  if(cameraTween){const t=cameraTween;t.time+=dt;const u=ease(clamp(t.time/t.duration,0,1));look.lerpVectors(t.fromLook,t.toLook,u);boom.lerpVectors(t.fromBoom,t.toBoom,u);framePoint(car.position,lerp(t.fromScreen.x,t.toScreen.x,u),lerp(t.fromScreen.y,t.toScreen.y,u));if(u===1){look.copy(t.toLook);boom.copy(t.toBoom);index=t.to;cameraTween=null;ui()}}
  if(motion){
-  const m=motion;m.time+=dt;const q=clamp(m.time/m.duration,0,1),u=ease(q),v=ease(q),previousU=carU;
+  const m=motion;m.time+=dt;const q=clamp(m.time/m.duration,0,1),u=m.crashOnArrival?q*q*(2-q):ease(q),v=ease(q),previousU=carU;
   carU=lerp(m.from,m.end,u);
   // Voltar refaz o mesmo caminho de ré, mantendo a frente do carro orientada à estrada.
   carTurn.copy(orient(carU));
@@ -420,21 +439,21 @@ function update(dt){
   const framing=lerp(initialScreenX,endScreenX,v)*(1-Math.sin(v*Math.PI)**2*.75);
   look.copy(compose(at(carU),boom,framing).look);
   if(q===1){
-   look.copy(m.endPose.look);boom.copy(m.endPose.boom);steers.forEach(s=>s.rotation.y=0);index=m.to;motion=null;ui();
+   look.copy(m.endPose.look);boom.copy(m.endPose.boom);steers.forEach(s=>s.rotation.y=0);index=m.to;motion=null;if(m.crashOnArrival){beginCrash(true,Math.abs(m.end-m.from)*total/m.duration);incident.runoffAt=m.duration;crash.time=m.time-m.duration-dt}else ui();
   }
  }
  if(crash){
-  const c=crash;c.time+=dt;const contactTime=c.contactTime,crushTime=.16,duration=3;
+  const c=crash;c.time+=dt;const contactTime=c.contactTime,crushTime=.16,duration=Math.max(3,contactTime+1.15);
   if(c.time<contactTime){
    const distance=c.rolling?c.time*c.speed:c.time<.16?.5*c.speed*c.time*c.time/.16:c.speed*(c.time-.08);
    const u=clamp(distance/escapeLength,0,1),d=escapeCurve.getTangentAt(u).normalize(),travelled=distance-c.travelled;c.travelled=distance;
    car.position.copy(escapeCurve.getPointAt(u));car.quaternion.copy(directionQuaternion(d));
    const surface=groundInfo(car.position.x,car.position.z);car.position.y=(surface.distance<3.1?surface.road:groundHeight(car.position.x,car.position.z))-.06;
-   car.quaternion.multiply(new T.Quaternion().setFromAxisAngle(V(0,1,0),Math.sin(u*6*Math.PI)*Math.sin(u*Math.PI)**2*.25));
+   // A trajetória mantém a tangente da curva; a pequena vibração não muda a direção.
    wheelAngle+=travelled/.335;wheels.forEach(w=>w.rotation.z=-wheelAngle);steers.forEach(s=>{if(s.position.x>0)s.rotation.y=Math.sin(u*6*Math.PI)*.35});
    appendSkids();
   }else{
-   if(!c.impacted){c.impacted=true;impacts++;car.visible=false;damaged.root.visible=true;ui()}
+   if(!c.impacted){c.impacted=true;impacts++;if(incident){incident.phase='impacto';incident.impactAt=incident.elapsed}car.visible=false;damaged.root.visible=true;ui()}
    const d=ease(clamp((c.time-contactTime)/crushTime,0,1));
    car.position.lerpVectors(hitPosition,wreckPosition,d);car.quaternion.copy(directionQuaternion(crashDirection));
    const rebound=Math.sin(Math.min((c.time-contactTime)*15,Math.PI))*Math.exp(-(c.time-contactTime)*8)*.06;
@@ -442,12 +461,8 @@ function update(dt){
    syncDamaged();damaged.aplicar(d);
    if(c.time>contactTime+.44)fire.visible=true;
   }
-  const u=ease(clamp(c.time/duration,0,1)),yaw0=Math.atan2(c.initialBoom.x,c.initialBoom.z),yaw1=Math.atan2(crashPose.boom.x,crashPose.boom.z);
-  const yaw=yaw0+Math.atan2(Math.sin(yaw1-yaw0),Math.cos(yaw1-yaw0))*u;
-  const radius=lerp(Math.hypot(c.initialBoom.x,c.initialBoom.z),Math.hypot(crashPose.boom.x,crashPose.boom.z),u);
-  boom.set(Math.sin(yaw)*radius,lerp(c.initialBoom.y,crashPose.boom.y,u)+Math.sin(u*Math.PI)**2*1.5,Math.cos(yaw)*radius);
-  look.copy(compose(car.position.clone().add(V(0,.06,0)),boom,lerp(stopPose(LAST_STOP).screenX,crashPose.screenX,u)).look);
-  if(c.time>=duration){finishWreck();look.copy(crashPose.look);boom.copy(crashPose.boom);crash=null;ui()}
+  const framing=crashFraming(c.initialBoom,car.position,c.time/duration);boom.copy(framing.boom);look.copy(framing.look);
+  if(c.time>=duration){finishWreck();look.copy(crashPose.look);boom.copy(crashPose.boom);crash=null;if(incident){incident.phase='slide';incident.revealAt=incident.elapsed}ui()}
  }
  if(fire.visible){
   fireTime+=dt;const strength=smooth(fireTime/.55);
@@ -480,7 +495,7 @@ function verificarGeometria(){
  return{minClearance,negative,closureGap:roadPoints[0].distanceTo(roadPoints.at(-1)),roadLength:roadDistances.at(-1),forestCount:forestPoints.length-clearedTrees,comprimentoApresentacao:total,distanciasEntreParadas:stops.slice(1).map((u,i)=>(u-stops[i])*total),duracaoTransicao:TRAVEL_DURATION,escalaHorizontal:CONFIG.percurso.escalaHorizontal,variantStats:vegetation.variants.map(v=>({tipo:v.type,triangles:(v.wood.getAttribute('position').count+(v.leaves?.getAttribute('position').count||0))/3,altura:v.height})),contactTimeRolling:escapeLength/((stops[LAST_STOP]-stops[LAST_STOP-1])*total/TRAVEL_DURATION)};
 }
 // Diagnóstico local para validação: sem telemetria, sem persistência e sem rede.
-window.prototipo={estado:()=>({index,pageIndex,demoStep,slideId:CONFIG.slides[pageIndex]?.id,paradas:STOP_COUNT,slides:PAGE_END+1,carU,sceneRenders,shadowRenders,coletor:manifoldView.estado(),skidSamples,skidDrawCounts:skidTracks.map(t=>t.g.drawRange.count),moving:!!motion||!!cameraTween||!!crash,fading:!!fade,tracking:!!motion,crashTime:crash?.time??null,contactTime:crash?.contactTime??null,crashTravelled:crash?.travelled??null,forestCount:forestPoints.length-clearedTrees,visibleTrees,treeVariants:vegetation.variants.length,roadClosed:roadPoints[0].distanceTo(roadPoints.at(-1))<.001,triangles:renderer.info.render.triangles,crashed,fire:fire.visible,impacts,damagedVisible:damaged.root.visible,tree:treePosition.toArray(),frontDirection:V(1,0,0).applyQuaternion(car.quaternion).toArray(),wreckPosition:wreckPosition.toArray(),crashLayout:roadIntrusions(crashPose,LAST_STOP,0),progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===FINAL_SLIDE,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide,setDemoStep,roteiro:CONFIG.slides,verificarGeometria,verificarVisibilidade,exportarColetor:cut=>manifoldView.exportar(cut),exportarArvore:i=>vegetation.tree(i),exportarIntegro:()=>{const c=car.clone(true);c.position.set(0,0,0);c.quaternion.identity();c.visible=true;return c},exportarAmassado:()=>damaged.exportar()};
+window.prototipo={estado:()=>({index,pageIndex,demoStep,slideId:CONFIG.slides[pageIndex]?.id,paradas:STOP_COUNT,slides:PAGE_END+1,carU,sceneRenders,shadowRenders,coletor:manifoldView.estado(),skidSamples,skidDrawCounts:skidTracks.map(t=>t.g.drawRange.count),moving:!!motion||!!cameraTween||!!crash,fading:!!fade,tracking:!!motion,incident:incident?{...incident}:null,roadEndpoints:roadPoints.filter((p,i)=>i===0||i===roadPoints.length-1).map(p=>p.clone().project(camera).toArray()),crashGeometry:{origin:crashOrigin.toArray(),tangent:exitTangent.toArray(),direction:crashDirection.toArray(),escapeLength,treeRoadDistance:groundInfo(treePosition.x,treePosition.z).distance},crashTime:crash?.time??null,contactTime:crash?.contactTime??null,crashTravelled:crash?.travelled??null,forestCount:forestPoints.length-clearedTrees,visibleTrees,treeVariants:vegetation.variants.length,roadClosed:roadPoints[0].distanceTo(roadPoints.at(-1))<.001,triangles:renderer.info.render.triangles,crashed,fire:fire.visible,impacts,damagedVisible:damaged.root.visible,tree:treePosition.toArray(),frontDirection:V(1,0,0).applyQuaternion(car.quaternion).toArray(),wreckPosition:wreckPosition.toArray(),crashLayout:roadIntrusions(crashPose,LAST_STOP,0),progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===FINAL_SLIDE,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide,setDemoStep,roteiro:CONFIG.slides,verificarGeometria,verificarVisibilidade,exportarColetor:cut=>manifoldView.exportar(cut),exportarArvore:i=>vegetation.tree(i),exportarIntegro:()=>{const c=car.clone(true);c.position.set(0,0,0);c.quaternion.identity();c.visible=true;return c},exportarAmassado:()=>damaged.exportar()};
 ui();requestAnimationFrame(tick);
 } catch(error){console.error(error);$('erro').classList.remove('hidden');$('erro').textContent='Não foi possível iniciar a cena 3D. Abra este arquivo no Microsoft Edge ou Google Chrome com suporte a WebGL. Detalhe: '+error.message;$('estado').textContent='Cena indisponível';}
 })();

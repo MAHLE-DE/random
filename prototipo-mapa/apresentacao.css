@@ -51,6 +51,19 @@
 .conclusion-body article{padding:20px;border:1px solid #bcd0e1;border-radius:12px;background:#f7fbffd9}
 .conclusion-body h2{color:#0043bc;font-size:24px;margin:0 0 10px}.conclusion-body p{font-size:19px;line-height:1.5;margin:0 0 18px}
 .severity-summary{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.severity-summary div{font-size:16px;padding:12px;border-radius:7px;background:#e5eff8}.severity-summary b{color:#0043bc}
+.content.conclusion{left:4%;top:5%;width:40%;height:85%;padding:28px;pointer-events:none;background:#fffffff0}
+.conclusion .slide-brand{width:92px;height:25px;right:25px;top:25px}
+.conclusion .eyebrow{font-size:13px;line-height:1.4;margin:0 110px 22px 0}
+.conclusion h1{font-size:clamp(30px,2.8vw,46px);margin:0 0 14px;line-height:1.1}
+.content.conclusion #descricao{max-width:100%;font-size:clamp(16px,1.3vw,21px)}
+.conclusion .conclusion-body{display:flex;flex-direction:column;gap:14px;margin-top:24px}
+.conclusion-body article{padding:0 0 0 14px;border:0;border-left:3px solid #0043bc;border-radius:0;background:transparent}
+.conclusion-body h2{font-size:clamp(18px,1.5vw,24px);margin:0 0 5px}
+.conclusion-body p{font-size:clamp(15px,1.2vw,20px);line-height:1.35;margin:0}
+.conclusion-body .conclusion-emphasis{margin-top:auto;padding:14px;background:#e6eff9;border-radius:8px;font-weight:700;color:#0043bc}
+.thanks{position:absolute;z-index:2;left:47%;right:3%;top:12%;text-align:center;pointer-events:none;opacity:0;transform:translateY(18px);color:#fff;font-size:clamp(50px,7.6vw,140px);letter-spacing:-.045em;font-weight:800;text-shadow:0 3px 18px #17341280;transition:opacity .65s,transform .65s}
+.thanks.visible{opacity:1;transform:translateY(0);transition-delay:.4s}
+@media(max-height:800px){.content.conclusion{padding:22px}.conclusion .eyebrow{margin-bottom:18px;font-size:11px}.conclusion h1{font-size:32px}.conclusion .conclusion-body{margin-top:18px;gap:14px}.conclusion .conclusion-body article{padding:0 0 0 12px}.conclusion .conclusion-body h2{font-size:19px}.conclusion .conclusion-body p{font-size:15px}.conclusion-body .conclusion-emphasis{padding:12px}}
 .spectrum-bar{transform-box:fill-box;transform-origin:bottom;animation:spectrum .6s ease-in-out infinite alternate}.travelling-dot{animation:drift 1.4s linear infinite}
 @keyframes spectrum{to{transform:scaleY(.5)}}@keyframes drift{to{transform:translateX(35px)}}
 .braking-normal{animation:brake-normal 1.8s ease-out both}.braking-reduced{animation:brake-reduced 2.7s ease-out both}

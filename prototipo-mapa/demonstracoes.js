@@ -23,7 +23,7 @@ function criarDemonstracoes(T,model){
  function clear(){special?.dispose();special=null;for(const o of [...group.children]){o.traverse(n=>{if(!n.userData.sharedGeometry)n.geometry?.dispose();if(n.material&&!n.userData.sharedMaterial){for(const m of Array.isArray(n.material)?n.material:[n.material])m.dispose()}});group.remove(o)}actors=[]}
  function set(s,n){
   current=s;step=n;elapsed=0;clear();noiseBounds=null;const id=s.id,active=n>0;animated=true;group.visible=true;
-  special=criarCenaBackfire(T,model,group,id,n)||criarCenaAgua(T,model,group,id,n)||criarCenaDistribuicao(T,model,group,id,n)||criarCenaCorrosao(T,model,group,id,n)||criarCenaServico(T,model,group,id,n)||criarCenaProduto(T,model,group,id,n);if(special){animated=special.animated;return}
+  special=criarCenaVacuo(T,model,group,id,n)||criarCenaBackfire(T,model,group,id,n)||criarCenaAgua(T,model,group,id,n)||criarCenaDistribuicao(T,model,group,id,n)||criarCenaCorrosao(T,model,group,id,n)||criarCenaServico(T,model,group,id,n)||criarCenaProduto(T,model,group,id,n);if(special){animated=special.animated;return}
   if(id==='ruido'){
    flow();
    const o=ring(V(0,1.5,.7),1.3,amber);o.scale.setScalar(1.3);actors.push(t=>{o.scale.setScalar(.8+(t%1)*.5);o.material.opacity=1-t%1;o.material.transparent=true});
