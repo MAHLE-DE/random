@@ -1,5 +1,19 @@
 # Validação do protótipo
 
+## Construção por faces e rolamentos — 11/11/2026
+
+- A figura foi refeita sobre uma grade isométrica com vértices compartilhados. O desalinhamento entre regiões desapareceu. A distância de projeção entre as junções e a referência matemática ficou abaixo de 0,01 pixel nas três resoluções.
+- Os 252 triângulos da composição permanecem identificáveis durante a reunião em pares e o fechamento de 21 redes de seis faces, seguindo a referência do vídeo em `referencia-abertura.md`. Os dois cubos maiores já contêm 54 blocos internos. Não há troca de uma face por um cubo criado por escala ou opacidade.
+- As 75 peças seguem por rolamentos de 90° ou 180° em arestas, usando os três eixos. Há 1.360 movimentos individuais, além dos rolamentos dos volumes maiores. A posição vem do arco rígido do pivô, sem trajetória livre ou rotação arbitrária dos cubos.
+- A verificação independente examinou 425 instantes das rotas sem interpenetração. O ponto final de cada arco coincide com o próximo apoio. No navegador, a área dos triângulos e a distância ao pivô permanecem constantes dentro das tolerâncias numéricas; escala e opacidade das peças continuam iguais a um durante a construção.
+- O carro em blocos fica inteiro antes da morfagem. O acabamento une a pele cúbica à malha original por oclusão e recorte. As janelas usam um campo afim contínuo, sem quantização. A precisão de profundidade da câmera ampliada foi corrigida com near de 10 unidades; as capturas finais não apresentam a interferência anterior entre vidro e carroceria.
+- A placa azul usa a mesma pintura física da carroceria. A marca termina no capô antes da chegada à estrada. O deslocamento final dura 1,05 segundo e o primeiro slide entra em fade de 1,25 segundo.
+- O cenário e os shaders são preparados antes de iniciar o relógio. O mapa permanece já renderizado durante a chegada. Mediana, percentil 95 e máximo dos tempos de quadro estão registrados por resolução; a versão foi verificada sem redesenhar o cenário pesado nesse trecho.
+- Testes aprovados em 1600×900, 1280×720 e 1280×960: alinhamento, área, rolamentos, identidade das 75 peças, esboço completo, janela, encaixe, resize, desempenho, rodapés e cancelamento. A regressão geral mantém 13 funções, 25 etapas técnicas, 117 focos e cinco fades na mesma parada. A capa mantém o total em 15 telas e 26 etapas.
+- Sem novas dependências externas, erros JavaScript/WebGL ou solicitações HTTP/HTTPS. Dados da montagem são preparados localmente em `preparar-abertura.mjs`; capturas e relatórios ficam em `.producao/qa-abertura/`, `.producao/qa-construcao/` e `.producao/qa-completa/`. O resumo contém o hash LF do HTML testado.
+
+As seções abaixo registram versões anteriores.
+
 ## Capa geométrica e autoria — 11/11/2026
 
 - O arquivo abre na capa “Jornada da qualidade”, com Bruno Caetano, Cauã Ferrari · BU2 SA (TMD2). A identificação permanece no canto inferior esquerdo dos slides técnicos e da conclusão. O espaço de “SLIDE TEMPLATE” foi deixado vazio.

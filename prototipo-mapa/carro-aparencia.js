@@ -15,7 +15,7 @@ function prepararCarroApresentacao(T,car){
  // Frente local XY, normal +Z. A placa se alinha à inclinação do capô original.
  const right=V(0,0,-1),up=V(-.9935,.1135,0).normalize(),normal=V().crossVectors(right,up).normalize();
  logoCapo.quaternion.setFromRotationMatrix(new T.Matrix4().makeBasis(right,up,normal));logoCapo.position.set(1.045,1.053,0);
- const plateMaterial=new T.MeshBasicMaterial({color:finalColor,toneMapped:false,side:T.DoubleSide});plateMaterial.name='Azul_da_placa_no_capo';
+ const plateMaterial=paint.clone();plateMaterial.side=T.DoubleSide;plateMaterial.name='Mesma_pintura_da_carroceria_no_capo';
  const plate=new T.Mesh(new T.BoxGeometry(1.14,.37,.008),plateMaterial);plate.name='Retangulo_azul_no_capo';logoCapo.add(plate);
  // Os vértices da marca vêm do SVG em Y para baixo. Converte para XY cartesiano,
  // centraliza a marca e conserva sua proporção de 113 por 25 unidades.

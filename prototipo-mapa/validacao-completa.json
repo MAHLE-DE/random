@@ -1,8 +1,8 @@
 {
   "data": "2026-11-11",
-  "revisao": "Capa geométrica com transformação no carro, voo da marca e autoria nos slides",
+  "revisao": "Faces conservadas, construção por rolamentos e chegada otimizada",
   "arquivo": "iniciar.html",
-  "sha256": "d84101c393295a9f92350362989750a640cc048dd783bd64229f32f14cd029a6",
+  "sha256": "6915a5b74b95d4147bc6c0d9c95758c39163d45356e397d4fdf39cd3544ff13d",
   "normalizacaoHash": "LF, conforme .gitattributes",
   "fonte": {
     "arquivo": "apresentacao_qualidade_completa.xlsx",
@@ -45,6 +45,10 @@
     {
       "titulo": "HELLA: Testing an electric vacuum pump",
       "url": "https://www.hella.com/techworld/uk/technical/car-electronics-and-electrics/testing-an-electric-vacuum-pump/"
+    },
+    {
+      "titulo": "Learn with Moozach: Isometric texture logo animation",
+      "url": "https://www.youtube.com/watch?v=AN7IeaMJIUY"
     }
   ],
   "funcoes": 13,
@@ -59,134 +63,342 @@
   ],
   "unidade": "BU2 SA (TMD2)",
   "corCarro": "#1B267D",
-  "geometriaAbertura": {
-    "cubos": 2,
-    "faces": 9,
-    "subcubos": 27,
-    "malhasMorfadas": 46,
-    "duracaoSegundos": 13.8,
-    "fadeTextoFundoSegundos": 1,
-    "modeloOriginal": true,
-    "imagemReferenciaComoTextura": false
+  "construcao": {
+    "cubes": 75,
+    "triangles": 252,
+    "macroFaces": 900,
+    "moves": 1360,
+    "axes": {
+      "x": 391,
+      "y": 452,
+      "z": 517
+    },
+    "samples": 425,
+    "intersections": 0,
+    "edgeError": 1.5700924586837752e-16,
+    "side": 0.5,
+    "constantVolume": 9.375
   },
-  "erros": [],
-  "rede": [],
   "abertura": [
     {
       "width": 1600,
       "height": 900,
-      "duracao": 13.8,
-      "quadros": 723,
-      "quadrosAnimados": 720,
-      "quadrosFade": 57,
-      "fases": [
-        "fade",
-        "rolamento",
-        "subdivisao",
-        "morfagem",
-        "marca",
-        "entrada_no_mapa"
-      ],
-      "redimensionamento": {
-        "before": 3.007900000000001,
-        "during": 3.1991000000000014,
-        "after": 3.8040000000000007,
-        "temporarySize": {
-          "width": 1536,
-          "height": 948
+      "frames": 921,
+      "initial": {
+        "pecas": 75,
+        "posicionadas": 0,
+        "triangulosConservados": 900,
+        "erroRelativoArea": 0,
+        "erroAlinhamentoPixels": 3.2155493553843715e-13,
+        "erroRaioRolamento": 0,
+        "erroEixo": 0,
+        "transformacoesRigidas": true,
+        "escalaPecas": true,
+        "opacidade": 1
+      },
+      "faces": {
+        "pecas": 75,
+        "posicionadas": 0,
+        "triangulosConservados": 900,
+        "erroRelativoArea": 1.4901160838576288e-7,
+        "erroAlinhamentoPixels": 0,
+        "erroRaioRolamento": 0,
+        "erroEixo": 0,
+        "transformacoesRigidas": true,
+        "escalaPecas": true,
+        "opacidade": 1
+      },
+      "audits": [
+        {
+          "pecas": 75,
+          "posicionadas": 8,
+          "triangulosConservados": 900,
+          "erroRelativoArea": 0,
+          "erroAlinhamentoPixels": 0,
+          "erroRaioRolamento": 2.220446049250313e-16,
+          "erroEixo": 5.228357612926054e-16,
+          "transformacoesRigidas": true,
+          "escalaPecas": true,
+          "opacidade": 1
+        },
+        {
+          "pecas": 75,
+          "posicionadas": 41,
+          "triangulosConservados": 900,
+          "erroRelativoArea": 0,
+          "erroAlinhamentoPixels": 0,
+          "erroRaioRolamento": 5.551115123125783e-16,
+          "erroEixo": 2.1209024751538433e-16,
+          "transformacoesRigidas": true,
+          "escalaPecas": true,
+          "opacidade": 1
+        },
+        {
+          "pecas": 75,
+          "posicionadas": 61,
+          "triangulosConservados": 900,
+          "erroRelativoArea": 0,
+          "erroAlinhamentoPixels": 0,
+          "erroRaioRolamento": 7.771561172376096e-16,
+          "erroEixo": 3.902130269128886e-15,
+          "transformacoesRigidas": true,
+          "escalaPecas": true,
+          "opacidade": 1
         }
+      ],
+      "assembled": {
+        "pecas": 75,
+        "posicionadas": 75,
+        "triangulosConservados": 900,
+        "erroRelativoArea": 0,
+        "erroAlinhamentoPixels": 0,
+        "erroRaioRolamento": 0,
+        "erroEixo": 0,
+        "transformacoesRigidas": true,
+        "escalaPecas": true,
+        "opacidade": 1
       },
-      "encaixe": {
-        "frames": 170,
-        "maxScaleRate": 2.1633789655266504,
-        "maxDepthRate": 1.8723654807236287,
-        "erroEncaixe": 8.881784197001252e-16,
-        "erroLogo": 2.12096188367986e-14
+      "footerChecks": 14,
+      "duration": 15.950000000000001,
+      "timings": {
+        "facesFechadas": 4.25,
+        "esboco": 12.299999999999999,
+        "morphInicio": 12.95,
+        "morphFim": 14,
+        "logoFim": 14.85,
+        "entradaInicio": 14.9,
+        "entradaDuracao": 1.0500000000000007,
+        "fadeSlide": 1.25
       },
-      "rodapes": 14,
-      "cancelamento": true,
-      "aparenciaFinal": {
-        "cor": "#1B267D",
-        "logosLaterais": 0,
-        "logoCapo": true
+      "alignment": 1.1102230246251565e-15,
+      "logo": 0,
+      "arrival": {
+        "samples": 61,
+        "p95": 18.100000001490116,
+        "max": 18.30000000447035,
+        "median": 17.599999994039536,
+        "mapFrozen": true
+      },
+      "conservation": true,
+      "resize": true,
+      "windows": {
+        "transparencia": false,
+        "malhaQuantizada": false,
+        "near": 10
       }
     },
     {
       "width": 1280,
       "height": 720,
-      "duracao": 13.8,
-      "quadros": 756,
-      "quadrosAnimados": 755,
-      "quadrosFade": 57,
-      "fases": [
-        "fade",
-        "rolamento",
-        "subdivisao",
-        "morfagem",
-        "marca",
-        "entrada_no_mapa"
-      ],
-      "redimensionamento": {
-        "before": 3.0047000000000015,
-        "during": 3.181400000000001,
-        "after": 3.737800000000001,
-        "temporarySize": {
-          "width": 1216,
-          "height": 768
+      "frames": 919,
+      "initial": {
+        "pecas": 75,
+        "posicionadas": 0,
+        "triangulosConservados": 900,
+        "erroRelativoArea": 0,
+        "erroAlinhamentoPixels": 2.5421149729252077e-13,
+        "erroRaioRolamento": 0,
+        "erroEixo": 0,
+        "transformacoesRigidas": true,
+        "escalaPecas": true,
+        "opacidade": 1
+      },
+      "faces": {
+        "pecas": 75,
+        "posicionadas": 0,
+        "triangulosConservados": 900,
+        "erroRelativoArea": 1.4901161549119024e-7,
+        "erroAlinhamentoPixels": 0,
+        "erroRaioRolamento": 0,
+        "erroEixo": 0,
+        "transformacoesRigidas": true,
+        "escalaPecas": true,
+        "opacidade": 1
+      },
+      "audits": [
+        {
+          "pecas": 75,
+          "posicionadas": 8,
+          "triangulosConservados": 900,
+          "erroRelativoArea": 0,
+          "erroAlinhamentoPixels": 0,
+          "erroRaioRolamento": 2.220446049250313e-16,
+          "erroEixo": 2.561107976954978e-16,
+          "transformacoesRigidas": true,
+          "escalaPecas": true,
+          "opacidade": 1
+        },
+        {
+          "pecas": 75,
+          "posicionadas": 41,
+          "triangulosConservados": 900,
+          "erroRelativoArea": 0,
+          "erroAlinhamentoPixels": 0,
+          "erroRaioRolamento": 4.440892098500626e-16,
+          "erroEixo": 2.222824019285766e-16,
+          "transformacoesRigidas": true,
+          "escalaPecas": true,
+          "opacidade": 1
+        },
+        {
+          "pecas": 75,
+          "posicionadas": 61,
+          "triangulosConservados": 900,
+          "erroRelativoArea": 0,
+          "erroAlinhamentoPixels": 0,
+          "erroRaioRolamento": 6.661338147750939e-16,
+          "erroEixo": 9.38994900821055e-16,
+          "transformacoesRigidas": true,
+          "escalaPecas": true,
+          "opacidade": 1
         }
+      ],
+      "assembled": {
+        "pecas": 75,
+        "posicionadas": 75,
+        "triangulosConservados": 900,
+        "erroRelativoArea": 0,
+        "erroAlinhamentoPixels": 0,
+        "erroRaioRolamento": 0,
+        "erroEixo": 0,
+        "transformacoesRigidas": true,
+        "escalaPecas": true,
+        "opacidade": 1
       },
-      "encaixe": {
-        "frames": 192,
-        "maxScaleRate": 2.1634203737703523,
-        "maxDepthRate": 1.8724615897736991,
-        "erroEncaixe": 8.881784197001252e-16,
-        "erroLogo": 2.12096188367986e-14
+      "footerChecks": 14,
+      "duration": 15.950000000000001,
+      "timings": {
+        "facesFechadas": 4.25,
+        "esboco": 12.299999999999999,
+        "morphInicio": 12.95,
+        "morphFim": 14,
+        "logoFim": 14.85,
+        "entradaInicio": 14.9,
+        "entradaDuracao": 1.0500000000000007,
+        "fadeSlide": 1.25
       },
-      "rodapes": 14,
-      "cancelamento": true,
-      "aparenciaFinal": {
-        "cor": "#1B267D",
-        "logosLaterais": 0,
-        "logoCapo": true
+      "alignment": 1.1102230246251565e-15,
+      "logo": 0,
+      "arrival": {
+        "samples": 62,
+        "p95": 18,
+        "max": 18.299999997019768,
+        "median": 17.299999997019768,
+        "mapFrozen": true
+      },
+      "conservation": true,
+      "resize": true,
+      "windows": {
+        "transparencia": false,
+        "malhaQuantizada": false,
+        "near": 10
       }
     },
     {
       "width": 1280,
       "height": 960,
-      "duracao": 13.8,
-      "quadros": 750,
-      "quadrosAnimados": 749,
-      "quadrosFade": 57,
-      "fases": [
-        "fade",
-        "rolamento",
-        "subdivisao",
-        "morfagem",
-        "marca",
-        "entrada_no_mapa"
-      ],
-      "redimensionamento": {
-        "before": 3.002500000000002,
-        "during": 3.187200000000002,
-        "after": 3.8227000000000033,
-        "temporarySize": {
-          "width": 1216,
-          "height": 1008
+      "frames": 921,
+      "initial": {
+        "pecas": 75,
+        "posicionadas": 0,
+        "triangulosConservados": 900,
+        "erroRelativoArea": 0,
+        "erroAlinhamentoPixels": 2.5421149729252077e-13,
+        "erroRaioRolamento": 0,
+        "erroEixo": 0,
+        "transformacoesRigidas": true,
+        "escalaPecas": true,
+        "opacidade": 1
+      },
+      "faces": {
+        "pecas": 75,
+        "posicionadas": 0,
+        "triangulosConservados": 900,
+        "erroRelativoArea": 1.4901161549119024e-7,
+        "erroAlinhamentoPixels": 0,
+        "erroRaioRolamento": 0,
+        "erroEixo": 0,
+        "transformacoesRigidas": true,
+        "escalaPecas": true,
+        "opacidade": 1
+      },
+      "audits": [
+        {
+          "pecas": 75,
+          "posicionadas": 8,
+          "triangulosConservados": 900,
+          "erroRelativoArea": 0,
+          "erroAlinhamentoPixels": 0,
+          "erroRaioRolamento": 5.551115123125783e-16,
+          "erroEixo": 2.9494935769904485e-16,
+          "transformacoesRigidas": true,
+          "escalaPecas": true,
+          "opacidade": 1
+        },
+        {
+          "pecas": 75,
+          "posicionadas": 41,
+          "triangulosConservados": 900,
+          "erroRelativoArea": 0,
+          "erroAlinhamentoPixels": 0,
+          "erroRaioRolamento": 5.551115123125783e-16,
+          "erroEixo": 1.4572441889904743e-16,
+          "transformacoesRigidas": true,
+          "escalaPecas": true,
+          "opacidade": 1
+        },
+        {
+          "pecas": 75,
+          "posicionadas": 61,
+          "triangulosConservados": 900,
+          "erroRelativoArea": 0,
+          "erroAlinhamentoPixels": 0,
+          "erroRaioRolamento": 4.440892098500626e-16,
+          "erroEixo": 5.429224221351858e-15,
+          "transformacoesRigidas": true,
+          "escalaPecas": true,
+          "opacidade": 1
         }
+      ],
+      "assembled": {
+        "pecas": 75,
+        "posicionadas": 75,
+        "triangulosConservados": 900,
+        "erroRelativoArea": 0,
+        "erroAlinhamentoPixels": 0,
+        "erroRaioRolamento": 0,
+        "erroEixo": 0,
+        "transformacoesRigidas": true,
+        "escalaPecas": true,
+        "opacidade": 1
       },
-      "encaixe": {
-        "frames": 193,
-        "maxScaleRate": 2.412638141884702,
-        "maxDepthRate": 2.206626865241366,
-        "erroEncaixe": 1.4432899320127035e-15,
-        "erroLogo": 1.6085595323533783e-14
+      "footerChecks": 14,
+      "duration": 15.950000000000001,
+      "timings": {
+        "facesFechadas": 4.25,
+        "esboco": 12.299999999999999,
+        "morphInicio": 12.95,
+        "morphFim": 14,
+        "logoFim": 14.85,
+        "entradaInicio": 14.9,
+        "entradaDuracao": 1.0500000000000007,
+        "fadeSlide": 1.25
       },
-      "rodapes": 14,
-      "cancelamento": true,
-      "aparenciaFinal": {
-        "cor": "#1B267D",
-        "logosLaterais": 0,
-        "logoCapo": true
+      "alignment": 1.5543122344752192e-15,
+      "logo": 1.4210854715202004e-14,
+      "arrival": {
+        "samples": 61,
+        "p95": 18.200000002980232,
+        "max": 18.5,
+        "median": 17.19999999552965,
+        "mapFrozen": true
+      },
+      "conservation": true,
+      "resize": true,
+      "windows": {
+        "transparencia": false,
+        "malhaQuantizada": false,
+        "near": 10
       }
     }
   ],
@@ -200,7 +412,7 @@
       "ruido": {
         "amostras": 59,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.0029962933830132658
+        "amplitudeRotacao": 0.002997455595909507
       }
     },
     {
@@ -210,9 +422,9 @@
       "estadosTecnicos": 25,
       "legendas": 39,
       "ruido": {
-        "amostras": 58,
+        "amostras": 59,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.0029932042706301166
+        "amplitudeRotacao": 0.002999984447032071
       }
     },
     {
@@ -224,7 +436,7 @@
       "ruido": {
         "amostras": 59,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.002999945793532656
+        "amplitudeRotacao": 0.0029975183173896643
       }
     }
   ],
@@ -312,55 +524,52 @@
     {
       "de": "rastreabilidade",
       "para": "servico",
-      "tipo": "next",
-      "quadros": 27,
+      "quadros": 32,
       "painelPermanente": true
     },
     {
       "de": "quimica",
       "para": "distribuicao",
-      "tipo": "next",
-      "quadros": 30,
+      "quadros": 35,
       "painelPermanente": true
     },
     {
       "de": "backfire",
       "para": "estanqueidade",
-      "tipo": "next",
-      "quadros": 32,
+      "quadros": 37,
       "painelPermanente": true
     },
     {
       "de": "servico",
       "para": "rastreabilidade",
-      "tipo": "back",
-      "quadros": 31,
+      "quadros": 32,
       "painelPermanente": true
     },
     {
       "de": "quimica",
       "para": "distribuicao",
-      "tipo": "select",
       "quadros": 37,
       "painelPermanente": true
     }
   ],
+  "erros": [],
+  "rede": [],
   "checks": [
-    "O arquivo abre na capa estática e aguarda um único avanço",
-    "Jornada da qualidade, autores e unidade seguem a referência, sem texto SLIDE TEMPLATE",
-    "Texto e retângulo cinza desaparecem juntos durante exatamente um segundo",
-    "A composição original é reconstruída com dois cubos e nove faces em geometria nativa, sem imagem de fundo",
-    "Rolamentos por pivô, mudança de perspectiva, faces de cores diferentes e 27 subcubos conduzem a montagem",
-    "46 malhas da própria geometria do veículo usam posições de morph entre blocos e o modelo final",
-    "Pintura final #1B267D; materiais de vidros, pneus e metais são preservados",
-    "A marca vetorial branca em placa azul viaja em 3D e se encaixa exatamente no capô",
-    "Logos laterais removidas antes de criar réplicas, amassado e exportações da apresentação",
-    "A escala e profundidade convergem ao mapa sem recuo; geometria coincide com o carro real ao terminar",
-    "Redimensionamento durante a animação não reinicia relógio e mantém as peças no enquadramento",
-    "Autores e unidade no canto inferior esquerdo das 14 telas de conteúdo, incluindo a conclusão de 40%",
-    "Início e Voltar em S1 restauram a capa; seleção direta cancela a abertura; avanço repetido não pula etapas",
-    "Regressão geral: 13 funções, 25 etapas técnicas, 75 estados/resoluções, 117 focos e cinco fades na mesma parada",
-    "A capa adiciona uma tela e uma etapa, sem adicionar uma parada ao mapa",
-    "Zero erros JavaScript/WebGL e zero requisições HTTP/HTTPS; nenhuma nova dependência externa"
+    "Vértices compartilhados na grade eliminam o desalinhamento entre faces da capa",
+    "252 triângulos conservados se unem em pares e fecham 21 redes de seis faces",
+    "Dois volumes originais contêm 54 blocos; 75 peças mantêm identidade, escala e opacidade durante a montagem",
+    "Área de cada triângulo é constante durante a reunião e a dobra das faces",
+    "Rolamentos individuais de 90 ou 180 graus usam pivôs de aresta nos três eixos; sem translação livre ou rotação arbitrária dos cubos",
+    "1360 movimentos individuais, além dos rolamentos dos dois volumes originais",
+    "425 amostras das rotas, sem interpenetração; ponto final do arco coincide com o próximo apoio",
+    "O carro inteiro em cubos está concluído antes de iniciar a morfagem do conjunto",
+    "A pele em blocos se une à malha de acabamento por oclusão e recorte depois da construção, sem fade de peças",
+    "As janelas não usam quantização; câmera com near de 10 evita interferência de profundidade na vista ampliada",
+    "A placa do capô usa a mesma pintura física da carroceria",
+    "Mapa e shaders são preparados antes de iniciar o relógio; cenário permanece congelado na chegada",
+    "Chegada à estrada dura 1,05 segundo; primeiro slide faz fade de 1,25 segundo",
+    "Relógio monotônico não inclui o preparo inicial nem salta após redimensionar",
+    "Testes de conservação, reprodução, resize, enquadramento, FPS, autoria, navegação e cancelamento em três resoluções",
+    "Zero erros JavaScript/WebGL e zero solicitações HTTP/HTTPS durante a apresentação"
   ]
 }

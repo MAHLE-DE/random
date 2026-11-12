@@ -224,7 +224,7 @@ function orient(u){const x=tangent(u),z=new T.Vector3().crossVectors(x,V(0,1,0))
 const PAGE_END=CONFIG.slides.length;
 const pageStop=p=>p===PAGE_END?FINAL_SLIDE:CONFIG.slides[p].severidade-1;
 let pageIndex=-1,demoStep=0;
-let opening=null;
+let opening=null,preparingOpening=false,introRevealLeft=0;
 let carU=stops[0],index=0,motion=null,lastTime=null,cameraTween=null,fade=null,crash=null,crashed=false,fireTime=0,impacts=0,crashPose=null,incident=null;
 let mapDirty=true,mapClock=0,lastMapDraw=-10,shadowAge=10,shadowAnchor=V(1e6,0,1e6),shadowAerial=null,shadowRenders=0,sceneRenders=0;
 let look=V(),boom=V(),carTurn=orient(carU),wheelAngle=0;
@@ -316,9 +316,9 @@ function resetCrash(){crash=null;incident=null;crashed=false;fireTime=0;impacts=
 function finishWreck(){car.position.copy(wreckPosition);car.quaternion.copy(directionQuaternion(crashDirection));syncDamaged();damaged.aplicar(1);damaged.root.visible=true;car.visible=false;fire.visible=true;skid.visible=true;crashed=true;fireTime=Math.max(fireTime,1)}
 function beginCrash(rolling=false,speed=escapeLength/1.4){crash={time:0,impacted:false,rolling,speed,contactTime:escapeLength/speed+(rolling?0:.08),travelled:0,initialLook:look.clone(),initialBoom:boom.clone()};if(incident){incident.phase='tangente';incident.runoffAt=incident.elapsed}appendSkids();ui()}
 function setContent(){
- if(opening?.status().ativa){$('conteudo').classList.add('absent');$('obrigado').classList.remove('visible');return}
+ if(opening?.status().ativa&&!preparingOpening){$('conteudo').classList.add('absent');$('obrigado').classList.remove('visible');return}
  const end=pageIndex===PAGE_END,busy=!!motion||!!cameraTween||!!crash||!!fade&&!fade.contentOnly,s=CONFIG.slides[pageIndex];
- $('conteudo').className='content'+(end?' conclusion':' model-slide')+(busy?' absent':'')+(!end&&['logistica','rastreabilidade','servico','quimica','distribuicao','agua','backfire','vacuo'].includes(s.id)?' large-scene':'')+(!end&&s.id==='quimica'?' corrosion-scene':'')+(!end&&s.id==='distribuicao'?' air-scene':'');
+ $('conteudo').className='content'+(introRevealLeft>0?' intro-reveal':'')+(end?' conclusion':' model-slide')+(busy?' absent':'')+(!end&&['logistica','rastreabilidade','servico','quimica','distribuicao','agua','backfire','vacuo'].includes(s.id)?' large-scene':'')+(!end&&s.id==='quimica'?' corrosion-scene':'')+(!end&&s.id==='distribuicao'?' air-scene':'');
  $('obrigado').classList.toggle('visible',end&&!busy);$('obrigado').setAttribute('aria-hidden',String(!end||busy));
  $('titulo-parada').textContent=end?'CONCLUSÃO · JORNADA DA QUALIDADE':`SEVERIDADE ${s.severidade} · EFEITO NO SISTEMA`;
  $('titulo').textContent=end?'Qualidade em cada decisão.':s.titulo;
@@ -346,7 +346,7 @@ function ensureSelectedVisible(){
 function ui(){
  if(opening?.status().ativa){const state=opening.status();$('conteudo').classList.add('absent');$('anterior').disabled=true;$('proximo').disabled=state.animando;$('proximo').textContent='Iniciar jornada →';$('slide-contador').textContent='Capa';$('estado').textContent=state.animando?'Construindo a jornada':'Jornada da qualidade';$('etapa-inicio').classList.add('current');$('etapa-inicio').setAttribute('aria-current','step');$('obrigado').classList.remove('visible');$('obrigado').setAttribute('aria-hidden','true');for(let i=0;i<=PAGE_END;i++){$('etapa-'+i).className='step';$('etapa-'+i).setAttribute('aria-current','false')}return}
  $('etapa-inicio').classList.remove('current');$('etapa-inicio').setAttribute('aria-current','false');
- mapDirty=true;const busy=!!motion||!!cameraTween||!!fade||!!crash,s=CONFIG.slides[pageIndex],last=s?s.etapas.length-1:0;
+ mapDirty=true;const busy=!!motion||!!cameraTween||!!fade||!!crash||introRevealLeft>0,s=CONFIG.slides[pageIndex],last=s?s.etapas.length-1:0;
  $('anterior').disabled=busy;$('proximo').disabled=busy||pageIndex===PAGE_END;
  $('proximo').textContent=pageIndex===PAGE_END?'Jornada concluída':demoStep<last?'Próxima etapa →':pageIndex===PAGE_END-1?'Conclusão →':'Próximo slide →';
  $('slide-contador').textContent=`${pageIndex+2} / ${PAGE_END+2}`;
@@ -360,7 +360,7 @@ function setInstant(to){
  const pose=presentationPose(to);look.copy(pose.look);boom.copy(pose.boom);
 }
 function selectSlide(page){
- if(fade||page<0||page>PAGE_END)return;
+ if(fade||page<0||page>PAGE_END)return;introRevealLeft=0;
  if(opening?.status().ativa){opening.ocultar();motion=null;cameraTween=null;crash=null;pageIndex=0;demoStep=0;setInstant(0)}
  if(page===PAGE_END-1){motion=null;cameraTween=null;resetCrash();if(index>=LAST_STOP)setInstant(LAST_STOP-1);gotoPage(page);return}
  const to=pageStop(page),contentOnly=to===index&&!motion&&!cameraTween&&!crash;
@@ -384,7 +384,7 @@ function gotoPage(page,phase=0){
 }
 function advance(direction){
  if(opening?.status().ativa){if(direction>0&&opening.iniciar())ui();return}
- if(motion||cameraTween||fade||crash)return;
+ if(motion||cameraTween||fade||crash||introRevealLeft>0)return;
  const s=CONFIG.slides[pageIndex];
  if(direction>0){if(!s)return;if(demoStep<s.etapas.length-1){demoStep++;ui();return}gotoPage(pageIndex+1)}
  else {if(s&&demoStep>0){demoStep--;ui();return}if(pageIndex>0){const prev=pageIndex-1;gotoPage(prev,CONFIG.slides[prev].etapas.length-1)}else showOpening()}
@@ -408,16 +408,18 @@ addEventListener('keydown',e=>{
  const key=e.key.toLowerCase();if([' ','arrowright','pagedown','arrowleft','pageup','f'].includes(key)){e.preventDefault();if([' ','arrowright','pagedown'].includes(key))advance(1);else if(['arrowleft','pageup'].includes(key))advance(-1);else fullscreen()}
 });
 let resizeTimer;
-addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{makePoses();if(!motion&&!cameraTween&&!fade&&!crash){const p=presentationPose(index);look.copy(p.look);boom.copy(p.boom)}else if(motion)motion.endPose=stopPose(motion.to);else if(cameraTween){const p=presentationPose(cameraTween.to);cameraTween.toLook=p.look;cameraTween.toBoom=p.boom}},150)});
+addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{makePoses();if(!motion&&!cameraTween&&!fade&&!crash){const p=presentationPose(index);look.copy(p.look);boom.copy(p.boom)}else if(motion)motion.endPose=stopPose(motion.to);else if(cameraTween){const p=presentationPose(cameraTween.to);cameraTween.toLook=p.look;cameraTween.toBoom=p.boom}if(opening?.status().animando){prepararFundoAbertura();opening.resize()}},150)});
 const first=stopPose(0);look.copy(first.look);boom.copy(first.boom);place(carU);
-const manifoldView=criarVisorColetor(T,{visivel:()=>pageIndex>=0&&pageIndex<PAGE_END&&!opening?.status().ativa&&!motion&&!cameraTween&&!crash&&(!fade||fade.contentOnly&&fade.switched)});
+const manifoldView=criarVisorColetor(T,{visivel:()=>preparingOpening||pageIndex>=0&&pageIndex<PAGE_END&&!opening?.status().ativa&&!motion&&!cameraTween&&!crash&&(!fade||fade.contentOnly&&fade.switched)});
 function syncMapCamera(){camera.position.copy(look).add(boom);camera.lookAt(look);camera.updateMatrixWorld(true)}
-function showOpening(){motion=null;cameraTween=null;fade=null;pageIndex=-1;demoStep=0;setInstant(0);syncMapCamera();$('fade').style.opacity=0;$('slide-content').style.opacity=1;opening.mostrar();ui()}
+function prepararFundoAbertura(){const previous=pageIndex,visible=car.visible;preparingOpening=true;try{pageIndex=0;car.visible=false;setContent();manifoldView.resize();mapDirty=true;update(0)}finally{pageIndex=previous;car.visible=visible;preparingOpening=false;lastTime=null;$('conteudo').classList.add('absent')}}
+function showOpening(){introRevealLeft=0;motion=null;cameraTween=null;fade=null;pageIndex=-1;demoStep=0;setInstant(0);syncMapCamera();$('fade').style.opacity=0;$('slide-content').style.opacity=1;opening.mostrar();ui()}
 syncMapCamera();
-opening=criarAbertura(T,{car,logoCapo:carAppearance.logoCapo,mapCamera:camera,prepareMapCamera:syncMapCamera,onFinish:()=>{pageIndex=0;demoStep=0;car.visible=true;mapDirty=true;ui()}});
+opening=criarAbertura(T,{car,logoCapo:carAppearance.logoCapo,mapCamera:camera,prepareMapCamera:syncMapCamera,prepareBackdrop:prepararFundoAbertura,onFinish:()=>{pageIndex=0;demoStep=0;introRevealLeft=1.25;car.visible=true;mapDirty=true;ui()}});
 showOpening();
 function update(dt){
- if(opening.status().ativa){opening.update(dt);car.visible=!opening.status().animando;if(opening.status().ativa&&opening.status().tempo<10.3)return}
+ if(!preparingOpening&&opening.status().ativa){opening.update(dt);car.visible=!opening.status().animando;if(opening.status().ativa)return}
+ if(introRevealLeft>0){introRevealLeft=Math.max(0,introRevealLeft-dt);if(introRevealLeft===0){$('conteudo').classList.remove('intro-reveal');ui()}}
  mapClock+=dt;shadowAge+=dt;manifoldView.update(dt);
  if(incident&&incident.revealAt===null)incident.elapsed+=dt;
  vegetation.wind.value+=dt;
@@ -502,7 +504,7 @@ function update(dt){
 }
 // Tempo real de apresentação, independente da taxa de quadros. Pausa quando a aba fica oculta.
 document.addEventListener('visibilitychange',()=>{lastTime=null});
-function tick(time){const dt=lastTime===null?0:Math.max((time-lastTime)/1000,0);lastTime=time;update(dt);requestAnimationFrame(tick)}
+function tick(){const now=performance.now(),dt=lastTime===null?0:Math.max((now-lastTime)/1000,0);lastTime=now;update(dt);requestAnimationFrame(tick)}
 function verificarGeometria(){
  let minClearance=Infinity,negative=0;
  function meshHeight(x,z){const nx=TERRAIN_SEGMENTS_X,nz=TERRAIN_SEGMENTS_Z,fx=clamp((x+TERRAIN_WIDTH/2)/(TERRAIN_WIDTH/nx),0,nx-.001),fz=clamp((z+TERRAIN_DEPTH/2)/(TERRAIN_DEPTH/nz),0,nz-.001),i=Math.floor(fx),j=Math.floor(fz),u=fx-i,v=fz-j,a=landPositions.getY(j*(nx+1)+i),b=landPositions.getY((j+1)*(nx+1)+i),c=landPositions.getY((j+1)*(nx+1)+i+1),d=landPositions.getY(j*(nx+1)+i+1);return u+v<=1?a*(1-u-v)+b*v+d*u:b*(1-u)+d*(1-v)+c*(u+v-1)}
@@ -510,7 +512,7 @@ function verificarGeometria(){
  return{minClearance,negative,closureGap:roadPoints[0].distanceTo(roadPoints.at(-1)),roadLength:roadDistances.at(-1),forestCount:forestPoints.length-clearedTrees,comprimentoApresentacao:total,distanciasEntreParadas:stops.slice(1).map((u,i)=>(u-stops[i])*total),duracaoTransicao:TRAVEL_DURATION,escalaHorizontal:CONFIG.percurso.escalaHorizontal,variantStats:vegetation.variants.map(v=>({tipo:v.type,triangles:(v.wood.getAttribute('position').count+(v.leaves?.getAttribute('position').count||0))/3,altura:v.height})),contactTimeRolling:escapeLength/((stops[LAST_STOP]-stops[LAST_STOP-1])*total/TRAVEL_DURATION)};
 }
 // Diagnóstico local para validação: sem telemetria, sem persistência e sem rede.
-window.prototipo={abertura:{mostrar:showOpening,iniciar:()=>advance(1),estado:()=>opening.estado()},estado:()=>({abertura:opening.estado(),carroAparencia:{cor:'#1B267D',logosLaterais:carAppearance.info.logosLateraisRestantes,logoCapo:true},index,pageIndex,demoStep,slideId:CONFIG.slides[pageIndex]?.id,paradas:STOP_COUNT,slides:PAGE_END+2,carU,sceneRenders,shadowRenders,coletor:manifoldView.estado(),skidSamples,skidDrawCounts:skidTracks.map(t=>t.g.drawRange.count),moving:!!motion||!!cameraTween||!!crash,fading:!!fade,tracking:!!motion,incident:incident?{...incident}:null,roadEndpoints:roadPoints.filter((p,i)=>i===0||i===roadPoints.length-1).map(p=>p.clone().project(camera).toArray()),crashGeometry:{origin:crashOrigin.toArray(),tangent:exitTangent.toArray(),direction:crashDirection.toArray(),escapeLength,treeRoadDistance:groundInfo(treePosition.x,treePosition.z).distance},crashTime:crash?.time??null,contactTime:crash?.contactTime??null,crashTravelled:crash?.travelled??null,forestCount:forestPoints.length-clearedTrees,visibleTrees,treeVariants:vegetation.variants.length,roadClosed:roadPoints[0].distanceTo(roadPoints.at(-1))<.001,triangles:renderer.info.render.triangles,crashed,fire:fire.visible,impacts,damagedVisible:damaged.root.visible,tree:treePosition.toArray(),frontDirection:V(1,0,0).applyQuaternion(car.quaternion).toArray(),wreckPosition:wreckPosition.toArray(),crashLayout:roadIntrusions(crashPose,LAST_STOP,0),progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===FINAL_SLIDE,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide,setDemoStep,roteiro:CONFIG.slides,verificarGeometria,verificarVisibilidade,exportarColetor:cut=>manifoldView.exportar(cut),exportarArvore:i=>vegetation.tree(i),exportarIntegro:()=>{const c=car.clone(true);c.position.set(0,0,0);c.quaternion.identity();c.visible=true;return c},exportarAmassado:()=>damaged.exportar()};
+window.prototipo={abertura:{mostrar:showOpening,iniciar:()=>advance(1),estado:()=>opening.estado(),auditar:()=>opening.verificar()},estado:()=>({abertura:opening.estado(),carroAparencia:{cor:'#1B267D',logosLaterais:carAppearance.info.logosLateraisRestantes,logoCapo:true},index,pageIndex,demoStep,slideId:CONFIG.slides[pageIndex]?.id,paradas:STOP_COUNT,slides:PAGE_END+2,carU,sceneRenders,shadowRenders,coletor:manifoldView.estado(),skidSamples,skidDrawCounts:skidTracks.map(t=>t.g.drawRange.count),moving:!!motion||!!cameraTween||!!crash,fading:!!fade||introRevealLeft>0,tracking:!!motion,incident:incident?{...incident}:null,roadEndpoints:roadPoints.filter((p,i)=>i===0||i===roadPoints.length-1).map(p=>p.clone().project(camera).toArray()),crashGeometry:{origin:crashOrigin.toArray(),tangent:exitTangent.toArray(),direction:crashDirection.toArray(),escapeLength,treeRoadDistance:groundInfo(treePosition.x,treePosition.z).distance},crashTime:crash?.time??null,contactTime:crash?.contactTime??null,crashTravelled:crash?.travelled??null,forestCount:forestPoints.length-clearedTrees,visibleTrees,treeVariants:vegetation.variants.length,roadClosed:roadPoints[0].distanceTo(roadPoints.at(-1))<.001,triangles:renderer.info.render.triangles,crashed,fire:fire.visible,impacts,damagedVisible:damaged.root.visible,tree:treePosition.toArray(),frontDirection:V(1,0,0).applyQuaternion(car.quaternion).toArray(),wreckPosition:wreckPosition.toArray(),crashLayout:roadIntrusions(crashPose,LAST_STOP,0),progress:motion?clamp(motion.time/motion.duration,0,1):cameraTween?clamp(cameraTween.time/cameraTween.duration,0,1):null,conclusion:index===FINAL_SLIDE,car:car.position.toArray(),screen:car.position.clone().project(camera).toArray(),carBounds:carCorners.map(p=>p.clone().applyMatrix4(car.matrixWorld).project(camera).toArray()),camera:camera.position.toArray(),look:look.toArray(),wheels:wheels.length,drawCalls:renderer.info.render.calls,layout:layoutAudit}),advance,selectSlide,setDemoStep,roteiro:CONFIG.slides,verificarGeometria,verificarVisibilidade,exportarColetor:cut=>manifoldView.exportar(cut),exportarArvore:i=>vegetation.tree(i),exportarIntegro:()=>{const c=car.clone(true);c.position.set(0,0,0);c.quaternion.identity();c.visible=true;return c},exportarAmassado:()=>damaged.exportar()};
 ui();requestAnimationFrame(tick);
 } catch(error){console.error(error);$('erro').classList.remove('hidden');$('erro').textContent='Não foi possível iniciar a cena 3D. Abra este arquivo no Microsoft Edge ou Google Chrome com suporte a WebGL. Detalhe: '+error.message;$('estado').textContent='Cena indisponível';}
 })();

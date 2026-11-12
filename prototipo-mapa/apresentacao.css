@@ -93,3 +93,4 @@
 }
 @media(max-width:1050px){.first-content{grid-template-columns:42fr 58fr;gap:15px}.model-tools{gap:3px;flex-wrap:wrap}.model-tools button{font-size:10px}.numbers{width:216px}.step{flex-basis:48px}.slide-counter{display:none}.content h1{font-size:29px}.meaning p{font-size:15px}}
 @media(prefers-reduced-motion:reduce){.spectrum-bar,.travelling-dot,.braking-normal,.braking-reduced{animation:none}}
+.content.intro-reveal{transition:opacity 1.25s ease}
