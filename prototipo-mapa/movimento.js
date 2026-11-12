@@ -344,7 +344,7 @@ function ensureSelectedVisible(){
  else if(left+item.offsetWidth>list.scrollLeft+list.clientWidth)list.scrollTo({left:left+item.offsetWidth-list.clientWidth,behavior:'smooth'});
 }
 function ui(){
- if(opening?.status().ativa){const state=opening.status();$('conteudo').classList.add('absent');$('anterior').disabled=true;$('proximo').disabled=state.animando;$('proximo').textContent='Iniciar jornada →';$('slide-contador').textContent='Capa';$('estado').textContent=state.animando?'Construindo a jornada':'Jornada da qualidade';$('etapa-inicio').classList.add('current');$('etapa-inicio').setAttribute('aria-current','step');$('obrigado').classList.remove('visible');$('obrigado').setAttribute('aria-hidden','true');for(let i=0;i<=PAGE_END;i++){$('etapa-'+i).className='step';$('etapa-'+i).setAttribute('aria-current','false')}return}
+ if(opening?.status().ativa){const state=opening.status();$('conteudo').classList.add('absent');$('anterior').disabled=true;$('proximo').disabled=state.animando;$('proximo').textContent='Avançar →';$('slide-contador').textContent='Capa';$('estado').textContent=state.animando?'Construindo a jornada':'Jornada da qualidade';$('etapa-inicio').classList.add('current');$('etapa-inicio').setAttribute('aria-current','step');$('obrigado').classList.remove('visible');$('obrigado').setAttribute('aria-hidden','true');for(let i=0;i<=PAGE_END;i++){$('etapa-'+i).className='step';$('etapa-'+i).setAttribute('aria-current','false')}return}
  $('etapa-inicio').classList.remove('current');$('etapa-inicio').setAttribute('aria-current','false');
  mapDirty=true;const busy=!!motion||!!cameraTween||!!fade||!!crash||introRevealLeft>0,s=CONFIG.slides[pageIndex],last=s?s.etapas.length-1:0;
  $('anterior').disabled=busy;$('proximo').disabled=busy||pageIndex===PAGE_END;
@@ -394,12 +394,13 @@ function fullscreen(){if(document.fullscreenElement)document.exitFullscreen?.();
 $('proximo').addEventListener('click',()=>advance(1));$('anterior').addEventListener('click',()=>advance(-1));
 for(let i=0;i<=PAGE_END;i++)$('etapa-'+i).addEventListener('click',()=>selectSlide(i));
 $('etapa-inicio').addEventListener('click',()=>showOpening());
+$('capa').addEventListener('click',()=>{if(opening?.status().ativa)advance(1)});
 function scrollList(direction){$('numeros').scrollBy({left:direction*($('etapa-0').offsetWidth+8),behavior:'smooth'})}
 $('rolar-anterior').addEventListener('click',()=>scrollList(-1));$('rolar-proximo').addEventListener('click',()=>scrollList(1));
 $('numeros').addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){e.preventDefault();$('numeros').scrollLeft+=e.deltaY}},{passive:false});
 addEventListener('keydown',e=>{
  if(e.repeat||e.altKey||e.ctrlKey||e.metaKey)return;
- if(opening?.status().ativa&&[' ','ArrowRight','PageDown'].includes(e.key)){e.preventDefault();advance(1);return}
+ if(opening?.status().ativa&&[' ','Enter','ArrowRight','PageDown'].includes(e.key)){e.preventDefault();advance(1);return}
  if(e.target.closest?.('.model-tools,.field-legend,.model-pin')&&[' ','Enter'].includes(e.key))return;
  // Espaço e Enter conservam a semântica dos botões quando a lista tem foco.
  if(e.target.closest?.('.slide-nav')&&[' ','Enter','ArrowLeft','ArrowRight'].includes(e.key)){

@@ -2,11 +2,12 @@
 
 Abra `iniciar.html` no Edge ou Chrome. Esse arquivo é autossuficiente e funciona offline, com WebGL. `F` alterna tela cheia.
 
-O arquivo abre na capa **Jornada da qualidade**, antes de S1. São **15 telas: uma capa, 13 funções e uma conclusão**, com uma etapa de abertura e 25 etapas técnicas, totalizando 26 etapas. **Bruno Caetano, Cauã Ferrari · BU2 SA (TMD2)** aparece na capa e no canto inferior esquerdo dos demais slides, com ponto central entre os nomes e a unidade.
+O arquivo abre na capa **SEMANA DA QUALIDADE**, com o subtítulo **Coletor de ar: do defeito ao efeito**, antes de S1. São **15 telas: uma capa, 13 funções e uma conclusão**, com uma etapa de abertura e 25 etapas técnicas, totalizando 26 etapas. **Bruno Caetano, Cauã Ferrari · BU2 SA (TMD2)** aparece na capa e no canto inferior esquerdo dos demais slides, com ponto central entre os nomes e a unidade.
 
 ## Apresentação
 
-- **→, Espaço, Page Down ou Próxima etapa:** avançar a demonstração. Na capa, **Iniciar jornada** dispara sua única sequência automática de cerca de 16 segundos e abre S1 ao terminar. Ao terminar a última etapa técnica, o mesmo controle abre o próximo slide.
+- **Clique na capa, Enter ou →:** iniciar a única sequência automática da abertura, com cerca de oito segundos, e abrir S1 ao terminar.
+- **→, Espaço, Page Down ou Próxima etapa:** avançar a demonstração técnica. Ao terminar a última etapa técnica, o mesmo controle abre o próximo slide.
 - **←, Page Up ou Voltar:** voltar uma etapa. Na primeira etapa, retornar à última etapa real do slide anterior; em S1, retornar à capa.
 - **Barra inferior:** saltar para um slide e reiniciar sua demonstração. **Início** retorna à capa. Os números repetidos indicam funções diferentes da mesma severidade.
 - **Arraste / roda / − / +:** girar e ampliar o coletor. A câmera mantém a geometria inteira enquadrada.
@@ -19,7 +20,7 @@ Nos slides técnicos, as animações não avançam o roteiro automaticamente. Tr
 
 | Parada | Funções na sequência da planilha | Representação |
 |---|---|---|
-| Início | Jornada da qualidade | Uma etapa: capa com autores e unidade; transformação geométrica automática no carro após o primeiro avanço |
+| Início | Semana da Qualidade | Uma etapa: capa com subtítulo, autores e unidade; transformação geométrica automática no carro após clique ou comando de teclado |
 | S1 | Identificação permanente | Campos identificados, apagamento e ampliação do conjunto sob investigação |
 | S2 | Aparência | Uma etapa: manchas na lateral, marcas curvas de fluxo no topo central e uma faixa ampla e lisa de tonalidade no topo direito |
 | S3 | Rugosidade e tato | Uma etapa: lateral rugosa e mãos, sem ar; linha de partição em relevo no topo e canto vivo destacado na flange |
@@ -39,11 +40,11 @@ Fonte técnica: `../apresentacao_qualidade_completa.xlsx`, `Sheet1!B3:F17`, com 
 
 ## Edição e reprodução
 
-A capa usa dois cubos maiores e uma composição de nove regiões coloridas, construída por 252 triângulos em uma grade compartilhada. Os triângulos se juntam em pares e fecham 21 cubos. Os dois volumes maiores já contêm 54 blocos internos. Todas as 75 peças seguem por rolamentos de aresta nos três eixos, com escala e opacidade constantes. O carro inteiro em blocos fica pronto antes do refinamento de superfície; as faces passam à pele do objeto, e a malha de acabamento mantém as janelas sem quantização. A marca branca sobre o retângulo com a mesma pintura azul do carro percorre a trajetória 3D até o capô. A sequência dura cerca de 16 segundos e termina em S1, sem cliques intermediários.
+A capa usa dois volumes maiores próximos entre si, com cubos menores distribuídos irregularmente à sua volta, e uma composição de nove regiões coloridas, construída por 252 triângulos em uma grade compartilhada. Texto e painel cinza desaparecem juntos em um segundo. A dobra das faces e os rolamentos ocorrem simultaneamente: os triângulos se juntam em pares e fecham 21 cubos, enquanto os dois volumes maiores revelam seus 54 blocos internos. Todas as 75 peças seguem por rolamentos de aresta nos três eixos, com escala e opacidade constantes. O carro inteiro em blocos fica pronto antes do morph semântico para carroceria, cabine, vidros e rodas; as normais acompanham a deformação e as regiões de vidro e roda já recebem suas cores no trecho final dos rolamentos. A malha de acabamento mantém as janelas sem quantização. A marca branca sobre o retângulo com a mesma pintura azul do carro percorre a trajetória 3D até o capô. A sequência dura cerca de oito segundos e termina em S1, sem cliques intermediários.
 
 `carro-aparencia.js` aplica a pintura final `#1B267D` somente à carroceria, cabine e retrovisores, preservando vidros, pneus e metais. A marca do capô é vetorial e reaproveita a geometria existente. As logos laterais são removidas do carro apresentado, do amassado e das exportações geradas pela apresentação. A placa acompanha a deformação do capô na batida. Nenhuma dependência externa foi adicionada; a capa e a animação são incorporadas ao mesmo HTML offline.
 
-Execute `node prototipo-mapa/verificar-abertura.mjs` para conferir a composição da capa, seu único avanço, o fade de um segundo, os rolamentos, os 252 triângulos e as 75 peças, o morph, o voo e o encaixe da marca, os autores no rodapé e o retorno de S1 à capa. A verificação inclui redimensionar a janela durante a animação e conferir a entrega ao mapa no novo tamanho.
+Execute `node prototipo-mapa/verificar-abertura.mjs` para conferir a composição da capa, o início por clique ou teclado, o fade de um segundo, a dobra e os rolamentos simultâneos, os 252 triângulos e as 75 peças, o morph com normais e cores por região, o voo e o encaixe da marca, a subida do fundo branco, os autores no rodapé e o retorno de S1 à capa. A verificação inclui redimensionar a janela durante a animação e conferir a entrega ao mapa no novo tamanho.
 
 S2–S4 apresentam a frase completa “Sensação percebida … desagradável”, com ajuste de fonte para uma linha. S5 abre a tampa em uma animação de 2,4 segundos, simultaneamente à mudança de vista; a orientação inicial é a deixada pelo apresentador. Uma interação manual interrompe apenas o movimento automático da vista. As abas continuam a abrir e a cena final fica livre para giro e zoom. Ao focar uma legenda interna, o enquadramento prioriza o coletor e os componentes, permitindo que partes externas das abas saiam da janela.
 
@@ -79,6 +80,6 @@ O circuito de vácuo está em `cena-vacuo.js`. O conector possui uma janela did�
 
 `estrutura-abertura.js` define a grade e as rotas por arestas; `rede-abertura.js` define a dobra das seis faces. `node prototipo-mapa/preparar-abertura.mjs` gera `abertura-dados.json` a partir do GLB e das rotas. A apresentação usa esses dados prontos, sem busca de caminho ou projeção de malhas durante a reprodução. Rode `node prototipo-mapa/gerar.mjs` depois de preparar os dados.
 
-O preparo do cenário ocorre antes de iniciar o relógio da abertura. A chegada à estrada dura 1,05 segundo e usa o mapa já renderizado; o primeiro slide aparece em 1,25 segundo. A câmera da abertura usa near de 10 unidades para evitar interferência de profundidade entre janelas e carroceria na vista ampliada. A marca do capô usa a mesma pintura da carroceria.
+O preparo do cenário ocorre antes de iniciar o relógio da abertura. A chegada à estrada dura 0,85 segundo: o fundo branco sobe e revela o mapa já renderizado, sem fade do mapa. O primeiro slide aparece em 1,25 segundo. A câmera da abertura usa near de 10 unidades para evitar interferência de profundidade entre janelas e carroceria na vista ampliada. A marca do capô usa a mesma pintura da carroceria.
 
 `node prototipo-mapa/verificar-construcao.mjs` verifica identidade, ângulos, percurso rígido e colisões; `node prototipo-mapa/verificar-abertura.mjs` verifica a reprodução, a conservação de faces, o enquadramento, as janelas, o FPS e a entrada em S1 nas três resoluções. A [referência de dobra](referencia-abertura.md) orienta o fechamento das faces, sem adotar a rotação livre do cubo do vídeo.

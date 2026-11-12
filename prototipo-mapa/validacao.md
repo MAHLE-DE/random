@@ -1,5 +1,19 @@
 # Validação do protótipo
 
+## Abertura simultânea e acabamento — 11/11/2026
+
+- Capa com “SEMANA DA QUALIDADE” e “Coletor de ar: do defeito ao efeito” em fonte mais leve. O fundo cinza avança um pouco à esquerda. Não há botão de início visível; clique na capa, Enter ou seta para a direita disparam a sequência.
+- Os volumes maiores terminam próximos, encostados por uma face. Os 21 cubos construídos pelas faces têm posições irregulares ao redor deles: 14 coordenadas X e 13 coordenadas Z distintas, sem a grade anterior. As faces já se fecham durante o deslocamento, com intervalos diferentes.
+- Fechamento, desmontagem e montagem se sobrepõem. Há 1.805 rolamentos em três eixos, com dois ritmos de movimento e pico de 55 cubos rolando simultaneamente. O esboço fica completo em 5,715 segundos; a abertura inteira dura 7,985 segundos.
+- As 75 peças conservam identidade, escala e opacidade na construção. A área das faces e a distância ao pivô permanecem dentro das tolerâncias numéricas. A verificação independente de 349 amostras das rotas não encontrou interpenetrações e confirmou que nenhum cubo inicia o rolamento antes de fechar.
+- O morph separa os destinos de carroceria, cabine, vidros e rodas. Faces internas permanecem dentro do volume, evitando que sejam projetadas para fora. A posição usa uma curva de aceleração suave; normais acompanham a forma, e vidros/rodas recebem cores antes do fim da montagem. Os recortes abruptos do shader anterior foram removidos. O acabamento preserva a precisão de profundidade das janelas.
+- A logo começa seu voo no trecho final do morph. Na chegada, o fundo branco sobe por 0,85 segundo enquanto o carro se posiciona na estrada, revelando o mapa já renderizado. O fundo permanece opaco durante o deslocamento, sem fade do mapa. O primeiro slide aparece em 1,25 segundo.
+- Abertura aprovada em 1600×900, 1280×720 e 1280×960: início por clique/teclado, fade inicial, sobreposição, conservação, enquadramento, morph, encaixe, resize, autoria, cancelamento e desempenho. O percentil 95 do tempo de quadro na chegada ficou entre 17,3 e 17,9 ms nos testes locais. O erro de encaixe final ficou abaixo de 1e-7.
+- Regressão geral aprovada nas mesmas resoluções: 13 funções, 25 etapas técnicas, 117 focos de legenda e cinco fades na mesma parada. A capa e conclusão mantêm o total em 15 telas e 26 etapas. Nenhum erro JavaScript/WebGL ou solicitação HTTP/HTTPS durante a execução offline.
+- Relatórios e capturas locais em `.producao/qa-abertura/`, `.producao/qa-construcao/` e `.producao/qa-completa/`. O resumo em `validacao-completa.json` registra o hash LF do HTML testado.
+
+As seções abaixo registram versões anteriores.
+
 ## Construção por faces e rolamentos — 11/11/2026
 
 - A figura foi refeita sobre uma grade isométrica com vértices compartilhados. O desalinhamento entre regiões desapareceu. A distância de projeção entre as junções e a referência matemática ficou abaixo de 0,01 pixel nas três resoluções.
