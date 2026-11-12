@@ -2,11 +2,11 @@
 #capa{position:absolute;z-index:4;inset:0;background:transparent;overflow:hidden;cursor:pointer;pointer-events:auto}
 #capa-papel{position:absolute;inset:0;background:#fff;will-change:transform;pointer-events:none}
 #capa-composicao{position:absolute;left:50%;top:50%;width:1280px;height:720px;transform:translate(-50%,-50%) scale(var(--cover-scale,1));transform-origin:center}
-#capa-fundo{position:absolute;left:20px;top:38px;width:475px;height:644px;background:#f1f1f1;border-radius:2px}
+#capa-fundo{position:absolute;left:20px;top:38px;width:760px;height:644px;background:#f1f1f1;border-radius:2px}
 #capa-texto{position:absolute;inset:0;color:#343b6c}
-#capa-titulo{position:absolute;left:64px;top:128px;margin:0;width:440px;font-size:42px;line-height:1.2;letter-spacing:-.025em;font-weight:400}
-#capa-titulo strong{font-weight:800}
-#capa-subtitulo{position:absolute;left:64px;top:260px;margin:0;width:345px;font-size:24px;line-height:1.35;font-weight:300;letter-spacing:-.015em;color:#40516d}
+#capa-titulo{position:absolute;left:64px;top:128px;margin:0;white-space:nowrap;font-size:40px;font-weight:400;line-height:1.2;letter-spacing:-.025em;font-weight:400}
+#capa-titulo strong{font-weight:700}
+#capa-subtitulo{position:absolute;left:64px;top:195px;margin:0;white-space:nowrap;font-size:23px;line-height:1.35;font-weight:300;letter-spacing:-.015em;color:#40516d}
 #capa-autores{position:absolute;left:64px;top:600px;margin:0;color:#34465b;font-size:18px;line-height:1.45;white-space:nowrap}
 #capa-autores span{font-weight:500}
 #capa-geometria{position:absolute;inset:0;pointer-events:none}
@@ -97,3 +97,5 @@
 @media(max-width:1050px){.first-content{grid-template-columns:42fr 58fr;gap:15px}.model-tools{gap:3px;flex-wrap:wrap}.model-tools button{font-size:10px}.numbers{width:216px}.step{flex-basis:48px}.slide-counter{display:none}.content h1{font-size:29px}.meaning p{font-size:15px}}
 @media(prefers-reduced-motion:reduce){.spectrum-bar,.travelling-dot,.braking-normal,.braking-reduced{animation:none}}
 .content.intro-reveal{transition:opacity 1.25s ease}
+
+.content[data-funcao="estanqueidade"] #diagrama{display:none}

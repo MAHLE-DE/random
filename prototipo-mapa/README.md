@@ -2,7 +2,7 @@
 
 Abra `iniciar.html` no Edge ou Chrome. Esse arquivo é autossuficiente e funciona offline, com WebGL. `F` alterna tela cheia.
 
-O arquivo abre na capa **SEMANA DA QUALIDADE**, com **Coletor de ar: do defeito ao efeito** abaixo. Bruno Caetano, Cauã Ferrari · BU2 SA (TMD2) aparecem na capa e nos rodapés. Clique na capa, Enter ou → iniciam a passagem a S1. O carro aguarda parado, de capô aberto, com o coletor destacado por pulsos lentos de brilho no motor.
+O arquivo abre na capa **SEMANA DA QUALIDADE**, com **COLETOR DE AR: DO DEFEITO AO EFEITO** abaixo. Bruno Caetano, Cauã Ferrari · BU2 SA (TMD2) aparecem na capa e nos rodapés. Clique na capa, Enter ou → iniciam a passagem a S1. O carro aguarda parado, de capô aberto, com o coletor destacado por pulsos lentos de brilho no motor.
 
 ## Apresentação
 
@@ -11,7 +11,7 @@ O arquivo abre na capa **SEMANA DA QUALIDADE**, com **Coletor de ar: do defeito 
 - **Barra inferior:** saltar para um slide e reiniciar sua demonstração. **Início** retorna à capa. Os números repetidos indicam funções diferentes da mesma severidade.
 - **Arraste / roda / − / +:** girar e ampliar o coletor. A câmera mantém a geometria inteira enquadrada.
 - **Legendas 1, 2 e 3:** orientar a vista para o alvo e selecionar o indicador correspondente. A partir de S3, regiões ocultas podem ativar transparência para permitir a localização. S1 e S2 orientam a vista sem transparência.
-- **Vista em corte e Reenquadrar:** inspecionar o interior e restaurar a orientação e zoom iniciais. O botão **Transparência** existe somente em S7.2, onde começa ativado.
+- **Vista em corte e Reenquadrar:** inspecionar o interior e restaurar a orientação e zoom iniciais. O botão **Transparência** existe em S7.2 (ativado na entrada) e S9.2 (desativado na entrada).
 
 Nos slides técnicos, as animações não avançam o roteiro automaticamente. Transporte, partículas ou ondas podem se movimentar na etapa atual; só outro comando libera a próxima consequência. A abertura começa apenas após um avanço e, depois dele, executa sua sequência inteira antes de mostrar S1. Não há uma etapa adicional de inspeção: giro, corte, zoom e reenquadramento funcionam durante toda a demonstração técnica. A última etapa mantém o seu cenário e seus efeitos. O mapeador de demonstração guiada foi retirado; a coluna esquerda contém somente o texto explicativo.
 
@@ -31,7 +31,7 @@ Nos slides técnicos, as animações não avançam o roteiro automaticamente. Tr
 | S7 · 2 | Quantidade e distribuição de ar | Duas etapas: coletor transparente e streamlines equilibradas; menos ar no R4, seção vermelha pulsante e gráficos ilustrativos no visor |
 | S8 | Água e condensado | Duas etapas: condensação e entrada leve pelo bocal; inclinação lateral, ingestão pelos quatro runners e pistões bloqueados por água nas câmaras |
 | S9 · 1 | Retorno de chama | Duas etapas: ciclo lento de câmara, retorno e ignição no coletor; peça opaca com fissura que cresce e se ramifica |
-| S9 · 2 | Estanqueidade | Verificação de fuga, partículas, divergência de medição e diagnóstico |
+| S9 · 2 | Estanqueidade | Macro da solda vibracional e da junta junto ao cabeçote, com fugas |
 | S10 | Vácuo para o servofreio | Uma etapa em loop: ar do masterback ao coletor, obstrução do conector com zoom e exclamação; batida aos três segundos antes da entrada do slide |
 | Fim | Conclusão | 40% à esquerda: integração entre os setores do projeto; “OBRIGADO!” branco à direita após a transição |
 
@@ -61,7 +61,7 @@ O enquadramento guarda os vértices do coletor em coordenadas locais e aplica a 
 
 S9.1 tem duas etapas. O loop de 16 segundos mostra uma câmara em corte com pistão, válvula, mola, injetor e vela. A válvula permanece aberta durante a subida ilustrada do pistão; partículas e trechos curtos mostram a mistura ar-combustível voltando pelo runner. A frente de chama parte da câmara e chega ao pleno, onde uma ignição com brilho suave e ondas representa o pico de pressão. A câmera acompanha o trajeto e retorna à câmara sem salto no reinício. Interação manual mantém o enquadramento escolhido, enquanto o ciclo físico continua. Ao avançar, o coletor fica opaco e a câmera aproxima a parede. A fissura cresce durante aproximadamente quatro segundos, com abertura escura, bordas irregulares e duas ramificações. A etapa termina estática e livre para inspeção. As legendas orientam a vista e restauram a peça completa quando a parede está em corte. Execute `node prototipo-mapa/verificar-backfire.mjs`; capturas e relatório ficam em `.producao/qa-backfire/`. Consulte as [referências técnicas](referencias-backfire.md) para a terminologia e o alcance da ilustração.
 
-Edite o roteiro técnico em `slides.json`; cada função tem `severidade`, `linha` de origem, textos, três alvos 3D e `etapas`. A severidade determina a parada. São 25 etapas técnicas, além da etapa de abertura. S1 e S2 não têm animação de ar ou função de transparência. S2 já inicia com os três efeitos visuais ativos. S3 e S4 também iniciam diretamente em sua única etapa. S3 não tem animação de ar; os balões 2 e 3 acompanham a linha em relevo no topo e o canto superior da flange, respectivamente. Selecionar a linha com a tampa em corte restaura a vista completa. Na S4, um volume conservador da onda define o enquadramento e a animação não recalcula a distância da câmera; somente uma rotação de até 0,0015 rad (cerca de 0,086°) para cada lado faz o coletor vibrar. Os controles manuais continuam funcionando. `configuracao.json` mantém somente as configurações do painel e do mapa. Execute `node prototipo-mapa/gerar.mjs` na raiz do repositório para atualizar `iniciar.html`.
+Edite o roteiro técnico em `slides.json`; cada função tem `severidade`, `linha` de origem, textos, três alvos 3D e `etapas`. A severidade determina a parada. São 24 etapas técnicas, além da etapa de abertura. S1 e S2 não têm animação de ar ou função de transparência. S2 já inicia com os três efeitos visuais ativos. S3 e S4 também iniciam diretamente em sua única etapa. S3 não tem animação de ar; os balões 2 e 3 acompanham a linha em relevo no topo e o canto superior da flange, respectivamente. Selecionar a linha com a tampa em corte restaura a vista completa. Na S4, um volume conservador da onda define o enquadramento e a animação não recalcula a distância da câmera; somente uma rotação de até 0,0015 rad (cerca de 0,086°) para cada lado faz o coletor vibrar. Os controles manuais continuam funcionando. `configuracao.json` mantém somente as configurações do painel e do mapa. Execute `node prototipo-mapa/gerar.mjs` na raiz do repositório para atualizar `iniciar.html`.
 
 Nos slides técnicos, o painel tem 90% da largura e da altura, começando em 5% na horizontal e 2% na vertical para reservar a navegação inferior. O visor ocupa a coluna direita; diagramas, legendas e ferramentas têm linhas próprias, sem sobrepor o modelo. Nas trocas entre funções da mesma parada, o fade é aplicado a `#slide-content`, sem apagar o painel branco ou aplicar o véu global sobre o mapa. Conteúdo e controles são verificados em 1600×900, 1280×720 e 1280×960.
 
@@ -82,3 +82,5 @@ A capa mantém o carro parado em perspectiva. O pulso dura 4,5 segundos e não m
 O preparo do cenário acontece antes do relógio. O primeiro slide aparece em fade de 1,25 segundo. A câmera usa near de 10 unidades na vista ampliada; a marca do capô usa a mesma pintura da carroceria. A animação em cubos foi substituída e não é empacotada no HTML.
 
 Execute `node prototipo-mapa/gerar.mjs` para empacotar o HTML, `node prototipo-mapa/verificar-baia.mjs` para conferir superfície/folgas e `node prototipo-mapa/verificar-abertura.mjs` para verificar a pose, pulso, ordem, tempos, resize, enquadramento, encaixe, FPS e entrada em S1 nas três resoluções.
+
+S9.2 apresenta duas etapas: macro do perfil de solda vibracional com união incompleta e fuga; depois, mudança contínua de POV para a junta junto ao cabeçote, com oscilação vermelha e vazamento. O corte de um quarto permanece nas duas etapas, com streamlines internas. Transparência e vista totalmente cortada são opcionais. Os textos explicativos foram preservados. Execute `node prototipo-mapa/verificar-estanqueidade.mjs` para validar. A capa usa fundo cinza 60% mais largo, título em uma linha com SEMANA em negrito, subtítulo em maiúsculas e vista mais frontal do carro.

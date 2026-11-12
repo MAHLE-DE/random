@@ -29,6 +29,7 @@ const corrosionScene=await fs.readFile(path.join(base,'cena-corrosao.js'),'utf8'
 const airScene=await fs.readFile(path.join(base,'cena-distribuicao.js'),'utf8');
 const backfireScene=await fs.readFile(path.join(base,'cena-backfire.js'),'utf8');
 const waterScene=await fs.readFile(path.join(base,'cena-agua.js'),'utf8');
+const sealingScene=await fs.readFile(path.join(base,'cena-estanqueidade.js'),'utf8');
 const vacuumScene=await fs.readFile(path.join(base,'cena-vacuo.js'),'utf8');
 const css=await fs.readFile(path.join(base,'apresentacao.css'),'utf8');
 const config=JSON.parse(await fs.readFile(path.join(base,'configuracao.json'),'utf8'));
@@ -40,7 +41,7 @@ app=app.replace('__CENA_CORROSAO_SOURCE__',()=>corrosionScene);
 app=app.replace('__CENA_DISTRIBUICAO_SOURCE__',()=>airScene);
 app=app.replace('__CENA_AGUA_SOURCE__',()=>waterScene);
 app=app.replace('__CENA_BACKFIRE_SOURCE__',()=>backfireScene);
-app=app.replace('__CENA_VACUO_SOURCE__',()=>vacuumScene);
+app=app.replace('__CENA_VACUO_SOURCE__',()=>vacuumScene+'\n'+sealingScene);
 app=app.replace('__CAR_APPEARANCE_SOURCE__',()=>carAppearance).replace('__OPENING_SOURCE__',()=>openingEngine+'\n\n'+opening);
 const steps=labels.map((label,i)=>`<button class="step" id="etapa-${i}" aria-label="${i===config.slides.length?'Selecionar conclusão':'Selecionar severidade '+config.slides[i].severidade+': '+config.slides[i].titulo}" type="button">${label}</button>`).join('');
 let html=await fs.readFile(path.join(base,'interface.html'),'utf8');

@@ -1,8 +1,8 @@
 {
   "data": "2026-11-11",
-  "revisao": "Capa com capô articulado, motor detalhado e coletor em evidência",
+  "revisao": "Capa refinada e S9.2 com solda vibracional e vedação flangeada",
   "arquivo": "iniciar.html",
-  "sha256": "c7d6c24e7156c84e9fc3313b81a28ad537475c77c10659cda89fd0ad0466be2e",
+  "sha256": "c3e22bf2ba08f00ecd9b7400f2259d8958c48961065001005b72dceaab25df86",
   "normalizacaoHash": "LF, conforme .gitattributes",
   "fonte": {
     "arquivo": "apresentacao_qualidade_completa.xlsx",
@@ -45,14 +45,18 @@
     {
       "titulo": "HELLA: Testing an electric vacuum pump",
       "url": "https://www.hella.com/techworld/uk/technical/car-electronics-and-electrics/testing-an-electric-vacuum-pump/"
+    },
+    {
+      "titulo": "Toray: Physical Joining, Vibration Welding",
+      "url": "https://www.plastics.toray/technical/torelina/tec_026.html"
     }
   ],
   "funcoes": 13,
   "slides": 15,
   "paradas": 10,
-  "etapas": 26,
+  "etapas": 25,
   "etapasAbertura": 1,
-  "etapasTecnicas": 25,
+  "etapasTecnicas": 24,
   "autores": [
     "Bruno Caetano",
     "Cauã Ferrari"
@@ -60,7 +64,7 @@
   "unidade": "BU2 SA (TMD2)",
   "corCarro": "#1B267D",
   "titulo": "SEMANA DA QUALIDADE",
-  "subtitulo": "Coletor de ar: do defeito ao efeito",
+  "subtitulo": "COLETOR DE AR: DO DEFEITO AO EFEITO",
   "baia": {
     "sourceArea": 16.90998859269153,
     "splitArea": 16.909988577867676,
@@ -93,12 +97,12 @@
     {
       "width": 1600,
       "height": 900,
-      "frames": 216,
+      "frames": 214,
       "initial": {
         "motor": {
           "angulo": 1.42,
           "graus": 81.36000690857689,
-          "pulso": 0.0002068136583777691,
+          "pulso": 0.0024342256824742003,
           "periodoPulso": 4.5,
           "mesmoModeloColetor": true,
           "dutos": 4,
@@ -120,16 +124,16 @@
           "triangulosCapo": 4
         },
         "coletorTela": {
-          "x0": 1149.036034564926,
-          "x1": 1355.833821970063,
-          "y0": 468.5484172107757,
-          "y1": 642.0349457678009
+          "x0": 1139.9069021326677,
+          "x1": 1362.168530967948,
+          "y0": 493.9886809087307,
+          "y1": 662.6502358979888
         },
         "coletorCentro": [
-          1254.8231318882263,
-          554.1507514696626
+          1252.580146479793,
+          576.4542234281133
         ],
-        "erroEncaixe": 0.8914392127921703,
+        "erroEncaixe": 0.9632185281434519,
         "placaNoCapo": false,
         "capoFechado": false
       },
@@ -158,8 +162,8 @@
         "triangulosCapo": 4
       },
       "pulseRange": [
-        0.0000749388871078005,
-        0.9995901628010195
+        0.0006527432231111518,
+        0.9999956135155688
       ],
       "duration": 3.5,
       "timings": {
@@ -176,8 +180,8 @@
       "logo": 5.10702591327572e-15,
       "arrival": {
         "samples": 91,
-        "p95": 17.69999999552965,
-        "max": 18.900000005960464,
+        "p95": 17.299999997019768,
+        "max": 17.69999999552965,
         "median": 16.69999999552965,
         "mapFrozen": true
       },
@@ -194,12 +198,12 @@
     {
       "width": 1280,
       "height": 720,
-      "frames": 212,
+      "frames": 215,
       "initial": {
         "motor": {
           "angulo": 1.42,
           "graus": 81.36000690857689,
-          "pulso": 0.0015440730870810992,
+          "pulso": 0.0019701692281273164,
           "periodoPulso": 4.5,
           "mesmoModeloColetor": true,
           "dutos": 4,
@@ -221,16 +225,16 @@
           "triangulosCapo": 4
         },
         "coletorTela": {
-          "x0": 919.228827651941,
-          "x1": 1084.6670575760502,
-          "y0": 374.8387337686206,
-          "y1": 513.6279566142407
+          "x0": 911.9255217061343,
+          "x1": 1089.7348247743585,
+          "y0": 395.1909447269846,
+          "y1": 530.120188718391
         },
         "coletorCentro": [
-          1003.8585055105809,
-          443.32060117573013
+          1002.0641171838344,
+          461.16337874249064
         ],
-        "erroEncaixe": 0.8914392127921703,
+        "erroEncaixe": 0.9632185281434519,
         "placaNoCapo": false,
         "capoFechado": false
       },
@@ -259,8 +263,8 @@
         "triangulosCapo": 4
       },
       "pulseRange": [
-        0.0006888912289697013,
-        0.9997871192116031
+        0.00007860872990067547,
+        0.9999176337111908
       ],
       "duration": 3.5,
       "timings": {
@@ -277,8 +281,8 @@
       "logo": 5.10702591327572e-15,
       "arrival": {
         "samples": 91,
-        "p95": 18.399999998509884,
-        "max": 19.5,
+        "p95": 17.599999994039536,
+        "max": 19.299999997019768,
         "median": 16.69999999552965,
         "mapFrozen": true
       },
@@ -295,12 +299,12 @@
     {
       "width": 1280,
       "height": 960,
-      "frames": 215,
+      "frames": 213,
       "initial": {
         "motor": {
           "angulo": 1.42,
           "graus": 81.36000690857689,
-          "pulso": 0.0022718882286579256,
+          "pulso": 0.0011413008788482282,
           "periodoPulso": 4.5,
           "mesmoModeloColetor": true,
           "dutos": 4,
@@ -322,16 +326,16 @@
           "triangulosCapo": 4
         },
         "coletorTela": {
-          "x0": 913.0126106471135,
-          "x1": 1071.5691390185477,
-          "y0": 494.632997382891,
-          "y1": 627.8361820679041
+          "x0": 904.5239604594108,
+          "x1": 1071.9867018419777,
+          "y0": 514.5140339603923,
+          "y1": 642.0104896495354
         },
         "coletorCentro": [
-          994.4704347002461,
-          561.170810276381
+          989.961609676484,
+          577.7818490835373
         ],
-        "erroEncaixe": 0.6558487814910109,
+        "erroEncaixe": 0.697705580095282,
         "placaNoCapo": false,
         "capoFechado": false
       },
@@ -360,8 +364,8 @@
         "triangulosCapo": 4
       },
       "pulseRange": [
-        0.0005633145734116329,
-        0.9994267026331057
+        0.0000014085502926808324,
+        0.9999991763147269
       ],
       "duration": 3.5,
       "timings": {
@@ -378,8 +382,8 @@
       "logo": 1.582759113744879e-14,
       "arrival": {
         "samples": 91,
-        "p95": 18.099999994039536,
-        "max": 18.80000000447035,
+        "p95": 17.5,
+        "max": 17.899999998509884,
         "median": 16.69999999552965,
         "mapFrozen": true
       },
@@ -399,37 +403,22 @@
       "width": 1600,
       "height": 900,
       "funcoes": 13,
-      "estadosTecnicos": 25,
-      "legendas": 39,
-      "ruido": {
-        "amostras": 62,
-        "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.002998674893051634
-      }
+      "estadosTecnicos": 24,
+      "legendas": 39
     },
     {
       "width": 1280,
       "height": 720,
       "funcoes": 13,
-      "estadosTecnicos": 25,
-      "legendas": 39,
-      "ruido": {
-        "amostras": 62,
-        "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.0029976701171983353
-      }
+      "estadosTecnicos": 24,
+      "legendas": 39
     },
     {
       "width": 1280,
       "height": 960,
       "funcoes": 13,
-      "estadosTecnicos": 25,
-      "legendas": 39,
-      "ruido": {
-        "amostras": 62,
-        "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.002997803599759594
-      }
+      "estadosTecnicos": 24,
+      "legendas": 39
     }
   ],
   "navegacao": [
@@ -547,6 +536,14 @@
   "erros": [],
   "rede": [],
   "checks": [
+    "Capa: fundo cinza 60% mais largo, título em uma linha com SEMANA em negrito e subtítulo em maiúsculas",
+    "Carro mais frontal e menos visto de cima, com coletor em destaque e afastamento suave ao iniciar",
+    "S9.2 em duas etapas, com texto explicativo preservado integralmente",
+    "Corte geométrico de um quarto permanente; macro de perfil de solda vibracional incompleta e fuga de ar",
+    "Mudança contínua de câmera para a junta junto ao cabeçote com portas reais, pulsação vermelha e fuga",
+    "12 streamlines internas animadas; entrada opaca; transparência e corte total opcionais",
+    "Geometrias originais restauradas ao sair do slide",
+    "Validação específica da capa e de S9.2 e regressão geral em três resoluções, sem erros JavaScript",
     "Carro pronto fica parado e próximo em perspectiva, com capô aberto e baia tridimensional detalhada",
     "O mesmo criarColetorK24 dos slides gera o coletor completo da baia, com materiais de seleção independentes",
     "Pulsos suaves de brilho de 4,5 segundos, sem alterar a pose do carro ou do capô",
@@ -560,7 +557,77 @@
     "Projeção e orientação finais coincidem com o carro do mapa, sem troca visível de modelo",
     "Capa preserva SEMANA DA QUALIDADE, subtítulo e autoria, com início por clique, Enter ou seta, sem botão visível",
     "Testes em 1600x900, 1280x720 e 1280x960: pose, pulso, ordem, tempo, enquadramento, resize, desempenho, cancelamento e entrada em S1",
-    "Regressão geral: 13 funções, 25 etapas técnicas, 117 focos de legenda e cinco fades somente de conteúdo na mesma parada",
     "Zero erros JavaScript/WebGL e zero solicitações HTTP/HTTPS durante a execução offline"
+  ],
+  "estanqueidade": [
+    {
+      "size": {
+        "width": 1600,
+        "height": 900
+      },
+      "initial": {
+        "id": "estanqueidade",
+        "stage": 1,
+        "cortePermanente": "1/4",
+        "soldaVibracional": true,
+        "streamlines": 12,
+        "vazamento": true,
+        "blocoVisivel": true,
+        "juntaVermelha": true,
+        "pulsoJunta": 0.3073695110844875,
+        "tempo": 3.3808000000044736
+      },
+      "title": {
+        "height": 48,
+        "line": 48,
+        "bold": "SEMANA"
+      }
+    },
+    {
+      "size": {
+        "width": 1280,
+        "height": 720
+      },
+      "initial": {
+        "id": "estanqueidade",
+        "stage": 1,
+        "cortePermanente": "1/4",
+        "soldaVibracional": true,
+        "streamlines": 12,
+        "vazamento": true,
+        "blocoVisivel": true,
+        "juntaVermelha": true,
+        "pulsoJunta": 0.32764463313987335,
+        "tempo": 3.392900000005966
+      },
+      "title": {
+        "height": 48,
+        "line": 48,
+        "bold": "SEMANA"
+      }
+    },
+    {
+      "size": {
+        "width": 1280,
+        "height": 960
+      },
+      "initial": {
+        "id": "estanqueidade",
+        "stage": 1,
+        "cortePermanente": "1/4",
+        "soldaVibracional": true,
+        "streamlines": 12,
+        "vazamento": true,
+        "blocoVisivel": true,
+        "juntaVermelha": true,
+        "pulsoJunta": 0.29514751675876166,
+        "tempo": 3.3733999999985125
+      },
+      "title": {
+        "height": 48,
+        "line": 48,
+        "bold": "SEMANA"
+      }
+    }
   ]
 }

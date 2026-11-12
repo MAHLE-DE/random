@@ -1,5 +1,14 @@
 # Validação do protótipo
 
+## Capa refinada e S9.2 — 11/11/2026
+
+- Fundo cinza ampliado de 475 para 760 unidades, exatamente 60% à direita. Título e subtítulo ocupam uma linha cada; somente SEMANA fica em negrito, e o subtítulo usa maiúsculas. O carro está mais frontal e menos inclinado para baixo, preservando a sequência suave de 2 + 1,5 segundo.
+- S9.2 tem duas etapas com os textos explicativos e as legendas preservados. A primeira aproxima muito o perfil das duas metades do pleno, a descontinuidade da solda vibracional e a fuga. A segunda parte da posição atual da câmera e aproxima a junta entre coletor e cabeçote, com oscilação vermelha, vazamento e portas reais no bloco modelado.
+- O corte de um quarto é geométrico e permanece nas duas etapas. A etapa da junta tem uma janela de inspeção no quarto runner/flange para expor a interface. Há 12 streamlines internas animadas. A entrada é opaca; transparência e vista totalmente cortada são opcionais. As geometrias originais são restauradas ao sair.
+- Testes específicos da capa e de S9.2 e regressão geral aprovados em 1600×900, 1280×720 e 1280×960. São 13 funções e 24 etapas técnicas; 25 etapas contando a capa. Sem erros JavaScript na execução offline. Relatórios em .producao/qa-estanqueidade, qa-abertura e qa-completa. Hash LF do HTML registrado no JSON.
+
+As seções abaixo registram versões anteriores.
+
 ## Capa com baia do motor — 11/11/2026
 
 - A montagem em cubos foi substituída pelo carro atual parado, próximo e em perspectiva. O capô fica aberto, expondo a baia detalhada. Título, subtítulo e autoria permanecem na capa; clique, Enter ou seta iniciam a transição.
