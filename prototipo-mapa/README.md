@@ -84,3 +84,13 @@ O preparo do cenário acontece antes do relógio. O primeiro slide aparece em fa
 Execute `node prototipo-mapa/gerar.mjs` para empacotar o HTML, `node prototipo-mapa/verificar-baia.mjs` para conferir superfície/folgas e `node prototipo-mapa/verificar-abertura.mjs` para verificar a pose, pulso, ordem, tempos, resize, enquadramento, encaixe, FPS e entrada em S1 nas três resoluções.
 
 S9.2 apresenta duas etapas: macro do perfil de solda vibracional com união incompleta e fuga; depois, mudança contínua de POV para a junta junto ao cabeçote, com oscilação vermelha e vazamento. O corte de um quarto permanece nas duas etapas, com streamlines internas. Transparência e vista totalmente cortada são opcionais. Os textos explicativos foram preservados. Execute `node prototipo-mapa/verificar-estanqueidade.mjs` para validar. A capa usa fundo cinza 60% mais largo, título em uma linha com SEMANA em negrito, subtítulo em maiúsculas e vista mais frontal do carro.
+
+## Reprodução e desempenho
+
+Ao abrir, a capa exibe “Preparando apresentação…” enquanto modelos, materiais e buffers das 24 etapas técnicas são preparados. Depois, as cenas são reutilizadas nas viagens, etapas e retornos. Um clique ou avanço recebido nesse preparo fica guardado e inicia a abertura ao terminar. Os tempos da apresentação continuam iguais.
+
+O enquadramento e as legendas reaproveitam resultados enquanto a vista permanece estável; o giro, zoom, corte, resize e a câmera animada invalidam os dados necessários. A oclusão das legendas usa uma BVH sobre os triângulos originais. O modelo, as texturas, o corte e as resoluções de renderização foram preservados.
+
+As 106 gotas e volumes esféricos da água são desenhados em um lote instanciado, com as mesmas posições, escalas, trajetórias e material. Sombras estáticas são reaproveitadas quando os emissores não se movem. A animação física, as ondas, os avisos e os comandos de avanço permanecem interativos.
+
+`aceleracao-coletor.js` fornece a aceleração das interseções. `verificar-picking.mjs` compara suas respostas com as do algoritmo original, em diversas poses e cortes. Veja o relatório `prototipo-mapa/desempenho.md` para medições antes/depois.

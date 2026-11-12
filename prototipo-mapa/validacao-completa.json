@@ -1,8 +1,8 @@
 {
-  "data": "2026-11-11",
-  "revisao": "Capa refinada e S9.2 com solda vibracional e vedação flangeada",
+  "data": "2026-11-12",
+  "revisao": "Cenas e shaders preparados, cache de enquadramento e BVH, água instanciada",
   "arquivo": "iniciar.html",
-  "sha256": "c3e22bf2ba08f00ecd9b7400f2259d8958c48961065001005b72dceaab25df86",
+  "sha256": "9f02ba1fb0cfaebfa78552704870d91e5ad312e815722c52eec1593564fecd64",
   "normalizacaoHash": "LF, conforme .gitattributes",
   "fonte": {
     "arquivo": "apresentacao_qualidade_completa.xlsx",
@@ -97,12 +97,12 @@
     {
       "width": 1600,
       "height": 900,
-      "frames": 214,
+      "frames": 216,
       "initial": {
         "motor": {
           "angulo": 1.42,
           "graus": 81.36000690857689,
-          "pulso": 0.0024342256824742003,
+          "pulso": 0.001053484274458838,
           "periodoPulso": 4.5,
           "mesmoModeloColetor": true,
           "dutos": 4,
@@ -162,8 +162,8 @@
         "triangulosCapo": 4
       },
       "pulseRange": [
-        0.0006527432231111518,
-        0.9999956135155688
+        0.0004298583607209583,
+        0.9999176337111908
       ],
       "duration": 3.5,
       "timings": {
@@ -180,9 +180,9 @@
       "logo": 5.10702591327572e-15,
       "arrival": {
         "samples": 91,
-        "p95": 17.299999997019768,
-        "max": 17.69999999552965,
-        "median": 16.69999999552965,
+        "p95": 17.5,
+        "max": 19.19999999552965,
+        "median": 16.600000001490116,
         "mapFrozen": true
       },
       "staticPose": true,
@@ -203,7 +203,7 @@
         "motor": {
           "angulo": 1.42,
           "graus": 81.36000690857689,
-          "pulso": 0.0019701692281273164,
+          "pulso": 0.0005600064489658108,
           "periodoPulso": 4.5,
           "mesmoModeloColetor": true,
           "dutos": 4,
@@ -263,8 +263,8 @@
         "triangulosCapo": 4
       },
       "pulseRange": [
-        0.00007860872990067547,
-        0.9999176337111908
+        0.00013429858947078266,
+        0.9999997611799598
       ],
       "duration": 3.5,
       "timings": {
@@ -281,8 +281,8 @@
       "logo": 5.10702591327572e-15,
       "arrival": {
         "samples": 91,
-        "p95": 17.599999994039536,
-        "max": 19.299999997019768,
+        "p95": 17.5,
+        "max": 31.69999999552965,
         "median": 16.69999999552965,
         "mapFrozen": true
       },
@@ -299,12 +299,12 @@
     {
       "width": 1280,
       "height": 960,
-      "frames": 213,
+      "frames": 215,
       "initial": {
         "motor": {
           "angulo": 1.42,
           "graus": 81.36000690857689,
-          "pulso": 0.0011413008788482282,
+          "pulso": 0.0001929980538101228,
           "periodoPulso": 4.5,
           "mesmoModeloColetor": true,
           "dutos": 4,
@@ -364,8 +364,8 @@
         "triangulosCapo": 4
       },
       "pulseRange": [
-        0.0000014085502926808324,
-        0.9999991763147269
+        0.00014755429413015886,
+        0.999439993550788
       ],
       "duration": 3.5,
       "timings": {
@@ -382,8 +382,8 @@
       "logo": 1.582759113744879e-14,
       "arrival": {
         "samples": 91,
-        "p95": 17.5,
-        "max": 17.899999998509884,
+        "p95": 17.100000001490116,
+        "max": 19.099999994039536,
         "median": 16.69999999552965,
         "mapFrozen": true
       },
@@ -536,13 +536,18 @@
   "erros": [],
   "rede": [],
   "checks": [
+    "24 etapas mantêm modelos, materiais, buffers e enquadramentos próprios em cache, preparados antes do início",
+    "Compilação e primeiro desenho antecipados; recursos gráficos preservados durante viagens e retornos",
+    "BVH exata e invalidação de legendas/enquadramento em mudança de câmera, corte, giro e zoom; 1280 comparações sem divergências",
+    "106 gotas e volumes da água em um lote instanciado, preservando posições, escalas, trajetórias e material",
+    "Abertura, água, estanqueidade, sequência final e regressão geral aprovadas em três resoluções",
+    "Clique durante preparo guardado e executado ao terminar",
     "Capa: fundo cinza 60% mais largo, título em uma linha com SEMANA em negrito e subtítulo em maiúsculas",
     "Carro mais frontal e menos visto de cima, com coletor em destaque e afastamento suave ao iniciar",
     "S9.2 em duas etapas, com texto explicativo preservado integralmente",
     "Corte geométrico de um quarto permanente; macro de perfil de solda vibracional incompleta e fuga de ar",
     "Mudança contínua de câmera para a junta junto ao cabeçote com portas reais, pulsação vermelha e fuga",
     "12 streamlines internas animadas; entrada opaca; transparência e corte total opcionais",
-    "Geometrias originais restauradas ao sair do slide",
     "Validação específica da capa e de S9.2 e regressão geral em três resoluções, sem erros JavaScript",
     "Carro pronto fica parado e próximo em perspectiva, com capô aberto e baia tridimensional detalhada",
     "O mesmo criarColetorK24 dos slides gera o coletor completo da baia, com materiais de seleção independentes",
@@ -574,8 +579,8 @@
         "vazamento": true,
         "blocoVisivel": true,
         "juntaVermelha": true,
-        "pulsoJunta": 0.3073695110844875,
-        "tempo": 3.3808000000044736
+        "pulsoJunta": 0.04035934993128387,
+        "tempo": 3.166700000002985
       },
       "title": {
         "height": 48,
@@ -597,8 +602,8 @@
         "vazamento": true,
         "blocoVisivel": true,
         "juntaVermelha": true,
-        "pulsoJunta": 0.32764463313987335,
-        "tempo": 3.392900000005966
+        "pulsoJunta": 0.040714335422296244,
+        "tempo": 3.167200000002982
       },
       "title": {
         "height": 48,
@@ -620,8 +625,8 @@
         "vazamento": true,
         "blocoVisivel": true,
         "juntaVermelha": true,
-        "pulsoJunta": 0.29514751675876166,
-        "tempo": 3.3733999999985125
+        "pulsoJunta": 0.04035934993128282,
+        "tempo": 3.1667000000029835
       },
       "title": {
         "height": 48,
@@ -629,5 +634,123 @@
         "bold": "SEMANA"
       }
     }
-  ]
+  ],
+  "desempenho": {
+    "metodo": "Edge headless, 1920x1080, DPR1, GPU RTX3050/ANGLE D3D11",
+    "sha256BaseMedicao": "1ec7143dc80f243cd85376c7a8c3c36546898af631c36c06cf04d1be9c7b5fd1",
+    "ajustePosterior": "Preservada a atualização dinâmica das sombras de S10. As cenas desta medição não foram alteradas.",
+    "preparoMs": 10356,
+    "comparacao": [
+      {
+        "cenario": "viagem-real-0",
+        "fpsAntes": 59.492431659010464,
+        "fpsDepois": 59.99447749579535,
+        "maxAntes": 50.099999999999454,
+        "maxDepois": 18.700000000000728,
+        "p95Depois": 17.099999999998545
+      },
+      {
+        "cenario": "viagem-real-1",
+        "fpsAntes": 55.98232665562083,
+        "fpsDepois": 58.49274489129887,
+        "maxAntes": 266.3000000000011,
+        "maxDepois": 116.59999999999854,
+        "p95Depois": 17
+      },
+      {
+        "cenario": "viagem-real-2",
+        "fpsAntes": 56.73687645921722,
+        "fpsDepois": 59.74945397032612,
+        "maxAntes": 217,
+        "maxDepois": 33.400000000001455,
+        "p95Depois": 17
+      },
+      {
+        "cenario": "viagem-real-3",
+        "fpsAntes": 58.48980821367604,
+        "fpsDepois": 59.74253218347706,
+        "maxAntes": 116.79999999999927,
+        "maxDepois": 33.29999999999927,
+        "p95Depois": 17
+      },
+      {
+        "cenario": "entrada-servico-0",
+        "fpsAntes": 58.30953065053154,
+        "fpsDepois": 59.820363483264316,
+        "maxAntes": 117,
+        "maxDepois": 33.19999999999709,
+        "p95Depois": 17.099999999998545
+      },
+      {
+        "cenario": "entrada-servico-1",
+        "fpsAntes": 58.300613601210244,
+        "fpsDepois": 60.003158060950604,
+        "maxAntes": 133.6999999999971,
+        "maxDepois": 17.200000000004366,
+        "p95Depois": 17
+      },
+      {
+        "cenario": "entrada-agua-0",
+        "fpsAntes": 50.87681316302231,
+        "fpsDepois": 59.99930233369378,
+        "maxAntes": 616.8000000000029,
+        "maxDepois": 17.19999999999709,
+        "p95Depois": 17
+      },
+      {
+        "cenario": "entrada-agua-1",
+        "fpsAntes": 56.982921883118,
+        "fpsDepois": 60.00034883923741,
+        "maxAntes": 150,
+        "maxDepois": 17.5,
+        "p95Depois": 17
+      },
+      {
+        "cenario": "entrada-estanqueidade-0",
+        "fpsAntes": 57.63445221917994,
+        "fpsDepois": 59.99999999999999,
+        "maxAntes": 250,
+        "maxDepois": 17.19999999999709,
+        "p95Depois": 17
+      },
+      {
+        "cenario": "entrada-estanqueidade-1",
+        "fpsAntes": 57.63445221918001,
+        "fpsDepois": 60.00035190822231,
+        "maxAntes": 232.89999999999418,
+        "maxDepois": 17.40000000000873,
+        "p95Depois": 17
+      }
+    ],
+    "s92": {
+      "cpuAntes": 12.729889298607063,
+      "cpuDepois": 0.7523985240622201,
+      "reducaoPercentual": 94.08951243476604
+    },
+    "agua": {
+      "chamadasAntes": 394,
+      "chamadasDepois": 184,
+      "instancias": 106
+    },
+    "picking": {
+      "casos": 16,
+      "raios": 1280,
+      "divergencias": 0
+    },
+    "repeticoesTatil": [
+      {
+        "fps": 59.746454123258474,
+        "max": 33.29999999999927
+      },
+      {
+        "fps": 60.01406187223788,
+        "max": 18.799999999999272
+      },
+      {
+        "fps": 60.005021340697965,
+        "max": 18.399999999997817
+      }
+    ],
+    "errors": []
+  }
 }

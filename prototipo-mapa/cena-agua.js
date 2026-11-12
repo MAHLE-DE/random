@@ -50,6 +50,8 @@ function criarCenaAgua(T,model,host,id,stage){
  #include <colorspace_fragment>
  }`});
  for(const x of xs){const curve=new T.CatmullRomCurve3([V(x,.58,0),V(x,.63,-.17),V(x,.67,-.28),V(x,.68,-.65),V(x,.84,-1.65),V(x,1.10,-2.70),V(x,1.12,-3.26),V(x,1.17,-3.70),V(x,1.29,-4.20),V(x,1.02,-4.48)]);const tube=mesh(new T.TubeGeometry(curve,160,.075,10,false),flowMaterial,V(),host,'Agua_entrando_no_runner');tube.renderOrder=4;const beads=[];for(let j=0;j<8;j++)beads.push(mesh(new T.SphereGeometry(.068,10,8),water,V(),host,'Volume_de_agua_em_movimento'));routes.push({curve,tube,beads})}
+ // Uma chamada instanciada substitui 106 esferas, conservando tamanho, posição e material.
+ const particles=[...droplets.map(d=>d.o),...entry,...routes.flatMap(r=>r.beads)],particleBatch=new T.InstancedMesh(new T.SphereGeometry(1,12,9),water,particles.length),particleMatrix=new T.Matrix4(),particleScale=V();particleBatch.name='Gotas_e_volumes_instanciados';particleBatch.frustumCulled=false;particleBatch.castShadow=particleBatch.receiveShadow=true;particleBatch.instanceMatrix.setUsage(T.DynamicDrawUsage);host.add(particleBatch);const radii=particles.map(o=>o.geometry.parameters.radius);for(const o of particles){host.remove(o);o.geometry.dispose()}
  const engineMaterials=new Map();engine.traverse(o=>{for(const m of o.material?(Array.isArray(o.material)?o.material:[o.material]):[])if(!engineMaterials.has(m))engineMaterials.set(m,{opacity:m.opacity,transparent:m.transparent,depthWrite:m.depthWrite})});
  // Materiais compartilhados com o coletor de água não recebem o fade do bloco.
  engineMaterials.delete(water);
@@ -62,11 +64,12 @@ function criarCenaAgua(T,model,host,id,stage){
  function update(t){elapsed=t;clockUniform.value=t;tilt=stage===1?-.42*smooth(t/2.2):0;model.root.rotation.x=tilt;front=stage===1?smooth((t-1.15)/3.15):0;fill=stage===1?smooth((t-3.4)/1.9):0;lock=stage===1?smooth((t-5.35)/1.35):0;frontUniform.value=front;alphaUniform.value=1-.63*lock;
   initialBadge.visible=stage===0;tiltBadge.visible=stage===1&&t<5.1;finalBadge.visible=stage===1&&t>=5.1;
   for(const d of droplets){if(d.roof){d.o.position.y=1.085-.012*Math.sin(t+d.phase)}else{const u=(t*.13+d.phase)%1;d.o.position.set(d.x,d.y-.085*u,wallZ(d.x)-.022);d.o.scale.y=d.size*(1.45+.12*Math.sin(t*1.4+d.phase))}}
-  for(const [i,o]of entry.entries()){const u=(t*.25+i/10)%1;o.position.copy(sourceCurve.getPoint(u));o.visible=stage===0||t<5.3}
+  for(const [i,o]of entry.entries()){const u=(t*.25+i/10)%1;sourceCurve.getPoint(u,o.position);o.visible=stage===0||t<5.3}
   const tiltQ=smooth(t/2.2);for(let i=0;i<poolPos.count;i++){const x=poolOriginal[i*3],z=-poolOriginal[i*3+1]*.87,layer=(poolOriginal[i*3+2]-minDepth)/(maxDepth-minDepth),h=Math.max(.005,(.27+(stage===1?.30*tiltQ:0)-z*Math.tan(-tilt)-.105)*(1-.91*front));poolPos.setZ(i,layer*(h+.005*Math.sin(t*2+x*4+z*3)))}poolPos.needsUpdate=true;pool.geometry.computeVertexNormals();
   engine.visible=stage===1&&t>.55;const fade=smooth((t-.55)/2.15);for(const [m,b]of engineMaterials){m.opacity=b.opacity*fade;m.transparent=fade<1||b.transparent;m.depthWrite=fade===1&&b.depthWrite}
-  routes.forEach(r=>{r.tube.visible=stage===1&&front>0;for(const [j,b]of r.beads.entries()){const u=(t*.25+j/8)%1;b.position.copy(r.curve.getPoint(u));b.visible=stage===1&&u<front&&t<5.65}});
+  routes.forEach(r=>{r.tube.visible=stage===1&&front>0;for(const [j,b]of r.beads.entries()){const u=(t*.25+j/8)%1;r.curve.getPoint(u,b.position);b.visible=stage===1&&u<front&&t<5.65}});
   for(const c of cylinders){const p=lock===1?stop-.02*(.5+.5*Math.sin((t-6.7)*5)):-.22+lock*(stop+.22);c.piston.position.y=p;c.rod.position.y=(p-1.15)/2;c.rod.scale.y=p+1.15;c.rod.material=lock>.65?red:alloy;const h=waterHeight*fill;c.liquid.scale.y=Math.max(.001,h);c.liquid.position.y=boreTop-h/2;c.liquid.visible=c.surface.visible=fill>0;c.surface.scale.setScalar(.97+.025*Math.sin(t*2.2));c.symbol.visible=lock>.65;c.symbol.scale.setScalar(.35*(1+.07*Math.sin(t*5)));c.limit.material.opacity=lock*(.45+.25*Math.sin(t*5)**2)}
+  for(let i=0;i<particles.length;i++){const o=particles[i];o.updateMatrix();particleScale.setScalar(o.visible?radii[i]:0);particleMatrix.copy(o.matrix).scale(particleScale);particleBatch.setMatrixAt(i,particleMatrix)}particleBatch.instanceMatrix.needsUpdate=true;
   return true;
  }
  update(0);

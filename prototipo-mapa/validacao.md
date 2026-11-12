@@ -1,5 +1,16 @@
 # Validação do protótipo
 
+## Otimização das animações — 12/11/2026
+
+- As 24 etapas técnicas usam modelos e materiais isolados em cache. Shaders, texturas, buffers e enquadramentos são preparados ao abrir. O clique recebido no preparo inicia a abertura ao terminar. Os tempos, modelos, materiais e resoluções da apresentação foram preservados.
+- A oclusão das legendas usa BVH exata. Foram comparados 1.280 raios com o algoritmo original em 16 casos, incluindo cortes, sem divergências. A câmera e as legendas invalidam seus caches quando a vista, o corte ou os alvos mudam.
+- As 106 gotas e volumes esféricos usam renderização instanciada. A animação de água mantém inclinação, ingestão pelos quatro runners, enchimento, bloqueio dos pistões, tentativa de compressão e interrupção manual da câmera.
+- Abertura, água, S9.2, sequência final e regressão geral aprovadas em 1600×900, 1280×720 e 1280×960. Registros em .producao/qa-abertura, qa-agua, qa-estanqueidade, qa-final, qa-completa e qa-performance. Zero erros nas suítes.
+- Comparações de desempenho locais e limites estão em desempenho.md. O preparo inicial medido foi de cerca de 10 segundos; o pico da entrada na água caiu de aproximadamente 617 para 17 ms nesta amostra. CPU do loop S9.2 caiu de aproximadamente 12,7 para 0,75 ms por quadro. Há variação residual entre execuções, registrada no relatório.
+- O hash LF do HTML testado está no JSON de validação. Uma cópia completa não otimizada do commit ab8f332 foi preservada fora do repositório, em D:/Analises e Simulacoes/Caua/Backups/random-nao-otimizado-ab8f332 e no ZIP correspondente.
+
+As seções abaixo registram versões anteriores.
+
 ## Capa refinada e S9.2 — 11/11/2026
 
 - Fundo cinza ampliado de 475 para 760 unidades, exatamente 60% à direita. Título e subtítulo ocupam uma linha cada; somente SEMANA fica em negrito, e o subtítulo usa maiúsculas. O carro está mais frontal e menos inclinado para baixo, preservando a sequência suave de 2 + 1,5 segundo.

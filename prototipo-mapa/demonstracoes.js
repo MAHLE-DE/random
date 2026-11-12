@@ -39,7 +39,7 @@ function criarDemonstracoes(T,model){
  }
  function tick(dt){if(!animated)return false;elapsed+=dt;if(special)animated=special.update(elapsed);else actors.forEach(f=>f(elapsed));return true}
  function limitesEnquadramento(focused=false){group.updateWorldMatrix(true,true);return special?.bounds(focused)||(noiseBounds?noiseBounds.clone().applyMatrix4(group.matrixWorld):new T.Box3().setFromObject(group))}
- return{set,tick,group,limitesEnquadramento,pontosEnquadramento:()=>special?.framingPoints?.(),detalheEnquadramento:i=>special?.closeup?.(i),margensVisor:()=>special?.insets?.(),vistaAnimada:()=>special?.view?.(),alvosVisiveis:()=>special?.targetVisibility?.(),alvos:()=>special?.targets(),corte:on=>special?.corte?.(on),apresentacao:()=>special?.presentation,estado:()=>({id:current?.id,step,animated,elapsed,objetos:group.children.length,cena:special?.info()})};
+ return{reiniciar:()=>{elapsed=0;animated=special?special.animated:actors.length>0;if(special)special.update(0);else actors.forEach(f=>f(0))},set,tick,group,limitesEnquadramento,pontosEnquadramento:()=>special?.framingPoints?.(),detalheEnquadramento:i=>special?.closeup?.(i),margensVisor:()=>special?.insets?.(),vistaAnimada:()=>special?.view?.(),alvosVisiveis:()=>special?.targetVisibility?.(),alvos:()=>special?.targets(),corte:on=>special?.corte?.(on),apresentacao:()=>special?.presentation,estado:()=>({id:current?.id,step,animated,elapsed,objetos:group.children.length,cena:special?.info()})};
 }
 
 // Diagramas vetoriais complementam o 3D com relações que uma cor isolada não explica.
