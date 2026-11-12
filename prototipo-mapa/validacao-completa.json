@@ -1,8 +1,8 @@
 {
   "data": "2026-11-11",
-  "revisao": "Abertura simultânea, dispersão irregular e morph por componente",
+  "revisao": "Capa com capô articulado, motor detalhado e coletor em evidência",
   "arquivo": "iniciar.html",
-  "sha256": "b43c8defa60f34d8dd9cd8e4215ca18a0a7b05d378381e25146f1b4f64d11e9f",
+  "sha256": "c7d6c24e7156c84e9fc3313b81a28ad537475c77c10659cda89fd0ad0466be2e",
   "normalizacaoHash": "LF, conforme .gitattributes",
   "fonte": {
     "arquivo": "apresentacao_qualidade_completa.xlsx",
@@ -45,10 +45,6 @@
     {
       "titulo": "HELLA: Testing an electric vacuum pump",
       "url": "https://www.hella.com/techworld/uk/technical/car-electronics-and-electrics/testing-an-electric-vacuum-pump/"
-    },
-    {
-      "titulo": "Learn with Moozach: Isometric texture logo animation",
-      "url": "https://www.youtube.com/watch?v=AN7IeaMJIUY"
     }
   ],
   "funcoes": 13,
@@ -65,279 +61,335 @@
   "corCarro": "#1B267D",
   "titulo": "SEMANA DA QUALIDADE",
   "subtitulo": "Coletor de ar: do defeito ao efeito",
-  "construcao": {
-    "cubes": 75,
-    "triangles": 252,
-    "macroFaces": 900,
-    "moves": 1805,
-    "axes": {
-      "x": 365,
-      "y": 978,
-      "z": 462
-    },
-    "samples": 349,
-    "intersections": 0,
-    "edgeError": 1.5700924586837752e-16,
-    "side": 0.5,
-    "constantVolume": 9.375,
-    "timing": {
-      "rollStart": 1.8,
-      "tick": 0.045,
-      "rollTicks": 87,
-      "assembledAt": 5.715,
-      "firstMoveRange": [
-        0,
-        37
-      ],
-      "lastFoldEnd": 2.466696751580421,
-      "peakMoving": 55,
-      "foldDeadlinesValid": true
-    },
-    "scatter": {
-      "cubes": 21,
-      "uniqueX": 14,
-      "uniqueZ": 13,
-      "regularGrid": false
-    },
-    "morph": {
-      "format": "semantic-per-entry-v1",
-      "sampleCount": 11202,
-      "indicesPerPiece": 1296,
-      "finiteValues": true
-    }
+  "baia": {
+    "sourceArea": 16.90998859269153,
+    "splitArea": 16.909988577867676,
+    "areaError": 1.4823854144196957e-8,
+    "penetration": 0,
+    "minimumHoodClearance": 0.04822239262717121,
+    "critical": "",
+    "meshes": 221,
+    "samples": 203500,
+    "systems": [
+      "Bloco e cabeçote",
+      "Quatro bobinas e injetores",
+      "Radiador e mangueiras",
+      "Alternador e correia",
+      "Filtro e duto de admissão",
+      "Bateria e cabos",
+      "Reservatório de arrefecimento",
+      "Módulo ABS e tubulações",
+      "Torres e longarinas",
+      "Isolamento, nervuras e amortecedores do capô"
+    ],
+    "components": 120,
+    "hoodTriangles": 4,
+    "hoodAngle": 81.36000690857689,
+    "pulsePeriod": 4.5,
+    "collectorSameModel": true,
+    "closedEngineHidden": true
   },
   "abertura": [
     {
       "width": 1600,
       "height": 900,
-      "frames": 487,
+      "frames": 216,
       "initial": {
-        "pecas": 75,
-        "posicionadas": 0,
-        "triangulosConservados": 900,
-        "erroRelativoArea": 0,
-        "erroAlinhamentoPixels": 2.5421149729252077e-13,
-        "erroRaioRolamento": 0,
-        "erroEixo": 0,
-        "transformacoesRigidas": true,
-        "escalaPecas": true,
-        "opacidade": 1
+        "motor": {
+          "angulo": 1.42,
+          "graus": 81.36000690857689,
+          "pulso": 0.0002068136583777691,
+          "periodoPulso": 4.5,
+          "mesmoModeloColetor": true,
+          "dutos": 4,
+          "motorVisivel": true,
+          "componentes": 120,
+          "sistemas": [
+            "Bloco e cabeçote",
+            "Quatro bobinas e injetores",
+            "Radiador e mangueiras",
+            "Alternador e correia",
+            "Filtro e duto de admissão",
+            "Bateria e cabos",
+            "Reservatório de arrefecimento",
+            "Módulo ABS e tubulações",
+            "Torres e longarinas",
+            "Isolamento, nervuras e amortecedores do capô"
+          ],
+          "aberturaReal": true,
+          "triangulosCapo": 4
+        },
+        "coletorTela": {
+          "x0": 1149.036034564926,
+          "x1": 1355.833821970063,
+          "y0": 468.5484172107757,
+          "y1": 642.0349457678009
+        },
+        "coletorCentro": [
+          1254.8231318882263,
+          554.1507514696626
+        ],
+        "erroEncaixe": 0.8914392127921703,
+        "placaNoCapo": false,
+        "capoFechado": false
       },
-      "faces": {
-        "pecas": 75,
-        "posicionadas": 0,
-        "triangulosConservados": 900,
-        "erroRelativoArea": 8.597637188856311e-7,
-        "erroAlinhamentoPixels": 0,
-        "erroRaioRolamento": 0,
-        "erroEixo": 0,
-        "transformacoesRigidas": true,
-        "escalaPecas": true,
-        "opacidade": 1
+      "motor": {
+        "angulo": 0,
+        "graus": 0,
+        "pulso": 0,
+        "periodoPulso": 4.5,
+        "mesmoModeloColetor": true,
+        "dutos": 4,
+        "motorVisivel": false,
+        "componentes": 120,
+        "sistemas": [
+          "Bloco e cabeçote",
+          "Quatro bobinas e injetores",
+          "Radiador e mangueiras",
+          "Alternador e correia",
+          "Filtro e duto de admissão",
+          "Bateria e cabos",
+          "Reservatório de arrefecimento",
+          "Módulo ABS e tubulações",
+          "Torres e longarinas",
+          "Isolamento, nervuras e amortecedores do capô"
+        ],
+        "aberturaReal": true,
+        "triangulosCapo": 4
       },
-      "rigidAuditSamples": 353,
-      "maxRollingRadiusError": 1.3322676295501878e-15,
-      "assembled": {
-        "pecas": 75,
-        "posicionadas": 75,
-        "triangulosConservados": 900,
-        "erroRelativoArea": 0,
-        "erroAlinhamentoPixels": 0,
-        "erroRaioRolamento": 0,
-        "erroEixo": 0,
-        "transformacoesRigidas": true,
-        "escalaPecas": true,
-        "opacidade": 1
-      },
-      "footerChecks": 14,
-      "duration": 7.984999999999999,
+      "pulseRange": [
+        0.0000749388871078005,
+        0.9995901628010195
+      ],
+      "duration": 3.5,
       "timings": {
-        "facesInicio": 0.9026015474181622,
-        "facesFechadas": 2.466696751580421,
-        "esboco": 5.715,
-        "morphInicio": 5.785,
-        "morphFim": 7.135,
-        "logoInicio": 6.535,
-        "logoFim": 7.255,
-        "entradaInicio": 7.135,
-        "entradaDuracao": 0.8499999999999996,
+        "capoFim": 1.2,
+        "logoInicio": 1.2,
+        "logoFim": 2,
+        "entradaInicio": 2,
+        "entradaDuracao": 1.5,
         "fadeSlide": 1.25,
         "fundo": "deslize_vertical",
         "wipe": 1
       },
-      "alignment": 1.1102230246251565e-15,
-      "logo": 0,
+      "alignment": 7.771561172376096e-16,
+      "logo": 5.10702591327572e-15,
       "arrival": {
-        "samples": 52,
-        "p95": 17.299999997019768,
-        "max": 17.899999998509884,
-        "median": 16.600000001490116,
+        "samples": 91,
+        "p95": 17.69999999552965,
+        "max": 18.900000005960464,
+        "median": 16.69999999552965,
         "mapFrozen": true
       },
-      "conservation": true,
-      "concurrent": true,
+      "staticPose": true,
+      "sequence": true,
       "resize": true,
       "wipe": true,
       "windows": {
         "transparencia": false,
         "malhaQuantizada": false,
-        "normaisMorfadas": true,
         "near": 10
       }
     },
     {
       "width": 1280,
       "height": 720,
-      "frames": 484,
+      "frames": 212,
       "initial": {
-        "pecas": 75,
-        "posicionadas": 0,
-        "triangulosConservados": 900,
-        "erroRelativoArea": 0,
-        "erroAlinhamentoPixels": 2.5421149729252077e-13,
-        "erroRaioRolamento": 0,
-        "erroEixo": 0,
-        "transformacoesRigidas": true,
-        "escalaPecas": true,
-        "opacidade": 1
+        "motor": {
+          "angulo": 1.42,
+          "graus": 81.36000690857689,
+          "pulso": 0.0015440730870810992,
+          "periodoPulso": 4.5,
+          "mesmoModeloColetor": true,
+          "dutos": 4,
+          "motorVisivel": true,
+          "componentes": 120,
+          "sistemas": [
+            "Bloco e cabeçote",
+            "Quatro bobinas e injetores",
+            "Radiador e mangueiras",
+            "Alternador e correia",
+            "Filtro e duto de admissão",
+            "Bateria e cabos",
+            "Reservatório de arrefecimento",
+            "Módulo ABS e tubulações",
+            "Torres e longarinas",
+            "Isolamento, nervuras e amortecedores do capô"
+          ],
+          "aberturaReal": true,
+          "triangulosCapo": 4
+        },
+        "coletorTela": {
+          "x0": 919.228827651941,
+          "x1": 1084.6670575760502,
+          "y0": 374.8387337686206,
+          "y1": 513.6279566142407
+        },
+        "coletorCentro": [
+          1003.8585055105809,
+          443.32060117573013
+        ],
+        "erroEncaixe": 0.8914392127921703,
+        "placaNoCapo": false,
+        "capoFechado": false
       },
-      "faces": {
-        "pecas": 75,
-        "posicionadas": 0,
-        "triangulosConservados": 900,
-        "erroRelativoArea": 7.205856851211223e-7,
-        "erroAlinhamentoPixels": 0,
-        "erroRaioRolamento": 0,
-        "erroEixo": 0,
-        "transformacoesRigidas": true,
-        "escalaPecas": true,
-        "opacidade": 1
+      "motor": {
+        "angulo": 0,
+        "graus": 0,
+        "pulso": 0,
+        "periodoPulso": 4.5,
+        "mesmoModeloColetor": true,
+        "dutos": 4,
+        "motorVisivel": false,
+        "componentes": 120,
+        "sistemas": [
+          "Bloco e cabeçote",
+          "Quatro bobinas e injetores",
+          "Radiador e mangueiras",
+          "Alternador e correia",
+          "Filtro e duto de admissão",
+          "Bateria e cabos",
+          "Reservatório de arrefecimento",
+          "Módulo ABS e tubulações",
+          "Torres e longarinas",
+          "Isolamento, nervuras e amortecedores do capô"
+        ],
+        "aberturaReal": true,
+        "triangulosCapo": 4
       },
-      "rigidAuditSamples": 351,
-      "maxRollingRadiusError": 1.6653345369377348e-15,
-      "assembled": {
-        "pecas": 75,
-        "posicionadas": 75,
-        "triangulosConservados": 900,
-        "erroRelativoArea": 0,
-        "erroAlinhamentoPixels": 0,
-        "erroRaioRolamento": 0,
-        "erroEixo": 0,
-        "transformacoesRigidas": true,
-        "escalaPecas": true,
-        "opacidade": 1
-      },
-      "footerChecks": 14,
-      "duration": 7.984999999999999,
+      "pulseRange": [
+        0.0006888912289697013,
+        0.9997871192116031
+      ],
+      "duration": 3.5,
       "timings": {
-        "facesInicio": 0.9026015474181622,
-        "facesFechadas": 2.466696751580421,
-        "esboco": 5.715,
-        "morphInicio": 5.785,
-        "morphFim": 7.135,
-        "logoInicio": 6.535,
-        "logoFim": 7.255,
-        "entradaInicio": 7.135,
-        "entradaDuracao": 0.8499999999999996,
+        "capoFim": 1.2,
+        "logoInicio": 1.2,
+        "logoFim": 2,
+        "entradaInicio": 2,
+        "entradaDuracao": 1.5,
         "fadeSlide": 1.25,
         "fundo": "deslize_vertical",
         "wipe": 1
       },
-      "alignment": 1.1102230246251565e-15,
-      "logo": 0,
+      "alignment": 7.771561172376096e-16,
+      "logo": 5.10702591327572e-15,
       "arrival": {
-        "samples": 52,
-        "p95": 17.799999997019768,
-        "max": 17.899999998509884,
-        "median": 16.700000002980232,
+        "samples": 91,
+        "p95": 18.399999998509884,
+        "max": 19.5,
+        "median": 16.69999999552965,
         "mapFrozen": true
       },
-      "conservation": true,
-      "concurrent": true,
+      "staticPose": true,
+      "sequence": true,
       "resize": true,
       "wipe": true,
       "windows": {
         "transparencia": false,
         "malhaQuantizada": false,
-        "normaisMorfadas": true,
         "near": 10
       }
     },
     {
       "width": 1280,
       "height": 960,
-      "frames": 486,
+      "frames": 215,
       "initial": {
-        "pecas": 75,
-        "posicionadas": 0,
-        "triangulosConservados": 900,
-        "erroRelativoArea": 0,
-        "erroAlinhamentoPixels": 2.5421149729252077e-13,
-        "erroRaioRolamento": 0,
-        "erroEixo": 0,
-        "transformacoesRigidas": true,
-        "escalaPecas": true,
-        "opacidade": 1
+        "motor": {
+          "angulo": 1.42,
+          "graus": 81.36000690857689,
+          "pulso": 0.0022718882286579256,
+          "periodoPulso": 4.5,
+          "mesmoModeloColetor": true,
+          "dutos": 4,
+          "motorVisivel": true,
+          "componentes": 120,
+          "sistemas": [
+            "Bloco e cabeçote",
+            "Quatro bobinas e injetores",
+            "Radiador e mangueiras",
+            "Alternador e correia",
+            "Filtro e duto de admissão",
+            "Bateria e cabos",
+            "Reservatório de arrefecimento",
+            "Módulo ABS e tubulações",
+            "Torres e longarinas",
+            "Isolamento, nervuras e amortecedores do capô"
+          ],
+          "aberturaReal": true,
+          "triangulosCapo": 4
+        },
+        "coletorTela": {
+          "x0": 913.0126106471135,
+          "x1": 1071.5691390185477,
+          "y0": 494.632997382891,
+          "y1": 627.8361820679041
+        },
+        "coletorCentro": [
+          994.4704347002461,
+          561.170810276381
+        ],
+        "erroEncaixe": 0.6558487814910109,
+        "placaNoCapo": false,
+        "capoFechado": false
       },
-      "faces": {
-        "pecas": 75,
-        "posicionadas": 0,
-        "triangulosConservados": 900,
-        "erroRelativoArea": 6.850347632481046e-7,
-        "erroAlinhamentoPixels": 0,
-        "erroRaioRolamento": 0,
-        "erroEixo": 0,
-        "transformacoesRigidas": true,
-        "escalaPecas": true,
-        "opacidade": 1
+      "motor": {
+        "angulo": 0,
+        "graus": 0,
+        "pulso": 0,
+        "periodoPulso": 4.5,
+        "mesmoModeloColetor": true,
+        "dutos": 4,
+        "motorVisivel": false,
+        "componentes": 120,
+        "sistemas": [
+          "Bloco e cabeçote",
+          "Quatro bobinas e injetores",
+          "Radiador e mangueiras",
+          "Alternador e correia",
+          "Filtro e duto de admissão",
+          "Bateria e cabos",
+          "Reservatório de arrefecimento",
+          "Módulo ABS e tubulações",
+          "Torres e longarinas",
+          "Isolamento, nervuras e amortecedores do capô"
+        ],
+        "aberturaReal": true,
+        "triangulosCapo": 4
       },
-      "rigidAuditSamples": 353,
-      "maxRollingRadiusError": 1.4432899320127035e-15,
-      "assembled": {
-        "pecas": 75,
-        "posicionadas": 75,
-        "triangulosConservados": 900,
-        "erroRelativoArea": 0,
-        "erroAlinhamentoPixels": 0,
-        "erroRaioRolamento": 0,
-        "erroEixo": 0,
-        "transformacoesRigidas": true,
-        "escalaPecas": true,
-        "opacidade": 1
-      },
-      "footerChecks": 14,
-      "duration": 7.984999999999999,
+      "pulseRange": [
+        0.0005633145734116329,
+        0.9994267026331057
+      ],
+      "duration": 3.5,
       "timings": {
-        "facesInicio": 0.9026015474181622,
-        "facesFechadas": 2.466696751580421,
-        "esboco": 5.715,
-        "morphInicio": 5.785,
-        "morphFim": 7.135,
-        "logoInicio": 6.535,
-        "logoFim": 7.255,
-        "entradaInicio": 7.135,
-        "entradaDuracao": 0.8499999999999996,
+        "capoFim": 1.2,
+        "logoInicio": 1.2,
+        "logoFim": 2,
+        "entradaInicio": 2,
+        "entradaDuracao": 1.5,
         "fadeSlide": 1.25,
         "fundo": "deslize_vertical",
         "wipe": 1
       },
       "alignment": 1.5543122344752192e-15,
-      "logo": 1.4210854715202004e-14,
+      "logo": 1.582759113744879e-14,
       "arrival": {
-        "samples": 52,
-        "p95": 17.899999998509884,
-        "max": 20.299999997019768,
-        "median": 16.600000001490116,
+        "samples": 91,
+        "p95": 18.099999994039536,
+        "max": 18.80000000447035,
+        "median": 16.69999999552965,
         "mapFrozen": true
       },
-      "conservation": true,
-      "concurrent": true,
+      "staticPose": true,
+      "sequence": true,
       "resize": true,
       "wipe": true,
       "windows": {
         "transparencia": false,
         "malhaQuantizada": false,
-        "normaisMorfadas": true,
         "near": 10
       }
     }
@@ -352,7 +404,7 @@
       "ruido": {
         "amostras": 62,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.002999245967911765
+        "amplitudeRotacao": 0.002998674893051634
       }
     },
     {
@@ -364,7 +416,7 @@
       "ruido": {
         "amostras": 62,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.0029966590044600908
+        "amplitudeRotacao": 0.0029976701171983353
       }
     },
     {
@@ -376,7 +428,7 @@
       "ruido": {
         "amostras": 62,
         "variacaoDistancia": 0,
-        "amplitudeRotacao": 0.00299837922921072
+        "amplitudeRotacao": 0.002997803599759594
       }
     }
   ],
@@ -470,46 +522,45 @@
     {
       "de": "quimica",
       "para": "distribuicao",
-      "quadros": 39,
+      "quadros": 40,
       "painelPermanente": true
     },
     {
       "de": "backfire",
       "para": "estanqueidade",
-      "quadros": 38,
+      "quadros": 39,
       "painelPermanente": true
     },
     {
       "de": "servico",
       "para": "rastreabilidade",
-      "quadros": 35,
+      "quadros": 33,
       "painelPermanente": true
     },
     {
       "de": "quimica",
       "para": "distribuicao",
-      "quadros": 38,
+      "quadros": 37,
       "painelPermanente": true
     }
   ],
   "erros": [],
   "rede": [],
   "checks": [
-    "Título SEMANA DA QUALIDADE, subtítulo mais leve, fundo cinza ampliado para a esquerda e início por clique/Enter/seta, sem botão na capa",
-    "252 triângulos conservados fecham 21 cubos enquanto se deslocam para posições irregulares ao redor dos dois volumes maiores próximos",
-    "Dobras, desmontagem dos volumes e rolamentos se sobrepõem; pico de 55 peças rolando ao mesmo tempo",
-    "75 peças mantêm identidade, escala e opacidade; área das faces e movimento por pivôs de aresta preservados",
-    "1805 rolamentos de 90 ou 180 graus nos três eixos, com ritmos diferentes e sem translação livre dos cubos fechados",
-    "349 amostras das rotas sem interpenetração; todos os cubos fecham antes do primeiro rolamento individual",
-    "Esboço inteiro do carro pronto em 5,715 segundos; abertura completa de 7,985 segundos",
-    "Morph com correspondências próprias para carroceria, cabine, vidros e rodas; faces internas permanecem dentro do volume",
-    "Interpolação suave de posição e normais, pré-coloração de vidro/rodas e ausência dos antigos recortes abruptos do shader",
-    "Janelas sem transparência ou quantização e câmera ampliada com near de 10 unidades",
-    "Marca no capô usa a mesma pintura física da carroceria e termina alinhada ao alvo",
-    "Fundo branco sobe sem fade em 0,85 segundo enquanto o carro se posiciona; mapa já renderizado permanece congelado durante a chegada",
-    "Primeiro slide aparece em fade de 1,25 segundo; relógio contínuo durante resize e comandos repetidos não pulam etapas",
-    "Testes em 1600x900, 1280x720 e 1280x960: conservação, enquadramento, desempenho, navegação, autoria e cancelamento",
-    "Regressão geral preserva 13 funções, 25 etapas técnicas, 117 focos de legenda e cinco fades apenas do conteúdo na mesma parada",
-    "Zero erros JavaScript/WebGL e zero solicitações HTTP/HTTPS na execução offline"
+    "Carro pronto fica parado e próximo em perspectiva, com capô aberto e baia tridimensional detalhada",
+    "O mesmo criarColetorK24 dos slides gera o coletor completo da baia, com materiais de seleção independentes",
+    "Pulsos suaves de brilho de 4,5 segundos, sem alterar a pose do carro ou do capô",
+    "221 malhas na baia e 120 elementos nomeados: bloco, cabeçote, bobinas, injetores, radiador, bateria, alternador, correia, filtro, reservatório, ABS e tubulações",
+    "Capô separado da própria carroceria por recorte geométrico, preservando a superfície; abertura real, dobradiça, borda, isolamento, nervuras e amortecedores",
+    "Verificação geométrica de mais de 200 mil vértices sob a região do capô; nenhuma peça atravessa a superfície fechada",
+    "Fechamento em 1,2 segundo seguido de aplicação da marca em 0,8 segundo; total de 2 segundos em sequência",
+    "Carro se afasta levemente durante o fechamento e aplicação da marca; trajetória até a estrada dura mais 1,5 segundo",
+    "Fundo branco sobe junto com a viagem, revelando o mapa já renderizado sem fade do cenário",
+    "Modelo original, pintura #1B267D e marca branca apenas no capô; janelas sem morph ou transparência",
+    "Projeção e orientação finais coincidem com o carro do mapa, sem troca visível de modelo",
+    "Capa preserva SEMANA DA QUALIDADE, subtítulo e autoria, com início por clique, Enter ou seta, sem botão visível",
+    "Testes em 1600x900, 1280x720 e 1280x960: pose, pulso, ordem, tempo, enquadramento, resize, desempenho, cancelamento e entrada em S1",
+    "Regressão geral: 13 funções, 25 etapas técnicas, 117 focos de legenda e cinco fades somente de conteúdo na mesma parada",
+    "Zero erros JavaScript/WebGL e zero solicitações HTTP/HTTPS durante a execução offline"
   ]
 }

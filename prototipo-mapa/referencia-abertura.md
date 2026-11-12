@@ -1,4 +1,6 @@
-# Referência visual da dobra de faces
+# Referência histórica da abertura em cubos
+
+Esta abordagem foi substituída pela capa com carro de capô aberto e baia do motor. O arquivo preserva a referência usada anteriormente; o vídeo não é usado na abertura atual.
 
 O usuário indicou [Isometric texture logo animation — Learn with Moozach](https://www.youtube.com/watch?v=AN7IeaMJIUY). Os quadros iniciais mostram painéis planos se reunindo e fechando as faces de um cubo.
 

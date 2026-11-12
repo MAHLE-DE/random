@@ -1,5 +1,19 @@
 # Validação do protótipo
 
+## Capa com baia do motor — 11/11/2026
+
+- A montagem em cubos foi substituída pelo carro atual parado, próximo e em perspectiva. O capô fica aberto, expondo a baia detalhada. Título, subtítulo e autoria permanecem na capa; clique, Enter ou seta iniciam a transição.
+- A baia contém 221 malhas e 120 elementos nomeados: bloco, cabeçote, tampa de válvulas, quatro bobinas e injetores, alternador e correia, radiador, filtro e mangote, bateria e cabos, reservatório, ABS e tubulações, torres, longarinas e corta-fogo. O coletor é gerado pela mesma função dos slides, completo, com materiais próprios para o brilho de seleção.
+- O pulso percorre um ciclo de 4,5 segundos. Nas três resoluções, a pose do carro e o ângulo do capô permaneceram constantes durante o ciclo; apenas os materiais do coletor variaram. A projeção do coletor foi verificada dentro da tela e próxima o suficiente para exibir seus detalhes.
+- O capô foi separado da própria malha da carroceria, preservando as bordas. A soma das áreas após o recorte coincide com a área original dentro de 1e-6. Dobradiça, borda dobrada, manta, nervuras e dois amortecedores completam a abertura. A checagem de mais de 200 mil vértices na região sob o capô não encontrou peças atravessando a superfície fechada.
+- Um avanço fecha o capô em 1,2 segundo e aplica a marca nos 0,8 seguintes. A marca permanece no canto até o fechamento. O carro recua levemente nesse intervalo. A viagem seguinte dura 1,5 segundo, com curva suave de posição, escala e orientação, enquanto o fundo branco sobe.
+- O mapa e os shaders são preparados antes de iniciar o relógio; o cenário permanece congelado durante a viagem, sem fade. A marca termina no alvo e o veículo coincide com o modelo da estrada em projeção, com erros menores que 1e-7. O primeiro slide faz fade de 1,25 segundo após a entrega.
+- Abertura aprovada em 1600×900, 1280×720 e 1280×960: brilho com pose estável, clique/teclado, fechamento antes da marca, tempo de 2 + 1,5 segundos, enquadramento, resize, comandos repetidos, retorno, cancelamento, encaixe e desempenho. Percentil 95 do tempo de quadro na viagem entre 17,7 e 18,4 ms nos testes locais.
+- Regressão geral aprovada nas mesmas resoluções: 13 funções, 25 etapas técnicas, 117 focos de legenda e cinco fades na mesma parada. Total de 15 telas e 26 etapas ao contar a capa. Zero erros JavaScript/WebGL e zero solicitações HTTP/HTTPS na execução offline.
+- O HTML não empacota dados nem código da montagem em cubos. Relatórios e capturas em `.producao/qa-abertura/`, `.producao/qa-baia/` e `.producao/qa-completa/`. O hash LF do HTML testado consta em `validacao-completa.json`.
+
+As seções abaixo registram versões anteriores.
+
 ## Abertura simultânea e acabamento — 11/11/2026
 
 - Capa com “SEMANA DA QUALIDADE” e “Coletor de ar: do defeito ao efeito” em fonte mais leve. O fundo cinza avança um pouco à esquerda. Não há botão de início visível; clique na capa, Enter ou seta para a direita disparam a sequência.
