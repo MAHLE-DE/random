@@ -1,0 +1,223 @@
+# Fala da defesa
+
+Texto completo da apresentação, slide a slide. **[avançar]** marca onde passar para o próximo quadro dentro do mesmo slide. O ritmo de fala natural fica em torno de 130 palavras por minuto.
+
+---
+
+## 1 · Capa {01_capa}
+
+Bom dia a todos. Meu nome é Cauã Ferrari e vou apresentar o meu trabalho de conclusão de curso: a parametrização e otimização aerodinâmica de uma turbina eólica de eixo horizontal por dinâmica dos fluidos computacional. Fui orientado pela professora Angie e coorientado pelo professor Celso.
+
+## 2 · Motivação {02_motivacao}
+
+O ponto de partida do trabalho é simples: em uma turbina, quem decide quanto da energia do vento vira potência é a geometria da pá. A torção, a corda, o perfil e o número de pás definem as forças em cada seção, e isso define o coeficiente de potência.
+
+Então, para extrair mais energia, a gente precisa encontrar a melhor geometria. O problema é que o espaço de busca é grande: só com sete variáveis em três níveis já são mais de duas mil combinações. E cada pá avaliada por CFD leva horas, entre montar a geometria, gerar a malha, resolver e verificar se a solução convergiu.
+
+Por isso, o objetivo do trabalho foi construir um otimizador parametrizado: um processo que gera e avalia pás sem intervenção manual e que usa as simulações onde elas trazem mais informação.
+
+## 3 · Parametrização de simulações {03_parametrizacao_sim}
+
+Parametrizar uma simulação é, na prática, transformar todo o processo em uma função. Entra um conjunto de parâmetros, que eu chamo de x, e sai a resposta, que aqui é o coeficiente de potência.
+
+No meio, todas as pás passam pela mesma receita. A geometria é construída no SpaceClaim, a malha no Fluent Meshing e a solução no Fluent, tudo no Ansys 2026 R1, controlado por scripts em Python, com o PyFluent.
+
+A diferença em relação ao processo manual é grande. No manual, cada pá é redesenhada, remalhada e configurada à mão, o que é lento e abre espaço para diferenças entre um caso e outro. No parametrizado, só os parâmetros mudam; os critérios de malha, de solução e de aceitação são os mesmos para todos. Isso permite rodar campanhas inteiras em lote.
+
+## 4 · Protocolo do estudo {04_protocolo}
+
+Este é o caminho que o trabalho seguiu. Começo pelo rotor de referência, verifico a malha e comparo com os resultados publicados. O centro do trabalho é a parametrização, em três partes: geometria, malha e solução.
+
+Com ela pronta, rodei a análise de sensibilidade, que mostra quais variáveis realmente importam, e depois a campanha de otimização, que alimenta os modelos de resposta. O modelo aponta um candidato, que é confirmado por CFD, avaliado em toda a curva de operação e comparado com geometrias vizinhas. A ideia é que cada etapa diminua o que a etapa seguinte precisa simular.
+
+## 5 · Revisão bibliográfica {04b_bibliografia}
+
+Aqui estão os trabalhos que sustentam cada etapa.
+
+Na parametrização, Fritsch e Carlson dão a base da interpolação sem oscilações que uso na torção, e Jasa e colaboradores discutem como equilibrar custo e fidelidade e descrever a pá por pontos de controle.
+
+Na malha, Gustafsson me deu a expressão da altura da primeira célula, Madsen reforça que a malha precisa ser verificada antes de comparar geometrias, e Balduzzi propôs o indicador GRV, que uso para avaliar a resolução.
+
+No solver, o modelo de turbulência é o SST de Menter.
+
+No planejamento e na estatística, Jones e Nachtsheim propuseram o planejamento de triagem que usei na sensibilidade, Walsh e colaboradores tratam do critério I-ótimo, e os outros dois trabalhos dão as ferramentas de incerteza e de reamostragem.
+
+No modelo de resposta, a base é o livro de Rasmussen e Williams sobre processos gaussianos. Barlas mostra a importância de confirmar por simulação o candidato que o modelo aponta.
+
+E a referência principal é o estudo de Sales Junior e colaboradores, de onde vêm a geometria, os dados de comparação e a aplicação do GRV em turbinas de eixo horizontal.
+
+## 6 · Geometria de referência {05_referencia}
+
+A turbina de referência é a estudada pelo meu coorientador: meio metro de diâmetro, três pás, perfil NACA 4412 e cordas de 68 milímetros na raiz e 50 na ponta. O vão aerodinâmico tem 143 milímetros, indo de 107 até 250 milímetros do eixo. A pá é presa ao cubo por um conector cilíndrico de 15 milímetros, cujos comprimentos eu estimei a partir das figuras do artigo.
+
+## 7 · Corda, perfil e número de pás {06_parametros}
+
+A partir dessa referência, a pá é gerada com poucas entradas. A corda varia linearmente entre a raiz e a ponta. O perfil entra como um código NACA de quatro dígitos, que o script traduz em curvatura, posição da curvatura e espessura. E o número de pás define o setor que é simulado: 180, 120 ou 90 graus.
+
+Na sensibilidade, variei as cordas e o número de pás. O perfil ficou no NACA 4412 da referência, mas o código aceita qualquer perfil de quatro dígitos.
+
+## 8 · Distribuição de torção {07_torcao}
+
+A torção é o controle mais importante. Começo com a pá sem torção. **[avançar]** Fixo o ângulo na raiz e na ponta. **[avançar]** Entre eles coloco um ponto de controle: o η diz onde ele fica ao longo da pá, e o s diz quanto da variação total de ângulo já aconteceu até ali. Dois trechos de Hermite ligam os três pontos sem criar quinas. **[avançar]** Com só quatro números, consigo gerar famílias inteiras de distribuições de torção.
+
+**[avançar]** Aqui estão as equações: o ângulo do controle a partir de s, as inclinações de cada trecho, a derivada no controle pela média harmônica, que evita oscilações, e as quatro funções de Hermite.
+
+## 9 · Geometria parametrizada e referência {08_comparacao}
+
+Para conferir a reconstrução, coloquei a pá do artigo ao lado da pá gerada pelo meu código com os mesmos parâmetros. Diâmetro, vão, cordas, perfil e conector coincidem. As diferenças são duas e foram decisões conscientes: a ponta foi simplificada como plana, e o comprimento do conector foi estimado a partir da figura.
+
+## 10 · Domínio computacional {11_dominio}
+
+Como as três pás são iguais, simulo só um terço do rotor: um setor de 120 graus com faces periódicas, e depois multiplico as cargas para o rotor completo. O domínio vai cinco diâmetros antes do rotor e doze depois, com raio de quatro diâmetros.
+
+Perto da pá existe uma zona que gira junto com ela, com raio de 1,25 vez o raio do rotor e meio diâmetro de comprimento. Isso permite resolver o problema como permanente, o que é muito mais barato do que simular o giro no tempo. Atrás do rotor já aparecem os volumes de refinamento da esteira, que vou detalhar a seguir.
+
+## 11 · Refinamento da esteira {09_esteira}
+
+Atrás do rotor, quatro volumes em forma de tronco de cone acompanham a esteira. Perto da pá, as células têm no máximo 3% do diâmetro e, conforme se afastam, crescem até 12%, porque ali os gradientes são menores. Todas essas medidas são dadas em função do diâmetro, então escalam com o rotor.
+
+## 12 · Tamanhos locais parametrizados {10b_tamanhos}
+
+A malha também é uma receita, não um arquivo fixo. Cada tamanho de célula da malha de referência é multiplicado por um fator que depende da geometria do indivíduo. As regiões externas acompanham o diâmetro. As regiões ligadas à pá acompanham as cordas, o vão e o conector.
+
+Quando uma região depende de mais de uma dimensão, uso a menor razão entre elas. Assim, se uma corda diminui, a superfície recebe células proporcionalmente menores, e a malha nunca fica mais grossa do que o detalhe mais fino da geometria.
+
+## 13 · Malha D5 {10_malha}
+
+Este é o resultado. No corte longitudinal, o núcleo de células hexaédricas acompanha a esteira. **[avançar]** Aproximando da pá, o tamanho das células acompanha a corda. **[avançar]** E junto à parede ficam as camadas prismáticas, que resolvem a camada limite.
+
+## 14 · Dimensionamento das camadas prismáticas {10c_prismas}
+
+Essas camadas também são calculadas antes de cada simulação. A altura da primeira célula vem de uma relação para que o y⁺ fique perto de um, usando a velocidade relativa e o Reynolds de cada seção; adoto o menor valor ao longo da pá. A espessura total vem da correlação de camada limite turbulenta em placa plana, calculada na raiz.
+
+Depois o script testa de uma a 45 camadas e, para cada quantidade, calcula o crescimento que fecha essa espessura, escolhendo o mais próximo de 1,1. Na malha de referência, isso dá uma primeira célula de cerca de um centésimo de milímetro, 32 camadas e quase 2 milímetros de espessura total.
+
+## 15 · Configuração da solução {12_configuracao}
+
+As condições de entrada seguem o rotor de referência: vento de 5,27 metros por segundo e, na condição de projeto, com TSR de 3,5, rotação de 73,78 radianos por segundo. A turbulência é modelada pelo SST k-ômega.
+
+A solução começa com 150 iterações em que a rotação vai subindo em patamares, para o escoamento se formar sem divergir. Depois disso, segue com o algoritmo SIMPLE em segunda ordem.
+
+## 16 · Critérios de convergência {13_convergencia}
+
+Uma solução só entra na análise se mostrar que convergiu. Descarto a fase inicial e olho duas janelas seguidas de 200 iterações. Na classe estrita, torque e força variam no máximo 0,15% e os resíduos ficam abaixo de dez à menos cinco.
+
+Existem duas classes alternativas. Uma olha separadamente as parcelas de pressão e viscosa do Cp, para soluções com oscilações pequenas. A outra é para soluções que oscilam de forma estável: aí divido as últimas 1.600 iterações em oito blocos e exijo que a incerteza da média fique abaixo de 1%. Em todos os casos, o limite é de 3.000 iterações ou cinco horas.
+
+## 17 · Resolução de parede e interrupções {14_parede_falhas}
+
+Além da convergência, verifico a resolução junto à parede: o y⁺ médio precisa ficar abaixo de 0,8. E existem proteções que interrompem casos que divergem ou que apresentam cargas sem sentido físico.
+
+Tudo isso roda sozinho: o caso aceito entra na base de dados, o rejeitado é classificado e a campanha segue para o próximo. Na sensibilidade, 30 das 33 simulações foram aceitas.
+
+## 18 · Independência de malha {15_refinamento}
+
+Antes de comparar geometrias, eu precisava saber se o resultado dependia da malha. Rodei sete níveis de refinamento, de meio milhão a quatro milhões e meio de células. A partir da terceira malha, o coeficiente de potência fica praticamente constante.
+
+Escolhi a D5, com 2,13 milhões de células. Ela fica a menos de 0,3% da malha mais fina, com metade das células. Os tamanhos dela viraram a receita usada em todas as outras pás.
+
+## 19 · Validação com o rotor publicado {16_validacao}
+
+Com essa malha, comparei a curva de potência com o CFD publicado para o mesmo rotor. Na condição de projeto obtive 0,201 contra 0,225, uma diferença de 10,7%, e o meu pico aparece em TSR 3 em vez de 3,5.
+
+Essas diferenças têm causas conhecidas: o conector foi estimado, a ponta foi simplificada, e a malha e o algoritmo são diferentes dos do artigo. O ponto importante é que todas as pás seguintes foram avaliadas exatamente com o mesmo modelo, então as comparações entre elas são consistentes.
+
+## 20 · Planejamento da sensibilidade {17_dsd}
+
+Com a parametrização pronta, passei para a sensibilidade. Testar sete fatores em três níveis em todas as combinações daria 2.187 simulações. **[avançar]** Em vez disso, usei um planejamento de triagem definitiva, com 17 pontos, que separa os efeitos principais das curvaturas. Depois ampliei com mais 16 pontos escolhidos pelo critério D, que posiciona os pontos para estimar com mais precisão as curvaturas e interações. Das 33 simulações, 30 foram aceitas.
+
+## 21 · Regressões e ranking dos fatores {17b_regressao}
+
+Com essas 30 respostas, ajustei doze modelos de regressão, do mais simples, só com termos lineares, até um com todas as curvaturas e interações candidatas.
+
+Para escolher o melhor, não usei o R² do próprio ajuste, porque ele sempre melhora quando se acrescentam termos. Usei a validação cruzada: tiro uma geometria, ajusto o modelo com as outras e vejo quanto ele erra na que ficou de fora. O modelo J teve o menor erro. Para montar o ranking, junto para cada fator o efeito linear, a curvatura e as interações, e testo a estabilidade dessa ordem com 12 mil reamostragens.
+
+**[avançar]** Aqui estão os doze modelos escritos a partir de uma base comum, a constante mais os sete termos lineares; cada um acrescenta curvaturas ou interações diferentes.
+
+## 22 · Intensidade dos efeitos {18_ranking}
+
+No modelo J, três fatores dominam: o número de pás, a torção de raiz e a fração angular. A torção de raiz é a mais consistente: aparece entre os três primeiros em 99% das reamostragens e é a única significativa a 5%. Por isso, a decisão foi otimizar a torção, mantendo perfil e cordas, para que o ganho venha só dela.
+
+## 23 · Escolha do número de pás {18b_tres_pas}
+
+Como o número de pás teve o maior efeito, a escolha de fixá-lo precisa ser justificada. Seis dos doze modelos têm curvatura no número de pás, e todos eles apontam o máximo em três pás, com duas e quatro abaixo. Nas reamostragens desses modelos, três pás vence em 97 a 100% dos casos. Além disso, três pás é a configuração do rotor de referência, o que permite atribuir o ganho somente à torção.
+
+Há uma ressalva: no modelo J, o intervalo de confiança da diferença entre três e quatro pás inclui zero. Então a vantagem sobre quatro pás é provável, mas não está comprovada.
+
+## 24 · Planejamento da otimização {19_iotimo}
+
+Na otimização, os quatro controles de torção variam dentro de uma região em que a raiz é sempre mais torcida que a ponta. Foram 40 geometrias: 32 para treinar os modelos e 8 guardadas apenas para testá-los no final.
+
+## 25 · Formação da DOE I-ótima {19b_doe}
+
+Essas 40 pás não foram sorteadas. Primeiro montei um conjunto de candidatos no espaço dos quatro parâmetros, com uma grade, pontos de Sobol, pontos nas faces e três pás de torção constante. Depois de aplicar a restrição e tirar curvas repetidas, sobraram cerca de quatro mil candidatos.
+
+Desses, um algoritmo de troca escolheu os 32 de treino que minimizam o critério I, que é o erro médio de previsão esperado do modelo em toda a região. Os 8 de teste foram escolhidos antes de qualquer simulação, ficando o mais longe possível dos outros: quatro no interior e quatro nas bordas.
+
+## 26 · Modelos de resposta {20_gp}
+
+O primeiro modelo, quadrático nos quatro parâmetros, errava bastante. O motivo é que combinações diferentes de parâmetros podem gerar pás quase iguais, e o modelo não enxerga isso.
+
+**[avançar]** A solução foi descrever cada pá pela própria curva de torção, amostrada em 41 pontos, e usar um processo gaussiano, que prevê a resposta de uma pá nova pela semelhança com as pás já simuladas.
+
+**[avançar]** O erro caiu de 0,069 para 0,0033 na validação, e nas oito pás reservadas foi de 0,0013, com R² de 0,998.
+
+## 27 · Busca do máximo e confirmação {21_busca}
+
+Com o modelo pronto, buscar o máximo fica barato. Avaliei mais de oito mil propostas e rodei buscas locais a partir das melhores, chegando ao candidato. **[avançar]** Ele nunca tinha sido simulado, então rodei o CFD: o modelo previa 0,296 e a simulação deu 0,2956, uma diferença de 0,12%.
+
+## 28 · Coerência entre as malhas (GRV) {16b_grv}
+
+Antes dos resultados, um ponto importante: o estudo de independência de malha foi feito só para a referência. As 40 pás da otimização usaram a mesma receita, mas cada uma com a sua geometria. Para mostrar que os resultados são comparáveis entre si, usei o GRV, que relaciona a vorticidade do escoamento com o tamanho da célula.
+
+**[avançar]** Na região ao redor da pá, as 40 malhas ficaram na mesma faixa da malha verificada, a maioria até abaixo dela, e o candidato também. Os valores mais altos aparecem nos vórtices e na esteira, longe das superfícies que geram o torque.
+
+## 29 · Candidato otimizado {22_ganho}
+
+Este é o resultado principal. A pá otimizada tem o mesmo perfil, as mesmas cordas e o mesmo número de pás da original; só a torção mudou, mais forte perto da raiz. O coeficiente de potência passou de 0,1998 para 0,2956, um ganho de quase 48%, e ficou acima da melhor das 40 pás simuladas.
+
+## 30 · Entorno do candidato {22c_vizinhos}
+
+Para saber se o candidato era um ponto isolado ou uma região boa, simulei três pás vizinhas, com curvas de torção muito próximas. As três tiveram praticamente o mesmo Cp, dentro da incerteza das médias. O que muda entre elas é o empuxo, e o candidato tem o menor. Isso abre espaço para uma otimização futura que leve em conta também a carga na estrutura.
+
+## 31 · Curva de operação {23_curva}
+
+Como a otimização foi feita em um único ponto, a pergunta natural é: e fora dele? Simulei a curva inteira, com sete velocidades de ponta, para as duas pás. O candidato supera a original em todos os pontos. Em TSR 3,5, o ganho é de 48,6%, e em TSR 5 a pá original chega a frear o rotor, enquanto a otimizada continua gerando potência.
+
+## 32 · Distribuição radial das cargas {23b_cargas}
+
+Para entender de onde vem o ganho, dividi a pá em faixas e somei as forças em cada uma. Na potência, o candidato fica acima da original em quase todo o comprimento da pá, e a diferença aumenta fora da condição de projeto. No empuxo acontece o contrário: o candidato carrega menos a estrutura.
+
+## 33 · Ângulo de ataque e eficiência das seções {23c_incidencia}
+
+A origem está no ângulo de ataque. O candidato trabalha com ângulo menor em toda a pá e nas três condições. Na condição de projeto, no meio da pá, ele cai de 10,7 para 5,7 graus. Com isso, a relação entre sustentação e arrasto melhora bastante, passando de cerca de 17 para 24.
+
+## 34 · Forças nas seções {24_forcas}
+
+Olhando uma seção perto da raiz, a força resultante do candidato ficou até um pouco menor, mas inclinada no sentido do giro. **[avançar]** Como só a componente no sentido do giro gera torque, a força tangencial aumenta entre 32 e 42% nas três estações, e a força axial, que é o empuxo, cai entre 19 e 29%. Mais potência com menos esforço na estrutura.
+
+## 35 · Escoamento nas seções {24b_cortes}
+
+Nos cortes, o escoamento fica colado nas duas pás. A diferença é que, no candidato, a sucção sobre o bordo de ataque é bem menos intensa: perto da raiz, o pico cai pela metade. Um pico menor significa que a camada limite enfrenta menos gradiente adverso até chegar ao bordo de fuga.
+
+## 36 · Atrito na superfície de sucção {25_escoamento}
+
+E isso aparece na superfície da pá. As cores mostram o atrito junto à parede; dentro da linha preta, o escoamento está voltando. Na pá original há uma faixa de escoamento reverso ao longo do bordo de fuga. No candidato ela encolhe: a área com escoamento reverso cai de 16,6% para 6,6% da superfície de sucção.
+
+## 37 · Conclusões {26_conclusoes}
+
+Para fechar, as conclusões formam uma sequência, em que cada etapa sustenta a próxima.
+
+A parametrização funcionou: as pás foram geradas, malhadas e simuladas sem intervenção, com malha verificada e critérios claros de convergência.
+
+A sensibilidade mostrou que a torção de raiz é o fator mais consistente e que três pás é a melhor opção, o que justificou otimizar só a torção.
+
+A otimização, com o modelo baseado nas curvas de torção, previu o candidato com erro de 0,12% e levou a um ganho de 48% no coeficiente de potência, que se mantém em toda a curva de operação.
+
+E o mecanismo é físico e coerente: o ângulo de ataque diminui, a força se inclina para o giro e o escoamento reverso diminui.
+
+Como próximos passos, vejo uma otimização que considere potência e empuxo ao mesmo tempo, a inclusão de mais variáveis, como cordas e perfil, e a fabricação e o ensaio do rotor otimizado.
+
+## 38 · Encerramento {27_fim}
+
+Muito obrigado pela atenção. Fico à disposição para as perguntas.
